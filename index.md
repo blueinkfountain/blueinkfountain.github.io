@@ -8,5 +8,5 @@ nav_order: 1
 Hi
 
 ## 자기소개
-asdf
+Undergraduate
 ---
