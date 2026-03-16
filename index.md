@@ -4,9 +4,9 @@ title: Home
 nav_order: 1
 ---
 
-# 🖋️ Blue Ink Fountain의 수학 블로그
+# 🖋️ Blue Ink Fountain
 Hi
 
-## 자기소개
-Undergraduate
+## .
+Undergraduate asdf
 ---
