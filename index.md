@@ -4,9 +4,10 @@ title: Home
 nav_order: 1
 ---
 
-# 🖋️ Blue Ink Fountain
-Hi
+# Blueink's Math Blog
+
 
 ## .
-Undergraduate 
+University of Seoul, Mathematics
+Interst: Functional Anaylsis, PDE, ODE, etc.
 ---
