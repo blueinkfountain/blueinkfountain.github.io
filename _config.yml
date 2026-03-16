@@ -17,3 +17,6 @@ kramdown:
 # 사이드바 설정 (자동 생성)
 nav_enabled: true
 footer_content: "Copyright © 2024 Blue Ink Fountain"
+
+aux_links:
+  "GitHub": https://github.com/blueinkfountain/blueinkfountain.github.io
