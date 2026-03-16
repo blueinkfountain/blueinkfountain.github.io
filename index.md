@@ -8,6 +8,6 @@ nav_order: 1
 
 
 ## .
-University of Seoul, Mathematics
+University of Seoul, Mathematics \\
 Interst: Functional Anaylsis, PDE, ODE, etc.
 ---
