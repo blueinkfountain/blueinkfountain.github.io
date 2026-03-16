@@ -9,5 +9,5 @@ nav_order: 1
 
 ## .
 University of Seoul, Mathematics \\
-Interst: Functional Anaylsis, PDE, ODE, etc.
+Interst: Functional Analysis, PDE, ODE, etc.
 ---
