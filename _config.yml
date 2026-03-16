@@ -1,0 +1,19 @@
+title: "Blue Ink Fountain"
+description: "수학 블로그"
+remote_theme: just-the-docs/just-the-docs
+
+# 기본적인 URL 설정
+url: "https://blueinkfountain.github.io"
+
+# 플러그인 설정
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+
+# 수학 수식 사용 설정
+kramdown:
+  math_engine: mathjax
+
+# 사이드바 설정 (자동 생성)
+nav_enabled: true
+footer_content: "Copyright © 2024 Blue Ink Fountain"
