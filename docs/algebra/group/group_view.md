@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 함수의 극한 정의
+title: Group
 parent: Algebra
 grand_parent: Handwritings
 ---
