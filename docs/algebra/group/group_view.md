@@ -7,4 +7,11 @@ grand_parent: Handwritings
 
 # Algebra
 
-<iframe src="/assets/pdfs/Algebra_Group.pdf" width="100%" height="800px" style="border: none;"></iframe>
+<div style="width: 100%; height: 80vh; min-height: 500px;">
+    <iframe 
+        src="/assets/pdfs/Algebra_Group.pdf#view=FitH" 
+        width="100%" 
+        height="100%" 
+        style="border: none;">
+    </iframe>
+</div>
