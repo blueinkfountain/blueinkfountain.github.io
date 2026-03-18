@@ -1,13 +1,12 @@
 ---
 layout: default
-title: Linear Algebra - Handwriting
+title: Handwritings
 has_children: true
 nav_order: 2
 ---
-# 
+# Handwriting Documents
 
 
-
-<iframe src="/assets/pdfs/LinearAlgebra_Frid_Handwriting.pdf" width="100%" height="800px" style="border: none;"></iframe>
+<!-- <iframe src="/assets/pdfs/LinearAlgebra_Frid_Handwriting.pdf" width="100%" height="800px" style="border: none;"></iframe> -->
 
 <!-- [PDF 다운로드하기](/assets/pdfs/test.pdf) -->
