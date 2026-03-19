@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Algebra
-parent: Handwritings
+parent: Works
 has_children: true
 ---
 
