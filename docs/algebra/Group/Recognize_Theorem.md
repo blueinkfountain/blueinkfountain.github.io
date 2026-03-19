@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Recognize Theorem
-# parent: Group
+parent: Group
 ---
 
 # Recognize Theorem
