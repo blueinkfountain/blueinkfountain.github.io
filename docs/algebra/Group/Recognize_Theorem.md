@@ -2,10 +2,9 @@
 layout: default
 title: Recognize Theorem
 parent: Group
-grand_parent: Handwritings
 ---
 
-# Algebra
+# Recognize Theorem
 
 <div style="width: 100%; height: 80vh; min-height: 500px;">
     <iframe 
