@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Recognize Theorem
-parent: Algebra
+parent: Group
 grand_parent: Handwritings
 ---
 
