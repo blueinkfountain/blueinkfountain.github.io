@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Algebra
+title: General Topology
 parent: Works
 has_children: true
-nav_order: 3
+nav_order: 4
 
 ---
 
-# Algebra
+# General Topology

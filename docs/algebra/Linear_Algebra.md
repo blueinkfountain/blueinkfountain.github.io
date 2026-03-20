@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Algebra
+title: Linear Algebra
 parent: Works
 has_children: true
-nav_order: 3
+nav_order: 5
 
 ---
 
