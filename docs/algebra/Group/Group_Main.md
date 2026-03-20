@@ -7,4 +7,4 @@ has_children: true
 
 # Group Theory
 
-* [Recognize Theorem](./Recognize_Theorem.html)
+<!-- * [Recognize Theorem](./Recognize_Theorem.html) -->
