@@ -7,4 +7,4 @@ nav_order: 6
 
 ---
 
-# Algebra
+# Analysis

@@ -7,4 +7,4 @@ nav_order: 5
 
 ---
 
-# Algebra
+# Linear Algebra
