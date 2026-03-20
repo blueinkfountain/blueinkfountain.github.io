@@ -2,6 +2,7 @@
 layout: default
 title: Recognize Theorem
 parent: Group
+nav_order: 1
 ---
 
 # Recognize Theorem

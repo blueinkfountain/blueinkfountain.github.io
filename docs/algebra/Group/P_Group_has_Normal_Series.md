@@ -2,6 +2,8 @@
 layout: default
 title: p-Group
 parent: Group
+nav_order: 2
+
 ---
 
 # p-Group has a Normal Series
