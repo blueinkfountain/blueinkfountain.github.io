@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Three-Body Problem Simulation
-parent: Simulations  # (선택 사항) 대분류 이름
+# parent: Simulations  # (선택 사항) 대분류 이름
 nav_order: 1
 ---
 
