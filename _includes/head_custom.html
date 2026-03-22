@@ -1,38 +1,55 @@
 <style>
-  /* 전체 레이아웃 너비 조절 */
+  /* 1. 기본 변수 설정: 너비를 100%로 강제 */
   :root {
-    --nav-width: 250px;         
-    /* 1. 본문 최대 너비를 더 크게 늘리거나 100%로 설정합니다. */
-    --content-width: 1600px;    /* 1200px에서 1600px로 확장 (혹은 100% 입력 가능) */
+    --nav-width: 260px;
+    --content-width: 100% !important; 
   }
 
-  /* 메인 콘텐츠 영역 설정 */
+  /* 2. 본문을 감싸는 모든 컨테이너의 제한 해제 */
+  .main {
+    max-width: none !important;
+    width: auto !important;
+  }
+
+  .main-content {
+    max-width: none !important; 
+    width: 100% !important;
+    padding-right: 2rem !important; /* 오른쪽 여백 최소화 */
+    padding-left: 2rem !important;
+  }
+
+  /* 3. 실제 글이 써지는 내부 래퍼(Wrapper) 제한 해제 */
   .main-content-wrap {
-    max-width: var(--content-width) !important;
-    padding-left: 40px !important;  
-    /* 2. 오른쪽 여백을 최소화하여 더 넓게 공간을 확보합니다. */
-    padding-right: 10px !important; /* 40px에서 10px로 줄임 */
-    margin-left: 0 !important;      /* 왼쪽 여백을 고정하여 오른쪽으로만 늘어나게 함 */
+    max-width: none !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 
-  /* 사이드바(메뉴판) 위치 조정 */
+  /* 4. 사이드바 너비 고정 */
   .side-bar {
     width: var(--nav-width) !important;
   }
 
-  /* 본문 영역이 왼쪽 메뉴에 더 붙도록 설정 */
+  /* 5. 큰 화면(데스크탑)에서 레이아웃 강제 조정 */
   @media (min-width: 64rem) {
     .main {
       margin-left: var(--nav-width) !important;
+      display: block !important; /* 플렉스박스 구조 방해 요소 제거 */
     }
-    .main-content {
-      padding-top: 2rem !important;
-      max-width: none !important;    /* 부모 요소의 제약을 한 번 더 풀어줍니다. */
+    
+    /* 상단 헤더 부분도 넓게 확장 */
+    .main-header {
+        max-width: none !important;
+        width: 100% !important;
     }
   }
 
-  /* PDF를 감싸는 div가 있다면 넓게 설정 */
+  /* 6. PDF iframe이 부모 너비를 100% 쓰도록 강제 */
   iframe {
     width: 100% !important;
+    display: block;
   }
 </style>
