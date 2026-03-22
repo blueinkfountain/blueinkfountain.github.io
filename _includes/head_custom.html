@@ -1,29 +1,38 @@
 <style>
-    /* 전체 레이아웃 너비 조절 */
-    :root {
-      --nav-width: 250px;         /* 사이드바 너비 (기본값보다 줄임) */
-      --content-width: 1200px;    /* 본문 최대 너비 (기본 800px에서 대폭 확장) */
+  /* 전체 레이아웃 너비 조절 */
+  :root {
+    --nav-width: 250px;         
+    /* 1. 본문 최대 너비를 더 크게 늘리거나 100%로 설정합니다. */
+    --content-width: 1600px;    /* 1200px에서 1600px로 확장 (혹은 100% 입력 가능) */
+  }
+
+  /* 메인 콘텐츠 영역 설정 */
+  .main-content-wrap {
+    max-width: var(--content-width) !important;
+    padding-left: 40px !important;  
+    /* 2. 오른쪽 여백을 최소화하여 더 넓게 공간을 확보합니다. */
+    padding-right: 10px !important; /* 40px에서 10px로 줄임 */
+    margin-left: 0 !important;      /* 왼쪽 여백을 고정하여 오른쪽으로만 늘어나게 함 */
+  }
+
+  /* 사이드바(메뉴판) 위치 조정 */
+  .side-bar {
+    width: var(--nav-width) !important;
+  }
+
+  /* 본문 영역이 왼쪽 메뉴에 더 붙도록 설정 */
+  @media (min-width: 64rem) {
+    .main {
+      margin-left: var(--nav-width) !important;
     }
-  
-    /* 메인 콘텐츠 영역을 더 넓게 쓰도록 강제 설정 */
-    .main-content-wrap {
-      max-width: var(--content-width) !important;
-      padding-left: 40px !important;  /* 왼쪽 여백 최적화 */
-      padding-right: 40px !important; /* 오른쪽 여백 최적화 */
+    .main-content {
+      padding-top: 2rem !important;
+      max-width: none !important;    /* 부모 요소의 제약을 한 번 더 풀어줍니다. */
     }
-  
-    /* 사이드바(메뉴판) 위치 조정 */
-    .side-bar {
-      width: var(--nav-width) !important;
-    }
-  
-    /* 본문 영역이 왼쪽 메뉴에 더 붙도록 설정 */
-    @media (min-width: 64rem) {
-      .main {
-        margin-left: var(--nav-width) !important;
-      }
-      .main-content {
-        padding-top: 2rem !important;
-      }
-    }
-  </style>
+  }
+
+  /* PDF를 감싸는 div가 있다면 넓게 설정 */
+  iframe {
+    width: 100% !important;
+  }
+</style>
