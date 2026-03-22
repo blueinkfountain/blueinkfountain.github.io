@@ -7,7 +7,7 @@ nav_order: 1
 
 # Topology, Basis, Subbasis
 
-<div style="width: 100%; height: 80vh; min-height: 500px;">
+<div style="width: 100%; height: 240vh; min-height: 500px;">
     <iframe 
         src="/assets/pdfs/Topology_definition.pdf#view=FitH" 
         width="100%" 
