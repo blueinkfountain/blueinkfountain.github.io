@@ -8,6 +8,6 @@ nav_order: 1
 
 
 <!-- ##  -->
-University of Seoul, Mathematics \\
-Interest: Functional Analysis, PDE, ODE, etc.\\
+University of Seoul, Mathematics
+<!-- Interest: FA, PDE, ODE, etc.\\ -->
 ---
