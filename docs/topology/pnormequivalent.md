@@ -2,7 +2,7 @@
 layout: default
 title: p-norm Equivalent 
 parent: General Topology
-nav_order: 1
+nav_order: 2
 ---
 
 # Every $p$-Norm Spaces are Equivalent
