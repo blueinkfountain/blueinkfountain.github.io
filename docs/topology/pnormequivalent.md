@@ -1,6 +1,6 @@
 ---
 layout: default
-title: 'p-norm on $\mathbb{R}^n$ Equivalent'
+title: '$p$-norm on $\mathbb{R}^n$ Equivalent'
 parent: General Topology
 nav_order: 2
 ---
