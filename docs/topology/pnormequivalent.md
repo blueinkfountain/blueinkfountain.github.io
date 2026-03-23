@@ -14,11 +14,3 @@ nav_order: 2
         style="border: none;">
     </iframe>
 </div>
-
-<br>
-
-<p style="text-align: right;">
-    <a href="{{ '/assets/pdfs/p_norm_equivalent.pdf' | relative_url }}" target="_blank" style="text-decoration: none; color: #007bff; font-weight: bold;">
-        📥 PDF가 안 보이나요? 직접 다운로드 하기
-    </a>
-</p>
