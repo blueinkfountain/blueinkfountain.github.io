@@ -5,7 +5,7 @@ parent: Ring
 nav_order: 1
 ---
 
-# Recognize Theorem
+# Ring of Fractions
 
 <div style="width: 100%; height: 120vh; min-height: 500px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
     <iframe 
