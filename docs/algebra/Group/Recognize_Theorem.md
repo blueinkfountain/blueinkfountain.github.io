@@ -9,7 +9,7 @@ nav_order: 1
 
 <div style="width: 100%; height: 120vh; min-height: 500px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
     <iframe 
-        src="https://docs.google.com/viewer?url=https://blueinkfountain.github.io/assets/pdfs/Algebra_Group.pdf&embedded=true" 
+        src="https://docs.google.com/viewer?url=https://blueinkfountain.github.io/assets/pdfs/recognize_theorem_group.pdf&embedded=true" 
         width="100%" 
         height="100%" 
         style="border: none;">
