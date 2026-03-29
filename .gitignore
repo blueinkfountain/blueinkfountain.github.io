@@ -1,0 +1,23 @@
+# Mac 시스템 파일 제외
+.DS_Store
+
+# LaTeX 빌드 시 생성되는 보조 파일들 제외 (깃허브에 올릴 필요 없음)
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.blg
+*.tex
+*.bbl
+
+# Jekyll 빌드 결과물 폴더 제외
+_site/
+.jekyll-cache/
+.jekyll-metadata
+
+# 임시 파일 및 캐시
+*.tmp
+.vscode/
