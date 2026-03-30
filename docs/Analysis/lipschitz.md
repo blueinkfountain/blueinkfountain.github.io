@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Lipschitz Condition and Banach Fixed Point Theorem
+title: Banach Fixed Point Thm
 parent: Differentiation
 nav_order: 3
 
