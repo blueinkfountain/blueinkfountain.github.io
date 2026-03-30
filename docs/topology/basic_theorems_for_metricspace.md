@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Basic Theorem diagrams for Metric Space
+title: Basic Theorem diagrams
 parent: General Topology
 nav_order: 3
 ---
