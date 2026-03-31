@@ -1,6 +1,6 @@
 ---
 layout: default
-title: '$\mathbb{R}^n \cup \{*\} \cong \mathbb{R}^{n+1}$'
+title: '$\mathbb{R}^n \cup \{*\} \cong \mathbb{S}^{n}$'
 parent: General Topology
 nav_order: 4
 ---
