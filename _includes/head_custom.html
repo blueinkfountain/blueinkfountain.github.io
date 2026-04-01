@@ -1,187 +1,99 @@
-{% raw %}
-<script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-</script>
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']],
-      processEscapes: true
-    }
-  };
-</script>
-{% endraw %}
-
-<!-- 1. 쌍화살표(모든 하위 메뉴 열기) 기능 스크립트 -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // 하위 메뉴가 있는 모든 항목을 찾습니다.
-    const parentItems = document.querySelectorAll('.nav-list-item:has(> .nav-list)');
-
-    parentItems.forEach(function(item) {
-        const singleExpander = item.querySelector('.nav-list-expander');
-        
-        // 쌍화살표가 아직 없다면 생성하여 기존 화살표 '왼쪽'에 삽입
-        if (singleExpander && !item.querySelector('.nav-list-expander-all')) {
-            const allExpander = document.createElement('button');
-            allExpander.className = 'nav-list-expander-all';
-            allExpander.innerHTML = '»'; 
-            allExpander.setAttribute('aria-label', '모든 하위 메뉴 열기/닫기');
-
-            // 기존 화살표(singleExpander) 바로 앞에 삽입하여 왼쪽에 배치
-            singleExpander.parentNode.insertBefore(allExpander, singleExpander);
-
-            allExpander.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                const subItems = item.querySelectorAll('.nav-list-item');
-                const isCurrentlyActive = item.classList.contains('active');
-
-                if (!isCurrentlyActive) {
-                    item.classList.add('active');
-                    subItems.forEach(el => el.classList.add('active'));
-                    allExpander.innerHTML = '«';
-                } else {
-                    item.classList.remove('active');
-                    subItems.forEach(el => el.classList.remove('active'));
-                    allExpander.innerHTML = '»';
-                }
-            });
-        }
-    });
-});
-</script>
-
 <style>
-  /* [기본 변수 설정] */
   :root {
-    --nav-width: 260px;           /* 원래 너비 유지 */
-    --nav-width-expanded: 500px;  /* 마우스 올렸을 때 늘어날 너비 */
-    --arrow-space: 50px;          /* 화살표 2개가 들어갈 공간 */
+    --nav-width: 264px;           /* 평소 너비 */
+    --nav-width-expanded: 500px;  /* 마우스 올릴 때 최대 확장 너비 */
   }
 
-  /* [사이드바 설정] - 오른쪽 벽만 늘어나는 커튼 효과 */
+  /* 1. 사이드바: 안쪽 내용물을 가리는 '창문' 역할 */
   .side-bar {
     width: var(--nav-width) !important;
     position: fixed !important;
     left: 0;
     top: 0;
     height: 100vh;
-    transition: width 0.3s ease !important;
+    transition: width 0.3s ease-out !important;
     z-index: 1000;
-    background-color: white;
+    background-color: #fff;
     border-right: 1px solid #eee;
-    overflow-x: hidden !important; /* 삐져나오는 긴 글자 숨김 */
-    overflow-y: auto;
+    overflow-x: hidden !important; /* 창문 밖으로 나가는 글자 숨김 */
   }
 
+  /* 호버 시 창문만 넓어짐 (안의 글자는 가만히 있음) */
   .side-bar:hover {
     width: var(--nav-width-expanded) !important;
-    box-shadow: 10px 0 20px rgba(0,0,0,0.1);
+    box-shadow: 10px 0 25px rgba(0,0,0,0.1);
   }
 
-  /* [핵심: 내부 글자 고정] 사이드바 안의 컨텐츠 너비를 미리 고정하여 흔들림 방지 */
-  .side-bar > * {
+  /* 2. [핵심] 사이드바 내부 컨테이너 박제 */
+  /* 사이드바 바로 아래의 실제 메뉴 영역을 확장될 너비로 미리 고정합니다. */
+  .side-bar > div, .side-bar nav {
     width: var(--nav-width-expanded) !important;
     min-width: var(--nav-width-expanded) !important;
-    transition: none !important; /* 내부 요소 이동 애니메이션 제거 */
+    position: absolute !important;
+    left: 0 !important;
+    top: 0;
+    transition: none !important; /* 내부 요소 이동 애니메이션 완전 제거 */
   }
 
-  /* [본문 영역] - 기존 코드의 너비 제한 해제 유지 + 위치 고정 */
-  .main {
-    max-width: none !important;
-    width: auto !important;
-    /* 사이드바가 늘어나도 본문 마진은 260px로 고정되어 움직이지 않음 */
-    margin-left: var(--nav-width) !important;
-    transition: none !important;
-  }
-
-  .main-content {
-    max-width: none !important; 
-    width: 100% !important;
-    padding-right: 2rem !important;
-    padding-left: 2rem !important;
-  }
-
-  .main-content-wrap {
-    max-width: none !important;
-    width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
-  /* [메뉴 항목 설정] */
+  /* 3. 메뉴 항목 레이아웃 정리 */
   .nav-list-item {
     position: relative !important;
+    width: 100% !important;
   }
 
+  /* 메뉴 링크(글자) 위치 고정 */
   .nav-list-link {
     display: block !important;
-    /* 화살표 공간 확보 (필요시 조절) */
-    padding-left: var(--arrow-space) !important; 
+    padding-left: 65px !important; /* 화살표 2개(약 50px) + 여유공간 */
     white-space: nowrap !important;
+    text-overflow: ellipsis !important;
     overflow: hidden !important;
-    text-overflow: ellipsis !important; /* 평소엔 ... */
     text-align: left !important;
+    width: 100% !important;
   }
 
   .side-bar:hover .nav-list-link {
-    text-overflow: clip !important; /* 호버 시 전체 문장 표시 */
+    text-overflow: clip !important; /* 호버 시 ... 해제 */
   }
 
-  /* [화살표 위치 고정] */
+  /* 4. 화살표들 위치 고정 (절대 좌표로 박제) */
   .nav-list-expander, .nav-list-expander-all {
     position: absolute !important;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    background: none !important;
-    border: none !important;
-    padding: 0 !important;
+    top: 8px !important; /* 상단 위치 고정 */
     margin: 0 !important;
-    width: 20px !important;
-    height: 20px !important;
+    padding: 0 !important;
+    z-index: 2;
+  }
+
+  .nav-list-expander {
+    left: 15px !important; /* 단일 화살표 */
+  }
+
+  .nav-list-expander-all {
+    left: 40px !important; /* 쌍화살표 */
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 16px;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .nav-list-expander-all:hover { color: #666; }
+
+  /* 5. 본문: 사이드바가 늘어나도 미동도 하지 않음 */
+  .main {
+    margin-left: var(--nav-width) !important;
+    width: calc(100% - var(--nav-width)) !important;
+    max-width: none !important;
     transition: none !important;
   }
 
-  /* 쌍화살표: 제일 왼쪽 */
-  .nav-list-expander-all {
-    left: 8px !important; 
-    color: #ccc;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
-  /* 기존 화살표: 쌍화살표 오른쪽 */
-  .nav-list-expander {
-    left: 28px !important; 
-  }
-
-  /* [데스크탑 레이아웃 강제 조정] */
   @media (min-width: 64rem) {
-    .main {
-      margin-left: var(--nav-width) !important;
-      display: block !important;
-    }
-    .main-header {
-        max-width: none !important;
-        width: 100% !important;
-    }
-    /* 호버 시에도 본문은 밀리지 않음 */
-    .side-bar:hover + .main {
-      margin-left: var(--nav-width) !important;
-    }
+    .main { margin-left: var(--nav-width) !important; }
+    /* 사이드바가 확장될 때 본문을 밀지 않고 위로 덮음 */
+    .side-bar:hover + .main { margin-left: var(--nav-width) !important; }
   }
 
-  iframe {
-    width: 100% !important;
-    display: block;
-  }
+  /* iframe 전체 너비 */
+  iframe { width: 100% !important; }
 </style>
