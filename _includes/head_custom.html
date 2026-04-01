@@ -12,13 +12,14 @@
   };
 </script>
 {% endraw %}
+
 <style>
   :root {
     --nav-width: 264px;           /* 평소 너비 */
     --nav-width-expanded: 450px;  /* 확장 시 너비 */
   }
 
-  /* 1. 사이드바 - 껍데기 역할만 수행 */
+  /* 1. 사이드바 - 껍데기 설정 */
   .side-bar {
     width: var(--nav-width) !important;
     position: fixed !important;
@@ -30,53 +31,64 @@
     background-color: #fff;
     border-right: 1px solid #eee;
     
-    /* 핵심: 껍데기 밖으로 나가는 건 무조건 숨김 */
+    /* 중요: 내부 요소가 삐져나와도 가로 스크롤을 만들지 않고 숨김 */
     overflow-x: hidden !important; 
-    overflow-y: auto;
+    /* 테마의 기본 패딩이 글자를 밀어낼 수 있으므로 0으로 초기화 */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 
-  /* 마우스 올릴 때 껍데기만 늘어남 */
+  /* 마우스 올릴 때 껍데기만 확장 */
   .side-bar:hover {
     width: var(--nav-width-expanded) !important;
     box-shadow: 5px 0 15px rgba(0,0,0,0.1);
   }
 
-  /* 2. [매우 중요] 사이드바 내부의 실제 컨텐츠 영역 고정 */
-  /* 사이드바 바로 아래에 있는 모든 자식 요소의 너비를 아예 처음부터 크게 고정 */
+  /* 2. [핵심] 사이드바 내부의 모든 직접적인 자식 요소들 고정 */
   .side-bar > * {
+    /* 부모가 좁아져도 이 박스들은 항상 450px 너비를 유지함 */
     width: var(--nav-width-expanded) !important;
     min-width: var(--nav-width-expanded) !important;
-    transition: none !important; /* 안쪽 요소는 절대 움직이지 않음 */
+    
+    /* 왼쪽 끝에 딱 붙임 */
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    
+    /* 글자가 움직이지 않도록 고정 */
+    transition: none !important; 
   }
 
-  /* 3. 메뉴 링크 글자 설정 */
-  .nav-list-link {
-    /* 글자가 시작되는 위치를 px로 고정 (너비 변화에 영향 안 받음) */
-    padding-left: 16px !important; 
+  /* 3. 메뉴 리스트와 링크의 세부 위치 조정 */
+  /* 테마마다 클래스가 다를 수 있지만, Just-the-docs 기준 일반적인 패딩 복구 */
+  .nav-list-link, .site-header {
+    /* 원래 메뉴가 있어야 할 왼쪽 여백을 여기서 명시적으로 줌 (20px) */
+    padding-left: 30px !important; 
+    
     white-space: nowrap !important;
     text-overflow: ellipsis !important;
     overflow: hidden !important;
     display: block !important;
+    text-align: left !important;
   }
 
-  /* 호버 시 생략표시 해제 */
+  /* 사이드바 확장 시에만 글자 잘림 해제 */
   .side-bar:hover .nav-list-link {
     text-overflow: clip !important;
   }
 
-  /* 4. 본문 영역 - 사이드바 확장에 영향받지 않음 */
+  /* 4. 본문 영역 설정 - 절대 밀리지 않음 */
   .main {
     margin-left: var(--nav-width) !important;
     width: calc(100% - var(--nav-width)) !important;
     max-width: none !important;
     position: relative;
+    transition: none !important;
   }
 
   @media (min-width: 64rem) {
     .main {
       margin-left: var(--nav-width) !important;
     }
-    /* 사이드바가 확장되어 본문을 덮어도 본문 마진은 고정 */
     .side-bar:hover + .main {
       margin-left: var(--nav-width) !important;
     }
