@@ -1,101 +1,41 @@
 <style>
+  /* 1. 변수 및 기본 색상 설정 */
   :root {
     --nav-width: 264px;
     --nav-width-expanded: 400px;
 
-    /* [색상 변수 설정] */
-    --link-color: #1938c6;           /* 링크 색상 */
-    --btn-primary-color: #539ded;    /* 버튼 색상 */
+    /* [색상 변수] */
+    --link-color: #1938c6;           
+    --btn-primary-color: #539ded;    
     --sidebar-bg-color: #007dc1;     /* 사이드바 배경색 */
     --nav-link-color: #ffffff;       /* 사이드바 글자색 */
-    --body-bg-color: #ffffff;        /* 본문 배경색 */
-    --main-text-color: #002448;      /* 본문 글자색 */
-    --heading-color: #002448;        /* 제목 색상 */
+    --body-bg-color: #ffffff;        
+    --main-text-color: #002448;      
+    --heading-color: #002448;        
   }
 
-  /* 1단계 (가장 바깥쪽 메뉴) - 기본 설정하신 테마색 유지 */
-.nav-list-item {
-  background-color: transparent;
-}
-
-/* 2단계 (자식 메뉴 리스트 전체 배경) */
-.nav-list-item .nav-list {
-  background-color: rgba(0, 0, 0, 0.07) !important; /* 검은색 7% 겹침 */
-}
-
-/* 3단계 (손자 메뉴 리스트 전체 배경) */
-.nav-list-item .nav-list-item .nav-list {
-  background-color: rgba(0, 0, 0, 0.12) !important; /* 검은색 12% 겹침 */
-}
-
-/* 4단계 (증손자 메뉴 리스트 전체 배경) */
-.nav-list-item .nav-list-item .nav-list-item .nav-list {
-  background-color: rgba(0, 0, 0, 0.18) !important; /* 검은색 18% 겹침 */
-}
-
-/* 호버 시 더 강조하고 싶다면 (선택 사항) */
-.nav-list-link:hover {
-  background-color: rgba(255, 255, 255, 0.1) !important; /* 호버 시엔 살짝 밝게 */
-}
-
-
-  /* 1. 사이드바에 색상 변수 적용 */
-  .side-bar {
-    width: var(--nav-width) !important;
-    position: fixed !important;
-    background-color: var(--sidebar-bg-color) !important; /* 배경색 적용 */
-    transition: width 0.3s ease-out !important;
-    z-index: 1000;
-    overflow-x: hidden !important;
-    border-right: 1px solid rgba(0,0,0,0.1);
-  }
-
-  .side-bar:hover {
-    width: var(--nav-width-expanded) !important;
-  }
-
-  /* 2. 사이드바 내부 글자 및 화살표 색상 */
-  .nav-list-link, .nav-list-expander, .site-title {
-    color: var(--nav-link-color) !important; /* 글자색을 흰색으로 강제 */
-  }
-
-  /* 3. 본문 배경 및 기본 글자색 적용 */
-  body, .main {
-    background-color: var(--body-bg-color) !important;
-    color: var(--main-text-color) !important;
-  }
-
-  /* 4. 제목 색상 적용 */
-  h1, h2, h3, h4 {
-    color: var(--heading-color) !important;
-  }
-
-  /* 5. 링크 색상 적용 */
-  a {
-    color: var(--link-color);
-  }
-
-  /* 1. 사이드바 창문 설정 */
+  /* 2. 사이드바 레이아웃 및 애니메이션 */
   .side-bar {
     width: var(--nav-width) !important;
     position: fixed !important;
     left: 0;
     top: 0;
     height: 100vh;
+    background-color: var(--sidebar-bg-color) !important;
     transition: width 0.3s ease-out !important;
     z-index: 1000;
-    background-color: #ffffff00;
-    border-right: 1px solid #eee;
     overflow-x: hidden !important; 
     display: block !important;
+    border-right: 1px solid rgba(0,0,0,0.1);
   }
 
+  /* 호버 시 사이드바 확장 및 그림자 */
   .side-bar:hover {
     width: var(--nav-width-expanded) !important;
     box-shadow: 10px 0 25px rgba(0,0,0,0.1);
   }
 
-  /* 2. 내부 컨테이너 너비 고정 (글자 흔들림 방지) */
+  /* 사이드바 내부 컨테이너 너비 고정 (확장 시 글자 흔들림 방지) */
   .side-bar > div, 
   .side-bar nav, 
   .side-bar header {
@@ -103,24 +43,42 @@
     min-width: var(--nav-width-expanded) !important;
   }
 
-  /* 3. [핵심수정] 소메뉴가 왼쪽으로 파묻히는 현상 방지 */
-  /* 하위 메뉴 리스트가 왼쪽으로 밀리지 않도록 마진 초기화 */
-  .nav-list {
-    margin-left: 0 !important;
-    padding-left: 0 !important;
+  /* 3. 메뉴 항목 스타일 및 호버 효과 */
+  .nav-list-link {
+    display: block !important;
+    white-space: nowrap !important;
+    color: var(--nav-link-color) !important;
+    padding-left: 45px !important; /* 기본 들여쓰기 */
+    transition: background-color 0.2s ease !important; /* 부드러운 호버 전환 */
   }
 
-  .nav-list-item {
-    margin-left: 0 !important;
-    position: relative !important; /* 화살표 배치의 기준점 */
+  /* [호버 효과 조절] 
+     - rgba(255, 255, 255, 0.1): 흰색을 10% 겹쳐서 살짝 밝게 만듭니다.
+     - 0.1 수치를 0.2로 높이면 더 밝아지고, 0.05로 낮추면 더 은은해집니다. */
+  .nav-list-link:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
   }
 
-  /* 4. 화살표(Expander) 위치 박제 */
-  /* 하위 메뉴로 내려가도 화살표는 항상 각 항목의 왼쪽 끝에서 일정 거리 유지 */
+  /* 4. 소메뉴 단계별 배경색 및 들여쓰기 */
+  .nav-list { margin-left: 0 !important; padding-left: 0 !important; }
+  .nav-list-item { margin-left: 0 !important; position: relative !important; }
+
+  /* 단계별 배경색 (점점 어두워짐) */
+  .nav-list-item .nav-list { background-color: rgba(0, 0, 0, 0.07) !important; } /* 2단 */
+  .nav-list-item .nav-list-item .nav-list { background-color: rgba(0, 0, 0, 0.12) !important; } /* 3단 */
+  .nav-list-item .nav-list-item .nav-list-item .nav-list { background-color: rgba(0, 0, 0, 0.18) !important; } /* 4단 */
+
+  /* 단계별 글자 들여쓰기 */
+  .nav-list-item .nav-list-item .nav-list-link { padding-left: 60px !important; } /* 2단 */
+  .nav-list-item .nav-list-item .nav-list-item .nav-list-link { padding-left: 75px !important; } /* 3단 */
+  .nav-list-item .nav-list-item .nav-list-item .nav-list-item .nav-list-link { padding-left: 90px !important; } /* 4단 */
+  .nav-list-item .nav-list-item .nav-list-item .nav-list-item .nav-list-item .nav-list-link { padding-left: 105px !important; } /* 5단 */
+
+  /* 5. 화살표(Expander) 및 기타 UI */
   .nav-list-expander {
     position: absolute !important;
-    left: 10px !important; /* 왼쪽 벽에서 10px 고정 */
-    right: auto !important;
+    left: 10px !important;
+    color: var(--nav-link-color) !important;
     width: 30px !important;
     height: 30px !important;
     display: flex !important;
@@ -129,40 +87,15 @@
     z-index: 5;
   }
 
-  /* 5. 메뉴 텍스트 들여쓰기 조절 */
-  /* 화살표와 겹치지 않게 기본 패딩을 주고, 하위 메뉴는 조금씩 더 들여씁니다. */
-  .nav-list-link {
-    padding-left: 45px !important; /* 화살표(10px) + 여유공간 */
-    display: block !important;
-    white-space: nowrap !important;
+  .site-title { color: var(--nav-link-color) !important; }
+  .site-footer { display: none !important; } /* 푸터 숨김 */
+
+  /* 6. 본문 영역 설정 */
+  body, .main {
+    background-color: var(--body-bg-color) !important;
+    color: var(--main-text-color) !important;
   }
 
-  /* 1단계 (기본) */
-  .nav-list-link {
-    padding-left: 45px !important;
-  }
-
-  /* 2단계 (자식) */
-  .nav-list-item .nav-list-item .nav-list-link {
-    padding-left: 60px !important; /* 15px 추가 */
-  }
-
-  /* 3단계 (손자) */
-  .nav-list-item .nav-list-item .nav-list-item .nav-list-link {
-    padding-left: 75px !important; /* 15px 추가 */
-  }
-
-  /* 4단계 (증손자) - 필요하다면 추가 */
-  .nav-list-item .nav-list-item .nav-list-item .nav-list-item .nav-list-link {
-    padding-left: 90px !important; /* 15px 추가 */
-  }
-
-  /* 5단계 - 필요하다면 추가 */
-  .nav-list-item .nav-list-item .nav-list-item .nav-list-item .nav-list-item .nav-list-link {
-    padding-left: 105px !important; /* 15px 추가 */
-  }
-
-  /* 6. 본문 고정 */
   .main {
     margin-left: var(--nav-width) !important;
     width: calc(100% - var(--nav-width)) !important;
@@ -170,16 +103,15 @@
     transition: none !important;
   }
 
+  h1, h2, h3, h4 { color: var(--heading-color) !important; }
+  a { color: var(--link-color); }
+
+  /* 데스크탑에서 사이드바 호버 시 본문 고정 */
   @media (min-width: 64rem) {
     .main { margin-left: var(--nav-width) !important; }
     .side-bar:hover + .main { margin-left: var(--nav-width) !important; }
   }
-  .site-footer {
-    display: none !important;
-}
-
 </style>
-
 
 {% raw %}
 <script type="text/javascript" id="MathJax-script" async
