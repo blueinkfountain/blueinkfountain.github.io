@@ -97,37 +97,3 @@
   /* iframe 전체 너비 */
   iframe { width: 100% !important; }
 </style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-      // 하위 메뉴가 있는 항목에만 쌍화살표 추가
-      const parentItems = document.querySelectorAll('.nav-list-item:has(> .nav-list)');
-  
-      parentItems.forEach(function(item) {
-          const singleExpander = item.querySelector('.nav-list-expander');
-          if (singleExpander && !item.querySelector('.nav-list-expander-all')) {
-              const allExpander = document.createElement('button');
-              allExpander.className = 'nav-list-expander-all';
-              allExpander.innerHTML = '»'; // 쌍화살표 기호
-              singleExpander.after(allExpander);
-  
-              allExpander.addEventListener('click', function(e) {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  const isOpened = item.classList.contains('active');
-                  const subItems = item.querySelectorAll('.nav-list-item');
-                  
-                  if (!isOpened) {
-                      item.classList.add('active');
-                      subItems.forEach(el => el.classList.add('active'));
-                      allExpander.innerHTML = '«';
-                  } else {
-                      item.classList.remove('active');
-                      subItems.forEach(el => el.classList.remove('active'));
-                      allExpander.innerHTML = '»';
-                  }
-              });
-          }
-      });
-  });
-  </script>
