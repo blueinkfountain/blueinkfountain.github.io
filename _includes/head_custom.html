@@ -12,85 +12,80 @@
   };
 </script>
 {% endraw %}
-
 <style>
   :root {
     --nav-width: 264px;           /* 평소 너비 */
-    --nav-width-expanded: 450px;  /* 확장 시 너비 */
+    --nav-width-expanded: 450px;  /* 마우스 올릴 때 확장 너비 */
   }
 
-  /* 1. 사이드바 - 껍데기 설정 */
+  /* 1. 사이드바: 오른쪽 벽만 움직이는 '커튼' 역할 */
   .side-bar {
     width: var(--nav-width) !important;
     position: fixed !important;
     left: 0;
     top: 0;
     height: 100vh;
-    transition: width 0.3s ease;
+    transition: width 0.3s ease !important; /* 너비 변화만 부드럽게 */
     z-index: 1000;
-    background-color: #fff;
+    background-color: white;
     border-right: 1px solid #eee;
     
-    /* 중요: 내부 요소가 삐져나와도 가로 스크롤을 만들지 않고 숨김 */
+    /* 핵심: 가로 넘침은 무조건 숨김 (이게 있어야 커튼 효과가 남) */
     overflow-x: hidden !important; 
-    /* 테마의 기본 패딩이 글자를 밀어낼 수 있으므로 0으로 초기화 */
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    overflow-y: auto;
   }
 
-  /* 마우스 올릴 때 껍데기만 확장 */
+  /* 마우스 올릴 때 사이드바 너비만 확장 */
   .side-bar:hover {
     width: var(--nav-width-expanded) !important;
-    box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+    box-shadow: 10px 0 20px rgba(0,0,0,0.1);
   }
 
-  /* 2. [핵심] 사이드바 내부의 모든 직접적인 자식 요소들 고정 */
-  .side-bar > * {
-    /* 부모가 좁아져도 이 박스들은 항상 450px 너비를 유지함 */
-    width: var(--nav-width-expanded) !important;
-    min-width: var(--nav-width-expanded) !important;
-    
-    /* 왼쪽 끝에 딱 붙임 */
-    margin-left: 0 !important;
-    padding-left: 0 !important;
-    
-    /* 글자가 움직이지 않도록 고정 */
-    transition: none !important; 
-  }
-
-  /* 3. 메뉴 리스트와 링크의 세부 위치 조정 */
-  /* 테마마다 클래스가 다를 수 있지만, Just-the-docs 기준 일반적인 패딩 복구 */
-  .nav-list-link, .site-header {
-    /* 원래 메뉴가 있어야 할 왼쪽 여백을 여기서 명시적으로 줌 (20px) */
-    padding-left: 30px !important; 
-    
-    white-space: nowrap !important;
-    text-overflow: ellipsis !important;
-    overflow: hidden !important;
-    display: block !important;
-    text-align: left !important;
-  }
-
-  /* 사이드바 확장 시에만 글자 잘림 해제 */
-  .side-bar:hover .nav-list-link {
-    text-overflow: clip !important;
-  }
-
-  /* 4. 본문 영역 설정 - 절대 밀리지 않음 */
+  /* 2. 본문: 사이드바가 뭘 하든 '절대' 움직이지 않음 */
   .main {
-    margin-left: var(--nav-width) !important;
+    margin-left: var(--nav-width) !important; /* 호버 전/후 동일하게 고정 */
     width: calc(100% - var(--nav-width)) !important;
     max-width: none !important;
     position: relative;
-    transition: none !important;
+    transition: none !important; /* 본문 관련 애니메이션 완전 차단 */
   }
 
+  /* 3. [가장 중요] 메뉴 글자 위치 박제 */
+  .nav-list-item, .nav-list-link, .site-header {
+    /* 부모 너비가 변해도 이 안의 내용물은 늘어날 너비만큼 미리 공간을 확보함 */
+    /* 이렇게 하면 브라우저가 글자 위치를 재계산하지 않습니다. */
+    min-width: var(--nav-width-expanded) !important; 
+    
+    /* 글자 시작 위치를 px로 강제 고정 */
+    text-align: left !important;
+    padding-left: 20px !important; 
+    margin-left: 0 !important;
+    
+    display: block !important; /* flex 해제 (글자 움직임의 주범) */
+  }
+
+  .nav-list-link {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important; /* 평소엔 ... */
+    
+    /* 글자 자체가 움직이는 느낌을 없애기 위해 transition 제거 */
+    transition: none !important; 
+  }
+
+  /* 마우스 올렸을 때만 말줄임표 제거 */
+  .side-bar:hover .nav-list-link {
+    text-overflow: clip !important;
+    width: auto !important;
+  }
+
+  /* 데스크탑에서 본문 위치 재확인 */
   @media (min-width: 64rem) {
     .main {
       margin-left: var(--nav-width) !important;
     }
     .side-bar:hover + .main {
-      margin-left: var(--nav-width) !important;
+      margin-left: var(--nav-width) !important; /* 사이드바가 본문을 덮음 */
     }
   }
 
