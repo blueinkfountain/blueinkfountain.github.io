@@ -1,7 +1,8 @@
 ---
 layout: default
 title: '$\mathbb{R}^n \cup \{*\} \cong \mathbb{S}^{n}$'
-parent: General Topology
+grand_parent: General Topology
+parent: Basic Definitions
 nav_order: 4
 ---
 

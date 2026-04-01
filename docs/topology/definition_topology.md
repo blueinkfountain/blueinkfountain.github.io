@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Topology, Basis, Subbasis
-parent: General Topology
+grand_parent: General Topology
+parent: Basic Definitions
 nav_order: 1
 ---
 

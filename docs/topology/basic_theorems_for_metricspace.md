@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Basic Theorem diagrams
-parent: General Topology
+grand_parent: General Topology
+parent: Basic Definitions
 nav_order: 3
 ---
 
