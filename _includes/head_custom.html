@@ -13,6 +13,32 @@
     --heading-color: #002448;        /* 제목 색상 */
   }
 
+  /* 1단계 (가장 바깥쪽 메뉴) - 기본 설정하신 테마색 유지 */
+.nav-list-item {
+  background-color: transparent;
+}
+
+/* 2단계 (자식 메뉴 리스트 전체 배경) */
+.nav-list-item .nav-list {
+  background-color: rgba(0, 0, 0, 0.07) !important; /* 검은색 7% 겹침 */
+}
+
+/* 3단계 (손자 메뉴 리스트 전체 배경) */
+.nav-list-item .nav-list-item .nav-list {
+  background-color: rgba(0, 0, 0, 0.12) !important; /* 검은색 12% 겹침 */
+}
+
+/* 4단계 (증손자 메뉴 리스트 전체 배경) */
+.nav-list-item .nav-list-item .nav-list-item .nav-list {
+  background-color: rgba(0, 0, 0, 0.18) !important; /* 검은색 18% 겹침 */
+}
+
+/* 호버 시 더 강조하고 싶다면 (선택 사항) */
+.nav-list-link:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important; /* 호버 시엔 살짝 밝게 */
+}
+
+
   /* 1. 사이드바에 색상 변수 적용 */
   .side-bar {
     width: var(--nav-width) !important;
