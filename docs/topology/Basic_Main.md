@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Basic Definitions
-parent: Topology
+parent: General Topology
 has_children: true
 nav_order: 1
 ---
