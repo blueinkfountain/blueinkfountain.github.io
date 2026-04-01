@@ -1,24 +1,52 @@
 <style>
-
-  
   :root {
     --nav-width: 264px;
     --nav-width-expanded: 500px;
-        /* 메인 포인트 색상 (링크, 강조텍스트, 버튼 등) */
-    --link-color: #1938c6;       /* 보라색 계열 예시 */
-    --btn-primary-color: #539ded;
 
-    /* 사이드바 색상 */
-    --sidebar-bg-color: #007dc1; /* 사이드바 배경색 */
-    --nav-child-link-text-color: #555; /* 메뉴 글자색 */
+    /* [색상 변수 설정] */
+    --link-color: #1938c6;           /* 링크 색상 */
+    --btn-primary-color: #539ded;    /* 버튼 색상 */
+    --sidebar-bg-color: #007dc1;     /* 사이드바 배경색 (파란색 계열로 설정하셨네요!) */
+    --nav-link-color: #ffffff;       /* 사이드바 글자색 (배경이 파란색이니 흰색 추천) */
+    --body-bg-color: #ffffff;        /* 본문 배경색 */
+    --main-text-color: #2c3e50;      /* 본문 글자색 */
+    --heading-color: #1a1a1a;        /* 제목 색상 */
+  }
 
-    /* 본문 배경 및 글자색 */
-    --body-bg-color: #ffffff;
-    --main-content-body-text-color: #2c3e50;
-    
-    /* 제목(H1, H2, H3) 색상 */
-    --heading-color: #1a1a1a;
+  /* 1. 사이드바에 색상 변수 적용 */
+  .side-bar {
+    width: var(--nav-width) !important;
+    position: fixed !important;
+    background-color: var(--sidebar-bg-color) !important; /* 배경색 적용 */
+    transition: width 0.3s ease-out !important;
+    z-index: 1000;
+    overflow-x: hidden !important;
+    border-right: 1px solid rgba(0,0,0,0.1);
+  }
 
+  .side-bar:hover {
+    width: var(--nav-width-expanded) !important;
+  }
+
+  /* 2. 사이드바 내부 글자 및 화살표 색상 */
+  .nav-list-link, .nav-list-expander, .site-title {
+    color: var(--nav-link-color) !important; /* 글자색을 흰색으로 강제 */
+  }
+
+  /* 3. 본문 배경 및 기본 글자색 적용 */
+  body, .main {
+    background-color: var(--body-bg-color) !important;
+    color: var(--main-text-color) !important;
+  }
+
+  /* 4. 제목 색상 적용 */
+  h1, h2, h3, h4 {
+    color: var(--heading-color) !important;
+  }
+
+  /* 5. 링크 색상 적용 */
+  a {
+    color: var(--link-color);
   }
 
   /* 1. 사이드바 창문 설정 */
