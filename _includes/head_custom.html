@@ -1,99 +1,93 @@
 <style>
   :root {
-    --nav-width: 264px;           /* 평소 너비 */
-    --nav-width-expanded: 500px;  /* 마우스 올릴 때 최대 확장 너비 */
+    --nav-width: 264px;           /* 기본 너비 */
+    --nav-width-expanded: 450px;  /* 호버 시 확장 너비 */
+    --transition-speed: 0.3s;
   }
 
-  /* 1. 사이드바: 안쪽 내용물을 가리는 '창문' 역할 */
+  /* 1. 사이드바 기본 설정 */
   .side-bar {
     width: var(--nav-width) !important;
+    transition: width var(--transition-speed) ease !important;
+    overflow-x: hidden !important; /* 확장 전에는 넘치는 글자 숨김 */
+    z-index: 100;
     position: fixed !important;
-    left: 0;
-    top: 0;
-    height: 100vh;
-    transition: width 0.3s ease-out !important;
-    z-index: 1000;
     background-color: #fff;
     border-right: 1px solid #eee;
-    overflow-x: hidden !important; /* 창문 밖으로 나가는 글자 숨김 */
   }
 
-  /* 호버 시 창문만 넓어짐 (안의 글자는 가만히 있음) */
+  /* 2. 사이드바 호버 시: 본문을 밀지 않고 너비만 확장 */
   .side-bar:hover {
     width: var(--nav-width-expanded) !important;
-    box-shadow: 10px 0 25px rgba(0,0,0,0.1);
+    box-shadow: 5px 0 15px rgba(0,0,0,0.1);
   }
 
-  /* 2. [핵심] 사이드바 내부 컨테이너 박제 */
-  /* 사이드바 바로 아래의 실제 메뉴 영역을 확장될 너비로 미리 고정합니다. */
-  .side-bar > div, .side-bar nav {
-    width: var(--nav-width-expanded) !important;
-    min-width: var(--nav-width-expanded) !important;
-    position: absolute !important;
-    left: 0 !important;
-    top: 0;
-    transition: none !important; /* 내부 요소 이동 애니메이션 완전 제거 */
-  }
-
-  /* 3. 메뉴 항목 레이아웃 정리 */
-  .nav-list-item {
-    position: relative !important;
-    width: 100% !important;
-  }
-
-  /* 메뉴 링크(글자) 위치 고정 */
-  .nav-list-link {
-    display: block !important;
-    padding-left: 65px !important; /* 화살표 2개(약 50px) + 여유공간 */
-    white-space: nowrap !important;
-    text-overflow: ellipsis !important;
-    overflow: hidden !important;
-    text-align: left !important;
-    width: 100% !important;
-  }
-
-  .side-bar:hover .nav-list-link {
-    text-overflow: clip !important; /* 호버 시 ... 해제 */
-  }
-
-  /* 4. 화살표들 위치 고정 (절대 좌표로 박제) */
-  .nav-list-expander, .nav-list-expander-all {
-    position: absolute !important;
-    top: 8px !important; /* 상단 위치 고정 */
-    margin: 0 !important;
-    padding: 0 !important;
-    z-index: 2;
-  }
-
-  .nav-list-expander {
-    left: 15px !important; /* 단일 화살표 */
-  }
-
-  .nav-list-expander-all {
-    left: 40px !important; /* 쌍화살표 */
-    background: none;
-    border: none;
-    color: #ccc;
-    font-size: 16px;
-    cursor: pointer;
-    line-height: 1;
-  }
-  .nav-list-expander-all:hover { color: #666; }
-
-  /* 5. 본문: 사이드바가 늘어나도 미동도 하지 않음 */
+  /* 3. 본문 영역: 사이드바가 확장되어도 위치 고정 */
   .main {
-    margin-left: var(--nav-width) !important;
+    margin-left: var(--nav-width) !important; /* 확장 전 너비만큼만 마진 유지 */
     width: calc(100% - var(--nav-width)) !important;
     max-width: none !important;
-    transition: none !important;
+    transition: none !important; /* 본문은 흔들리지 않게 transition 제거 */
   }
 
-  @media (min-width: 64rem) {
-    .main { margin-left: var(--nav-width) !important; }
-    /* 사이드바가 확장될 때 본문을 밀지 않고 위로 덮음 */
-    .side-bar:hover + .main { margin-left: var(--nav-width) !important; }
+  /* 4. 내부 UI 요소 조정 (화살표 및 링크 깨짐 방지) */
+  /* 내부 컨테이너의 너비가 좁아져서 텍스트가 줄바꿈되는 것을 방지 */
+  .side-bar > div, .nav-list {
+    width: var(--nav-width-expanded) !important; /* 내부 요소는 미리 확장된 너비 확보 */
   }
 
-  /* iframe 전체 너비 */
-  iframe { width: 100% !important; }
+  /* 화살표(expander)와 링크 텍스트 정렬 */
+  .nav-list-item {
+    white-space: nowrap !important; /* 텍스트 줄바꿈 방지 */
+  }
+
+  /* 화살표 아이콘 위치 유지 */
+  .nav-list-expander {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 링크 텍스트가 화살표와 겹치지 않게 여백 조정 */
+  .nav-list-link {
+    display: inline-block !important;
+    width: auto !important;
+    padding-right: 20px !important;
+  }
+
+  /* 5. 반응형: 모바일에서는 확장 기능 해제 (선택 사항) */
+  @media (max-width: 64rem) {
+    .side-bar {
+      width: var(--nav-width) !important;
+    }
+    .side-bar:hover {
+      width: var(--nav-width) !important;
+      box-shadow: none;
+    }
+    .main {
+      margin-left: 0 !important;
+      width: 100% !important;
+    }
+  }
+
+  /* 6. PDF 및 iframe 너비 최적화 */
+  iframe {
+    width: 100% !important;
+    border: none;
+  }
 </style>
+
+{% raw %}
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    }
+  };
+</script>
+{% endraw %}
