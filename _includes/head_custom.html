@@ -12,57 +12,76 @@
   };
 </script>
 {% endraw %}
-
 <style>
-  /* 1. 기본 변수 설정: 너비를 100%로 강제 */
+  /* 1. 기본 변수 설정 */
   :root {
-    --nav-width: 260px;
+    --nav-width: 260px;          /* 평상시 사이드바 너비 */
+    --nav-width-expanded: 400px; /* 마우스 올렸을 때 확장될 너비 (원하는 만큼 수정 가능) */
     --content-width: 100% !important; 
   }
 
-  /* 2. 본문을 감싸는 모든 컨테이너의 제한 해제 */
+  /* 2. 사이드바 설정: 확장 애니메이션 추가 */
+  .side-bar {
+    width: var(--nav-width) !important;
+    transition: width 0.3s ease; /* 부드러운 확장 효과 */
+    overflow-x: hidden;          /* 너비가 좁을 때 삐져나온 글자 숨김 */
+    z-index: 10;                 /* 본문보다 위에 오도록 설정 (필요시) */
+  }
+
+  /* 마우스를 올렸을 때 사이드바 확장 */
+  .side-bar:hover {
+    width: var(--nav-width-expanded) !important;
+  }
+
+  /* 3. 메뉴 텍스트 줄바꿈 방지 및 생략(...) 처리 */
+  /* Just-the-docs의 일반적인 메뉴 클래스명을 타겟팅합니다. 
+     환경에 따라 .nav-list-link 또는 .nav-list-item 등으로 조정이 필요할 수 있습니다. */
+  .nav-list-link, .nav-list-item a, .side-bar a {
+    white-space: nowrap !important;    /* 줄바꿈 금지 */
+    overflow: hidden !important;      /* 넘치는 부분 숨김 */
+    text-overflow: ellipsis !important; /* 뒷부분 ... 처리 */
+    display: block;
+  }
+
+  /* 마우스 호버 시에는 전체 글자가 보일 수 있도록 (선택 사항) */
+  /* .side-bar:hover .nav-list-link {
+    text-overflow: clip !important;
+  } */
+
+  /* 4. 본문 영역(Main Content) 조정 */
   .main {
     max-width: none !important;
     width: auto !important;
+    transition: margin-left 0.3s ease; /* 사이드바 확장에 맞춰 본문도 부드럽게 밀리도록 함 */
   }
 
   .main-content {
     max-width: none !important; 
     width: 100% !important;
-    padding-right: 2rem !important; /* 오른쪽 여백 최소화 */
+    padding-right: 2rem !important;
     padding-left: 2rem !important;
   }
 
-  /* 3. 실제 글이 써지는 내부 래퍼(Wrapper) 제한 해제 */
-  .main-content-wrap {
-    max-width: none !important;
-    width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
-  /* 4. 사이드바 너비 고정 */
-  .side-bar {
-    width: var(--nav-width) !important;
-  }
-
-  /* 5. 큰 화면(데스크탑)에서 레이아웃 강제 조정 */
+  /* 5. 데스크탑 레이아웃 대응 */
   @media (min-width: 64rem) {
     .main {
       margin-left: var(--nav-width) !important;
-      display: block !important; /* 플렉스박스 구조 방해 요소 제거 */
+      display: block !important;
+    }
+
+    /* 사이드바가 확장될 때 본문의 왼쪽 마진도 같이 늘어나게 하여 겹침 방지 */
+    /* 사이드바와 메인이 형제 요소일 때 작동합니다. */
+    .side-bar:hover + .main {
+      margin-left: var(--nav-width-expanded) !important;
     }
     
-    /* 상단 헤더 부분도 넓게 확장 */
     .main-header {
         max-width: none !important;
         width: 100% !important;
     }
   }
 
-  /* 6. PDF iframe이 부모 너비를 100% 쓰도록 강제 */
+  /* 기타 iframe 설정 유지 */
   iframe {
     width: 100% !important;
     display: block;
