@@ -66,12 +66,29 @@
     white-space: nowrap !important;
   }
 
-  /* 하위 계층 메뉴들 들여쓰기 (필요시 조절) */
-  .nav-list-item .nav-list-item .nav-list-link {
-    padding-left: 60px !important;
+  /* 1단계 (기본) */
+  .nav-list-link {
+    padding-left: 45px !important;
   }
+
+  /* 2단계 (자식) */
+  .nav-list-item .nav-list-item .nav-list-link {
+    padding-left: 60px !important; /* 15px 추가 */
+  }
+
+  /* 3단계 (손자) */
   .nav-list-item .nav-list-item .nav-list-item .nav-list-link {
-    padding-left: 75px !important;
+    padding-left: 75px !important; /* 15px 추가 */
+  }
+
+  /* 4단계 (증손자) - 필요하다면 추가 */
+  .nav-list-item .nav-list-item .nav-list-item .nav-list-item .nav-list-link {
+    padding-left: 90px !important; /* 15px 추가 */
+  }
+
+  /* 5단계 - 필요하다면 추가 */
+  .nav-list-item .nav-list-item .nav-list-item .nav-list-item .nav-list-item .nav-list-link {
+    padding-left: 105px !important; /* 15px 추가 */
   }
 
   /* 6. 본문 고정 */
