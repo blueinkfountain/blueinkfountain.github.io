@@ -12,84 +12,136 @@
   };
 </script>
 {% endraw %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 하위 메뉴가 있는 항목 찾기
+    const parentItems = document.querySelectorAll('.nav-list-item:has(> .nav-list)');
+
+    parentItems.forEach(function(item) {
+        const singleExpander = item.querySelector('.nav-list-expander');
+        
+        if (singleExpander) {
+            // 쌍화살표(>>) 버튼 생성
+            const allExpander = document.createElement('button');
+            allExpander.className = 'nav-list-expander-all';
+            allExpander.innerHTML = '»'; 
+            allExpander.setAttribute('aria-label', '모든 하위 메뉴 열기/닫기');
+
+            // 단일 화살표 바로 뒤에 삽입
+            singleExpander.after(allExpander);
+
+            allExpander.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const subItems = item.querySelectorAll('.nav-list-item');
+                const isOpened = item.classList.contains('active');
+
+                if (!isOpened) {
+                    item.classList.add('active');
+                    subItems.forEach(el => el.classList.add('active'));
+                    allExpander.innerHTML = '«';
+                } else {
+                    item.classList.remove('active');
+                    subItems.forEach(el => el.classList.remove('active'));
+                    allExpander.innerHTML = '»';
+                }
+            });
+        }
+    });
+});
+</script>
+
 <style>
   :root {
-    --nav-width: 264px;           /* 평소 너비 */
-    --nav-width-expanded: 450px;  /* 마우스 올릴 때 확장 너비 */
+    --nav-width: 264px;           /* 평소 사이드바 너비 */
+    --nav-width-expanded: 480px;  /* 확장 시 너비 (화살표 2개 분량 고려해 약간 증설) */
   }
 
-  /* 1. 사이드바: 오른쪽 벽만 움직이는 '커튼' 역할 */
+  /* 1. 사이드바 전체 설정 */
   .side-bar {
     width: var(--nav-width) !important;
     position: fixed !important;
     left: 0;
     top: 0;
     height: 100vh;
-    transition: width 0.3s ease !important; /* 너비 변화만 부드럽게 */
+    transition: width 0.3s ease !important;
     z-index: 1000;
     background-color: white;
     border-right: 1px solid #eee;
-    
-    /* 핵심: 가로 넘침은 무조건 숨김 (이게 있어야 커튼 효과가 남) */
     overflow-x: hidden !important; 
     overflow-y: auto;
   }
 
-  /* 마우스 올릴 때 사이드바 너비만 확장 */
   .side-bar:hover {
     width: var(--nav-width-expanded) !important;
     box-shadow: 10px 0 20px rgba(0,0,0,0.1);
   }
 
-  /* 2. 본문: 사이드바가 뭘 하든 '절대' 움직이지 않음 */
+  /* 2. 본문 고정 */
   .main {
-    margin-left: var(--nav-width) !important; /* 호버 전/후 동일하게 고정 */
+    margin-left: var(--nav-width) !important;
     width: calc(100% - var(--nav-width)) !important;
     max-width: none !important;
-    position: relative;
-    transition: none !important; /* 본문 관련 애니메이션 완전 차단 */
+    transition: none !important;
   }
 
-  /* 3. [가장 중요] 메뉴 글자 위치 박제 */
+  /* 3. 메뉴 글자 및 버튼 위치 "박제" (확장 시 이동 방지) */
   .nav-list-item, .nav-list-link, .site-header {
-    /* 부모 너비가 변해도 이 안의 내용물은 늘어날 너비만큼 미리 공간을 확보함 */
-    /* 이렇게 하면 브라우저가 글자 위치를 재계산하지 않습니다. */
     min-width: var(--nav-width-expanded) !important; 
-    
-    /* 글자 시작 위치를 px로 강제 고정 */
     text-align: left !important;
-    padding-left: 20px !important; 
     margin-left: 0 !important;
-    
-    display: block !important; /* flex 해제 (글자 움직임의 주범) */
+    display: block !important;
   }
 
   .nav-list-link {
+    /* 화살표 2개 공간(약 50~60px)을 확보하여 글자가 화살표와 겹치지 않게 고정 */
+    padding-left: 60px !important; 
     white-space: nowrap !important;
     overflow: hidden !important;
-    text-overflow: ellipsis !important; /* 평소엔 ... */
-    
-    /* 글자 자체가 움직이는 느낌을 없애기 위해 transition 제거 */
-    transition: none !important; 
+    text-overflow: ellipsis !important;
+    transition: none !important;
   }
 
-  /* 마우스 올렸을 때만 말줄임표 제거 */
   .side-bar:hover .nav-list-link {
     text-overflow: clip !important;
     width: auto !important;
   }
 
-  /* 데스크탑에서 본문 위치 재확인 */
-  @media (min-width: 64rem) {
-    .main {
-      margin-left: var(--nav-width) !important;
-    }
-    .side-bar:hover + .main {
-      margin-left: var(--nav-width) !important; /* 사이드바가 본문을 덮음 */
-    }
+  /* 4. 화살표(Expander) 위치 고정 */
+  /* 단일 화살표와 쌍화살표가 확장 시에도 왼쪽 끝에 딱 붙어있게 함 */
+  .nav-list-expander, .nav-list-expander-all {
+    position: absolute !important;
+    top: 10px; /* 상단 위치 조절 */
+    transition: none !important;
   }
 
-  iframe {
-    width: 100% !important;
+  .nav-list-expander {
+    left: 10px !important; /* 단일 화살표 위치 */
   }
+
+  .nav-list-expander-all {
+    left: 35px !important; /* 쌍화살표 위치 (단일 화살표 옆) */
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .nav-list-expander-all:hover {
+    color: #333;
+  }
+
+  /* 5. 데스크탑 레이아웃 대응 */
+  @media (min-width: 64rem) {
+    .main { margin-left: var(--nav-width) !important; }
+    .side-bar:hover + .main { margin-left: var(--nav-width) !important; }
+  }
+
+  iframe { width: 100% !important; }
 </style>
