@@ -23,7 +23,7 @@ nav_order: 4
 
 
 # Records for Studying
-I love this font.
+I love this font. \\
 -
 260401_01: Topology, General Topology, Basic Definitions of Interior, Closure, and Derived Set.
 \\
