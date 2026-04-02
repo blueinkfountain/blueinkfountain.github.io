@@ -8,4 +8,4 @@ nav_order: 4
 -
 260401_01: Topology, General Topology, Basic Definitions of Interior, Closure, and Derived Set.
 -
-260402 
+260402_01: Algebra, Linear Algebra, Definition of Adjoint map, Least Squares Approximation.
