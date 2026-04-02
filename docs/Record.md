@@ -4,7 +4,7 @@ title: Records
 has_children: true
 nav_order: 4
 ---
-# Records for studying
+# Records for Studying
 -
 260401_01: Topology, General Topology, Basic Definitions of Interior, Closure, and Derived Set.
 \\
