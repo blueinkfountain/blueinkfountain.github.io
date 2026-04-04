@@ -7,150 +7,180 @@ nav_order: 2
 
 #
 
----
-<div id="brouwer-wrapper" style="margin: 20px 0;">
+<div id="brouwer-pro-wrapper" style="margin: 20px 0; font-family: sans-serif;">
     <style>
-        #simulation-container {
+        #simulation-box {
             text-align: center;
-            background: #ffffff;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 15px;
-        }
-        #brouwerCanvas {
             background: #fff;
-            border: 2px solid #333;
-            border-radius: 50%; /* 디스크 모양 */
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        canvas {
+            border: 1px solid #333;
+            border-radius: 50%;
             cursor: crosshair;
+            background: #fafafa;
             touch-action: none;
-            max-width: 100%;
-            height: auto;
         }
+        .desc { font-size: 0.9em; color: #666; margin-bottom: 15px; line-height: 1.6; }
         .controls { margin-top: 15px; }
-        .controls button {
+        button {
             padding: 10px 20px;
-            font-size: 14px;
-            cursor: pointer;
-            background: #4A90E2;
-            color: white;
+            border-radius: 8px;
             border: none;
-            border-radius: 5px;
-            margin: 0 5px;
+            background: #222;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
         }
+        button:hover { background: #555; }
+        #fixed-toggle.active { background: #ff4757; }
     </style>
 
-    <div id="simulation-container">
+    <div id="simulation-box">
+        <h3 style="margin-top:0;">브라우어 고정점 정리 시뮬레이션</h3>
+        <p class="desc">
+            원반(디스크) 모양의 고무판을 마우스로 문질러 왜곡시켜보세요.<br>
+            아무리 복잡하게 비틀어도, <b>원래 위치와 똑같은 위치</b>에 머무는 점이 반드시 존재합니다.
+        </p>
         <canvas id="brouwerCanvas" width="400" height="400"></canvas>
         <div class="controls">
-            <button id="resetBtn">초기화</button>
-            <button id="toggleBtn">고정점 확인</button>
-        </div>
-        <div id="info-text" style="margin-top:10px; font-size: 0.9em; color: #555;">
-            마우스로 점들을 휘저은 뒤 버튼을 눌러보세요.
+            <button id="resetBtn">공간 초기화</button>
+            <button id="fixed-toggle">고정점(f(x)=x) 찾기</button>
         </div>
     </div>
 
-    <script type="text/javascript">
+    <script>
     (function() {
-        window.addEventListener('load', function() {
-            const canvas = document.getElementById('brouwerCanvas');
-            if (!canvas) return;
-            const ctx = canvas.getContext('2d');
-            const radius = canvas.width / 2;
-            const centerX = radius;
-            const centerY = radius;
-            
-            let points = [];
-            const numPoints = 600; 
-            let showFixedPoint = false;
+        const canvas = document.getElementById('brouwerCanvas');
+        const ctx = canvas.getContext('2d');
+        const width = canvas.width;
+        const radius = width / 2;
+        
+        let showFixed = false;
+        let isDrawing = false;
 
-            class Point {
-                constructor() {
-                    let r = Math.sqrt(Math.random()) * (radius - 10);
-                    let theta = Math.random() * 2 * Math.PI;
-                    this.originX = centerX + r * Math.cos(theta);
-                    this.originY = centerY + r * Math.sin(theta);
-                    this.x = this.originX;
-                    this.y = this.originY;
-                    this.color = 'hsl(' + (Math.random() * 360) + ', 70%, 60%)';
-                }
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-                    ctx.fillStyle = this.color;
-                    ctx.fill();
-                }
-                update(mX, mY, isDown) {
-                    if (isDown) {
-                        let dx = mX - this.x;
-                        let dy = mY - this.y;
-                        let dist = Math.sqrt(dx * dx + dy * dy);
-                        if (dist < 50) {
-                            this.x += dx * 0.15;
-                            this.y += dy * 0.15;
-                            let dfc = Math.sqrt(Math.pow(this.x - centerX, 2) + Math.pow(this.y - centerY, 2));
-                            if (dfc > radius - 5) {
-                                let angle = Math.atan2(this.y - centerY, this.x - centerX);
-                                this.x = centerX + (radius - 5) * Math.cos(angle);
-                                this.y = centerY + (radius - 5) * Math.sin(angle);
-                            }
-                        }
+        // 1. 격자 데이터 생성 (공간의 각 점이 어디로 이동했는지 저장)
+        // grid[i][j]는 초기 위치 (x,y)가 현재 어디(tx, ty)에 있는지를 저장함
+        const resolution = 20; 
+        let points = [];
+
+        function initGrid() {
+            points = [];
+            for (let y = 0; y <= width; y += resolution) {
+                for (let x = 0; x <= width; x += resolution) {
+                    // 디스크 내부 점들만 생성
+                    if (Math.sqrt((x-radius)**2 + (y-radius)**2) < radius) {
+                        points.push({
+                            ox: x, oy: y, // Original position (고정값)
+                            x: x,  y: y   // Transformed position (변화값)
+                        });
                     }
                 }
             }
+        }
 
-            function init() {
-                points = [];
-                for (let i = 0; i < numPoints; i++) { points.push(new Point()); }
-            }
+        // 2. 왜곡 함수 (연속 함수 f 구현)
+        function deform(mx, my, dx, dy) {
+            points.forEach(p => {
+                const dist = Math.sqrt((mx - p.x)**2 + (my - p.y)**2);
+                if (dist < 80) {
+                    // 마우스 움직임에 따라 주변 공간을 부드럽게 밀어냄 (Gaussian-like falloff)
+                    const force = Math.exp(-dist / 40);
+                    p.x += dx * force;
+                    p.y += dy * force;
 
-            let isMouseDown = false;
-            let mouseX = 0, mouseY = 0;
-
-            canvas.addEventListener('mousedown', () => isMouseDown = true);
-            window.addEventListener('mouseup', () => isMouseDown = false);
-            canvas.addEventListener('mousemove', (e) => {
-                const rect = canvas.getBoundingClientRect();
-                mouseX = e.clientX - rect.left;
-                mouseY = e.clientY - rect.top;
-            });
-
-            document.getElementById('resetBtn').onclick = function() {
-                init();
-                showFixedPoint = false;
-            };
-            document.getElementById('toggleBtn').onclick = function() {
-                showFixedPoint = !showFixedPoint;
-            };
-
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                let minD = Infinity;
-                let fp = null;
-
-                for (let p of points) {
-                    p.update(mouseX, mouseY, isMouseDown);
-                    p.draw();
-                    let d = Math.sqrt(Math.pow(p.x - p.originX, 2) + Math.pow(p.y - p.originY, 2));
-                    if (d < minD) { minD = d; fp = p; }
+                    // 자기사상(Self-mapping) 유지: 디스크 밖으로 나가지 못하게 제한
+                    const distFromCenter = Math.sqrt((p.x - radius)**2 + (p.y - radius)**2);
+                    if (distFromCenter > radius - 2) {
+                        const angle = Math.atan2(p.y - radius, p.x - radius);
+                        p.x = radius + (radius - 2) * Math.cos(angle);
+                        p.y = radius + (radius - 2) * Math.sin(angle);
+                    }
                 }
+            });
+        }
 
-                if (showFixedPoint && fp) {
+        // 3. 고정점 계산 (f(x) - x 가 최소인 지점)
+        function findFixedPoint() {
+            let minDiff = Infinity;
+            let target = null;
+            points.forEach(p => {
+                const diff = Math.sqrt((p.x - p.ox)**2 + (p.y - p.oy)**2);
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    target = p;
+                }
+            });
+            return target;
+        }
+
+        // 4. 그리기
+        function draw() {
+            ctx.clearRect(0, 0, width, width);
+
+            // 가이드라인 (원)
+            ctx.beginPath();
+            ctx.arc(radius, radius, radius-1, 0, Math.PI*2);
+            ctx.strokeStyle = '#ddd';
+            ctx.stroke();
+
+            // 왜곡된 격자 그리기 (연속성 시각화)
+            ctx.beginPath();
+            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = '#3498db';
+            points.forEach(p => {
+                ctx.moveTo(p.x, p.y);
+                ctx.arc(p.x, p.y, 2, 0, Math.PI*2);
+            });
+            ctx.stroke();
+
+            if (showFixed) {
+                const fp = findFixedPoint();
+                if (fp) {
+                    // 원래 위치 표시 (희미하게)
                     ctx.beginPath();
-                    ctx.arc(fp.x, fp.y, 12, 0, Math.PI * 2);
-                    ctx.strokeStyle = 'red';
+                    ctx.arc(fp.ox, fp.oy, 5, 0, Math.PI*2);
+                    ctx.fillStyle = 'rgba(0,0,0,0.2)';
+                    ctx.fill();
+                    
+                    // 현재 위치(고정점) 표시
+                    ctx.beginPath();
+                    ctx.arc(fp.x, fp.y, 10, 0, Math.PI*2);
+                    ctx.strokeStyle = '#ff4757';
                     ctx.lineWidth = 3;
                     ctx.stroke();
-                    ctx.fillStyle = 'red';
-                    ctx.fillText("Fixed Point", fp.x + 15, fp.y);
+                    
+                    ctx.fillStyle = '#ff4757';
+                    ctx.font = 'bold 14px sans-serif';
+                    ctx.fillText("고정점 f(x) ≈ x", fp.x + 15, fp.y + 5);
                 }
-                requestAnimationFrame(animate);
             }
+            requestAnimationFrame(draw);
+        }
 
-            init();
-            animate();
+        // 이벤트 리스너
+        canvas.addEventListener('mousedown', () => isDrawing = true);
+        window.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDrawing) return;
+            const rect = canvas.getBoundingClientRect();
+            const mx = e.clientX - rect.left;
+            const my = e.clientY - rect.top;
+            deform(mx, my, e.movementX, e.movementY);
         });
+
+        document.getElementById('resetBtn').onclick = initGrid;
+        document.getElementById('fixed-toggle').onclick = function() {
+            showFixed = !showFixed;
+            this.classList.toggle('active');
+        };
+
+        initGrid();
+        draw();
     })();
     </script>
 </div>
