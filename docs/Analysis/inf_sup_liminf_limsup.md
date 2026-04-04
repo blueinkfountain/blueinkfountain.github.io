@@ -6,7 +6,7 @@ nav_order: 2
 
 ---
 
-# Convexity
+#
 
 <div style="width: 100%; height: 120vh; min-height: 500px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
     <iframe 
