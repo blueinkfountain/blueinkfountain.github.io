@@ -29,3 +29,9 @@ I love this font. \\
 \\
 -
 260402_01: Algebra, Linear Algebra, Definition of Adjoint map, Least Squares Approximation.
+\\
+-
+200403_01: Analysis, Real Analysis, Subsequence.
+\\
+-
+200404_01: Analysis, Real Analysis, Supremum, Infimum, and Limsup, Liminf
