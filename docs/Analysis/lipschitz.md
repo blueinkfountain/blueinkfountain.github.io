@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Banach Fixed Point Thm
+title: Banach Fixed Point Theorem
 parent: Differentiation
 nav_order: 3
 
