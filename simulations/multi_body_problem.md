@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Three-Body Problem Simulation
+title: Three-Body Problem
 parent: Simulations
 nav_order: 1
 ---
