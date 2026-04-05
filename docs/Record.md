@@ -28,10 +28,15 @@ I love this font. \\
 260401_01: Topology, General Topology, Basic Definitions of Interior, Closure, and Derived Set.
 \\
 -
-260402_01: Algebra, Linear Algebra, Definition of Adjoint map, Least Squares Approximation.
+20402_01: Algebra, Linear Algebra, Definition of Adjoint map, Least Squares Approximation.
 \\
 -
-200403_01: Analysis, Real Analysis, Subsequence.
+260403_01: Analysis, Real Analysis, Subsequence.
 \\
 -
-200404_01: Analysis, Real Analysis, Supremum, Infimum, and Limsup, Liminf
+260404_01: Analysis, Real Analysis, Supremum, Infimum, and Limsup, Liminf ~260405
+\\
+-
+260405_01: Analysis, Real Analysis, Counterexamples for Supremum and Limsup
+260405_02: Analysis, Real Analysis, Tests for Series
+260405_03: Topoloy, General Topology, Metric Space, diameter, distance, the smallest Topology s.tc the metric is continuous.
