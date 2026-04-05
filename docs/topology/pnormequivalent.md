@@ -2,7 +2,7 @@
 layout: default
 title: '$p$-norm on $\mathbb{R}^n$ Equivalent'
 grand_parent: General Topology
-parent: Basic Definitions
+parent: Euclidean Space
 nav_order: 2
 ---
 
