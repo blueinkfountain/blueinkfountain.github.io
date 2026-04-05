@@ -36,9 +36,8 @@ I love this font. \\
 -
 260404_01: Analysis, Real Analysis, Supremum, Infimum, and Limsup, Liminf ~260405
 \\
--
-260405_01: Analysis, Real Analysis, Counterexamples for Supremum and Limsup \\
-260405_02: Analysis, Real Analysis, Tests for Series \\
-260405_04: Algebra, Ring, Properties of Ideal \\
-260405_05: Algebra, Ring, Polynomial Ring \\
-260405_06: Algebra, Field, Basic definition of field, Extension field, and Algebraic Closure
+- 260405_01: Analysis, Real Analysis, Counterexamples for Supremum and Limsup \\
+- 260405_02: Analysis, Real Analysis, Tests for Series \\
+- 260405_04: Algebra, Ring, Properties of Ideal \\
+- 260405_05: Algebra, Ring, Polynomial Ring \\
+- 260405_06: Algebra, Field, Basic definition of field, Extension field, and Algebraic Closure
