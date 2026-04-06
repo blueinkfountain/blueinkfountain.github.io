@@ -16,7 +16,7 @@ nav_order: 4
 
   /* 2. 해당 페이지의 요소에 폰트 적용 */
   /* body 전체 혹은 특정 요소(p, code 등)를 선택하세요 */
-  body {
+  body, code {
     font-family: 'NeoDGMCode', monospace !important;
   }
 </style>
