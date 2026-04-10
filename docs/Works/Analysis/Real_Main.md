@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Real Nunmbers
+title: Real Numbers
 parent: Analysis
 has_children: true
 nav_order: 1
 ---
 
-# Real Nunmbers
+# Real Numbers
 

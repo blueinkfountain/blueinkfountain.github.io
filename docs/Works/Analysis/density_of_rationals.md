@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Density of Rationals
-parent: Real Number
+parent: Real Numbers
 nav_order: 1
 
 ---
