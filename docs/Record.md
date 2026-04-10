@@ -25,7 +25,7 @@ nav_order: 4
 # Records for Studying
 I love this font. \\
 - 260401_01: Topology, General Topology, Basic Definitions of Interior, Closure, and Derived Set.
-- 20402_01: Algebra, Linear Algebra, Definition of Adjoint map, Least Squares Approximation.
+- 260402_01: Algebra, Linear Algebra, Definition of Adjoint map, Least Squares Approximation.
 - 260403_01: Analysis, Real Analysis, Subsequence.
 - 260404_01: Analysis, Real Analysis, Supremum, Infimum, and Limsup, Liminf ~260405
 - 260405_01: Analysis, Real Analysis, Counterexamples for Supremum and Limsup
