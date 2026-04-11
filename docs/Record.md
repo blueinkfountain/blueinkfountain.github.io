@@ -23,7 +23,7 @@ nav_order: 4
 <!-- , p, h1, h2, h3, h4, code, pre -->
 
 # Records for Studying
-I love this font. \\
+I love this font.
 - 260401_01: Topology, General Topology, Basic Definitions of Interior, Closure, and Derived Set.
 - 260402_01: Algebra, Linear Algebra, Definition of Adjoint map, Least Squares Approximation.
 - 260403_01: Analysis, Real Analysis, Subsequence.
