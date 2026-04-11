@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Inner Product and Norm
-parent: Linear Algebra
+parent: Inner Product
 nav_order: 1
 ---
 

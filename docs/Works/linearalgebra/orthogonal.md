@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Orthogonality
-parent: Linear Algebra
+parent: Inner Product
 nav_order: 2
 ---
 

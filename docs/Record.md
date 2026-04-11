@@ -34,3 +34,5 @@ I love this font.
 - 260405_05: Algebra, Ring, Polynomial Ring
 - 260405_06: Algebra, Field, Basic definition of field, Extension field, and Algebraic Closure
 - 260410_01: Analysis, Real Analysis, Real Numbers, Density of Rationals
+- 260411_01: Algebra, Linear Algebra, Jordan Canonical Form, Direct sum of Generalized eigenspace
+- 260411_02: Algebra, Linear Algebra, Basis
