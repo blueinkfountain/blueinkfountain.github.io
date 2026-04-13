@@ -2,7 +2,7 @@
 layout: default
 title: Interior, Closure, and Derived Set
 grand_parent: General Topology
-parent: Basic Definitions
+parent: Topological Space
 nav_order: 5
 ---
 

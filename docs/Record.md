@@ -36,3 +36,5 @@ I love this font.
 - 260410_01: Analysis, Real Analysis, Real Numbers, Density of Rationals
 - 260411_01: Algebra, Linear Algebra, Jordan Canonical Form, Direct sum of Generalized eigenspace
 - 260411_02: Algebra, Linear Algebra, Basis
+- 260413_01: Analysis, Series, Riemann Rearrangement Theorem
+- 260413_02: Topology, General Topology, Hilbert Space

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Basic Definitions
+title: Topological Space
 parent: General Topology
 has_children: true
 nav_order: 1

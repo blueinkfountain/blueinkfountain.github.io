@@ -2,7 +2,7 @@
 layout: default
 title: Topology, Basis, Subbasis
 grand_parent: General Topology
-parent: Basic Definitions
+parent: Topological Space
 nav_order: 1
 ---
 

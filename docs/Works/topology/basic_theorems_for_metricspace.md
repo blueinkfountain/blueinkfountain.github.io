@@ -2,7 +2,7 @@
 layout: default
 title: Basic Theorem diagrams
 grand_parent: General Topology
-parent: Basic Definitions
+parent: Topological Space
 nav_order: 3
 ---
 
