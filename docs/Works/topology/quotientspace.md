@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Quotient Space
+title: Quotient Space and Typical quotient Spaces
 grand_parent: General Topology
-parent: Quotient Space and Typical quotient Spaces
+parent: Quotient Space
 nav_order: 1
 ---
 
