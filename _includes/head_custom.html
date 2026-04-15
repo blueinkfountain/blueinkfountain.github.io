@@ -126,6 +126,28 @@
     .main { margin-left: var(--nav-width) !important; }
     .side-bar:hover + .main { margin-left: var(--nav-width) !important; }
   }
+  /* [추가] 전체 열기/닫기 버튼 스타일 */
+  .nav-control-container {
+    padding: 10px 20px;
+    width: var(--nav-width-expanded) !important; /* 확장 시 너비 고정 */
+  }
+
+  .toggle-all-btn {
+    width: 80%;
+    padding: 8px 12px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s ease;
+    text-align: center;
+  }
+
+  .toggle-all-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
 </style>
 
 {% raw %}
@@ -140,5 +162,42 @@
       processEscapes: true
     }
   };
+</script>
+{% endraw %}
+
+{% raw %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 1. 사이드바 헤더 아래에 버튼 추가
+    const navHeader = document.querySelector('.side-bar header');
+    if (navHeader) {
+      const btnContainer = document.createElement('div');
+      btnContainer.className = 'nav-control-container';
+      btnContainer.innerHTML = `
+        <button id="toggle-all-menus" class="toggle-all-btn">모든 메뉴 펼치기</button>
+      `;
+      navHeader.after(btnContainer);
+
+      const toggleBtn = document.getElementById('toggle-all-menus');
+      let isAllExpanded = false;
+
+      // 2. 클릭 이벤트 로직
+      toggleBtn.addEventListener('click', function() {
+        const navItems = document.querySelectorAll('.nav-list-item');
+        isAllExpanded = !isAllExpanded;
+
+        navItems.forEach(item => {
+          if (isAllExpanded) {
+            item.classList.add('active'); // 모든 메뉴 열기
+          } else {
+            item.classList.remove('active'); // 모든 메뉴 닫기
+          }
+        });
+
+        // 3. 버튼 텍스트 변경
+        toggleBtn.textContent = isAllExpanded ? "모든 메뉴 접기" : "모든 메뉴 펼치기";
+      });
+    }
+  });
 </script>
 {% endraw %}
