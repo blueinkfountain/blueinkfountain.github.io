@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Vector Space
+title: Canonical Form
 parent: Linear Algebra
 has_children: true
-nav_order: 1
+nav_order: 6
 ---
 
 #

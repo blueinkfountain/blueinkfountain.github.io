@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Vector Space
+title: Diagonalizable
 parent: Linear Algebra
 has_children: true
-nav_order: 1
+nav_order: 2
 ---
 
 #
