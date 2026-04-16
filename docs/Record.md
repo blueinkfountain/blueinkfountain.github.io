@@ -41,3 +41,4 @@ I love this font.
 - 260413_03: Topology, General Topology, Quotient Space
 - 260414_01: Analysis, Riemann-Integral, Inequality of functions
 - 260415_01: Topology, General Topology, Basic Theorem diagrams for Metric, 2nd-Countable, and Separable.
+- 260416_01: Analysis, Riemann-Integral, Comparison Test for improper integral, for my tutees.
