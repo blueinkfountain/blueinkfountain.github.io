@@ -43,3 +43,4 @@ I love this font.
 - 260415_01: Topology, General Topology, Basic Theorem diagrams for Metric, 2nd-Countable, and Separable.
 - 260416_01: Analysis, Riemann-Integral, Comparison Test for improper integral, for my tutees.
 - 260416_02: Algebra, Linear Algebra, Jordan Canonical Form - Theoretical Perspective
+- 260416_01: Algebra, Galois Theory, Basic Definitions and Propositions
