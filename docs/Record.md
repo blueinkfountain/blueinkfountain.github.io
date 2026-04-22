@@ -44,4 +44,4 @@ I love this font.
 - 260416_01: Analysis, Riemann-Integral, Comparison Test for improper integral, for my tutees.
 - 260416_02: Algebra, Linear Algebra, Jordan Canonical Form - Theoretical Perspective
 - 260416_01: Algebra, Galois Theory, Basic Definitions and Propositions
-- 260417_01: Algebra, Galois Theory, Extension of Field Isomorphism, Splitting Field, etc.
+- 260417_01: Algebra, Galois Theory, Extension of Field Isomorphism, Splitting Field, etc.ㅁ
