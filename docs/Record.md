@@ -46,3 +46,6 @@ I love this font.
 - 260416_01: Algebra, Galois Theory, Basic Definitions and Propositions
 - 260417_01: Algebra, Galois Theory, Extension of Field Isomorphism, Splitting Field, etc.
 - 260422_01: Algebra, Group, Schreier Refinement Theorem and Butterfly Lemma(Revised).
+- 260423_01: Algebra, Group, Symmetric Group on Finite Set.
+- Goal of This Week: 260427~260503 \\
+Symmetric Group, Alternating Group, Rearrangement Series, Seqeunce, Continuous, Differentiation, Unitary and Orthonal Operator, Rigid Motion, Spectral Theorem, Fundamental Theorem of Galois
