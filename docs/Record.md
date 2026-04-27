@@ -49,3 +49,4 @@ I love this font.
 - 260423_01: Algebra, Group, Symmetric Group on Finite Set.
 - Goal of This Week: 260427~260503 \\
 Symmetric Group, Alternating Group, Rearrangement Series, Seqeunce, Continuous, Differentiation, Unitary and Orthonal Operator, Rigid Motion, Spectral Theorem, Fundamental Theorem of Galois
+- 260428_01: Algebra, Linear Algebra, Schur's Lemma
