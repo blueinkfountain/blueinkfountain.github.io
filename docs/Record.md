@@ -4,7 +4,7 @@ title: Records
 has_children: true
 nav_order: 5
 ---
-<style>
+<!-- <style>
   /* 1. 폰트 파일 정의 */
   @font-face {
     font-family: 'NeoDGMCode';
@@ -19,7 +19,7 @@ nav_order: 5
   body, code {
     font-family: 'NeoDGMCode', monospace !important;
   }
-</style>
+</style> -->
 <!-- , p, h1, h2, h3, h4, code, pre -->
 
 # Records for Studying
