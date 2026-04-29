@@ -51,3 +51,6 @@ I love this font.
 Symmetric Group, Alternating Group, Rearrangement Series, Seqeunce, Continuous, Differentiation, Unitary and Orthonal Operator, Rigid Motion, Spectral Theorem, Fundamental Theorem of Galois
 - 260428_01: Algebra, Linear Algebra, Schur's Lemma
 - 260428_02: Analysis, Series, Abel's Test
+- 260429_01: Algebra, Linear Algebra, Direct Sum and Projection
+- 260429_02: Algebra, Linear Algebra, Inner Product and Perpendicular Complement
+- 260429_03: Algebra, Linear Algebra, Spectral Decomposition
