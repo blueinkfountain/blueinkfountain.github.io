@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Bartle, TERA
+title: Bartle, The Elements of Real Analysis
 parent: Solution
 nav_order: 2
 ---
