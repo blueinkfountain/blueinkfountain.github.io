@@ -2,7 +2,7 @@
 layout: default
 title: Dummit, Abstract Algebra
 parent: Solution
-nav_order: 1
+nav_order: 3
 ---
 
 # 
