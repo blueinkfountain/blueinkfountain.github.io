@@ -55,3 +55,5 @@ Symmetric Group, Alternating Group, Rearrangement Series, Seqeunce, Continuous, 
 - 260429_02: Algebra, Linear Algebra, Inner Product and Perpendicular Complement
 - 260429_03: Algebra, Linear Algebra, Spectral Decomposition
 - 260503_01: Analysis, Real numbers, Cantor Set
+- 260504_01: Analysis, Continuous, Discontinuity and Monotonicity
+- 260504_00: Rudin, PMA, Exercises in the section 3 is solved.
