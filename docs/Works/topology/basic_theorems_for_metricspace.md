@@ -3,7 +3,7 @@ layout: default
 title: Basic Metric Space
 grand_parent: General Topology
 parent: Topological Space
-nav_order: 3
+nav_order: 4
 ---
 
 # 

@@ -2,7 +2,7 @@
 layout: default
 title: Set-Theoretical Preliminaries
 grand_parent: General Topology
-parent: Topological Maps
+parent: Topological Map
 nav_order: 1
 ---
 

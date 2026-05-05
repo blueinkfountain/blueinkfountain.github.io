@@ -2,8 +2,8 @@
 layout: default
 title: Continuous, Open, Closed Map
 grand_parent: General Topology
-parent: Topological Maps
-nav_order: 1
+parent: Topological Map
+nav_order: 2
 ---
 
 # 
