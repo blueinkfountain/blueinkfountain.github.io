@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Group
+title: Group (Section 1 ~ 6)
 parent: Dummit, Abstract Algebra
 nav_order: 3
 ---
