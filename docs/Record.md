@@ -60,3 +60,4 @@ Symmetric Group, Alternating Group, Rearrangement Series, Seqeunce, Continuous, 
 - 260505_02: Set Theory, Function
 - 260505_03: Topology, Continuous map
 - 260505_00: Bartle, TERA, All exercises in the section 20 is solved.
+- 260507_00: Start to solve exercises in Dummit, Abstract Algebra.
