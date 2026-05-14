@@ -64,3 +64,4 @@ Symmetric Group, Alternating Group, Rearrangement Series, Seqeunce, Continuous, 
 - 260511_01: Toplology, General Topology, First Countable.
 - 260514_01: Algebra, Linear Algebra, Dual Space
 - 260514_02: Algebra, Galois Theory, Study Note for Galois
+- 260514_00: Rudin, PMA, Almost exercises in the section 4 is solved. Theoretical Problems(related with continuous extension) will be uploaded as article form.
