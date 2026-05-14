@@ -65,3 +65,4 @@ Symmetric Group, Alternating Group, Rearrangement Series, Seqeunce, Continuous, 
 - 260514_01: Algebra, Linear Algebra, Dual Space
 - 260514_02: Algebra, Galois Theory, Study Note for Galois
 - 260514_00: Rudin, PMA, Almost exercises in the section 4 is solved. Theoretical Problems(related with continuous extension) will be uploaded as article form.
+- 260514_03: Personal Research: How can find the 'Good' Primitive element in the Separable field?
