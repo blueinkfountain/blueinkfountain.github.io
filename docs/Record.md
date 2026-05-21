@@ -68,3 +68,4 @@ Symmetric Group, Alternating Group, Rearrangement Series, Seqeunce, Continuous, 
 - 260514_03: Personal Research: How can find the 'Good' Primitive element in the Separable field?
 - Goal of This Week: 260515~260522 Preparing Dual Seminar, Re-buliding preliminaries for Galois, and study finite field. And Solve all exercise in Rudin, Differentiation.
 - 260520_01: Analysis, Series, Example for Dirichlet's Test.
+- 260522_01: Analysis, Real Numbers, Kronechker's Approximation Theorem
