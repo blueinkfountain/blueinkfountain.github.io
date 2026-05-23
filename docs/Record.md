@@ -69,3 +69,4 @@ Symmetric Group, Alternating Group, Rearrangement Series, Seqeunce, Continuous, 
 - Goal of This Week: 260515~260522 Preparing Dual Seminar, Re-buliding preliminaries for Galois, and study finite field. And Solve all exercise in Rudin, Differentiation.
 - 260520_01: Analysis, Series, Example for Dirichlet's Test.
 - 260522_01: Analysis, Real Numbers, Kronechker's Approximation Theorem
+- 260524_01: Algebra, Ring, Domains: Euclidean, P.I.D., U.F.D., Bezout, Noether, Atomic
