@@ -70,3 +70,4 @@ Symmetric Group, Alternating Group, Rearrangement Series, Seqeunce, Continuous, 
 - 260520_01: Analysis, Series, Example for Dirichlet's Test.
 - 260522_01: Analysis, Real Numbers, Kronechker's Approximation Theorem
 - 260524_01: Algebra, Ring, Domains: Euclidean, P.I.D., U.F.D., Bezout, Noether, Atomic
+- 260524_02: Analysis, Integral, Riemann-Stieltjes Integral
