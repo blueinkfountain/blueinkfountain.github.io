@@ -71,3 +71,4 @@ Symmetric Group, Alternating Group, Rearrangement Series, Seqeunce, Continuous, 
 - 260522_01: Analysis, Real Numbers, Kronechker's Approximation Theorem
 - 260524_01: Algebra, Ring, Domains: Euclidean, P.I.D., U.F.D., Bezout, Noether, Atomic
 - 260524_02: Analysis, Integral, Riemann-Stieltjes Integral
+- 260524_00: Undertood the Philosophia of Principal Ideal.
