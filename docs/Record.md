@@ -78,3 +78,4 @@ Symmetric Group, Alternating Group, Rearrangement Series, Seqeunce, Continuous, 
 - 260525_00: Studied Basic Theory of Riemann integral, and prepared Topology Tutoring.
 - 260528_00: Solved some Exercises of Riemann Integral in PMA, and solved Dummit.
 - 260528_01: Algebra, Group, Finite Group, Sylow's Theorem
+- 260530_02: Analysis, Studied Specific Example, the x sin 1/x.
