@@ -1,6 +1,6 @@
 ---
 layout: default
-title: $$x^a \sin x^{-c}$$
+title: $x^a \sin x^{-c}$
 parent: Examples
 nav_order: 1
 
