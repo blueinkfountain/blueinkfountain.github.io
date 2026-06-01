@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Field
+title: Field (Section 12~)
 parent: Dummit, Abstract Algebra
 nav_order: 3
 ---
