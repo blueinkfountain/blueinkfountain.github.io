@@ -1,4 +1,4 @@
----
+<!-- ---
 layout: default
 title: Chapter 4
 parent: Bartle, The Elements of Real Analysis
@@ -13,4 +13,4 @@ nav_order: 2
         height="100%" 
         style="border: none;">
     </iframe>
-</div>
+</div> -->
