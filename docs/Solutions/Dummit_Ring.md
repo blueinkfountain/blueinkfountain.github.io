@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Group (Section 1 ~ 6)
+title: Ring
 parent: Dummit, Abstract Algebra
-nav_order: 1
+nav_order: 2
 ---
 
 # 
