@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Slyow's Theorem
+title: Sylow's Theorem
 parent: Group
 nav_order: 4
 
 ---
 
-# Most Useful Tool for Finite Group
+# Most Powerful Tool for Finite Group
 
 <div style="width: 100%; height: 120vh; min-height: 500px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
     <iframe 
