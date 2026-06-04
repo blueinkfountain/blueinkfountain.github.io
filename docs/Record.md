@@ -79,3 +79,4 @@ Symmetric Group, Alternating Group, Rearrangement Series, Seqeunce, Continuous, 
 - 260528_00: Solved some Exercises of Riemann Integral in PMA, and solved Dummit.
 - 260528_01: Algebra, Group, Finite Group, Sylow's Theorem
 - 260530_02: Analysis, Studied Specific Example, the x sin 1/x.
+- 260605_00: Rudin, PMA, Almost exercises in the section 3~7 are solved.
