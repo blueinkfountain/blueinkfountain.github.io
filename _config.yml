@@ -23,3 +23,9 @@ footer_content: "Copyright © 2026 Blueink"
 aux_links:
   "GitHub": https://github.com/blueinkfountain/blueinkfountain.github.io
 
+# 구글 애널리틱스 설정 (Just the Docs 공식 지원 방식)
+ga_tracking: G-TWJE3MTBZ7
+ga_tracking_anonymize_ip: true # 개인정보 보호를 위해 IP 익명화 활성화 (권장)
+
+# SEO 플러그인용 설정 (함께 적어주면 더 정확합니다)
+google_analytics: G-TWJE3MTBZ7
