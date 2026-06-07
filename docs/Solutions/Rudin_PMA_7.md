@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Chapter 7, Sequences and Seires of functions
+title: Chapter 7, Sequences and Series of functions
 parent: Rudin, Principles of Mathematical Analysis
 nav_order: 1
 ---
