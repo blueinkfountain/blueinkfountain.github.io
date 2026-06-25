@@ -11,7 +11,7 @@ nav_order: 6
 
 Yet untyped hand-writing documentaries, will be typed.
 
-* [📄 Next_File_Name.pdf](https://blueinkfountain.github.io/assets/pdfs/seminar_260627.pdf){:target="_blank"}
+* [Seminar_260627.pdf](https://blueinkfountain.github.io/assets/pdfs/seminar_260627.pdf){:target="_blank"}
 
 ---
 {: .fs-2 }
