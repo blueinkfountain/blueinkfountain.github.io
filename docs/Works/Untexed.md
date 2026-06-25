@@ -7,9 +7,8 @@ nav_order: 6
 
 ---
 
-# Will be type
+# Handwritten notes yet to be TeXed.
 
-Yet untyped hand-writing documentaries, will be typed.
 
 * [Seminar_260627.pdf](https://blueinkfountain.github.io/assets/pdfs/seminar_260627.pdf){:target="_blank"}
 
