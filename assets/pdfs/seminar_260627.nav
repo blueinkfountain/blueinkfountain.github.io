@@ -32,8 +32,13 @@
 \headcommand {\beamer@framepages {10}{10}}
 \headcommand {\slideentry {4}{0}{2}{11/11}{}{0}}
 \headcommand {\beamer@framepages {11}{11}}
-\headcommand {\beamer@partpages {1}{11}}
-\headcommand {\beamer@subsectionpages {10}{11}}
 \headcommand {\beamer@sectionpages {10}{11}}
-\headcommand {\beamer@documentpages {11}}
+\headcommand {\beamer@subsectionpages {10}{11}}
+\headcommand {\sectionentry {5}{End}{12}{End}{0}}
+\headcommand {\slideentry {5}{0}{1}{12/12}{}{0}}
+\headcommand {\beamer@framepages {12}{12}}
+\headcommand {\beamer@partpages {1}{12}}
+\headcommand {\beamer@subsectionpages {12}{12}}
+\headcommand {\beamer@sectionpages {12}{12}}
+\headcommand {\beamer@documentpages {12}}
 \headcommand {\gdef \inserttotalframenumber {6}}
