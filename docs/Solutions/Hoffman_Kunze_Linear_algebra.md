@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Hoffman, Linear Algebra
-parent: Dummit, Abstract Algebra
+parent: Solution
 nav_order: 6
 ---
 
