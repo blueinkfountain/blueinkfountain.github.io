@@ -7,6 +7,8 @@ nav_order: 1
 ---
 
 #
+https://blueinkfountain.github.io/docs/Solutions/Rudin_PMA_6.html
+: Proof of this section, by handwriting
 
 <div style="width: 100%; height: 120vh; min-height: 500px; border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
     <iframe 
