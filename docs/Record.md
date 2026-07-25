@@ -84,3 +84,5 @@ Symmetric Group, Alternating Group, Rearrangement Series, Seqeunce, Continuous, 
 - 260606_01: Algebra, Linear Algebra, Dual, Linear Functional Space
 - 260623_01: Algebra, Ring, Quadratic Integer Ring
 - 260630_00: Start solving the problems in Linear Algebra, Hoffman-Kunze.
+- 260724_00: ~Kaist, 2027 Spring, End.
+- 260725_00: Start Algebraic Topology, Differential Geometry and further topics in Algebra and Analysis.
