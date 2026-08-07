@@ -9,65 +9,93 @@ nav_order: 6
 # Handwritten notes yet to be TeXed.
 
 {% comment %} 
-  루트의 /untexed/ 폴더를 검색하도록 변경 
+  1. /untexed/ 폴더 안의 모든 PDF를 가져와서 경로순으로 정렬합니다. 
 {% endcomment %}
 {% assign pdf_files = site.static_files | where_exp: "item", "item.path contains '/untexed/'" | sort: "path" %}
 
-{% if pdf_files.size == 0 %}
-  <p style="color: #666;">PDF 파일을 찾을 수 없습니다. (대상 폴더: /untexed/)</p>
-  <p style="font-size: 0.8em; color: #999;">Tip: 폴더 이름이 정확히 소문자 untexed인지 확인하고, 파일을 넣은 후 서버를 재시작해 보세요.</p>
-{% endif %}
+<div class="file-tree-container">
+{% assign last_path_parts = "" | split: "/" %}
 
-{% assign last_dir = "" %}
-
-<ul class="file-tree">
 {% for file in pdf_files %}
   {% if file.extname == ".pdf" or file.extname == ".PDF" %}
     
     {% comment %} 
-      경로 분석: 
-      /untexed/Algebra/test.pdf -> ["", "untexed", "Algebra", "test.pdf"] (크기 4)
-      /untexed/test.pdf -> ["", "untexed", "test.pdf"] (크기 3)
+      경로 예시: /untexed/Analysis/3. Analysis on Manifold/Chapter1.pdf 
+      parts: ["", "untexed", "Analysis", "3. Analysis on Manifold", "Chapter1.pdf"]
     {% endcomment %}
-    {% assign path_parts = file.path | split: "/" %}
+    {% assign current_path_parts = file.path | split: "/" %}
+    {% assign file_name = current_path_parts | last %}
     
-    {% if path_parts.size == 4 %}
-      {% comment %} 하위 폴더가 있는 경우 {% endcomment %}
-      {% assign current_dir = path_parts[2] %}
-      
-      {% if current_dir != last_dir %}
-        {% if last_dir != "" %}</ul></li>{% endif %}
-        <li class="folder-item"><strong>📁 {{ current_dir | replace: "_", " " | capitalize }}</strong>
-        <ul>
-        {% assign last_dir = current_dir %}
+    {% comment %} 실제 폴더 부분만 추출 (0, 1번 인덱스는 "", "untexed" 이므로 2번부터 시작) {% endcomment %}
+    {% assign current_folder_parts = "" | split: "/" %}
+    {% for part in current_path_parts %}
+      {% if forloop.index > 2 and forloop.last == false %}
+        {% assign current_folder_parts = current_folder_parts | push: part %}
       {% endif %}
+    {% endfor %}
+
+    {% comment %} 이전 파일과 비교하여 폴더가 바뀌었는지 확인 {% endcomment %}
+    <div class="folder-breadcrumb">
+      {% assign breadcrumb = "" %}
+      {% for part in current_folder_parts %}
+        {% if forloop.first %}
+          {% assign breadcrumb = part %}
+        {% else %}
+          {% assign breadcrumb = breadcrumb | append: " &rsaquo; " | append: part %}
+        {% endif %}
+      {% endfor %}
       
-      <li>
-        <a href="{{ file.path | relative_url }}" target="_blank">📄 {{ file.basename }}</a>
-      </li>
-      
-    {% elsif path_parts.size == 3 %}
-      {% comment %} untexed 바로 아래에 파일이 있는 경우 {% endcomment %}
-      {% if last_dir != "" %}
-        </ul></li>
-        {% assign last_dir = "" %}
+      {% capture current_folder_str %}{{ breadcrumb }}{% endcapture %}
+      {% if current_folder_str != last_folder_str %}
+        <h3 class="folder-title">📁 {{ current_folder_str | replace: "_", " " }}</h3>
+        {% assign last_folder_str = current_folder_str %}
       {% endif %}
-      <li>
-        <a href="{{ file.path | relative_url }}" target="_blank">📄 {{ file.basename }}</a>
+    </div>
+
+    <ul class="pdf-list">
+      <li class="pdf-item">
+        <a href="{{ file.path | relative_url }}" target="_blank" class="pdf-link">
+          <span class="icon">📄</span>
+          <span class="name">{{ file.basename }}</span>
+        </a>
       </li>
-    {% endif %}
+    </ul>
 
   {% endif %}
 {% endfor %}
-{% if last_dir != "" %}</ul></li>{% endif %}
-</ul>
+</div>
 
 <style>
-  .file-tree { list-style-type: none; padding-left: 0; }
-  .file-tree ul { list-style-type: none; padding-left: 25px; border-left: 1px solid #eee; margin: 5px 0 15px 5px; }
-  .file-tree li { margin: 8px 0; font-size: 15px; }
-  .file-tree .folder-item { margin-top: 15px; }
-  .file-tree strong { color: #2c3e50; font-size: 16px; }
-  .file-tree a { text-decoration: none; color: #007bff; }
-  .file-tree a:hover { text-decoration: underline; color: #0056b3; }
+  .file-tree-container { font-family: sans-serif; max-width: 900px; margin: 20px 0; }
+  
+  /* 폴더 경로 표시 (Breadcrumb 스타일) */
+  .folder-title {
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border-left: 4px solid #007bff;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  /* PDF 리스트 스타일 */
+  .pdf-list { list-style: none; padding-left: 10px; margin: 0; }
+  .pdf-item { margin: 8px 0; border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; }
+  
+  .pdf-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #007bff;
+    transition: 0.2s;
+  }
+  
+  .pdf-link:hover { color: #0056b3; transform: translateX(5px); }
+  .pdf-link .icon { margin-right: 10px; font-size: 18px; }
+  .pdf-link .name { font-size: 15px; }
+
+  /* 첫 번째 폴더 위쪽 여백 조절 */
+  .folder-breadcrumb:first-child .folder-title { margin-top: 10px; }
 </style>
