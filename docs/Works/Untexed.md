@@ -8,7 +8,7 @@ nav_order: 6
 
 # Handwritten notes yet to be TeXed.
 
-{% assign pdf_files = site.static_files | where_exp: "item", "item.path contains '/assets/untexed/'" | sort: "path" %}
+{% assign pdf_files = site.static_files | where_exp: "item", "item.path contains '/math-blog/untexed/untexed/'" | sort: "path" %}
 
 {% assign last_dir = "" %}
 
