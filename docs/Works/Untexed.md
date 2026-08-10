@@ -135,7 +135,6 @@ nav_order: 6
     transition: all 0.2s;
   }
   
-
   .file-link:hover {
     color: #000;
     text-decoration: underline;
