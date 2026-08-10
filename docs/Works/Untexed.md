@@ -8,94 +8,155 @@ nav_order: 6
 
 # Handwritten notes yet to be TeXed.
 
-{% comment %} 
-  1. /untexed/ 폴더 안의 모든 PDF를 가져와서 경로순으로 정렬합니다. 
-{% endcomment %}
 {% assign pdf_files = site.static_files | where_exp: "item", "item.path contains '/untexed/'" | sort: "path" %}
 
 <div class="file-tree-container">
-{% assign last_path_parts = "" | split: "/" %}
+{% assign last_folder_str = "" %}
+{% assign first_folder = true %}
 
 {% for file in pdf_files %}
   {% if file.extname == ".pdf" or file.extname == ".PDF" %}
     
-    {% comment %} 
-      경로 예시: /untexed/Analysis/3. Analysis on Manifold/Chapter1.pdf 
-      parts: ["", "untexed", "Analysis", "3. Analysis on Manifold", "Chapter1.pdf"]
-    {% endcomment %}
     {% assign current_path_parts = file.path | split: "/" %}
-    {% assign file_name = current_path_parts | last %}
     
-    {% comment %} 실제 폴더 부분만 추출 (0, 1번 인덱스는 "", "untexed" 이므로 2번부터 시작) {% endcomment %}
-    {% assign current_folder_parts = "" | split: "/" %}
+    {% comment %} 폴더 경로 추출 (untexed 이후부터 파일명 이전까지) {% endcomment %}
+    {% assign folder_parts = "" | split: "/" %}
     {% for part in current_path_parts %}
       {% if forloop.index > 2 and forloop.last == false %}
-        {% assign current_folder_parts = current_folder_parts | push: part %}
+        {% assign folder_parts = folder_parts | push: part %}
       {% endif %}
     {% endfor %}
+    
+    {% capture current_folder_str %}{{ folder_parts | join: " › " }}{% endcapture %}
+    {% if current_folder_str == "" %}{% assign current_folder_str = "General / Root" %}{% endif %}
 
-    {% comment %} 이전 파일과 비교하여 폴더가 바뀌었는지 확인 {% endcomment %}
-    <div class="folder-breadcrumb">
-      {% assign breadcrumb = "" %}
-      {% for part in current_folder_parts %}
-        {% if forloop.first %}
-          {% assign breadcrumb = part %}
-        {% else %}
-          {% assign breadcrumb = breadcrumb | append: " &rsaquo; " | append: part %}
-        {% endif %}
-      {% endfor %}
-      
-      {% capture current_folder_str %}{{ breadcrumb }}{% endcapture %}
-      {% if current_folder_str != last_folder_str %}
-        <h3 class="folder-title">📁 {{ current_folder_str | replace: "_", " " }}</h3>
-        {% assign last_folder_str = current_folder_str %}
+    {% comment %} 새로운 폴더가 시작될 때 details 태그를 열어줌 {% endcomment %}
+    {% if current_folder_str != last_folder_str %}
+      {% if first_folder == false %}
+        </ul>
+        </details>
       {% endif %}
-    </div>
+      
+      <details class="folder-group">
+        <summary class="folder-header">
+          <span class="folder-icon">📁</span>
+          <span class="folder-name">{{ current_folder_str | replace: "_", " " }}</span>
+          <span class="file-count">
+            {% comment %} 해당 폴더 내 파일 개수를 미리 계산하긴 어려우므로 디자인적 요소로만 배치 {% endcomment %}
+          </span>
+        </summary>
+        <ul class="pdf-list">
+      {% assign last_folder_str = current_folder_str %}
+      {% assign first_folder = false %}
+    {% endif %}
 
-    <ul class="pdf-list">
-      <li class="pdf-item">
-        <a href="{{ file.path | relative_url }}" target="_blank" class="pdf-link">
-          <span class="icon">📄</span>
-          <span class="name">{{ file.basename }}</span>
-        </a>
-      </li>
-    </ul>
+    <li class="pdf-item">
+      <a href="{{ file.path | relative_url }}" target="_blank" class="pdf-link">
+        <span class="icon">📄</span>
+        <span class="name">{{ file.basename }}</span>
+      </a>
+    </li>
 
   {% endif %}
 {% endfor %}
+
+{% if first_folder == false %}
+    </ul>
+  </details>
+{% endif %}
 </div>
 
 <style>
-  .file-tree-container { font-family: sans-serif; max-width: 900px; margin: 20px 0; }
-  
-  /* 폴더 경로 표시 (Breadcrumb 스타일) */
-  .folder-title {
-    background-color: #f8f9fa;
-    padding: 10px 15px;
-    border-radius: 6px;
-    border-left: 4px solid #007bff;
-    font-size: 16px;
-    margin-top: 30px;
-    margin-bottom: 10px;
-    color: #333;
+  .file-tree-container { 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    max-width: 100%;
+    margin: 20px 0;
   }
-  
+
+  /* 폴더 그룹 스타일 */
+  .folder-group {
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    background-color: #fff;
+    overflow: hidden;
+  }
+
+  /* 폴더 제목(클릭 영역) 스타일 */
+  .folder-header {
+    padding: 12px 16px;
+    background-color: #f6f8fa;
+    cursor: pointer;
+    list-style: none; /* 기본 화살표 숨기기 */
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #24292e;
+    transition: background-color 0.2s;
+  }
+
+  .folder-header:hover {
+    background-color: #f1f3f5;
+  }
+
+  /* HTML 기본 화살표 커스텀 (필요시) */
+  .folder-header::-webkit-details-marker {
+    display: none;
+  }
+
+  .folder-icon {
+    margin-right: 10px;
+    font-size: 1.1em;
+  }
+
+  .folder-name {
+    flex-grow: 1;
+    font-size: 15px;
+  }
+
+  /* 열렸을 때 스타일 */
+  .folder-group[open] .folder-header {
+    border-bottom: 1px solid #e1e4e8;
+    background-color: #eaf5ff;
+    color: #0366d6;
+  }
+
   /* PDF 리스트 스타일 */
-  .pdf-list { list-style: none; padding-left: 10px; margin: 0; }
-  .pdf-item { margin: 8px 0; border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; }
-  
+  .pdf-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .pdf-item {
+    border-bottom: 1px solid #f6f8fa;
+  }
+
+  .pdf-item:last-child {
+    border-bottom: none;
+  }
+
   .pdf-link {
     display: flex;
     align-items: center;
+    padding: 10px 20px 10px 45px;
     text-decoration: none;
-    color: #007bff;
-    transition: 0.2s;
+    color: #444;
+    font-size: 14px;
+    transition: background-color 0.2s;
   }
-  
-  .pdf-link:hover { color: #0056b3; transform: translateX(5px); }
-  .pdf-link .icon { margin-right: 10px; font-size: 18px; }
-  .pdf-link .name { font-size: 15px; }
 
-  /* 첫 번째 폴더 위쪽 여백 조절 */
-  .folder-breadcrumb:first-child .folder-title { margin-top: 10px; }
+  .pdf-link:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+  }
+
+  .pdf-link .icon {
+    margin-right: 12px;
+    opacity: 0.7;
+  }
+
+  .pdf-link .name {
+    word-break: break-all;
+  }
 </style>
