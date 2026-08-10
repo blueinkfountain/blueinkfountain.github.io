@@ -10,7 +10,7 @@ nav_order: 6
 
 {% assign pdf_files = site.static_files | where_exp: "item", "item.path contains '/untexed/'" | sort: "path" %}
 
-<div class="file-tree-container">
+<div class="academic-tree-container">
 {% assign last_folder_str = "" %}
 {% assign first_folder = true %}
 
@@ -19,7 +19,6 @@ nav_order: 6
     
     {% assign current_path_parts = file.path | split: "/" %}
     
-    {% comment %} 폴더 경로 추출 (untexed 이후부터 파일명 이전까지) {% endcomment %}
     {% assign folder_parts = "" | split: "/" %}
     {% for part in current_path_parts %}
       {% if forloop.index > 2 and forloop.last == false %}
@@ -27,33 +26,27 @@ nav_order: 6
       {% endif %}
     {% endfor %}
     
-    {% capture current_folder_str %}{{ folder_parts | join: " › " }}{% endcapture %}
-    {% if current_folder_str == "" %}{% assign current_folder_str = "General / Root" %}{% endif %}
+    {% capture current_folder_str %}{{ folder_parts | join: " / " }}{% endcapture %}
+    {% if current_folder_str == "" %}{% assign current_folder_str = "General" %}{% endif %}
 
-    {% comment %} 새로운 폴더가 시작될 때 details 태그를 열어줌 {% endcomment %}
     {% if current_folder_str != last_folder_str %}
       {% if first_folder == false %}
         </ul>
         </details>
       {% endif %}
       
-      <details class="folder-group">
-        <summary class="folder-header">
-          <span class="folder-icon">📁</span>
-          <span class="folder-name">{{ current_folder_str | replace: "_", " " }}</span>
-          <span class="file-count">
-            {% comment %} 해당 폴더 내 파일 개수를 미리 계산하긴 어려우므로 디자인적 요소로만 배치 {% endcomment %}
-          </span>
+      <details class="academic-folder">
+        <summary class="folder-summary">
+          <span class="folder-label">{{ current_folder_str | replace: "_", " " }}</span>
         </summary>
-        <ul class="pdf-list">
+        <ul class="file-list">
       {% assign last_folder_str = current_folder_str %}
       {% assign first_folder = false %}
     {% endif %}
 
-    <li class="pdf-item">
-      <a href="{{ file.path | relative_url }}" target="_blank" class="pdf-link">
-        <span class="icon">📄</span>
-        <span class="name">{{ file.basename }}</span>
+    <li class="file-item">
+      <a href="{{ file.path | relative_url }}" target="_blank" class="file-link">
+        {{ file.basename }}
       </a>
     </li>
 
@@ -67,96 +60,76 @@ nav_order: 6
 </div>
 
 <style>
-  .file-tree-container { 
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  .academic-tree-container { 
+    font-family: "Times New Roman", Times, serif; /* 학술적 느낌을 위한 세리프체 권장 (시스템에 따라 다름) */
+    line-height: 1.6;
     max-width: 100%;
-    margin: 20px 0;
+    margin: 2rem 0;
+    color: #1a1a1a;
   }
 
-  /* 폴더 그룹 스타일 */
-  .folder-group {
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    margin-bottom: 8px;
-    background-color: #fff;
-    overflow: hidden;
+  /* 폴더 섹션 */
+  .academic-folder {
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
   }
 
-  /* 폴더 제목(클릭 영역) 스타일 */
-  .folder-header {
-    padding: 12px 16px;
-    background-color: #f6f8fa;
+  /* 폴더 제목 (Summary) */
+  .folder-summary {
+    padding: 0.75rem 0;
     cursor: pointer;
-    list-style: none; /* 기본 화살표 숨기기 */
-    display: flex;
-    align-items: center;
-    font-weight: 600;
-    color: #24292e;
-    transition: background-color 0.2s;
-  }
-
-  .folder-header:hover {
-    background-color: #f1f3f5;
-  }
-
-  /* HTML 기본 화살표 커스텀 (필요시) */
-  .folder-header::-webkit-details-marker {
-    display: none;
-  }
-
-  .folder-icon {
-    margin-right: 10px;
-    font-size: 1.1em;
-  }
-
-  .folder-name {
-    flex-grow: 1;
-    font-size: 15px;
-  }
-
-  /* 열렸을 때 스타일 */
-  .folder-group[open] .folder-header {
-    border-bottom: 1px solid #e1e4e8;
-    background-color: #eaf5ff;
-    color: #0366d6;
-  }
-
-  /* PDF 리스트 스타일 */
-  .pdf-list {
     list-style: none;
-    padding: 0;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content:间-between;
+    align-items: center;
+    color: #2c3e50;
+  }
+
+  /* HTML 기본 화살표 제거 (대신 텍스트 우측에 작은 표식 추가 가능) */
+  .folder-summary::-webkit-details-marker { display: none; }
+
+  /* 폴더명 앞에 아주 얇은 바(Vertical Bar)로 구분감 주기 */
+  .folder-label::before {
+    content: "§"; /* 문단 기호로 학술적 느낌 부여 */
+    margin-right: 12px;
+    color: #999;
+    font-weight: normal;
+  }
+
+  .academic-folder[open] .folder-summary {
+    color: #000;
+  }
+
+  /* 파일 리스트 */
+  .file-list {
+    list-style: none;
+    padding: 0 0 1rem 1.5rem; /* 왼쪽 들여쓰기로 계층 표현 */
     margin: 0;
   }
 
-  .pdf-item {
-    border-bottom: 1px solid #f6f8fa;
+  .file-item {
+    margin: 0.4rem 0;
   }
 
-  .pdf-item:last-child {
-    border-bottom: none;
-  }
-
-  .pdf-link {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px 10px 45px;
+  .file-link {
     text-decoration: none;
-    color: #444;
-    font-size: 14px;
-    transition: background-color 0.2s;
+    color: #555;
+    font-size: 0.95rem;
+    border-bottom: 1px transparent;
+    transition: all 0.2s;
   }
 
-  .pdf-link:hover {
-    background-color: #f8f9fa;
-    color: #007bff;
+  .file-link:hover {
+    color: #000;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
-  .pdf-link .icon {
-    margin-right: 12px;
-    opacity: 0.7;
-  }
-
-  .pdf-link .name {
-    word-break: break-all;
+  /* 모바일 대응 */
+  @media (max-width: 600px) {
+    .folder-summary { font-size: 1rem; }
+    .file-link { font-size: 0.9rem; }
   }
 </style>
