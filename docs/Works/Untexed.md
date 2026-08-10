@@ -60,24 +60,24 @@ nav_order: 6
 </div>
 
 <style>
+  /* 전체 컨테이너: 학술적 세리프체 설정 */
   .academic-tree-container { 
-    font-family: "Times New Roman", Times, serif; /* 학술적 느낌을 위한 세리프체 권장 (시스템에 따라 다름) */
+    font-family: "Times New Roman", Times, serif;
     line-height: 1.6;
     max-width: 100%;
     margin: 2rem 0;
     color: #1a1a1a;
   }
 
-  /* 폴더 섹션 */
+  /* 폴더 섹션 간격 및 구분선 */
   .academic-folder {
     margin-bottom: 0.5rem;
     border-bottom: 1px solid #eee;
   }
 
-  /* 폴더 제목 (Summary) */
-/* 1. 기본 화살표 제거 (모든 브라우저 대응) */
+  /* 폴더 제목 스타일 및 기본 화살표 제거 */
   .folder-summary {
-    list-style: none; /* Firefox, Standard */
+    list-style: none; /* Firefox */
     padding: 0.75rem 0;
     cursor: pointer;
     font-weight: 600;
@@ -86,43 +86,52 @@ nav_order: 6
     align-items: center;
     color: #2c3e50;
   }
+  
   .folder-summary::-webkit-details-marker {
     display: none; /* Chrome, Safari */
   }
 
-  /* 2. Dagger 기호 추가 (열기 전: †) */
+  /* 닫힌 상태: 대거 기호 (†) */
   .folder-summary::before {
-    content: "\2020"; /* Dagger (†) Unicode */
+    content: "\2020";
     margin-right: 12px;
     color: #999;
     font-weight: normal;
     font-family: serif;
-    transition: all 0.2s;
+    transition: color 0.2s;
   }
 
-  /* 3. 폴더가 열렸을 때 기호 변경 (열린 후: ‡) */
+  /* 열린 상태: 더블 대거 기호 (‡) */
   .academic-folder[open] .folder-summary::before {
-    content: "\2021"; /* Double Dagger (‡) Unicode */
+    content: "\2021";
     color: #000;
   }
 
-  /* 파일 리스트 */
+  /* 파일 리스트: 불렛 제거 및 들여쓰기 */
   .file-list {
     list-style: none;
-    padding: 0 0 1rem 1.5rem; /* 왼쪽 들여쓰기로 계층 표현 */
+    padding: 0 0 1rem 1.8rem;
     margin: 0;
   }
 
+  /* 파일 항목: 하이픈(-) 표시 */
   .file-item {
     margin: 0.4rem 0;
+    position: relative;
   }
-  
 
+  .file-item::before {
+    content: "-";
+    position: absolute;
+    left: -1.2rem;
+    color: #999;
+  }
+
+  /* 파일 링크 스타일 */
   .file-link {
     text-decoration: none;
     color: #555;
     font-size: 0.95rem;
-    border-bottom: 1px transparent;
     transition: all 0.2s;
   }
 
@@ -132,7 +141,7 @@ nav_order: 6
     text-underline-offset: 3px;
   }
 
-  /* 모바일 대응 */
+  /* 모바일 대응 폰트 조정 */
   @media (max-width: 600px) {
     .folder-summary { font-size: 1rem; }
     .file-link { font-size: 0.9rem; }
