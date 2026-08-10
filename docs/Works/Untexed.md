@@ -107,21 +107,31 @@ nav_order: 6
   }
 
   /* 파일 리스트 */
+/* 파일 리스트 (점 제거 및 하이픈 추가) */
   .file-list {
-    list-style: none;
-    padding: 0 0 1rem 1.5rem; /* 왼쪽 들여쓰기로 계층 표현 */
+    list-style: none; /* 기본 점 제거 */
+    padding: 0 0 1rem 1.5rem; 
     margin: 0;
   }
 
   .file-item {
     margin: 0.4rem 0;
+    position: relative;
+  }
+
+  /* 하이픈(-) 기호 추가 */
+  .file-item::before {
+    content: "-"; /* 하이픈 기호 */
+    position: absolute;
+    left: -1.2rem; /* 하이픈의 위치 조절 */
+    color: #999;   /* 기호 색상을 약간 연하게 */
+    font-family: "Times New Roman", Times, serif;
   }
 
   .file-link {
     text-decoration: none;
     color: #555;
     font-size: 0.95rem;
-    border-bottom: 1px transparent;
     transition: all 0.2s;
   }
 
