@@ -59,7 +59,7 @@ nav_order: 6
 </div>
 
 <style>
-  /* 전체 컨테이너: 학술적 세리프체 설정 */
+  /* 전체 컨테이너 */
   .academic-tree-container { 
     font-family: "Times New Roman", Times, serif;
     line-height: 1.6;
@@ -68,15 +68,14 @@ nav_order: 6
     color: #1a1a1a;
   }
 
-  /* 폴더 섹션 간격 및 구분선 */
   .academic-folder {
     margin-bottom: 0.5rem;
     border-bottom: 1px solid #eee;
   }
 
-  /* 폴더 제목 스타일 및 기본 화살표 제거 */
+  /* 폴더 요약 스타일 */
   .folder-summary {
-    list-style: none; /* Firefox */
+    list-style: none !important;
     padding: 0.75rem 0;
     cursor: pointer;
     font-weight: 600;
@@ -86,61 +85,58 @@ nav_order: 6
     color: #2c3e50;
   }
   
-  .folder-summary::-webkit-details-marker {
-    display: none; /* Chrome, Safari */
-  }
+  .folder-summary::-webkit-details-marker { display: none; }
 
-  /* 닫힌 상태: 대거 기호 (†) */
+  /* 대거 기호 († / ‡) */
   .folder-summary::before {
     content: "\2020";
     margin-right: 12px;
     color: #999;
     font-weight: normal;
     font-family: serif;
-    transition: color 0.2s;
   }
 
-  /* 열린 상태: 더블 대거 기호 (‡) */
   .academic-folder[open] .folder-summary::before {
     content: "\2021";
     color: #000;
   }
 
-  /* 파일 리스트: 불렛 제거 및 들여쓰기 */
-  .file-list {
-    list-style: none;
-    padding: 0 0 1rem 1.8rem;
-    margin: 0;
+  /* 파일 리스트 스타일 */
+  .academic-tree-container .file-list {
+    list-style: none !important; /* 테마 불렛 강제 제거 */
+    padding: 0 0 1rem 1.5rem !important;
+    margin: 0 !important;
   }
 
-  /* 파일 항목: 하이픈(-) 표시 */
-  .file-item {
-    margin: 0.4rem 0;
-    position: relative;
+  /* 하이픈(-) 적용 핵심 로직 */
+  .academic-tree-container .file-item {
+    margin: 0.4rem 0 !important;
+    padding-left: 1.2rem !important; /* 하이픈이 들어갈 공간 확보 */
+    position: relative !important;
+    list-style: none !important;
   }
 
-  .file-item::before {
-    content: "-";
-    position: absolute;
-    left: -1.2rem;
-    color: #999;
+  .academic-tree-container .file-item::before {
+    content: "\2013" !important; /* 학술적으로 더 예쁜 En-dash(–) 사용 */
+    position: absolute !important;
+    left: 0 !important;
+    color: #999 !important;
+    font-weight: normal !important;
   }
 
-  /* 파일 링크 스타일 */
   .file-link {
-    text-decoration: none;
-    color: #555;
-    font-size: 0.95rem;
+    text-decoration: none !important;
+    color: #555 !important;
+    font-size: 0.95rem !important;
     transition: all 0.2s;
   }
   
   .file-link:hover {
-    color: #000;
-    text-decoration: underline;
+    color: #000 !important;
+    text-decoration: underline !important;
     text-underline-offset: 3px;
   }
 
-  /* 모바일 대응 폰트 조정 */
   @media (max-width: 600px) {
     .folder-summary { font-size: 1rem; }
     .file-link { font-size: 0.9rem; }
