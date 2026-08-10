@@ -75,30 +75,34 @@ nav_order: 6
   }
 
   /* 폴더 제목 (Summary) */
+/* 1. 기본 화살표 제거 (모든 브라우저 대응) */
   .folder-summary {
+    list-style: none; /* Firefox, Standard */
     padding: 0.75rem 0;
     cursor: pointer;
-    list-style: none;
     font-weight: 600;
     font-size: 1.1rem;
     display: flex;
-    justify-content:间-between;
     align-items: center;
     color: #2c3e50;
   }
+  .folder-summary::-webkit-details-marker {
+    display: none; /* Chrome, Safari */
+  }
 
-  /* HTML 기본 화살표 제거 (대신 텍스트 우측에 작은 표식 추가 가능) */
-  .folder-summary::-webkit-details-marker { display: none; }
-
-  /* 폴더명 앞에 아주 얇은 바(Vertical Bar)로 구분감 주기 */
-  .folder-label::before {
-    content: "§"; /* 문단 기호로 학술적 느낌 부여 */
+  /* 2. Dagger 기호 추가 (열기 전: †) */
+  .folder-summary::before {
+    content: "\2020"; /* Dagger (†) Unicode */
     margin-right: 12px;
     color: #999;
     font-weight: normal;
+    font-family: serif;
+    transition: all 0.2s;
   }
 
-  .academic-folder[open] .folder-summary {
+  /* 3. 폴더가 열렸을 때 기호 변경 (열린 후: ‡) */
+  .academic-folder[open] .folder-summary::before {
+    content: "\2021"; /* Double Dagger (‡) Unicode */
     color: #000;
   }
 
