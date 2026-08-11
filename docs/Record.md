@@ -87,4 +87,4 @@ Symmetric Group, Alternating Group, Rearrangement Series, Seqeunce, Continuous, 
 - 260724_00: ~Kaist, 2027 Spring, End.
 - 260725_00: Start Algebraic Topology, Differential Geometry and further topics in Algebra and Analysis.
 - 260812_1: Study Galois Theory: Method for Finding Fixed field using Trace and Norm.
-- 2060812_2: Study Harmoinc function in Complex Analysis
+- 260812_2: Study Harmoinc function in Complex Analysis
