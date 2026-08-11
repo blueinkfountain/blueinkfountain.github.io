@@ -1,6 +1,6 @@
 ---
 layout: default
-title: UnTexed
+title: Handwritten notes
 has_children: true
 nav_order: 6
 ---
