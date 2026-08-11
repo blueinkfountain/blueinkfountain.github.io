@@ -2,7 +2,7 @@
 layout: default
 title: Handwritten notes
 has_children: true
-nav_order: 6
+nav_order: 3
 ---
 
 # Handwritten notes yet to be TeXed.
