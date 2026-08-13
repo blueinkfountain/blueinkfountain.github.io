@@ -13,146 +13,227 @@ nav_order: 3
 %}
 
 {%- comment -%}
-  ---------------------------------------------------------
-  1. /untexed/ 바로 아래의 날짜 폴더 중 최신 날짜를 찾는다.
-
-  예:
-  /untexed/260813/Algebra/1. Linear Algebra/foo.pdf
-
-  split 결과:
-    [0] = ""
-    [1] = "untexed"
-    [2] = "260813"
-    [3] = "Algebra"
-    [4] = "1. Linear Algebra"
-    [5] = "foo.pdf"
-
-  따라서 path_parts[2]가 날짜이다.
-  ---------------------------------------------------------
+  날짜 목록 수집
 {%- endcomment -%}
 
-{% assign latest_date = "" %}
+{% assign dates = "" | split: "" %}
 
 {% for file in pdf_files %}
   {% if file.extname == ".pdf" or file.extname == ".PDF" %}
-
     {% assign path_parts = file.path | split: "/" %}
     {% assign file_date = path_parts[2] %}
 
-    {% if file_date > latest_date %}
-      {% assign latest_date = file_date %}
-    {% endif %}
-
+    {% unless dates contains file_date %}
+      {% assign dates = dates | push: file_date %}
+    {% endunless %}
   {% endif %}
 {% endfor %}
 
+{% assign dates = dates | sort | reverse %}
+{% assign latest_date = dates[0] %}
 
-{%- comment -%}
-  ---------------------------------------------------------
-  2. 최신 날짜 폴더에 속한 PDF만 출력한다.
-
-  날짜 폴더 자체(260813)는 표시하지 않고,
-  그 아래 폴더부터 트리를 구성한다.
-
-  예:
-  /untexed/260813/Algebra/1. Linear Algebra/foo.pdf
-
-  화면:
-  Algebra / 1. Linear Algebra
-      – foo
-  ---------------------------------------------------------
-{%- endcomment -%}
 
 <div class="academic-tree-container">
 
-{% assign last_folder_str = "" %}
-{% assign first_folder = true %}
+  {%- comment -%}
+    =====================================================
+    최신 버전
+    =====================================================
+  {%- endcomment -%}
 
-{% for file in pdf_files %}
+  {% assign last_folder_str = "" %}
+  {% assign first_folder = true %}
 
-  {% if file.extname == ".pdf" or file.extname == ".PDF" %}
+  {% for file in pdf_files %}
 
-    {% assign current_path_parts = file.path | split: "/" %}
-    {% assign file_date = current_path_parts[2] %}
+    {% if file.extname == ".pdf" or file.extname == ".PDF" %}
 
-    {% if file_date == latest_date %}
+      {% assign current_path_parts = file.path | split: "/" %}
+      {% assign file_date = current_path_parts[2] %}
 
-      {% assign folder_parts = "" | split: "/" %}
+      {% if file_date == latest_date %}
 
-      {% for part in current_path_parts %}
+        {% assign folder_parts = "" | split: "" %}
 
-        {%- comment -%}
-          index:
-          1 -> ""
-          2 -> untexed
-          3 -> 날짜
-          4 이후 -> 실제 분류 폴더
+        {% for part in current_path_parts %}
+          {% if forloop.index > 3 and forloop.last == false %}
+            {% assign folder_parts = folder_parts | push: part %}
+          {% endif %}
+        {% endfor %}
 
-          따라서 날짜 폴더까지 제외하고,
-          파일명도 제외한다.
-        {%- endcomment -%}
+        {% capture current_folder_str %}
+          {{ folder_parts | join: " / " }}
+        {% endcapture %}
 
-        {% if forloop.index > 3 and forloop.last == false %}
-          {% assign folder_parts = folder_parts | push: part %}
+        {% assign current_folder_str = current_folder_str | strip %}
+
+        {% if current_folder_str == "" %}
+          {% assign current_folder_str = "General" %}
         {% endif %}
 
-      {% endfor %}
 
-      {% capture current_folder_str %}
-        {{ folder_parts | join: " / " }}
-      {% endcapture %}
+        {% if current_folder_str != last_folder_str %}
 
-      {% assign current_folder_str = current_folder_str | strip %}
+          {% if first_folder == false %}
+            </ul>
+            </details>
+          {% endif %}
 
-      {% if current_folder_str == "" %}
-        {% assign current_folder_str = "General" %}
-      {% endif %}
+          <details class="academic-folder">
+            <summary class="folder-summary">
+              <span class="folder-label">
+                {{ current_folder_str | replace: "_", " " }}
+              </span>
+            </summary>
 
+            <ul class="file-list">
 
-      {% if current_folder_str != last_folder_str %}
+          {% assign last_folder_str = current_folder_str %}
+          {% assign first_folder = false %}
 
-        {% if first_folder == false %}
-          </ul>
-          </details>
         {% endif %}
 
-        <details class="academic-folder">
 
-          <summary class="folder-summary">
-            <span class="folder-label">
-              {{ current_folder_str | replace: "_", " " }}
-            </span>
-          </summary>
-
-          <ul class="file-list">
-
-        {% assign last_folder_str = current_folder_str %}
-        {% assign first_folder = false %}
+        <li class="file-item">
+          <a
+            href="{{ file.path | relative_url }}"
+            target="_blank"
+            class="file-link"
+          >
+            {{ file.basename }}
+          </a>
+        </li>
 
       {% endif %}
-
-
-      <li class="file-item">
-        <a
-          href="{{ file.path | relative_url }}"
-          target="_blank"
-          class="file-link"
-        >
-          {{ file.basename }}
-        </a>
-      </li>
 
     {% endif %}
 
+  {% endfor %}
+
+
+  {% if first_folder == false %}
+    </ul>
+    </details>
   {% endif %}
 
-{% endfor %}
+
+  {%- comment -%}
+    =====================================================
+    이전 버전
+    =====================================================
+  {%- endcomment -%}
+
+  {% if dates.size > 1 %}
+
+    <details class="previous-versions">
+
+      <summary class="previous-summary">
+        Previous versions
+      </summary>
+
+      <div class="previous-version-list">
+
+        {% for date in dates %}
+
+          {% unless date == latest_date %}
+
+            <details class="version-folder">
+
+              <summary class="version-summary">
+                {{ date }}
+              </summary>
+
+              <div class="version-content">
+
+                {% assign last_folder_str = "" %}
+                {% assign first_folder = true %}
+
+                {% for file in pdf_files %}
+
+                  {% if file.extname == ".pdf" or file.extname == ".PDF" %}
+
+                    {% assign current_path_parts = file.path | split: "/" %}
+                    {% assign file_date = current_path_parts[2] %}
+
+                    {% if file_date == date %}
+
+                      {% assign folder_parts = "" | split: "" %}
+
+                      {% for part in current_path_parts %}
+                        {% if forloop.index > 3 and forloop.last == false %}
+                          {% assign folder_parts = folder_parts | push: part %}
+                        {% endif %}
+                      {% endfor %}
+
+                      {% capture current_folder_str %}
+                        {{ folder_parts | join: " / " }}
+                      {% endcapture %}
+
+                      {% assign current_folder_str = current_folder_str | strip %}
+
+                      {% if current_folder_str == "" %}
+                        {% assign current_folder_str = "General" %}
+                      {% endif %}
 
 
-{% if first_folder == false %}
-  </ul>
-  </details>
-{% endif %}
+                      {% if current_folder_str != last_folder_str %}
+
+                        {% if first_folder == false %}
+                          </ul>
+                          </details>
+                        {% endif %}
+
+                        <details class="academic-folder nested-folder">
+
+                          <summary class="folder-summary">
+                            <span class="folder-label">
+                              {{ current_folder_str | replace: "_", " " }}
+                            </span>
+                          </summary>
+
+                          <ul class="file-list">
+
+                        {% assign last_folder_str = current_folder_str %}
+                        {% assign first_folder = false %}
+
+                      {% endif %}
+
+
+                      <li class="file-item">
+                        <a
+                          href="{{ file.path | relative_url }}"
+                          target="_blank"
+                          class="file-link"
+                        >
+                          {{ file.basename }}
+                        </a>
+                      </li>
+
+                    {% endif %}
+
+                  {% endif %}
+
+                {% endfor %}
+
+
+                {% if first_folder == false %}
+                  </ul>
+                  </details>
+                {% endif %}
+
+              </div>
+
+            </details>
+
+          {% endunless %}
+
+        {% endfor %}
+
+      </div>
+
+    </details>
+
+  {% endif %}
 
 </div>
 
@@ -233,6 +314,82 @@ nav_order: 3
     text-decoration: underline !important;
     text-underline-offset: 3px;
   }
+
+
+  /* ================================
+     Previous versions
+     ================================ */
+
+  .previous-versions {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+  }
+
+  .previous-summary {
+    list-style: none !important;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #777;
+    font-weight: 600;
+  }
+
+  .previous-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .previous-summary::before {
+    content: "\25B8";
+    display: inline-block;
+    margin-right: 8px;
+    transition: transform 0.15s;
+  }
+
+  .previous-versions[open] > .previous-summary::before {
+    transform: rotate(90deg);
+  }
+
+  .previous-version-list {
+    margin-top: 0.8rem;
+    padding-left: 1rem;
+  }
+
+  .version-folder {
+    margin: 0.35rem 0;
+  }
+
+  .version-summary {
+    list-style: none !important;
+    cursor: pointer;
+    color: #777;
+    font-size: 0.95rem;
+  }
+
+  .version-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .version-summary::before {
+    content: "\25B8";
+    display: inline-block;
+    margin-right: 8px;
+    transition: transform 0.15s;
+  }
+
+  .version-folder[open] > .version-summary::before {
+    transform: rotate(90deg);
+  }
+
+  .version-content {
+    padding-left: 1.2rem;
+    margin-top: 0.4rem;
+  }
+
+  .nested-folder .folder-summary {
+    font-size: 0.95rem;
+    padding: 0.4rem 0;
+  }
+
 
   @media (max-width: 600px) {
 
