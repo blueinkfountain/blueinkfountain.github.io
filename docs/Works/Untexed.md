@@ -7,59 +7,158 @@ nav_order: 3
 
 # Handwritten notes yet to be TeXed.
 
-{% assign pdf_files = site.static_files | where_exp: "item", "item.path contains '/untexed/'" | sort: "path" %}
+{% assign pdf_files = site.static_files
+  | where_exp: "item", "item.path contains '/untexed/'"
+  | sort: "path"
+%}
 
-<div class="academic-tree-container">
-{% assign last_folder_str = "" %}
-{% assign first_folder = true %}
+{%- comment -%}
+  ---------------------------------------------------------
+  1. /untexed/ 바로 아래의 날짜 폴더 중 최신 날짜를 찾는다.
+
+  예:
+  /untexed/260813/Algebra/1. Linear Algebra/foo.pdf
+
+  split 결과:
+    [0] = ""
+    [1] = "untexed"
+    [2] = "260813"
+    [3] = "Algebra"
+    [4] = "1. Linear Algebra"
+    [5] = "foo.pdf"
+
+  따라서 path_parts[2]가 날짜이다.
+  ---------------------------------------------------------
+{%- endcomment -%}
+
+{% assign latest_date = "" %}
 
 {% for file in pdf_files %}
   {% if file.extname == ".pdf" or file.extname == ".PDF" %}
-    
-    {% assign current_path_parts = file.path | split: "/" %}
-    
-    {% assign folder_parts = "" | split: "/" %}
-    {% for part in current_path_parts %}
-      {% if forloop.index > 2 and forloop.last == false %}
-        {% assign folder_parts = folder_parts | push: part %}
-      {% endif %}
-    {% endfor %}
-    
-    {% capture current_folder_str %}{{ folder_parts | join: " / " }}{% endcapture %}
-    {% if current_folder_str == "" %}{% assign current_folder_str = "General" %}{% endif %}
 
-    {% if current_folder_str != last_folder_str %}
-      {% if first_folder == false %}
-        </ul>
-        </details>
-      {% endif %}
-      
-      <details class="academic-folder">
-        <summary class="folder-summary">
-          <span class="folder-label">{{ current_folder_str | replace: "_", " " }}</span>
-        </summary>
-        <ul class="file-list">
-      {% assign last_folder_str = current_folder_str %}
-      {% assign first_folder = false %}
+    {% assign path_parts = file.path | split: "/" %}
+    {% assign file_date = path_parts[2] %}
+
+    {% if file_date > latest_date %}
+      {% assign latest_date = file_date %}
     {% endif %}
-
-    <li class="file-item">
-      <a href="{{ file.path | relative_url }}" target="_blank" class="file-link">
-        {{ file.basename }}
-      </a>
-    </li>
 
   {% endif %}
 {% endfor %}
 
+
+{%- comment -%}
+  ---------------------------------------------------------
+  2. 최신 날짜 폴더에 속한 PDF만 출력한다.
+
+  날짜 폴더 자체(260813)는 표시하지 않고,
+  그 아래 폴더부터 트리를 구성한다.
+
+  예:
+  /untexed/260813/Algebra/1. Linear Algebra/foo.pdf
+
+  화면:
+  Algebra / 1. Linear Algebra
+      – foo
+  ---------------------------------------------------------
+{%- endcomment -%}
+
+<div class="academic-tree-container">
+
+{% assign last_folder_str = "" %}
+{% assign first_folder = true %}
+
+{% for file in pdf_files %}
+
+  {% if file.extname == ".pdf" or file.extname == ".PDF" %}
+
+    {% assign current_path_parts = file.path | split: "/" %}
+    {% assign file_date = current_path_parts[2] %}
+
+    {% if file_date == latest_date %}
+
+      {% assign folder_parts = "" | split: "/" %}
+
+      {% for part in current_path_parts %}
+
+        {%- comment -%}
+          index:
+          1 -> ""
+          2 -> untexed
+          3 -> 날짜
+          4 이후 -> 실제 분류 폴더
+
+          따라서 날짜 폴더까지 제외하고,
+          파일명도 제외한다.
+        {%- endcomment -%}
+
+        {% if forloop.index > 3 and forloop.last == false %}
+          {% assign folder_parts = folder_parts | push: part %}
+        {% endif %}
+
+      {% endfor %}
+
+      {% capture current_folder_str %}
+        {{ folder_parts | join: " / " }}
+      {% endcapture %}
+
+      {% assign current_folder_str = current_folder_str | strip %}
+
+      {% if current_folder_str == "" %}
+        {% assign current_folder_str = "General" %}
+      {% endif %}
+
+
+      {% if current_folder_str != last_folder_str %}
+
+        {% if first_folder == false %}
+          </ul>
+          </details>
+        {% endif %}
+
+        <details class="academic-folder">
+
+          <summary class="folder-summary">
+            <span class="folder-label">
+              {{ current_folder_str | replace: "_", " " }}
+            </span>
+          </summary>
+
+          <ul class="file-list">
+
+        {% assign last_folder_str = current_folder_str %}
+        {% assign first_folder = false %}
+
+      {% endif %}
+
+
+      <li class="file-item">
+        <a
+          href="{{ file.path | relative_url }}"
+          target="_blank"
+          class="file-link"
+        >
+          {{ file.basename }}
+        </a>
+      </li>
+
+    {% endif %}
+
+  {% endif %}
+
+{% endfor %}
+
+
 {% if first_folder == false %}
-    </ul>
+  </ul>
   </details>
 {% endif %}
+
 </div>
 
+
 <style>
-  /* 전체 컨테이너 */
+
   .academic-tree-container { 
     font-family: "Times New Roman", Times, serif;
     line-height: 1.6;
@@ -73,7 +172,6 @@ nav_order: 3
     border-bottom: 1px solid #eee;
   }
 
-  /* 폴더 요약 스타일 */
   .folder-summary {
     list-style: none !important;
     padding: 0.75rem 0;
@@ -84,10 +182,11 @@ nav_order: 3
     align-items: center;
     color: #2c3e50;
   }
-  
-  .folder-summary::-webkit-details-marker { display: none; }
 
-  /* 대거 기호 († / ‡) */
+  .folder-summary::-webkit-details-marker {
+    display: none;
+  }
+
   .folder-summary::before {
     content: "\2020";
     margin-right: 12px;
@@ -101,23 +200,21 @@ nav_order: 3
     color: #000;
   }
 
-  /* 파일 리스트 스타일 */
   .academic-tree-container .file-list {
-    list-style: none !important; /* 테마 불렛 강제 제거 */
+    list-style: none !important;
     padding: 0 0 1rem 1.5rem !important;
     margin: 0 !important;
   }
 
-  /* 하이픈(-) 적용 핵심 로직 */
   .academic-tree-container .file-item {
     margin: 0.4rem 0 !important;
-    padding-left: 1.2rem !important; /* 하이픈이 들어갈 공간 확보 */
+    padding-left: 1.2rem !important;
     position: relative !important;
     list-style: none !important;
   }
 
   .academic-tree-container .file-item::before {
-    content: "\2013" !important; /* 학술적으로 더 예쁜 En-dash(–) 사용 */
+    content: "\2013" !important;
     position: absolute !important;
     left: 0 !important;
     color: #999 !important;
@@ -130,7 +227,7 @@ nav_order: 3
     font-size: 0.95rem !important;
     transition: all 0.2s;
   }
-  
+
   .file-link:hover {
     color: #000 !important;
     text-decoration: underline !important;
@@ -138,7 +235,15 @@ nav_order: 3
   }
 
   @media (max-width: 600px) {
-    .folder-summary { font-size: 1rem; }
-    .file-link { font-size: 0.9rem; }
+
+    .folder-summary {
+      font-size: 1rem;
+    }
+
+    .file-link {
+      font-size: 0.9rem;
+    }
+
   }
+
 </style>
