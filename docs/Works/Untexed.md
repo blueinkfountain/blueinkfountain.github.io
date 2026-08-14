@@ -49,7 +49,7 @@ path_parts:
 
 
 {%- comment -%}
-날짜 최신순 정렬
+날짜를 최신순으로 정렬
 {%- endcomment -%}
 
 {% assign dates = dates | sort | reverse %}
@@ -66,6 +66,7 @@ path_parts:
   =========================================================
   {%- endcomment -%}
 
+
   {% assign last_folder_str = "" %}
   {% assign last_subject = "" %}
   {% assign first_folder = true %}
@@ -73,7 +74,9 @@ path_parts:
 
   {% for file in pdf_files %}
 
+
     {% if file.extname == ".pdf" or file.extname == ".PDF" %}
+
 
       {% assign current_path_parts = file.path | split: "/" %}
       {% assign file_date = current_path_parts[2] %}
@@ -82,104 +85,148 @@ path_parts:
       {% if file_date == latest_date %}
 
 
+
         {%- comment -%}
-        ---------------------------------------------------------
-        최상위 Subject 판정
+        =====================================================
+        최상위 Subject
 
-        /untexed/260813/Algebra/...      -> Algebra
-        /untexed/260813/Analysis/...     -> Analysis
+        /untexed/260813/Algebra/...
+        -> Algebra
 
-        날짜 폴더 바로 아래에 PDF가 있으면 General
-        ---------------------------------------------------------
+        /untexed/260813/Analysis/...
+        -> Analysis
+
+        날짜 폴더 바로 아래의 PDF
+        -> General
+        =====================================================
         {%- endcomment -%}
 
         {% if current_path_parts.size > 4 %}
+
           {% assign current_subject = current_path_parts[3] %}
+
         {% else %}
+
           {% assign current_subject = "General" %}
+
         {% endif %}
 
 
 
+
         {%- comment -%}
-        ---------------------------------------------------------
-        날짜 이후의 실제 폴더 경로 생성
+        =====================================================
+        실제 폴더 경로
 
         /untexed/260813/Algebra/1. Linear Algebra/foo.pdf
 
         -> Algebra / 1. Linear Algebra
-        ---------------------------------------------------------
+        =====================================================
         {%- endcomment -%}
 
+
         {% assign folder_parts = "" | split: "" %}
+
 
         {% for part in current_path_parts %}
 
           {% if forloop.index > 3 and forloop.last == false %}
+
             {% assign folder_parts = folder_parts | push: part %}
+
           {% endif %}
 
         {% endfor %}
 
 
+
         {% capture current_folder_str %}
+
           {{ folder_parts | join: " / " }}
+
         {% endcapture %}
+
 
         {% assign current_folder_str = current_folder_str | strip %}
 
 
+
         {% if current_folder_str == "" %}
+
           {% assign current_folder_str = "General" %}
+
         {% endif %}
 
 
 
+
         {%- comment -%}
-        ---------------------------------------------------------
-        폴더가 변경되면 이전 folder를 닫고
-        필요하면 새로운 Subject divider를 출력
-        ---------------------------------------------------------
+        =====================================================
+        새로운 폴더가 시작될 때
+        =====================================================
         {%- endcomment -%}
+
 
         {% if current_folder_str != last_folder_str %}
 
 
+
+          {%- comment -%}
+          이전 폴더 닫기
+          {%- endcomment -%}
+
           {% if first_folder == false %}
+
             </ul>
             </details>
+
           {% endif %}
 
 
 
+
+          {%- comment -%}
+          Subject가 변경되면 구분 영역 출력
+          {%- endcomment -%}
+
           {% if current_subject != last_subject %}
+
 
             <div class="subject-divider">
 
               <div class="subject-title">
+
                 {{ current_subject | replace: "_", " " }}
+
               </div>
 
             </div>
 
+
             {% assign last_subject = current_subject %}
 
+
           {% endif %}
+
 
 
 
           <details class="academic-folder">
 
+
             <summary class="folder-summary">
 
               <span class="folder-label">
+
                 {{ current_folder_str | replace: "_", " " }}
+
               </span>
 
             </summary>
 
 
             <ul class="file-list">
+
 
 
           {% assign last_folder_str = current_folder_str %}
@@ -190,35 +237,47 @@ path_parts:
 
 
 
+
         <li class="file-item">
+
 
           <a
             href="{{ file.path | relative_url }}"
             target="_blank"
             class="file-link"
           >
+
             {{ file.basename }}
+
           </a>
+
 
         </li>
 
 
+
       {% endif %}
 
+
     {% endif %}
+
 
   {% endfor %}
 
 
 
+
   {%- comment -%}
-  마지막 최신 folder 닫기
+  최신 버전 마지막 폴더 닫기
   {%- endcomment -%}
 
   {% if first_folder == false %}
+
     </ul>
     </details>
+
   {% endif %}
+
 
 
 
@@ -227,15 +286,19 @@ path_parts:
   =========================================================
   최신 버전 Record
 
-  최신 버전에서는
-  파일 목록을 먼저 보여준 뒤 Record를 보여준다.
+  최신 버전에서는:
+  파일 목록 → Record
+
+  Record는 기본적으로 닫혀 있다.
   =========================================================
   {%- endcomment -%}
+
 
   {% assign latest_record = site.data.untexed_records[latest_date] %}
 
 
   {% if latest_record %}
+
 
     {% assign has_added = latest_record.added.size %}
     {% assign has_modified = latest_record.modified.size %}
@@ -243,17 +306,24 @@ path_parts:
     {% assign has_deleted = latest_record.deleted.size %}
 
 
+
     {% if has_added > 0 or has_modified > 0 or has_moved > 0 or has_deleted > 0 %}
+
 
 
       <details class="change-record latest-record">
 
+
         <summary class="record-summary">
+
           Record
+
         </summary>
 
 
+
         <div class="record-content">
+
 
 
           {%- comment -%}
@@ -262,27 +332,40 @@ path_parts:
 
           {% if latest_record.added.size > 0 %}
 
+
             <div class="record-section">
 
+
               <div class="record-label">
+
                 Added
+
               </div>
 
+
               <ul class="record-list">
+
 
                 {% for path in latest_record.added %}
 
                   <li class="record-added">
+
                     {{ path }}
+
                   </li>
 
                 {% endfor %}
 
+
               </ul>
+
 
             </div>
 
+
           {% endif %}
+
+
 
 
 
@@ -292,27 +375,40 @@ path_parts:
 
           {% if latest_record.modified.size > 0 %}
 
+
             <div class="record-section">
 
+
               <div class="record-label">
+
                 Modified
+
               </div>
 
+
               <ul class="record-list">
+
 
                 {% for path in latest_record.modified %}
 
                   <li class="record-modified">
+
                     {{ path }}
+
                   </li>
 
                 {% endfor %}
 
+
               </ul>
+
 
             </div>
 
+
           {% endif %}
+
+
 
 
 
@@ -322,39 +418,62 @@ path_parts:
 
           {% if latest_record.moved_renamed.size > 0 %}
 
+
             <div class="record-section">
 
+
               <div class="record-label">
+
                 Moved / Renamed
+
               </div>
+
 
               <ul class="record-list">
 
+
                 {% for move in latest_record.moved_renamed %}
+
 
                   <li class="record-moved">
 
+
                     <span class="record-move-from">
+
                       {{ move.from }}
+
                     </span>
+
 
                     <span class="record-arrow">
+
                       →
+
                     </span>
 
+
                     <span class="record-move-to">
+
                       {{ move.to }}
+
                     </span>
+
 
                   </li>
 
+
                 {% endfor %}
+
 
               </ul>
 
+
             </div>
 
+
           {% endif %}
+
+
 
 
 
@@ -364,37 +483,54 @@ path_parts:
 
           {% if latest_record.deleted.size > 0 %}
 
+
             <div class="record-section">
 
+
               <div class="record-label">
+
                 Removed
+
               </div>
 
+
               <ul class="record-list">
+
 
                 {% for path in latest_record.deleted %}
 
                   <li class="record-deleted">
+
                     {{ path }}
+
                   </li>
 
                 {% endfor %}
 
+
               </ul>
 
+
             </div>
+
 
           {% endif %}
 
 
+
         </div>
+
 
       </details>
 
 
+
     {% endif %}
 
+
   {% endif %}
+
+
 
 
 
@@ -403,11 +539,14 @@ path_parts:
   =========================================================
   Previous versions
 
-  Previous version에서는 순서가 반대이다.
+  구조:
 
-  날짜
-      Record
-      파일 목록
+  Previous versions
+      날짜
+          Record 내용 즉시 표시
+
+          Files
+              클릭했을 때만 파일 목록 표시
   =========================================================
   {%- endcomment -%}
 
@@ -415,31 +554,43 @@ path_parts:
   {% if dates.size > 1 %}
 
 
+
     <details class="previous-versions">
 
 
+
       <summary class="previous-summary">
+
         Previous versions
+
       </summary>
+
 
 
       <div class="previous-version-list">
 
 
 
+
         {% for date in dates %}
+
 
 
           {% unless date == latest_date %}
 
 
 
+
             <details class="version-folder">
 
 
+
               <summary class="version-summary">
+
                 {{ date }}
+
               </summary>
+
 
 
 
@@ -447,16 +598,24 @@ path_parts:
 
 
 
+
+
                 {%- comment -%}
                 =================================================
-                1. 해당 날짜 Record를 먼저 출력
+                해당 날짜 Record
+
+                날짜를 여는 순간 바로 보인다.
+                Record 자체를 details로 감싸지 않는다.
                 =================================================
                 {%- endcomment -%}
+
 
                 {% assign version_record = site.data.untexed_records[date] %}
 
 
+
                 {% if version_record %}
+
 
 
                   {% assign has_added = version_record.added.size %}
@@ -465,19 +624,28 @@ path_parts:
                   {% assign has_deleted = version_record.deleted.size %}
 
 
+
+
                   {% if has_added > 0 or has_modified > 0 or has_moved > 0 or has_deleted > 0 %}
 
 
 
-                    <details class="change-record version-record">
+
+                    <div class="record-static">
 
 
-                      <summary class="record-summary">
+
+                      <div class="record-heading">
+
                         Record
-                      </summary>
+
+                      </div>
+
+
 
 
                       <div class="record-content">
+
 
 
 
@@ -485,36 +653,52 @@ path_parts:
                         Added
                         {%- endcomment -%}
 
+
                         {% if version_record.added.size > 0 %}
+
 
 
                           <div class="record-section">
 
 
+
                             <div class="record-label">
+
                               Added
+
                             </div>
+
 
 
                             <ul class="record-list">
 
 
+
                               {% for path in version_record.added %}
 
+
                                 <li class="record-added">
+
                                   {{ path }}
+
                                 </li>
 
+
                               {% endfor %}
+
 
 
                             </ul>
 
 
+
                           </div>
 
 
+
                         {% endif %}
+
+
 
 
 
@@ -523,36 +707,52 @@ path_parts:
                         Modified
                         {%- endcomment -%}
 
+
                         {% if version_record.modified.size > 0 %}
+
 
 
                           <div class="record-section">
 
 
+
                             <div class="record-label">
+
                               Modified
+
                             </div>
+
 
 
                             <ul class="record-list">
 
 
+
                               {% for path in version_record.modified %}
 
+
                                 <li class="record-modified">
+
                                   {{ path }}
+
                                 </li>
 
+
                               {% endfor %}
+
 
 
                             </ul>
 
 
+
                           </div>
 
 
+
                         {% endif %}
+
+
 
 
 
@@ -561,48 +761,78 @@ path_parts:
                         Moved / Renamed
                         {%- endcomment -%}
 
+
                         {% if version_record.moved_renamed.size > 0 %}
+
 
 
                           <div class="record-section">
 
 
+
                             <div class="record-label">
+
                               Moved / Renamed
+
                             </div>
+
 
 
                             <ul class="record-list">
 
 
+
                               {% for move in version_record.moved_renamed %}
+
+
 
                                 <li class="record-moved">
 
+
+
                                   <span class="record-move-from">
+
                                     {{ move.from }}
+
                                   </span>
+
+
 
                                   <span class="record-arrow">
+
                                     →
+
                                   </span>
 
+
+
                                   <span class="record-move-to">
+
                                     {{ move.to }}
+
                                   </span>
+
+
 
                                 </li>
 
+
+
                               {% endfor %}
+
 
 
                             </ul>
 
 
+
                           </div>
 
 
+
                         {% endif %}
+
+
 
 
 
@@ -611,46 +841,65 @@ path_parts:
                         Removed
                         {%- endcomment -%}
 
+
                         {% if version_record.deleted.size > 0 %}
+
 
 
                           <div class="record-section">
 
 
+
                             <div class="record-label">
+
                               Removed
+
                             </div>
+
 
 
                             <ul class="record-list">
 
 
+
                               {% for path in version_record.deleted %}
 
+
                                 <li class="record-deleted">
+
                                   {{ path }}
+
                                 </li>
 
+
                               {% endfor %}
+
 
 
                             </ul>
 
 
+
                           </div>
+
 
 
                         {% endif %}
 
 
 
+
                       </div>
 
 
-                    </details>
+
+                    </div>
+
+
 
 
                   {% endif %}
+
 
 
                 {% endif %}
@@ -658,200 +907,323 @@ path_parts:
 
 
 
+
+
+
                 {%- comment -%}
                 =================================================
-                2. 해당 날짜 PDF 목록
+                해당 날짜 전체 파일 목록
 
-                Record 다음에 출력한다.
+                기본적으로 숨겨진다.
 
-                최신 버전과 동일하게 Subject별로 구분한다.
+                Files를 클릭해야만 표시된다.
                 =================================================
                 {%- endcomment -%}
 
 
-                <div class="version-files">
 
-
-                  {% assign last_folder_str = "" %}
-                  {% assign last_subject = "" %}
-                  {% assign first_folder = true %}
+                <details class="version-files-toggle">
 
 
 
-                  {% for file in pdf_files %}
+                  <summary class="files-summary">
 
+                    Files
 
-                    {% if file.extname == ".pdf" or file.extname == ".PDF" %}
-
-
-                      {% assign current_path_parts = file.path | split: "/" %}
-                      {% assign file_date = current_path_parts[2] %}
+                  </summary>
 
 
 
-                      {% if file_date == date %}
+
+                  <div class="version-files">
 
 
 
-                        {%- comment -%}
-                        Subject 판정
-                        {%- endcomment -%}
-
-                        {% if current_path_parts.size > 4 %}
-                          {% assign current_subject = current_path_parts[3] %}
-                        {% else %}
-                          {% assign current_subject = "General" %}
-                        {% endif %}
+                    {% assign last_folder_str = "" %}
+                    {% assign last_subject = "" %}
+                    {% assign first_folder = true %}
 
 
 
-                        {% assign folder_parts = "" | split: "" %}
 
-
-                        {% for part in current_path_parts %}
-
-                          {% if forloop.index > 3 and forloop.last == false %}
-                            {% assign folder_parts = folder_parts | push: part %}
-                          {% endif %}
-
-                        {% endfor %}
+                    {% for file in pdf_files %}
 
 
 
-                        {% capture current_folder_str %}
-                          {{ folder_parts | join: " / " }}
-                        {% endcapture %}
 
-                        {% assign current_folder_str = current_folder_str | strip %}
+                      {% if file.extname == ".pdf" or file.extname == ".PDF" %}
 
 
 
-                        {% if current_folder_str == "" %}
-                          {% assign current_folder_str = "General" %}
-                        {% endif %}
+
+                        {% assign current_path_parts = file.path | split: "/" %}
+                        {% assign file_date = current_path_parts[2] %}
 
 
 
-                        {% if current_folder_str != last_folder_str %}
+
+                        {% if file_date == date %}
 
 
-
-                          {% if first_folder == false %}
-                            </ul>
-                            </details>
-                          {% endif %}
 
 
 
                           {%- comment -%}
-                          Subject가 바뀌면 divider 출력
+                          Subject 판정
                           {%- endcomment -%}
 
-                          {% if current_subject != last_subject %}
+
+                          {% if current_path_parts.size > 4 %}
+
+                            {% assign current_subject = current_path_parts[3] %}
+
+                          {% else %}
+
+                            {% assign current_subject = "General" %}
+
+                          {% endif %}
 
 
-                            <div class="subject-divider nested-subject-divider">
 
-                              <div class="subject-title">
-                                {{ current_subject | replace: "_", " " }}
+
+
+
+                          {%- comment -%}
+                          실제 폴더 경로
+                          {%- endcomment -%}
+
+
+                          {% assign folder_parts = "" | split: "" %}
+
+
+
+                          {% for part in current_path_parts %}
+
+
+                            {% if forloop.index > 3 and forloop.last == false %}
+
+                              {% assign folder_parts = folder_parts | push: part %}
+
+                            {% endif %}
+
+
+                          {% endfor %}
+
+
+
+
+                          {% capture current_folder_str %}
+
+                            {{ folder_parts | join: " / " }}
+
+                          {% endcapture %}
+
+
+                          {% assign current_folder_str = current_folder_str | strip %}
+
+
+
+
+                          {% if current_folder_str == "" %}
+
+                            {% assign current_folder_str = "General" %}
+
+                          {% endif %}
+
+
+
+
+
+
+
+                          {%- comment -%}
+                          새로운 폴더 시작
+                          {%- endcomment -%}
+
+
+                          {% if current_folder_str != last_folder_str %}
+
+
+
+
+
+                            {% if first_folder == false %}
+
+                              </ul>
+                              </details>
+
+                            {% endif %}
+
+
+
+
+
+
+                            {%- comment -%}
+                            Subject 변경
+                            {%- endcomment -%}
+
+
+                            {% if current_subject != last_subject %}
+
+
+
+                              <div class="subject-divider nested-subject-divider">
+
+
+                                <div class="subject-title">
+
+                                  {{ current_subject | replace: "_", " " }}
+
+                                </div>
+
+
                               </div>
 
-                            </div>
 
 
-                            {% assign last_subject = current_subject %}
+                              {% assign last_subject = current_subject %}
+
+
+
+                            {% endif %}
+
+
+
+
+
+
+                            <details class="academic-folder nested-folder">
+
+
+
+                              <summary class="folder-summary">
+
+
+                                <span class="folder-label">
+
+                                  {{ current_folder_str | replace: "_", " " }}
+
+                                </span>
+
+
+                              </summary>
+
+
+
+                              <ul class="file-list">
+
+
+
+
+                            {% assign last_folder_str = current_folder_str %}
+                            {% assign first_folder = false %}
+
 
 
                           {% endif %}
 
 
 
-                          <details class="academic-folder nested-folder">
-
-
-                            <summary class="folder-summary">
-
-
-                              <span class="folder-label">
-                                {{ current_folder_str | replace: "_", " " }}
-                              </span>
-
-
-                            </summary>
-
-
-                            <ul class="file-list">
 
 
 
-                          {% assign last_folder_str = current_folder_str %}
-                          {% assign first_folder = false %}
+                          <li class="file-item">
+
+
+
+                            <a
+                              href="{{ file.path | relative_url }}"
+                              target="_blank"
+                              class="file-link"
+                            >
+
+                              {{ file.basename }}
+
+                            </a>
+
+
+
+                          </li>
+
+
+
 
 
                         {% endif %}
 
-
-
-
-                        <li class="file-item">
-
-
-                          <a
-                            href="{{ file.path | relative_url }}"
-                            target="_blank"
-                            class="file-link"
-                          >
-                            {{ file.basename }}
-                          </a>
-
-
-                        </li>
 
 
 
                       {% endif %}
 
 
+
+
+                    {% endfor %}
+
+
+
+
+
+                    {%- comment -%}
+                    마지막 폴더 닫기
+                    {%- endcomment -%}
+
+
+                    {% if first_folder == false %}
+
+                      </ul>
+                      </details>
+
                     {% endif %}
 
 
-                  {% endfor %}
+
+
+                  </div>
 
 
 
-                  {% if first_folder == false %}
-                    </ul>
-                    </details>
-                  {% endif %}
+                </details>
 
 
-                </div>
+
 
 
               </div>
+
+
 
 
             </details>
 
 
 
+
           {% endunless %}
+
 
 
         {% endfor %}
 
 
 
+
       </div>
+
 
 
     </details>
 
 
+
   {% endif %}
 
 
+
 </div>
+
 
 
 
@@ -863,6 +1235,7 @@ path_parts:
   /* =====================================================
      전체 컨테이너
      ===================================================== */
+
 
   .academic-tree-container {
 
@@ -881,15 +1254,20 @@ path_parts:
 
 
 
-  /* =====================================================
-     Subject Divider
 
-     Algebra
-     Analysis
-     Topology
-     Differential Geometry
-     General
+  /* =====================================================
+     Subject 구분
+
+     ALGEBRA
+     --------------------------------
+
+     ANALYSIS
+     --------------------------------
+
+     TOPOLOGY
+     --------------------------------
      ===================================================== */
+
 
   .subject-divider {
 
@@ -904,11 +1282,13 @@ path_parts:
   }
 
 
+
   .subject-divider:first-child {
 
     margin-top: 0;
 
   }
+
 
 
   .subject-title {
@@ -926,10 +1306,13 @@ path_parts:
   }
 
 
-  /*
-   Previous version 내부 Subject는
-   최신본보다 약간 작은 간격으로 표시
-  */
+
+
+
+  /* =====================================================
+     Previous version 내부 Subject
+     ===================================================== */
+
 
   .nested-subject-divider {
 
@@ -940,11 +1323,13 @@ path_parts:
   }
 
 
+
   .version-files > .nested-subject-divider:first-child {
 
-    margin-top: 1.4rem;
+    margin-top: 1rem;
 
   }
+
 
 
 
@@ -952,6 +1337,7 @@ path_parts:
   /* =====================================================
      학술 폴더
      ===================================================== */
+
 
   .academic-folder {
 
@@ -1020,9 +1406,11 @@ path_parts:
 
 
 
+
   /* =====================================================
      PDF 파일 목록
      ===================================================== */
+
 
   .academic-tree-container .file-list {
 
@@ -1093,70 +1481,10 @@ path_parts:
 
 
 
+
   /* =====================================================
-     Change Record
+     Record 공통
      ===================================================== */
-
-  .change-record {
-
-    margin: 1rem 0 1.5rem 0;
-
-  }
-
-
-
-  .latest-record {
-
-    margin-top: 2rem;
-
-  }
-
-
-
-  .record-summary {
-
-    list-style: none !important;
-
-    cursor: pointer;
-
-    font-size: 0.9rem;
-
-    color: #888;
-
-    font-weight: 600;
-
-  }
-
-
-
-  .record-summary::-webkit-details-marker {
-
-    display: none;
-
-  }
-
-
-
-  .record-summary::before {
-
-    content: "\25B8";
-
-    display: inline-block;
-
-    margin-right: 8px;
-
-    transition: transform 0.15s;
-
-  }
-
-
-
-  .change-record[open] > .record-summary::before {
-
-    transform: rotate(90deg);
-
-  }
-
 
 
   .record-content {
@@ -1221,7 +1549,12 @@ path_parts:
 
 
 
-  /* Added */
+
+
+  /* =====================================================
+     Added
+     ===================================================== */
+
 
   .record-added::before {
 
@@ -1235,7 +1568,12 @@ path_parts:
 
 
 
-  /* Modified */
+
+
+  /* =====================================================
+     Modified
+     ===================================================== */
+
 
   .record-modified::before {
 
@@ -1249,7 +1587,12 @@ path_parts:
 
 
 
-  /* Removed */
+
+
+  /* =====================================================
+     Removed
+     ===================================================== */
+
 
   .record-deleted::before {
 
@@ -1263,7 +1606,12 @@ path_parts:
 
 
 
-  /* Moved / Renamed */
+
+
+  /* =====================================================
+     Moved / Renamed
+     ===================================================== */
+
 
   .record-moved::before {
 
@@ -1306,9 +1654,82 @@ path_parts:
 
 
 
+
+  /* =====================================================
+     최신 버전 Record
+
+     기본적으로 접혀 있음
+     ===================================================== */
+
+
+  .change-record {
+
+    margin: 1rem 0 1.5rem 0;
+
+  }
+
+
+
+  .latest-record {
+
+    margin-top: 2rem;
+
+  }
+
+
+
+  .record-summary {
+
+    list-style: none !important;
+
+    cursor: pointer;
+
+    font-size: 0.9rem;
+
+    color: #888;
+
+    font-weight: 600;
+
+  }
+
+
+
+  .record-summary::-webkit-details-marker {
+
+    display: none;
+
+  }
+
+
+
+  .record-summary::before {
+
+    content: "\25B8";
+
+    display: inline-block;
+
+    margin-right: 8px;
+
+    transition: transform 0.15s;
+
+  }
+
+
+
+  .change-record[open] > .record-summary::before {
+
+    transform: rotate(90deg);
+
+  }
+
+
+
+
+
   /* =====================================================
      Previous versions
      ===================================================== */
+
 
   .previous-versions {
 
@@ -1378,9 +1799,16 @@ path_parts:
 
 
 
+
+
+  /* =====================================================
+     Previous version 날짜
+     ===================================================== */
+
+
   .version-folder {
 
-    margin: 0.4rem 0;
+    margin: 0.45rem 0;
 
   }
 
@@ -1434,37 +1862,134 @@ path_parts:
 
     padding-left: 1.2rem;
 
-    margin-top: 0.5rem;
+    margin-top: 0.6rem;
 
   }
 
 
 
-  /*
-   Previous version에서는 Record가 먼저 나온다.
-  */
 
-  .version-record {
+
+  /* =====================================================
+     Previous version Record
+
+     날짜를 열면 즉시 보인다.
+     ===================================================== */
+
+
+  .record-static {
 
     margin-top: 0.8rem;
 
-    margin-bottom: 1.3rem;
+    margin-bottom: 1.4rem;
 
   }
 
 
 
-  /*
-   Record와 파일 목록 사이를
-   너무 붙지 않도록 살짝 분리
-  */
+  .record-heading {
+
+    font-size: 0.95rem;
+
+    font-weight: 600;
+
+    color: #666;
+
+    margin-bottom: 0.35rem;
+
+  }
+
+
+
+  .record-static .record-content {
+
+    padding: 0.4rem 0 0.5rem 1.2rem;
+
+  }
+
+
+
+
+
+  /* =====================================================
+     Previous version Files
+
+     기본적으로 닫힘.
+     클릭해야 표시.
+     ===================================================== */
+
+
+  .version-files-toggle {
+
+    margin-top: 1.2rem;
+
+    padding-top: 0.9rem;
+
+    border-top: 1px solid #eee;
+
+  }
+
+
+
+  .files-summary {
+
+    list-style: none !important;
+
+    cursor: pointer;
+
+    font-size: 0.9rem;
+
+    font-weight: 600;
+
+    color: #777;
+
+  }
+
+
+
+  .files-summary::-webkit-details-marker {
+
+    display: none;
+
+  }
+
+
+
+  .files-summary::before {
+
+    content: "\25B8";
+
+    display: inline-block;
+
+    margin-right: 8px;
+
+    transition: transform 0.15s;
+
+  }
+
+
+
+  .version-files-toggle[open] > .files-summary::before {
+
+    transform: rotate(90deg);
+
+  }
+
+
 
   .version-files {
 
-    margin-top: 0.7rem;
+    margin-top: 0.8rem;
 
   }
 
+
+
+
+
+  /* =====================================================
+     Previous version 내부 폴더
+     ===================================================== */
 
 
   .nested-folder .folder-summary {
@@ -1478,11 +2003,14 @@ path_parts:
 
 
 
+
   /* =====================================================
      모바일
      ===================================================== */
 
+
   @media (max-width: 600px) {
+
 
 
     .subject-divider {
@@ -1492,11 +2020,13 @@ path_parts:
     }
 
 
+
     .subject-title {
 
       font-size: 0.82rem;
 
     }
+
 
 
     .folder-summary {
@@ -1506,11 +2036,13 @@ path_parts:
     }
 
 
+
     .file-link {
 
       font-size: 0.9rem !important;
 
     }
+
 
 
     .previous-version-list {
@@ -1520,11 +2052,13 @@ path_parts:
     }
 
 
+
     .version-content {
 
       padding-left: 0.7rem;
 
     }
+
 
 
     .record-content {
@@ -1534,11 +2068,21 @@ path_parts:
     }
 
 
+
+    .record-static .record-content {
+
+      padding-left: 0.7rem;
+
+    }
+
+
+
     .record-arrow {
 
       margin: 0 0.25rem;
 
     }
+
 
 
   }
