@@ -1,12 +1,15 @@
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 from collections import defaultdict
+from difflib import SequenceMatcher
 import hashlib
+import re
+
+import fitz
 import yaml
-import fitz  # PyMuPDF
 
 
 # =========================================================
-# 경로 설정
+# Paths
 # =========================================================
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,49 +20,125 @@ OUTPUT = ROOT / "_data" / "untexed_records.yml"
 
 
 # =========================================================
+# Rename detection threshold
+#
+# 완전히 다른 이름의 파일을 억지로 연결하지 않도록
+# 보수적으로 판정한다.
+# =========================================================
+
+RENAME_SIMILARITY_THRESHOLD = 0.80
+
+
+# =========================================================
+# .pdf 확장자 제거
+#
+# foo.pdf       -> foo
+# foo.pdf.pdf   -> foo
+# foo.PDF.PDF   -> foo
+# =========================================================
+
+def strip_pdf_suffixes(name):
+
+    result = name
+
+    while result.lower().endswith(".pdf"):
+        result = result[:-4]
+
+    return result
+
+
+# =========================================================
 # Record에 표시할 경로
 #
-# 예:
-# Algebra/1. Linear Algebra/Vector Space.pdf
-#
+# Algebra/A.pdf
 # ->
+# Algebra/A
 #
-# Algebra/1. Linear Algebra/Vector Space
+# Algebra/A.pdf.pdf
+# ->
+# Algebra/A
 # =========================================================
 
 def display_path(relative_path):
-    path = PurePosixPath(relative_path)
 
-    return path.with_suffix("").as_posix()
+    parts = relative_path.split("/")
+
+    if parts:
+        parts[-1] = strip_pdf_suffixes(parts[-1])
+
+    return "/".join(parts)
 
 
 # =========================================================
-# PDF의 실제 "보이는 내용"을 Hash
+# 비교용 파일명 정규화
+# =========================================================
+
+def normalized_filename(relative_path):
+
+    filename = Path(relative_path).name
+
+    filename = strip_pdf_suffixes(filename)
+
+    filename = filename.lower()
+
+    filename = re.sub(
+        r"[\s_\-()]+",
+        " ",
+        filename
+    )
+
+    filename = filename.strip()
+
+    return filename
+
+
+# =========================================================
+# 최상위 subject
 #
-# PDF 파일 자체의 binary hash가 아니라
-# 각 페이지를 이미지로 렌더링한 결과를 비교한다.
+# Algebra/1. Linear Algebra/A.pdf
+# ->
+# Algebra
+# =========================================================
+
+def top_subject(relative_path):
+
+    parts = relative_path.split("/")
+
+    if parts:
+        return parts[0]
+
+    return ""
+
+
+# =========================================================
+# PDF의 실제 화면 결과를 hash
 #
-# 따라서 다음은 Modified로 잡히지 않는다.
+# PDF binary 자체를 비교하지 않는다.
 #
-# - PDF 생성일 변경
-# - 수정일 변경
-# - Producer 변경
-# - 내부 object 번호 변경
-# - 압축 방식 변경
+# 따라서 다음 차이는 무시:
 #
-# 실제 페이지의 시각적 내용이 달라져야
-# Modified로 판정된다.
+# - PDF metadata
+# - 생성일
+# - 수정일
+# - Producer
+# - object 번호
+# - 압축 방식
+#
+# 실제 페이지의 픽셀 결과가 다를 때만
+# hash가 변경된다.
 # =========================================================
 
 def visual_pdf_hash(path):
+
     h = hashlib.sha256()
 
     document = None
 
     try:
+
         document = fitz.open(path)
 
-        # 페이지 수 자체도 비교 대상
+        # 페이지 수
         h.update(
             str(document.page_count).encode("utf-8")
         )
@@ -86,20 +165,18 @@ def visual_pdf_hash(path):
             )
 
             # 실제 픽셀
-            h.update(pixmap.samples)
+            h.update(
+                pixmap.samples
+            )
 
         return h.hexdigest()
 
-    except Exception as e:
+    except Exception as error:
 
         print()
-        print(
-            f"[ERROR] Failed to process PDF:"
-        )
-
+        print("[ERROR] Failed to process PDF:")
         print(path)
-
-        print(e)
+        print(error)
 
         raise
 
@@ -110,18 +187,7 @@ def visual_pdf_hash(path):
 
 
 # =========================================================
-# 특정 날짜 폴더의 PDF snapshot
-#
-# 예:
-#
-# 260814/
-#   Algebra/
-#     1. Linear Algebra/
-#       Vector Space.pdf
-#
-# snapshot key:
-#
-# Algebra/1. Linear Algebra/Vector Space.pdf
+# 날짜 폴더 snapshot
 # =========================================================
 
 def get_pdf_snapshot(date_dir):
@@ -159,22 +225,326 @@ def get_pdf_snapshot(date_dir):
 
 
 # =========================================================
+# Moved / Renamed 판정
+#
+# 매우 보수적으로 처리한다.
+#
+# 1순위
+#   visual hash 같음
+#   + 파일명 같음
+#
+# 2순위
+#   visual hash 같음
+#   + 같은 최상위 subject
+#   + 파일명이 충분히 유사함
+#
+# hash만 같다는 이유로는 절대로 이동으로 처리하지 않는다.
+#
+# 따라서 예:
+#
+# Bounded Variation
+# ->
+# Dihedral Group
+#
+# 같은 잘못된 연결을 막는다.
+# =========================================================
+
+def detect_moves(
+    previous,
+    current,
+    deleted_candidates,
+    added_candidates
+):
+
+    moved = []
+
+
+    # -----------------------------------------------------
+    # hash별 후보
+    # -----------------------------------------------------
+
+    deleted_by_hash = defaultdict(list)
+
+    for path in deleted_candidates:
+
+        deleted_by_hash[
+            previous[path]["hash"]
+        ].append(path)
+
+
+    added_by_hash = defaultdict(list)
+
+    for path in added_candidates:
+
+        added_by_hash[
+            current[path]["hash"]
+        ].append(path)
+
+
+    common_hashes = (
+        set(deleted_by_hash)
+        & set(added_by_hash)
+    )
+
+
+    # =====================================================
+    # STEP 1
+    #
+    # 동일 visual hash + 동일 파일명
+    #
+    # 가장 확실한 이동
+    # =====================================================
+
+    for file_hash in sorted(common_hashes):
+
+        old_paths = sorted(
+            path
+            for path in deleted_by_hash[file_hash]
+            if path in deleted_candidates
+        )
+
+        new_paths = sorted(
+            path
+            for path in added_by_hash[file_hash]
+            if path in added_candidates
+        )
+
+
+        old_by_name = defaultdict(list)
+
+        for old_path in old_paths:
+
+            old_by_name[
+                normalized_filename(old_path)
+            ].append(old_path)
+
+
+        new_by_name = defaultdict(list)
+
+        for new_path in new_paths:
+
+            new_by_name[
+                normalized_filename(new_path)
+            ].append(new_path)
+
+
+        same_names = (
+            set(old_by_name)
+            & set(new_by_name)
+        )
+
+
+        for name in sorted(same_names):
+
+            old_list = sorted(
+                old_by_name[name]
+            )
+
+            new_list = sorted(
+                new_by_name[name]
+            )
+
+            pair_count = min(
+                len(old_list),
+                len(new_list)
+            )
+
+
+            for index in range(pair_count):
+
+                old_path = old_list[index]
+
+                new_path = new_list[index]
+
+
+                if (
+                    old_path not in deleted_candidates
+                    or new_path not in added_candidates
+                ):
+                    continue
+
+
+                moved.append(
+                    {
+                        "from": old_path,
+                        "to": new_path,
+                    }
+                )
+
+
+                deleted_candidates.remove(
+                    old_path
+                )
+
+                added_candidates.remove(
+                    new_path
+                )
+
+
+    # =====================================================
+    # STEP 2
+    #
+    # 이름이 변경된 경우
+    #
+    # 조건:
+    #
+    # - visual hash 동일
+    # - 같은 최상위 subject
+    # - 이름 similarity >= threshold
+    #
+    # =====================================================
+
+    deleted_by_hash = defaultdict(list)
+
+    for path in deleted_candidates:
+
+        deleted_by_hash[
+            previous[path]["hash"]
+        ].append(path)
+
+
+    added_by_hash = defaultdict(list)
+
+    for path in added_candidates:
+
+        added_by_hash[
+            current[path]["hash"]
+        ].append(path)
+
+
+    common_hashes = (
+        set(deleted_by_hash)
+        & set(added_by_hash)
+    )
+
+
+    possible_pairs = []
+
+
+    for file_hash in common_hashes:
+
+        old_paths = deleted_by_hash[file_hash]
+
+        new_paths = added_by_hash[file_hash]
+
+
+        for old_path in old_paths:
+
+            old_subject = top_subject(old_path)
+
+            old_name = normalized_filename(
+                old_path
+            )
+
+
+            for new_path in new_paths:
+
+                new_subject = top_subject(
+                    new_path
+                )
+
+                # 서로 다른 학문 분야까지
+                # rename으로 추측하지 않는다.
+                if old_subject != new_subject:
+                    continue
+
+
+                new_name = normalized_filename(
+                    new_path
+                )
+
+
+                similarity = SequenceMatcher(
+                    None,
+                    old_name,
+                    new_name
+                ).ratio()
+
+
+                if (
+                    similarity
+                    >= RENAME_SIMILARITY_THRESHOLD
+                ):
+
+                    possible_pairs.append(
+                        (
+                            similarity,
+                            old_path,
+                            new_path
+                        )
+                    )
+
+
+    # similarity가 높은 것부터 greedy matching
+    possible_pairs.sort(
+        key=lambda item: (
+            -item[0],
+            item[1],
+            item[2]
+        )
+    )
+
+
+    used_old = set()
+
+    used_new = set()
+
+
+    for (
+        similarity,
+        old_path,
+        new_path
+    ) in possible_pairs:
+
+
+        if old_path in used_old:
+            continue
+
+        if new_path in used_new:
+            continue
+
+        if old_path not in deleted_candidates:
+            continue
+
+        if new_path not in added_candidates:
+            continue
+
+
+        moved.append(
+            {
+                "from": old_path,
+                "to": new_path,
+            }
+        )
+
+
+        used_old.add(old_path)
+
+        used_new.add(new_path)
+
+
+        deleted_candidates.remove(
+            old_path
+        )
+
+        added_candidates.remove(
+            new_path
+        )
+
+
+    return moved
+
+
+# =========================================================
 # 날짜 폴더 수집
 #
-# YYMMDD 형식의 6자리 숫자 폴더만 사용
-#
-# 예:
-#
-# 260807
-# 260813
-# 260814
+# YYMMDD 6자리 숫자 폴더만 사용
 # =========================================================
 
 date_dirs = sorted(
 
     [
         path
-
         for path in UNTEXED.iterdir()
 
         if (
@@ -200,13 +570,16 @@ print("Found versions:")
 print()
 
 for date_dir in date_dirs:
-    print(f"  {date_dir.name}")
+
+    print(
+        f"  {date_dir.name}"
+    )
 
 print()
 
 
 # =========================================================
-# 모든 날짜 Snapshot 생성
+# 전체 snapshot 생성
 # =========================================================
 
 snapshots = {}
@@ -216,17 +589,22 @@ for date_dir in date_dirs:
 
     print()
     print("=" * 70)
-    print(f"Scanning {date_dir.name}")
+    print(
+        f"Scanning {date_dir.name}"
+    )
     print("=" * 70)
     print()
 
-    snapshots[date_dir.name] = (
-        get_pdf_snapshot(date_dir)
+
+    snapshots[
+        date_dir.name
+    ] = get_pdf_snapshot(
+        date_dir
     )
 
 
 # =========================================================
-# 날짜별 Record 생성
+# Record 생성
 # =========================================================
 
 records = {}
@@ -240,20 +618,21 @@ for index, date_dir in enumerate(date_dirs):
 
 
     # =====================================================
-    # 최초 Snapshot
+    # 최초 날짜
     #
-    # 비교할 이전 버전이 없으므로
-    # 전부 Added 처리
+    # 이전 snapshot이 없으므로
+    # "전부 Added"라고 하지 않는다.
+    #
+    # Baseline snapshot으로 취급.
     # =====================================================
 
     if index == 0:
 
         records[date] = {
 
-            "added": [
-                display_path(path)
-                for path in sorted(current.keys())
-            ],
+            "baseline": True,
+
+            "added": [],
 
             "modified": [],
 
@@ -266,21 +645,29 @@ for index, date_dir in enumerate(date_dirs):
 
 
     # =====================================================
-    # 이전 날짜
+    # 이전 snapshot
     # =====================================================
 
-    previous_date = date_dirs[index - 1].name
+    previous_date = (
+        date_dirs[index - 1].name
+    )
 
-    previous = snapshots[previous_date]
+    previous = snapshots[
+        previous_date
+    ]
 
 
-    previous_paths = set(previous.keys())
+    previous_paths = set(
+        previous.keys()
+    )
 
-    current_paths = set(current.keys())
+    current_paths = set(
+        current.keys()
+    )
 
 
     # =====================================================
-    # 1. 동일 경로끼리 먼저 비교
+    # 동일 경로
     # =====================================================
 
     common_paths = (
@@ -288,6 +675,12 @@ for index, date_dir in enumerate(date_dirs):
         & current_paths
     )
 
+
+    # =====================================================
+    # Modified
+    #
+    # 경로 동일 + 실제 화면 hash 변경
+    # =====================================================
 
     modified_raw = sorted(
 
@@ -303,131 +696,41 @@ for index, date_dir in enumerate(date_dirs):
 
 
     # =====================================================
-    # 2. 일단 Added / Removed 후보 생성
-    #
-    # 아직 Moved/Renamed을 판별하기 전
+    # Added / Removed 후보
     # =====================================================
 
     added_candidates = set(
-        current_paths - previous_paths
+        current_paths
+        - previous_paths
     )
 
     deleted_candidates = set(
-        previous_paths - current_paths
+        previous_paths
+        - current_paths
     )
 
 
     # =====================================================
-    # 3. Removed 후보들을 visual hash별로 묶는다.
+    # Moved / Renamed 추출
     #
-    # hash:
-    #   [old/path/A.pdf, old/path/B.pdf]
+    # 이동으로 확인된 항목은
+    # Added / Removed 후보에서 제거된다.
     # =====================================================
 
-    deleted_by_hash = defaultdict(list)
+    moved_raw = detect_moves(
 
+        previous,
 
-    for old_path in sorted(deleted_candidates):
+        current,
 
-        file_hash = previous[old_path]["hash"]
+        deleted_candidates,
 
-        deleted_by_hash[file_hash].append(
-            old_path
-        )
-
-
-    # =====================================================
-    # 4. Added 후보들도 visual hash별로 묶는다.
-    # =====================================================
-
-    added_by_hash = defaultdict(list)
-
-
-    for new_path in sorted(added_candidates):
-
-        file_hash = current[new_path]["hash"]
-
-        added_by_hash[file_hash].append(
-            new_path
-        )
-
-
-    # =====================================================
-    # 5. 동일한 visual hash인데 경로만 달라졌다면
-    #
-    # Moved / Renamed
-    #
-    # 로 판정
-    #
-    # 예:
-    #
-    # old:
-    # Topology/General Topology/Product space.pdf
-    #
-    # new:
-    # Topology/1. General Topology/Product space.pdf
-    #
-    # 내용 hash가 같으면
-    #
-    # Moved / Renamed
-    # =====================================================
-
-    moved_renamed_raw = []
-
-
-    common_hashes = (
-        set(deleted_by_hash.keys())
-        & set(added_by_hash.keys())
+        added_candidates
     )
 
 
-    for file_hash in sorted(common_hashes):
-
-        old_paths = sorted(
-            deleted_by_hash[file_hash]
-        )
-
-        new_paths = sorted(
-            added_by_hash[file_hash]
-        )
-
-
-        # 동일 hash의 PDF가 여러 개 있을 수 있으므로
-        # 정렬한 뒤 가능한 만큼 1:1 대응
-        pair_count = min(
-            len(old_paths),
-            len(new_paths)
-        )
-
-
-        for i in range(pair_count):
-
-            old_path = old_paths[i]
-
-            new_path = new_paths[i]
-
-
-            moved_renamed_raw.append({
-
-                "from": old_path,
-
-                "to": new_path,
-            })
-
-
-            # 이제 진짜 Added/Removed가 아니므로
-            # 후보 목록에서 제거
-            deleted_candidates.discard(
-                old_path
-            )
-
-            added_candidates.discard(
-                new_path
-            )
-
-
     # =====================================================
-    # 6. 최종 Added
+    # 최종 Record
     # =====================================================
 
     added = [
@@ -440,10 +743,6 @@ for index, date_dir in enumerate(date_dirs):
     ]
 
 
-    # =====================================================
-    # 7. 최종 Modified
-    # =====================================================
-
     modified = [
 
         display_path(path)
@@ -451,10 +750,6 @@ for index, date_dir in enumerate(date_dirs):
         for path in modified_raw
     ]
 
-
-    # =====================================================
-    # 8. 최종 Removed
-    # =====================================================
 
     deleted = [
 
@@ -466,21 +761,20 @@ for index, date_dir in enumerate(date_dirs):
     ]
 
 
-    # =====================================================
-    # 9. Moved / Renamed
-    #
-    # 여기에서도 .pdf 확장자를 제거한다.
-    # =====================================================
-
     moved_renamed = [
 
         {
-            "from": display_path(item["from"]),
-            "to": display_path(item["to"]),
+            "from": display_path(
+                item["from"]
+            ),
+
+            "to": display_path(
+                item["to"]
+            ),
         }
 
         for item in sorted(
-            moved_renamed_raw,
+            moved_raw,
             key=lambda item: (
                 item["from"],
                 item["to"]
@@ -490,6 +784,8 @@ for index, date_dir in enumerate(date_dirs):
 
 
     records[date] = {
+
+        "baseline": False,
 
         "added": added,
 
@@ -517,16 +813,21 @@ with OUTPUT.open(
 ) as file:
 
     yaml.safe_dump(
+
         records,
+
         file,
+
         allow_unicode=True,
+
         sort_keys=False,
-        width=120,
+
+        width=140,
     )
 
 
 # =========================================================
-# 결과 Summary
+# Summary
 # =========================================================
 
 print()
@@ -535,29 +836,40 @@ print("Record summary")
 print("=" * 70)
 print()
 
+
 for date, record in records.items():
 
     print(date)
 
-    print(
-        f"  Added         : "
-        f"{len(record['added'])}"
-    )
 
-    print(
-        f"  Modified      : "
-        f"{len(record['modified'])}"
-    )
+    if record["baseline"]:
 
-    print(
-        f"  Moved/Renamed : "
-        f"{len(record['moved_renamed'])}"
-    )
+        print(
+            "  Baseline snapshot"
+        )
 
-    print(
-        f"  Removed       : "
-        f"{len(record['deleted'])}"
-    )
+    else:
+
+        print(
+            f"  Added         : "
+            f"{len(record['added'])}"
+        )
+
+        print(
+            f"  Modified      : "
+            f"{len(record['modified'])}"
+        )
+
+        print(
+            f"  Moved/Renamed : "
+            f"{len(record['moved_renamed'])}"
+        )
+
+        print(
+            f"  Removed       : "
+            f"{len(record['deleted'])}"
+        )
+
 
     print()
 
