@@ -1,348 +1,238 @@
 '260807':
-  added:
-  - Algebra/1. Linear Algebra/Action of permutation on Matrices.pdf
-  - Algebra/1. Linear Algebra/Basis for Vector space.pdf
-  - Algebra/1. Linear Algebra/Canonical Form.pdf
-  - Algebra/1. Linear Algebra/Cyclic subspace.pdf
-  - Algebra/1. Linear Algebra/Derterminant.pdf
-  - Algebra/1. Linear Algebra/Diagonalizable Criterion on Inner product Space.pdf
-  - Algebra/1. Linear Algebra/Dual Space.pdf
-  - Algebra/1. Linear Algebra/General Linear Group.pdf
-  - Algebra/1. Linear Algebra/Hoffman.pdf
-  - Algebra/1. Linear Algebra/Jordan canonical form.pdf
-  - Algebra/1. Linear Algebra/Linear equation.pdf
-  - Algebra/1. Linear Algebra/Minimal polynomial.pdf
-  - Algebra/1. Linear Algebra/Norm induced by inner product.pdf
-  - Algebra/1. Linear Algebra/Normal Operater.pdf
-  - Algebra/1. Linear Algebra/Operator Norm.pdf
-  - Algebra/1. Linear Algebra/Orthogonal Projection - Complete.pdf
-  - Algebra/1. Linear Algebra/Positive Form.pdf
-  - Algebra/1. Linear Algebra/Primary Decomposition.pdf
-  - Algebra/1. Linear Algebra/Projection.pdf
-  - Algebra/1. Linear Algebra/QR-Factorization.pdf
-  - Algebra/1. Linear Algebra/Replacement Theorem.pdf
-  - Algebra/1. Linear Algebra/Rigid Motion.pdf
-  - Algebra/1. Linear Algebra/Schur_s Triangular Theorem.pdf
-  - Algebra/1. Linear Algebra/Sesqui-Linear Form.pdf
-  - Algebra/1. Linear Algebra/Simultaneously Diagonalizable.pdf
-  - Algebra/1. Linear Algebra/Singular Value Decomposition (2).pdf
-  - Algebra/1. Linear Algebra/Singular Value Decomposition.pdf
-  - Algebra/1. Linear Algebra/Spectrum Theorem.pdf
-  - Algebra/1. Linear Algebra/Unitary and Orthogonal Operator.pdf
-  - Algebra/2. Group Theory/Alternating Group.pdf
-  - Algebra/2. Group Theory/Class equation.pdf
-  - Algebra/2. Group Theory/Commutator Subgroup.pdf
-  - Algebra/2. Group Theory/Coset and Isomorphism Theorem.pdf
-  - Algebra/2. Group Theory/Cyclic Group.pdf
-  - Algebra/2. Group Theory/Division Algorithm.pdf
-  - Algebra/2. Group Theory/Finitely Generated Abelian Group.pdf
-  - Algebra/2. Group Theory/General linear group.pdf
-  - Algebra/2. Group Theory/Jordan-Hölder.pdf
-  - Algebra/2. Group Theory/Nilpotent Group.pdf
-  - Algebra/2. Group Theory/P-Group.pdf
-  - Algebra/2. Group Theory/Recognize theorem.pdf
-  - Algebra/2. Group Theory/Sylow Theorem.pdf
-  - Algebra/2. Group Theory/Symmetric Group.pdf
-  - Algebra/2. Group Theory/pgroups.pdf.pdf
-  - Algebra/3. Ring Theory/Basic ideal.pdf
-  - Algebra/3. Ring Theory/Chinese reminder theorem.pdf
-  - Algebra/3. Ring Theory/Dedekind-Hasse norm.pdf
-  - Algebra/3. Ring Theory/Domains (2).pdf
-  - Algebra/3. Ring Theory/Domains.pdf
-  - Algebra/3. Ring Theory/Eisenstein Criterion.pdf
-  - Algebra/3. Ring Theory/Fraction Ring.pdf
-  - Algebra/3. Ring Theory/Ideal.pdf
-  - Algebra/3. Ring Theory/Nilradical and Radical.pdf
-  - Algebra/3. Ring Theory/Notebook 3.pdf
-  - Algebra/3. Ring Theory/Polynomial Ring (2).pdf
-  - Algebra/3. Ring Theory/Polynomial Ring.pdf
-  - Algebra/3. Ring Theory/Quadratic integer Ring.pdf
-  - Algebra/4. Field Theory/Automotphisms of Field Extension.pdf
-  - Algebra/4. Field Theory/Basic field Theory.pdf
-  - Algebra/4. Field Theory/Basic field extension.pdf
-  - Algebra/4. Field Theory/Basic field.pdf
-  - Algebra/4. Field Theory/Biquadratic Field.pdf
-  - Algebra/4. Field Theory/Composite Field.pdf
-  - Algebra/4. Field Theory/Cyclotomic Field.pdf
-  - Algebra/4. Field Theory/Field Automorphism.pdf
-  - Algebra/4. Field Theory/Finite field (2).pdf
-  - Algebra/4. Field Theory/Finite field.pdf
-  - Algebra/4. Field Theory/Formal Derivative and Separablity.pdf
-  - Algebra/4. Field Theory/Galois Theory.pdf
-  - Algebra/4. Field Theory/Norm and Trace of Galois.pdf
-  - Algebra/4. Field Theory/Rationalize.pdf
-  - Algebra/4. Field Theory/Separable Extension (2).pdf
-  - Algebra/4. Field Theory/Separable Extension.pdf
-  - Algebra/4. Field Theory/Splitting field.pdf
-  - Analysis/1. Basic Analysis/Abel formula.pdf
-  - Analysis/1. Basic Analysis/Advanced Techniques for sequence.pdf
-  - Analysis/1. Basic Analysis/Arzelà-Ascoli.pdf
-  - Analysis/1. Basic Analysis/Basic Riemann-integral.pdf
-  - Analysis/1. Basic Analysis/Bounded Variation.pdf
-  - Analysis/1. Basic Analysis/Cantor set.pdf
-  - Analysis/1. Basic Analysis/Convexity.pdf
-  - Analysis/1. Basic Analysis/Darboux_s Theorem.pdf
-  - Analysis/1. Basic Analysis/Density of rational.pdf
-  - Analysis/1. Basic Analysis/Differentiation.pdf
-  - Analysis/1. Basic Analysis/Discontinuity.pdf
-  - Analysis/1. Basic Analysis/Double Sequence.pdf
-  - Analysis/1. Basic Analysis/Fundamental Theorem of Calculus.pdf
-  - Analysis/1. Basic Analysis/Inequalities of integral.pdf
-  - Analysis/1. Basic Analysis/Inequality in Real numbers.pdf
-  - Analysis/1. Basic Analysis/Kronecker approximation theorem.pdf
-  - Analysis/1. Basic Analysis/Lipschtiz.pdf
-  - Analysis/1. Basic Analysis/Normed Space.pdf
-  - Analysis/1. Basic Analysis/Open map is injective.pdf
-  - Analysis/1. Basic Analysis/Power Series.pdf
-  - Analysis/1. Basic Analysis/Riemann-Rearangement Theorem.pdf
-  - Analysis/1. Basic Analysis/Sequence in Real numbers.pdf
-  - Analysis/1. Basic Analysis/Sequences of functions.pdf
-  - Analysis/1. Basic Analysis/Series and Sequences.pdf
-  - Analysis/1. Basic Analysis/Series of product.pdf
-  - Analysis/1. Basic Analysis/Stone-Weierstrass Theorem.pdf
-  - Analysis/1. Basic Analysis/Supremum.pdf
-  - Analysis/1. Basic Analysis/Talyor Series.pdf
-  - Analysis/1. Basic Analysis/Talyor_s Theorem.pdf
-  - Analysis/1. Basic Analysis/Thomae function.pdf
-  - Analysis/1. Basic Analysis/Trigonometric series.pdf
-  - Analysis/1. Basic Analysis/Typical Sequences.pdf
-  - Analysis/1. Basic Analysis/xsin1_x.pdf
-  - Analysis/1. Basic Analysis/xsinx.pdf
-  - Analysis/2. Complex Analysis/Argument Principle.pdf
-  - Analysis/2. Complex Analysis/Cauchy integral formula.pdf
-  - Analysis/2. Complex Analysis/Cauchy-Riemann equation.pdf
-  - Analysis/2. Complex Analysis/Cauchy_s Inequality.pdf
-  - Analysis/2. Complex Analysis/Complex Analysis.pdf
-  - Analysis/2. Complex Analysis/Conformal mapping.pdf
-  - Analysis/2. Complex Analysis/Evaluation of Real integral.pdf
-  - Analysis/2. Complex Analysis/Exponential function.pdf
-  - Analysis/2. Complex Analysis/Gauss Meanvalue Theorem.pdf
-  - Analysis/2. Complex Analysis/Goursat Theorem.pdf
-  - Analysis/2. Complex Analysis/Harmonic Functions.pdf
-  - Analysis/2. Complex Analysis/Laurent Series of Polynomials.pdf
-  - Analysis/2. Complex Analysis/Residue Theorem.pdf
-  - Analysis/2. Complex Analysis/Silverman Solution.pdf
-  - Analysis/2. Complex Analysis/Silverman, Complex Analysis.pdf
-  - Analysis/2. Complex Analysis/Singularity.pdf
-  - Analysis/2. Complex Analysis/Uniqueness Theorem.pdf
-  - Analysis/3. Analysis on Manifold/Munkres, Analysis on manifold.pdf
-  - Differential Geometry/Euclidean/1-form.pdf
-  - Differential Geometry/Euclidean/Barrett O_neill Solution.pdf
-  - Differential Geometry/Euclidean/Barrett O_neill.pdf
-  - Differential Geometry/Euclidean/Tangent space and Directional derivatives.pdf
-  - Topology/1. General Topology/Basic metric space.pdf
-  - Topology/1. General Topology/Compactness.pdf
-  - Topology/1. General Topology/Connected Space.pdf
-  - Topology/1. General Topology/Continuous Map.pdf
-  - Topology/1. General Topology/Hilbert Space.pdf
-  - Topology/1. General Topology/Interior and Closure.pdf
-  - Topology/1. General Topology/Isometry.pdf
-  - Topology/1. General Topology/Metric diagram.pdf
-  - Topology/1. General Topology/One point Compactification.pdf
-  - Topology/1. General Topology/Product Topology.pdf
-  - Topology/1. General Topology/Product space.pdf
-  - Topology/1. General Topology/Quotient map.pdf
-  - Topology/1. General Topology/Subspace.pdf
-  - Topology/1. General Topology/Topological Group.pdf.pdf
-  - Topology/1. General Topology/Topological basis.pdf
-  - Topology/1. General Topology/Topological map 2.pdf
-  - Topology/1. General Topology/Topological map.pdf
-  - Topology/1. General Topology/p-norm.pdf
-  - Topology/2. Algebraic Topology/Hatcher, Algebraic Topology.pdf
-  - Tree of Subjects.pdf
+  baseline: true
+  added: []
   modified: []
+  moved_renamed: []
   deleted: []
+'260809':
+  baseline: false
+  added: []
+  modified: []
+  moved_renamed: []
+  deleted:
+  - Analysis/2. Complex Analysis/Cauchy integral formula
+  - Analysis/2. Complex Analysis/Cauchy-Riemann equation
+  - Analysis/2. Complex Analysis/Cauchy_s Inequality
+  - Analysis/2. Complex Analysis/Complex Analysis
+  - Analysis/2. Complex Analysis/Evaluation of Real integral
+  - Analysis/2. Complex Analysis/Exponential function
+  - Analysis/2. Complex Analysis/Gauss Meanvalue Theorem
+  - Analysis/2. Complex Analysis/Goursat Theorem
+  - Analysis/2. Complex Analysis/Laurent Series of Polynomials
+  - Analysis/2. Complex Analysis/Residue Theorem
+  - Analysis/2. Complex Analysis/Silverman Solution
+  - Analysis/2. Complex Analysis/Silverman, Complex Analysis
 '260813':
+  baseline: false
   added:
-  - Algebra/1. Linear Algebra/Bilinear forms.pdf
-  - Algebra/3. Finite Group Theory/Alternating Group.pdf
-  - Algebra/3. Finite Group Theory/Class equation.pdf
-  - Algebra/3. Finite Group Theory/Classification of small order groups.pdf
-  - Algebra/3. Finite Group Theory/Cyclic Group.pdf
-  - Algebra/3. Finite Group Theory/Dihedral Group.pdf
-  - Algebra/3. Finite Group Theory/Division Algorithm.pdf
-  - Algebra/3. Finite Group Theory/Jordan-Hölder.pdf
-  - Algebra/3. Finite Group Theory/P-Group.pdf
-  - Algebra/3. Finite Group Theory/Sylow Theorem.pdf
-  - Algebra/3. Finite Group Theory/Symmetric Group.pdf
-  - Algebra/3. Finite Group Theory/pgroups.pdf.pdf
-  - Algebra/4. Ring Theory/Basic ideal.pdf
-  - Algebra/4. Ring Theory/Chinese reminder theorem.pdf
-  - Algebra/4. Ring Theory/Dedekind-Hasse norm.pdf
-  - Algebra/4. Ring Theory/Domains (2).pdf
-  - Algebra/4. Ring Theory/Domains.pdf
-  - Algebra/4. Ring Theory/Eisenstein Criterion.pdf
-  - Algebra/4. Ring Theory/Fraction Ring.pdf
-  - Algebra/4. Ring Theory/Ideal.pdf
-  - Algebra/4. Ring Theory/Irreducible and Prime.pdf
-  - Algebra/4. Ring Theory/Nilradical and Radical.pdf
-  - Algebra/4. Ring Theory/Notebook 3.pdf
-  - Algebra/4. Ring Theory/Quadratic integer Ring.pdf
-  - Algebra/5. Polynomial Ring Theory/Polynomial Ring (2).pdf
-  - Algebra/5. Polynomial Ring Theory/Polynomial Ring.pdf
-  - Algebra/6. Field Theory/Basic field Theory.pdf
-  - Algebra/6. Field Theory/Basic field extension.pdf
-  - Algebra/6. Field Theory/Basic field.pdf
-  - Algebra/6. Field Theory/Biquadratic Field.pdf
-  - Algebra/6. Field Theory/Composite Field.pdf
-  - Algebra/6. Field Theory/Conjugate Isomorphism.pdf
-  - Algebra/6. Field Theory/Cyclotomic Field.pdf
-  - Algebra/6. Field Theory/Field Homomorphism.pdf
-  - Algebra/6. Field Theory/Finite field (2).pdf
-  - Algebra/6. Field Theory/Finite field.pdf
-  - Algebra/6. Field Theory/Formal Derivative and Separablity.pdf
-  - Algebra/6. Field Theory/Rationalize.pdf
-  - Algebra/6. Field Theory/Separable Extension.pdf
-  - Algebra/6. Field Theory/Spiltting Field.pdf
-  - Algebra/7. Galois Theory/Elementary examples of Galois group.pdf
-  - Algebra/7. Galois Theory/Galois Theorem.pdf
-  - Algebra/7. Galois Theory/Norm and Trace of Galois.pdf
-  - Analysis/1. Real Analysis/Abel formula.pdf
-  - Analysis/1. Real Analysis/Advanced Techniques for sequence.pdf
-  - Analysis/1. Real Analysis/Arzelà-Ascoli.pdf
-  - Analysis/1. Real Analysis/Banach Space.pdf
-  - Analysis/1. Real Analysis/Basic Riemann-integral.pdf
-  - Analysis/1. Real Analysis/Bounded Variation.pdf
-  - Analysis/1. Real Analysis/Cantor set.pdf
-  - Analysis/1. Real Analysis/Convexity.pdf
-  - Analysis/1. Real Analysis/Darboux_s Theorem.pdf
-  - Analysis/1. Real Analysis/Density of rational.pdf
-  - Analysis/1. Real Analysis/Differentiation.pdf
-  - Analysis/1. Real Analysis/Discontinuity.pdf
-  - Analysis/1. Real Analysis/Double Sequence.pdf
-  - Analysis/1. Real Analysis/Fundamental Theorem of Calculus.pdf
-  - Analysis/1. Real Analysis/Improper integral.pdf
-  - Analysis/1. Real Analysis/Inequalities of integral.pdf
-  - Analysis/1. Real Analysis/Inequality in Real numbers.pdf
-  - Analysis/1. Real Analysis/Kronecker approximation theorem.pdf
-  - Analysis/1. Real Analysis/Lipschtiz.pdf
-  - Analysis/1. Real Analysis/Normed Space.pdf
-  - Analysis/1. Real Analysis/Open map is injective.pdf
-  - Analysis/1. Real Analysis/Parameter dependent integral.pdf
-  - Analysis/1. Real Analysis/Power Series.pdf
-  - Analysis/1. Real Analysis/Riemann-Rearangement Theorem.pdf
-  - Analysis/1. Real Analysis/Sequences of functions.pdf
-  - Analysis/1. Real Analysis/Stone-Weierstrass Theorem.pdf
-  - Analysis/1. Real Analysis/Supremum.pdf
-  - Analysis/1. Real Analysis/Talyor Series.pdf
-  - Analysis/1. Real Analysis/Talyor_s Theorem.pdf
-  - Analysis/1. Real Analysis/Thomae function.pdf
-  - Analysis/1. Real Analysis/Trigonometric series.pdf
-  - Analysis/1. Real Analysis/Typical Sequences.pdf
-  - Analysis/1. Real Analysis/xsin1_x.pdf
-  - Analysis/1. Real Analysis/xsinx.pdf
-  - Analysis/2. Complex Analysis/Open mapping Theorem.pdf
-  - Analysis/2. Complex Analysis/Residue at infinite.pdf
-  - Analysis/2. Complex Analysis/Schwarz reflection principle.pdf
-  - Analysis/2. Complex Analysis/Trigonometric integral.pdf
-  - Analysis/5. Differential equation/Coddington, Intro.ODE.pdf
-  - Differential Geometry/1. Euclidean/Barrett O_neill Solution.pdf
-  - Differential Geometry/1. Euclidean/Barrett O_neill.pdf
-  - Differential Geometry/1. Euclidean/Calculus on Surface.pdf
-  - Differential Geometry/1. Euclidean/Covariant Derivative.pdf
-  - Differential Geometry/1. Euclidean/Cross product.pdf
-  - Differential Geometry/1. Euclidean/Differential Form.pdf
-  - Differential Geometry/1. Euclidean/Frenet fomular.pdf
-  - Differential Geometry/1. Euclidean/Mapping.pdf
-  - Differential Geometry/1. Euclidean/Shape Operater.pdf
-  - Differential Geometry/1. Euclidean/Surface.pdf
+  - Algebra/1. Linear Algebra/Bilinear forms
+  - Algebra/3. Finite Group Theory/Classification of small order groups
+  - Algebra/3. Finite Group Theory/Dihedral Group
+  - Algebra/3. Finite Group Theory/Sylow Theorem
+  - Algebra/4. Ring Theory/Irreducible and Prime
+  - Algebra/6. Field Theory/Conjugate Isomorphism
+  - Algebra/6. Field Theory/Field Homomorphism
+  - Algebra/6. Field Theory/Spiltting Field
+  - Algebra/7. Galois Theory/Elementary examples of Galois group
+  - Algebra/7. Galois Theory/Galois Theorem
+  - Algebra/7. Galois Theory/Norm and Trace of Galois
+  - Analysis/1. Real Analysis/Abel formula
+  - Analysis/1. Real Analysis/Banach Space
+  - Analysis/1. Real Analysis/Cantor set
+  - Analysis/1. Real Analysis/Improper integral
+  - Analysis/1. Real Analysis/Parameter dependent integral
+  - Analysis/1. Real Analysis/Trigonometric series
+  - Analysis/2. Complex Analysis/Cauchy integral formula
+  - Analysis/2. Complex Analysis/Cauchy-Riemann equation
+  - Analysis/2. Complex Analysis/Cauchy_s Inequality
+  - Analysis/2. Complex Analysis/Complex Analysis
+  - Analysis/2. Complex Analysis/Evaluation of Real integral
+  - Analysis/2. Complex Analysis/Exponential function
+  - Analysis/2. Complex Analysis/Gauss Meanvalue Theorem
+  - Analysis/2. Complex Analysis/Goursat Theorem
+  - Analysis/2. Complex Analysis/Laurent Series of Polynomials
+  - Analysis/2. Complex Analysis/Open mapping Theorem
+  - Analysis/2. Complex Analysis/Residue Theorem
+  - Analysis/2. Complex Analysis/Residue at infinite
+  - Analysis/2. Complex Analysis/Schwarz reflection principle
+  - Analysis/2. Complex Analysis/Silverman Solution
+  - Analysis/2. Complex Analysis/Silverman, Complex Analysis
+  - Analysis/2. Complex Analysis/Trigonometric integral
+  - Analysis/5. Differential equation/Coddington, Intro.ODE
+  - Differential Geometry/1. Euclidean/Calculus on Surface
+  - Differential Geometry/1. Euclidean/Covariant Derivative
+  - Differential Geometry/1. Euclidean/Cross product
+  - Differential Geometry/1. Euclidean/Differential Form
+  - Differential Geometry/1. Euclidean/Frenet fomular
+  - Differential Geometry/1. Euclidean/Mapping
+  - Differential Geometry/1. Euclidean/Shape Operater
+  - Differential Geometry/1. Euclidean/Surface
   modified:
-  - Algebra/1. Linear Algebra/Cyclic subspace.pdf
-  - Analysis/2. Complex Analysis/Argument Principle.pdf
-  - Analysis/2. Complex Analysis/Cauchy-Riemann equation.pdf
-  - Analysis/2. Complex Analysis/Harmonic Functions.pdf
-  - Analysis/2. Complex Analysis/Residue Theorem.pdf
-  - Analysis/2. Complex Analysis/Singularity.pdf
+  - Algebra/1. Linear Algebra/Cyclic subspace
+  - Analysis/2. Complex Analysis/Argument Principle
+  - Analysis/2. Complex Analysis/Harmonic Functions
+  - Analysis/2. Complex Analysis/Singularity
+  moved_renamed:
+  - from: Algebra/2. Group Theory/Alternating Group
+    to: Algebra/3. Finite Group Theory/Alternating Group
+  - from: Algebra/2. Group Theory/Class equation
+    to: Algebra/3. Finite Group Theory/Class equation
+  - from: Algebra/2. Group Theory/Cyclic Group
+    to: Algebra/3. Finite Group Theory/Cyclic Group
+  - from: Algebra/2. Group Theory/Division Algorithm
+    to: Algebra/3. Finite Group Theory/Division Algorithm
+  - from: Algebra/2. Group Theory/Jordan-Hölder
+    to: Algebra/3. Finite Group Theory/Jordan-Hölder
+  - from: Algebra/2. Group Theory/P-Group
+    to: Algebra/3. Finite Group Theory/P-Group
+  - from: Algebra/2. Group Theory/Symmetric Group
+    to: Algebra/3. Finite Group Theory/Symmetric Group
+  - from: Algebra/2. Group Theory/pgroups
+    to: Algebra/3. Finite Group Theory/pgroups
+  - from: Algebra/3. Ring Theory/Basic ideal
+    to: Algebra/4. Ring Theory/Basic ideal
+  - from: Algebra/3. Ring Theory/Chinese reminder theorem
+    to: Algebra/4. Ring Theory/Chinese reminder theorem
+  - from: Algebra/3. Ring Theory/Dedekind-Hasse norm
+    to: Algebra/4. Ring Theory/Dedekind-Hasse norm
+  - from: Algebra/3. Ring Theory/Domains (2)
+    to: Algebra/4. Ring Theory/Domains
+  - from: Algebra/3. Ring Theory/Domains
+    to: Algebra/4. Ring Theory/Domains (2)
+  - from: Algebra/3. Ring Theory/Eisenstein Criterion
+    to: Algebra/4. Ring Theory/Eisenstein Criterion
+  - from: Algebra/3. Ring Theory/Fraction Ring
+    to: Algebra/4. Ring Theory/Fraction Ring
+  - from: Algebra/3. Ring Theory/Ideal
+    to: Algebra/4. Ring Theory/Ideal
+  - from: Algebra/3. Ring Theory/Nilradical and Radical
+    to: Algebra/4. Ring Theory/Nilradical and Radical
+  - from: Algebra/3. Ring Theory/Notebook 3
+    to: Algebra/4. Ring Theory/Notebook 3
+  - from: Algebra/3. Ring Theory/Polynomial Ring (2)
+    to: Algebra/5. Polynomial Ring Theory/Polynomial Ring (2)
+  - from: Algebra/3. Ring Theory/Polynomial Ring
+    to: Algebra/5. Polynomial Ring Theory/Polynomial Ring
+  - from: Algebra/3. Ring Theory/Quadratic integer Ring
+    to: Algebra/4. Ring Theory/Quadratic integer Ring
+  - from: Algebra/4. Field Theory/Basic field Theory
+    to: Algebra/6. Field Theory/Basic field Theory
+  - from: Algebra/4. Field Theory/Basic field extension
+    to: Algebra/6. Field Theory/Basic field extension
+  - from: Algebra/4. Field Theory/Basic field
+    to: Algebra/6. Field Theory/Basic field
+  - from: Algebra/4. Field Theory/Biquadratic Field
+    to: Algebra/6. Field Theory/Biquadratic Field
+  - from: Algebra/4. Field Theory/Composite Field
+    to: Algebra/6. Field Theory/Composite Field
+  - from: Algebra/4. Field Theory/Cyclotomic Field
+    to: Algebra/6. Field Theory/Cyclotomic Field
+  - from: Algebra/4. Field Theory/Finite field (2)
+    to: Algebra/6. Field Theory/Finite field
+  - from: Algebra/4. Field Theory/Finite field
+    to: Algebra/6. Field Theory/Finite field (2)
+  - from: Algebra/4. Field Theory/Formal Derivative and Separablity
+    to: Algebra/6. Field Theory/Formal Derivative and Separablity
+  - from: Algebra/4. Field Theory/Rationalize
+    to: Algebra/6. Field Theory/Rationalize
+  - from: Algebra/4. Field Theory/Separable Extension
+    to: Algebra/6. Field Theory/Separable Extension
+  - from: Analysis/1. Basic Analysis/Advanced Techniques for sequence
+    to: Analysis/1. Real Analysis/Advanced Techniques for sequence
+  - from: Analysis/1. Basic Analysis/Arzelà-Ascoli
+    to: Analysis/1. Real Analysis/Arzelà-Ascoli
+  - from: Analysis/1. Basic Analysis/Basic Riemann-integral
+    to: Analysis/1. Real Analysis/Basic Riemann-integral
+  - from: Analysis/1. Basic Analysis/Bounded Variation
+    to: Analysis/1. Real Analysis/Bounded Variation
+  - from: Analysis/1. Basic Analysis/Convexity
+    to: Analysis/1. Real Analysis/Convexity
+  - from: Analysis/1. Basic Analysis/Darboux_s Theorem
+    to: Analysis/1. Real Analysis/Darboux_s Theorem
+  - from: Analysis/1. Basic Analysis/Density of rational
+    to: Analysis/1. Real Analysis/Density of rational
+  - from: Analysis/1. Basic Analysis/Differentiation
+    to: Analysis/1. Real Analysis/Differentiation
+  - from: Analysis/1. Basic Analysis/Discontinuity
+    to: Analysis/1. Real Analysis/Discontinuity
+  - from: Analysis/1. Basic Analysis/Double Sequence
+    to: Analysis/1. Real Analysis/Double Sequence
+  - from: Analysis/1. Basic Analysis/Fundamental Theorem of Calculus
+    to: Analysis/1. Real Analysis/Fundamental Theorem of Calculus
+  - from: Analysis/1. Basic Analysis/Inequalities of integral
+    to: Analysis/1. Real Analysis/Inequalities of integral
+  - from: Analysis/1. Basic Analysis/Inequality in Real numbers
+    to: Analysis/1. Real Analysis/Inequality in Real numbers
+  - from: Analysis/1. Basic Analysis/Kronecker approximation theorem
+    to: Analysis/1. Real Analysis/Kronecker approximation theorem
+  - from: Analysis/1. Basic Analysis/Lipschtiz
+    to: Analysis/1. Real Analysis/Lipschtiz
+  - from: Analysis/1. Basic Analysis/Normed Space
+    to: Analysis/1. Real Analysis/Normed Space
+  - from: Analysis/1. Basic Analysis/Open map is injective
+    to: Analysis/1. Real Analysis/Open map is injective
+  - from: Analysis/1. Basic Analysis/Power Series
+    to: Analysis/1. Real Analysis/Power Series
+  - from: Analysis/1. Basic Analysis/Riemann-Rearangement Theorem
+    to: Analysis/1. Real Analysis/Riemann-Rearangement Theorem
+  - from: Analysis/1. Basic Analysis/Sequences of functions
+    to: Analysis/1. Real Analysis/Sequences of functions
+  - from: Analysis/1. Basic Analysis/Stone-Weierstrass Theorem
+    to: Analysis/1. Real Analysis/Stone-Weierstrass Theorem
+  - from: Analysis/1. Basic Analysis/Supremum
+    to: Analysis/1. Real Analysis/Supremum
+  - from: Analysis/1. Basic Analysis/Talyor Series
+    to: Analysis/1. Real Analysis/Talyor Series
+  - from: Analysis/1. Basic Analysis/Talyor_s Theorem
+    to: Analysis/1. Real Analysis/Talyor_s Theorem
+  - from: Analysis/1. Basic Analysis/Thomae function
+    to: Analysis/1. Real Analysis/Thomae function
+  - from: Analysis/1. Basic Analysis/Typical Sequences
+    to: Analysis/1. Real Analysis/Typical Sequences
+  - from: Analysis/1. Basic Analysis/xsin1_x
+    to: Analysis/1. Real Analysis/xsin1_x
+  - from: Analysis/1. Basic Analysis/xsinx
+    to: Analysis/1. Real Analysis/xsinx
+  - from: Differential Geometry/Euclidean/Barrett O_neill Solution
+    to: Differential Geometry/1. Euclidean/Barrett O_neill Solution
+  - from: Differential Geometry/Euclidean/Barrett O_neill
+    to: Differential Geometry/1. Euclidean/Barrett O_neill
   deleted:
-  - Algebra/1. Linear Algebra/Normal Operater.pdf
-  - Algebra/1. Linear Algebra/Rigid Motion.pdf
-  - Algebra/1. Linear Algebra/Schur_s Triangular Theorem.pdf
-  - Algebra/1. Linear Algebra/Simultaneously Diagonalizable.pdf
-  - Algebra/1. Linear Algebra/Singular Value Decomposition (2).pdf
-  - Algebra/1. Linear Algebra/Spectrum Theorem.pdf
-  - Algebra/2. Group Theory/Alternating Group.pdf
-  - Algebra/2. Group Theory/Class equation.pdf
-  - Algebra/2. Group Theory/Cyclic Group.pdf
-  - Algebra/2. Group Theory/Division Algorithm.pdf
-  - Algebra/2. Group Theory/Jordan-Hölder.pdf
-  - Algebra/2. Group Theory/P-Group.pdf
-  - Algebra/2. Group Theory/Sylow Theorem.pdf
-  - Algebra/2. Group Theory/Symmetric Group.pdf
-  - Algebra/2. Group Theory/pgroups.pdf.pdf
-  - Algebra/3. Ring Theory/Basic ideal.pdf
-  - Algebra/3. Ring Theory/Chinese reminder theorem.pdf
-  - Algebra/3. Ring Theory/Dedekind-Hasse norm.pdf
-  - Algebra/3. Ring Theory/Domains (2).pdf
-  - Algebra/3. Ring Theory/Domains.pdf
-  - Algebra/3. Ring Theory/Eisenstein Criterion.pdf
-  - Algebra/3. Ring Theory/Fraction Ring.pdf
-  - Algebra/3. Ring Theory/Ideal.pdf
-  - Algebra/3. Ring Theory/Nilradical and Radical.pdf
-  - Algebra/3. Ring Theory/Notebook 3.pdf
-  - Algebra/3. Ring Theory/Polynomial Ring (2).pdf
-  - Algebra/3. Ring Theory/Polynomial Ring.pdf
-  - Algebra/3. Ring Theory/Quadratic integer Ring.pdf
-  - Algebra/4. Field Theory/Automotphisms of Field Extension.pdf
-  - Algebra/4. Field Theory/Basic field Theory.pdf
-  - Algebra/4. Field Theory/Basic field extension.pdf
-  - Algebra/4. Field Theory/Basic field.pdf
-  - Algebra/4. Field Theory/Biquadratic Field.pdf
-  - Algebra/4. Field Theory/Composite Field.pdf
-  - Algebra/4. Field Theory/Cyclotomic Field.pdf
-  - Algebra/4. Field Theory/Field Automorphism.pdf
-  - Algebra/4. Field Theory/Finite field (2).pdf
-  - Algebra/4. Field Theory/Finite field.pdf
-  - Algebra/4. Field Theory/Formal Derivative and Separablity.pdf
-  - Algebra/4. Field Theory/Galois Theory.pdf
-  - Algebra/4. Field Theory/Norm and Trace of Galois.pdf
-  - Algebra/4. Field Theory/Rationalize.pdf
-  - Algebra/4. Field Theory/Separable Extension (2).pdf
-  - Algebra/4. Field Theory/Separable Extension.pdf
-  - Algebra/4. Field Theory/Splitting field.pdf
-  - Analysis/1. Basic Analysis/Abel formula.pdf
-  - Analysis/1. Basic Analysis/Advanced Techniques for sequence.pdf
-  - Analysis/1. Basic Analysis/Arzelà-Ascoli.pdf
-  - Analysis/1. Basic Analysis/Basic Riemann-integral.pdf
-  - Analysis/1. Basic Analysis/Bounded Variation.pdf
-  - Analysis/1. Basic Analysis/Cantor set.pdf
-  - Analysis/1. Basic Analysis/Convexity.pdf
-  - Analysis/1. Basic Analysis/Darboux_s Theorem.pdf
-  - Analysis/1. Basic Analysis/Density of rational.pdf
-  - Analysis/1. Basic Analysis/Differentiation.pdf
-  - Analysis/1. Basic Analysis/Discontinuity.pdf
-  - Analysis/1. Basic Analysis/Double Sequence.pdf
-  - Analysis/1. Basic Analysis/Fundamental Theorem of Calculus.pdf
-  - Analysis/1. Basic Analysis/Inequalities of integral.pdf
-  - Analysis/1. Basic Analysis/Inequality in Real numbers.pdf
-  - Analysis/1. Basic Analysis/Kronecker approximation theorem.pdf
-  - Analysis/1. Basic Analysis/Lipschtiz.pdf
-  - Analysis/1. Basic Analysis/Normed Space.pdf
-  - Analysis/1. Basic Analysis/Open map is injective.pdf
-  - Analysis/1. Basic Analysis/Power Series.pdf
-  - Analysis/1. Basic Analysis/Riemann-Rearangement Theorem.pdf
-  - Analysis/1. Basic Analysis/Sequence in Real numbers.pdf
-  - Analysis/1. Basic Analysis/Sequences of functions.pdf
-  - Analysis/1. Basic Analysis/Series and Sequences.pdf
-  - Analysis/1. Basic Analysis/Series of product.pdf
-  - Analysis/1. Basic Analysis/Stone-Weierstrass Theorem.pdf
-  - Analysis/1. Basic Analysis/Supremum.pdf
-  - Analysis/1. Basic Analysis/Talyor Series.pdf
-  - Analysis/1. Basic Analysis/Talyor_s Theorem.pdf
-  - Analysis/1. Basic Analysis/Thomae function.pdf
-  - Analysis/1. Basic Analysis/Trigonometric series.pdf
-  - Analysis/1. Basic Analysis/Typical Sequences.pdf
-  - Analysis/1. Basic Analysis/xsin1_x.pdf
-  - Analysis/1. Basic Analysis/xsinx.pdf
-  - Differential Geometry/Euclidean/1-form.pdf
-  - Differential Geometry/Euclidean/Barrett O_neill Solution.pdf
-  - Differential Geometry/Euclidean/Barrett O_neill.pdf
-  - Differential Geometry/Euclidean/Tangent space and Directional derivatives.pdf
+  - Algebra/1. Linear Algebra/Normal Operater
+  - Algebra/1. Linear Algebra/Rigid Motion
+  - Algebra/1. Linear Algebra/Schur_s Triangular Theorem
+  - Algebra/1. Linear Algebra/Simultaneously Diagonalizable
+  - Algebra/1. Linear Algebra/Singular Value Decomposition (2)
+  - Algebra/1. Linear Algebra/Spectrum Theorem
+  - Algebra/2. Group Theory/Sylow Theorem
+  - Algebra/4. Field Theory/Automotphisms of Field Extension
+  - Algebra/4. Field Theory/Field Automorphism
+  - Algebra/4. Field Theory/Galois Theory
+  - Algebra/4. Field Theory/Norm and Trace of Galois
+  - Algebra/4. Field Theory/Separable Extension (2)
+  - Algebra/4. Field Theory/Splitting field
+  - Analysis/1. Basic Analysis/Abel formula
+  - Analysis/1. Basic Analysis/Cantor set
+  - Analysis/1. Basic Analysis/Sequence in Real numbers
+  - Analysis/1. Basic Analysis/Series and Sequences
+  - Analysis/1. Basic Analysis/Series of product
+  - Analysis/1. Basic Analysis/Trigonometric series
+  - Differential Geometry/Euclidean/1-form
+  - Differential Geometry/Euclidean/Tangent space and Directional derivatives
 '260814':
+  baseline: false
   added:
-  - Algebra/7. Galois Theory/Typical Galois extensions.pdf
-  - Analysis/1. Real Analysis/Stolz-Cesaro theorem.pdf
+  - Algebra/7. Galois Theory/Typical Galois extensions
+  - Analysis/1. Real Analysis/Stolz-Cesaro theorem
   modified:
-  - Analysis/1. Real Analysis/Advanced Techniques for sequence.pdf
-  - Analysis/1. Real Analysis/Cantor set.pdf
+  - Analysis/1. Real Analysis/Advanced Techniques for sequence
+  - Analysis/1. Real Analysis/Cantor set
+  moved_renamed: []
   deleted:
-  - Algebra/7. Galois Theory/Elementary examples of Galois group.pdf
+  - Algebra/7. Galois Theory/Elementary examples of Galois group
+'260815':
+  baseline: false
+  added: []
+  modified: []
+  moved_renamed: []
+  deleted: []
