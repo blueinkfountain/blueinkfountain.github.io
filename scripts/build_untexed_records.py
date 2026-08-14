@@ -535,7 +535,6 @@ print("Record summary")
 print("=" * 70)
 print()
 
-
 for date, record in records.items():
 
     print(date)
