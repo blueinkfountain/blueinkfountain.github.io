@@ -63,11 +63,24 @@ def display_path(relative_path):
 
     parts = relative_path.split("/")
 
-    if parts:
-        parts[-1] = strip_pdf_suffixes(parts[-1])
+    cleaned_parts = []
 
-    return "/".join(parts)
+    for part in parts:
 
+        # 마지막의 .pdf / .pdf.pdf 제거
+        part = strip_pdf_suffixes(part)
+
+        # "1. Linear Algebra" -> "Linear Algebra"
+        # "3. Finite Group Theory" -> "Finite Group Theory"
+        part = re.sub(
+            r"^\d+\.\s*",
+            "",
+            part
+        )
+
+        cleaned_parts.append(part)
+
+    return "/".join(cleaned_parts)
 
 # =========================================================
 # 비교용 파일명 정규화
