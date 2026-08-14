@@ -1,0 +1,135 @@
+name: Build and Deploy Math Blog
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+
+jobs:
+
+  # ======================================================
+  # Build
+  # ======================================================
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # --------------------------------------------------
+      # 1. Repository 가져오기
+      # --------------------------------------------------
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+
+      # --------------------------------------------------
+      # 2. Python 설치
+      # --------------------------------------------------
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+
+        with:
+          python-version: "3.12"
+
+
+      # --------------------------------------------------
+      # 3. PDF 비교에 필요한 Python package 설치
+      # --------------------------------------------------
+
+      - name: Install Python dependencies
+
+        run: |
+          python -m pip install --upgrade pip
+          pip install pymupdf pyyaml
+
+
+      # --------------------------------------------------
+      # 4. 날짜별 PDF 변경 기록 자동 생성
+      #
+      # _data/untexed_records.yml 이 여기서 생성됨
+      # --------------------------------------------------
+
+      - name: Generate untexed records
+
+        run: |
+          python scripts/build_untexed_records.py
+
+
+      # --------------------------------------------------
+      # 5. GitHub Pages 설정
+      # --------------------------------------------------
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+
+      # --------------------------------------------------
+      # 6. Jekyll build
+      #
+      # 위에서 생성한
+      # _data/untexed_records.yml도 같이 읽힘
+      # --------------------------------------------------
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+
+        with:
+          source: ./
+          destination: ./_site
+
+
+      # --------------------------------------------------
+      # 7. 완성된 사이트 업로드
+      # --------------------------------------------------
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+
+        with:
+          path: ./_site
+
+
+
+  # ======================================================
+  # Deploy
+  # ======================================================
+
+  deploy:
+
+    environment:
+
+      name: github-pages
+
+      url: ${{ steps.deployment.outputs.page_url }}
+
+
+    runs-on: ubuntu-latest
+
+    needs: build
+
+
+    steps:
+
+      - name: Deploy to GitHub Pages
+
+        id: deployment
+
+        uses: actions/deploy-pages@v4
