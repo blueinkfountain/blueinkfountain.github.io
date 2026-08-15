@@ -1983,6 +1983,71 @@ def main():
 
         }
 
+            
+            # =========================================================
+        # Current library total ink
+        #
+        # 최신 snapshot에 현재 존재하는 모든 PDF의
+        # 전체 handwriting ink를 합산한다.
+        #
+        # 이것은 "오늘 추가된 양"이 아니라
+        # 현재 노트 전체의 절대적인 총 필기량이다.
+        # =========================================================
+
+        latest_date_dir = date_dirs[-1]
+
+        library_total_ink_pixels = 0
+
+
+        print()
+        print("=" * 70)
+        print("Calculating total library ink")
+        print("=" * 70)
+        print()
+
+
+        for relative_path in sorted(
+            snapshots[latest_date_dir.name].keys()
+        ):
+
+            pdf_path = (
+                latest_date_dir
+                /
+                Path(relative_path)
+            )
+
+            print(
+                f"Total ink: {relative_path}"
+            )
+
+            library_total_ink_pixels += (
+                count_total_ink_pixels(
+                    pdf_path
+                )
+            )
+
+
+        library_total_ink_percent = (
+            rounded_ink_percent(
+                library_total_ink_pixels
+            )
+        )
+
+
+        records[
+            latest_date_dir.name
+        ][
+            "library_total_ink_percent"
+        ] = library_total_ink_percent
+
+
+        print()
+        print(
+            f"Total library ink: "
+            f"+{library_total_ink_percent:.1f}%"
+        )
+        print()
+
 
     # =====================================================
     # YAML

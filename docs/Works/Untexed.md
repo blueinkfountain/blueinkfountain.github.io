@@ -63,7 +63,7 @@ nav_order: 3
         </span>
 
         <span class="overall-ink-value">
-          +{{ latest_record.total_ink_percent }}% ink
+          {{ latest_record.library_total_ink_percent }}% ink
         </span>
 
       </div>
