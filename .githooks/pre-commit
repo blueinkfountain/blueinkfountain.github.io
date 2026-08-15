@@ -1,0 +1,25 @@
+mkdir -p .githooks
+
+cat > .githooks/pre-commit <<'EOF'
+#!/bin/sh
+set -e
+
+if [ -x ".venv/bin/python" ]; then
+    PYTHON=".venv/bin/python"
+else
+    PYTHON="python3"
+fi
+
+echo "Updating handwritten-note records..."
+
+"$PYTHON" scripts/build_untexed_records.py
+
+git add _data/untexed_records.yml
+git add -A untexed-current/
+
+echo "Handwritten-note records updated."
+EOF
+
+chmod +x .githooks/pre-commit
+
+git config core.hooksPath .githooks

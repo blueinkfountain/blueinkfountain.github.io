@@ -7,41 +7,11 @@ nav_order: 3
 
 # Handwritten notes yet to be TeXed.
 
-
-{% assign pdf_files = site.static_files
-  | where_exp: "item", "item.path contains '/untexed/'"
-  | sort: "path"
-%}
-
-
-{% assign dates = "" | split: "" %}
-
-
-{% for file in pdf_files %}
-
-  {% if file.extname == ".pdf" or file.extname == ".PDF" %}
-
-    {% assign parts = file.path | split: "/" %}
-    {% assign file_date = parts[2] %}
-
-    {% unless dates contains file_date %}
-      {% assign dates = dates | push: file_date %}
-    {% endunless %}
-
-  {% endif %}
-
-{% endfor %}
-
-
-{% assign dates = dates | sort | reverse %}
-{% assign latest_date = dates[0] %}
-{% assign latest_record = site.data.untexed_records[latest_date] %}
-
-{% assign latest_prefix = "/untexed/"
-  | append: latest_date
-  | append: "/"
-%}
-
+{% assign untexed_data = site.data.untexed_records %}
+{% assign latest_date = untexed_data.latest_date %}
+{% assign dates = untexed_data.dates %}
+{% assign records = untexed_data.records %}
+{% assign latest_record = records[latest_date] %}
 
 
 <div class="academic-tree-container">
@@ -49,7 +19,7 @@ nav_order: 3
 
   {%- comment -%}
   =========================================================
-  Total Ink
+  Absolute Total Ink
   =========================================================
   {%- endcomment -%}
 
@@ -75,216 +45,91 @@ nav_order: 3
 
   {%- comment -%}
   =========================================================
-  Latest folders
+  Latest snapshot
   =========================================================
   {%- endcomment -%}
 
-  {% assign latest_folders = "" | split: "" %}
+  {% if latest_record %}
 
-  {% for file in pdf_files %}
-
-    {% if file.extname == ".pdf" or file.extname == ".PDF" %}
-
-      {% assign parts = file.path | split: "/" %}
-      {% assign file_date = parts[2] %}
-
-      {% if file_date == latest_date %}
-
-        {% assign folder_parts = "" | split: "" %}
-
-        {% for part in parts %}
-          {% if forloop.index > 3 and forloop.last == false %}
-            {% assign folder_parts = folder_parts | push: part %}
-          {% endif %}
-        {% endfor %}
-
-        {% capture folder_name %}
-          {{ folder_parts | join: " / " }}
-        {% endcapture %}
-
-        {% assign folder_name = folder_name | strip %}
-
-        {% if folder_name == "" %}
-          {% assign folder_name = "General" %}
-        {% endif %}
-
-        {% unless latest_folders contains folder_name %}
-          {% assign latest_folders = latest_folders | push: folder_name %}
-        {% endunless %}
-
-      {% endif %}
-
-    {% endif %}
-
-  {% endfor %}
-
-
-
-  {%- comment -%}
-  =========================================================
-  Latest main view
-  =========================================================
-  {%- endcomment -%}
-
-  {% assign last_subject = "" %}
-
-  {% for folder in latest_folders %}
-
-    {% assign subject_parts = folder | split: " / " %}
-    {% assign current_subject = subject_parts[0] %}
-
-    {%- comment -%}
-    Subject heading
-    {%- endcomment -%}
-
-    {% if current_subject != last_subject %}
-
-      {% assign subject_ink = nil %}
-
-      {% if latest_record %}
-        {% if latest_record.subject_ink_percent %}
-          {% assign subject_ink = latest_record.subject_ink_percent[current_subject] %}
-        {% endif %}
-      {% endif %}
+    {% for subject in latest_record.subjects %}
 
       <div class="subject-divider">
 
         <div class="subject-heading-row">
 
           <div class="subject-title">
-            {{ current_subject | replace: "_", " " }}
+            {{ subject.name | replace: "_", " " }}
           </div>
 
-          {% if subject_ink %}
-            {% if subject_ink > 0 %}
-              <span class="subject-ink">
-                +{{ subject_ink }}% ink
-              </span>
-            {% endif %}
+          {% if subject.ink_added_percent > 0 %}
+
+            <span class="subject-ink">
+              +{{ subject.ink_added_percent }}% ink
+            </span>
+
           {% endif %}
 
         </div>
 
       </div>
 
-      {% assign last_subject = current_subject %}
 
-    {% endif %}
+      {% for folder in subject.folders %}
 
+        <details class="academic-folder">
 
+          <summary class="folder-summary">
 
-    {%- comment -%}
-    Folder subtotal
-    IMPORTANT:
-    folder_ink_percent key는 "Algebra/1. Linear Algebra" 꼴이므로
-    "Algebra / 1. Linear Algebra" -> "Algebra/1. Linear Algebra" 로 변환해서 lookup
-    {%- endcomment -%}
-
-    {% assign raw_folder_key = folder | replace: " / ", "/" %}
-    {% assign folder_ink = nil %}
-
-    {% if latest_record %}
-      {% if latest_record.folder_ink_percent %}
-        {% assign folder_ink = latest_record.folder_ink_percent[raw_folder_key] %}
-      {% endif %}
-    {% endif %}
-
-
-    <details class="academic-folder">
-
-      <summary class="folder-summary">
-
-        <span class="folder-label">
-          {{ folder | replace: "_", " " }}
-        </span>
-
-        {% if folder_ink %}
-          {% if folder_ink > 0 %}
-            <span class="folder-ink">
-              +{{ folder_ink }}% ink
+            <span class="folder-label">
+              {{ folder.label | replace: "_", " " }}
             </span>
-          {% endif %}
-        {% endif %}
 
-      </summary>
+            {% if folder.ink_added_percent > 0 %}
 
-
-      <ul class="file-list">
-
-        {% for file in pdf_files %}
-
-          {% if file.extname == ".pdf" or file.extname == ".PDF" %}
-
-            {% assign parts = file.path | split: "/" %}
-            {% assign file_date = parts[2] %}
-
-            {% if file_date == latest_date %}
-
-              {% assign current_folder_parts = "" | split: "" %}
-
-              {% for part in parts %}
-                {% if forloop.index > 3 and forloop.last == false %}
-                  {% assign current_folder_parts = current_folder_parts | push: part %}
-                {% endif %}
-              {% endfor %}
-
-              {% capture current_folder %}
-                {{ current_folder_parts | join: " / " }}
-              {% endcapture %}
-
-              {% assign current_folder = current_folder | strip %}
-
-              {% if current_folder == "" %}
-                {% assign current_folder = "General" %}
-              {% endif %}
-
-
-              {% if current_folder == folder %}
-
-                {% assign raw_relative_path = file.path | remove_first: latest_prefix %}
-
-                {% assign file_ink = nil %}
-
-                {% if latest_record %}
-                  {% if latest_record.file_ink_percent %}
-                    {% assign file_ink = latest_record.file_ink_percent[raw_relative_path] %}
-                  {% endif %}
-                {% endif %}
-
-
-                <li class="file-item">
-
-                  <a
-                    href="{{ file.path | relative_url }}"
-                    target="_blank"
-                    class="file-link"
-                  >
-                    {{ file.basename }}
-                  </a>
-
-                  {% if file_ink %}
-                    {% if file_ink > 0 %}
-                      <span class="file-ink">
-                        +{{ file_ink }}% ink
-                      </span>
-                    {% endif %}
-                  {% endif %}
-
-                </li>
-
-              {% endif %}
+              <span class="folder-ink">
+                +{{ folder.ink_added_percent }}% ink
+              </span>
 
             {% endif %}
 
-          {% endif %}
+          </summary>
 
-        {% endfor %}
 
-      </ul>
+          <ul class="file-list">
 
-    </details>
+            {% for file in folder.files %}
 
-  {% endfor %}
+              <li class="file-item">
+
+                <a
+                  href="{{ file.url | relative_url }}"
+                  target="_blank"
+                  class="file-link"
+                >
+                  {{ file.name }}
+                </a>
+
+                {% if file.ink_added_percent > 0 %}
+
+                  <span class="file-ink">
+                    +{{ file.ink_added_percent }}% ink
+                  </span>
+
+                {% endif %}
+
+              </li>
+
+            {% endfor %}
+
+          </ul>
+
+        </details>
+
+      {% endfor %}
+
+    {% endfor %}
+
+  {% endif %}
 
 
 
@@ -305,9 +150,11 @@ nav_order: 3
         </span>
 
         {% unless latest_record.baseline %}
+
           <span class="record-total-ink">
             +{{ latest_record.total_ink_percent }}% ink
           </span>
+
         {% endunless %}
 
       </summary>
@@ -329,9 +176,11 @@ nav_order: 3
           {% assign has_deleted = latest_record.deleted.size %}
 
           {% if has_added == 0 and has_modified == 0 and has_moved == 0 and has_deleted == 0 %}
+
             <div class="record-note">
               No changes detected from the previous snapshot.
             </div>
+
           {% endif %}
 
 
@@ -346,6 +195,7 @@ nav_order: 3
               <ul class="record-list">
 
                 {% for item in latest_record.added %}
+
                   <li class="record-added">
 
                     <span class="record-path">
@@ -357,6 +207,7 @@ nav_order: 3
                     </span>
 
                   </li>
+
                 {% endfor %}
 
               </ul>
@@ -364,7 +215,6 @@ nav_order: 3
             </div>
 
           {% endif %}
-
 
 
           {% if latest_record.modified.size > 0 %}
@@ -378,6 +228,7 @@ nav_order: 3
               <ul class="record-list">
 
                 {% for item in latest_record.modified %}
+
                   <li class="record-modified">
 
                     <span class="record-path">
@@ -389,6 +240,7 @@ nav_order: 3
                     </span>
 
                   </li>
+
                 {% endfor %}
 
               </ul>
@@ -396,7 +248,6 @@ nav_order: 3
             </div>
 
           {% endif %}
-
 
 
           {% if latest_record.moved_renamed.size > 0 %}
@@ -410,6 +261,7 @@ nav_order: 3
               <ul class="record-list">
 
                 {% for move in latest_record.moved_renamed %}
+
                   <li class="record-moved">
 
                     <span class="record-move-from">
@@ -425,12 +277,15 @@ nav_order: 3
                     </span>
 
                     {% if move.ink_added_percent > 0 %}
+
                       <span class="ink-added">
                         +{{ move.ink_added_percent }}% ink
                       </span>
+
                     {% endif %}
 
                   </li>
+
                 {% endfor %}
 
               </ul>
@@ -438,7 +293,6 @@ nav_order: 3
             </div>
 
           {% endif %}
-
 
 
           {% if latest_record.deleted.size > 0 %}
@@ -452,9 +306,11 @@ nav_order: 3
               <ul class="record-list">
 
                 {% for path in latest_record.deleted %}
+
                   <li class="record-deleted">
                     {{ path }}
                   </li>
+
                 {% endfor %}
 
               </ul>
@@ -476,6 +332,9 @@ nav_order: 3
   {%- comment -%}
   =========================================================
   Previous versions
+
+  Historical PDFs themselves are NOT on GitHub.
+  The lists below come entirely from YAML generated locally.
   =========================================================
   {%- endcomment -%}
 
@@ -494,6 +353,8 @@ nav_order: 3
 
           {% unless date == latest_date %}
 
+            {% assign version_record = records[date] %}
+
             <details class="version-folder">
 
               <summary class="version-summary">
@@ -503,7 +364,12 @@ nav_order: 3
 
               <div class="version-content">
 
-                {% assign version_record = site.data.untexed_records[date] %}
+
+                {%- comment -%}
+                =============================================
+                Previous Record
+                =============================================
+                {%- endcomment -%}
 
                 <div class="record-static">
 
@@ -514,11 +380,15 @@ nav_order: 3
                     </span>
 
                     {% if version_record %}
+
                       {% unless version_record.baseline %}
+
                         <span class="record-total-ink">
                           +{{ version_record.total_ink_percent }}% ink
                         </span>
+
                       {% endunless %}
+
                     {% endif %}
 
                   </div>
@@ -542,9 +412,11 @@ nav_order: 3
                         {% assign has_deleted = version_record.deleted.size %}
 
                         {% if has_added == 0 and has_modified == 0 and has_moved == 0 and has_deleted == 0 %}
+
                           <div class="record-note">
                             No changes detected from the previous snapshot.
                           </div>
+
                         {% endif %}
 
 
@@ -559,6 +431,7 @@ nav_order: 3
                             <ul class="record-list">
 
                               {% for item in version_record.added %}
+
                                 <li class="record-added">
 
                                   <span class="record-path">
@@ -570,6 +443,7 @@ nav_order: 3
                                   </span>
 
                                 </li>
+
                               {% endfor %}
 
                             </ul>
@@ -577,7 +451,6 @@ nav_order: 3
                           </div>
 
                         {% endif %}
-
 
 
                         {% if version_record.modified.size > 0 %}
@@ -591,6 +464,7 @@ nav_order: 3
                             <ul class="record-list">
 
                               {% for item in version_record.modified %}
+
                                 <li class="record-modified">
 
                                   <span class="record-path">
@@ -602,6 +476,7 @@ nav_order: 3
                                   </span>
 
                                 </li>
+
                               {% endfor %}
 
                             </ul>
@@ -609,7 +484,6 @@ nav_order: 3
                           </div>
 
                         {% endif %}
-
 
 
                         {% if version_record.moved_renamed.size > 0 %}
@@ -623,6 +497,7 @@ nav_order: 3
                             <ul class="record-list">
 
                               {% for move in version_record.moved_renamed %}
+
                                 <li class="record-moved">
 
                                   <span class="record-move-from">
@@ -638,12 +513,15 @@ nav_order: 3
                                   </span>
 
                                   {% if move.ink_added_percent > 0 %}
+
                                     <span class="ink-added">
                                       +{{ move.ink_added_percent }}% ink
                                     </span>
+
                                   {% endif %}
 
                                 </li>
+
                               {% endfor %}
 
                             </ul>
@@ -651,7 +529,6 @@ nav_order: 3
                           </div>
 
                         {% endif %}
-
 
 
                         {% if version_record.deleted.size > 0 %}
@@ -665,9 +542,11 @@ nav_order: 3
                             <ul class="record-list">
 
                               {% for path in version_record.deleted %}
+
                                 <li class="record-deleted">
                                   {{ path }}
                                 </li>
+
                               {% endfor %}
 
                             </ul>
@@ -692,149 +571,76 @@ nav_order: 3
 
 
 
-                <details class="version-files-toggle">
+                {%- comment -%}
+                =============================================
+                Previous file list
+                No links: old PDFs are local-only.
+                =============================================
+                {%- endcomment -%}
 
-                  <summary class="files-summary">
-                    Files
-                  </summary>
+                {% if version_record %}
 
+                  <details class="version-files-toggle">
 
-                  <div class="version-files">
-
-                    {% assign version_folders = "" | split: "" %}
-
-                    {% for file in pdf_files %}
-
-                      {% if file.extname == ".pdf" or file.extname == ".PDF" %}
-
-                        {% assign parts = file.path | split: "/" %}
-                        {% assign file_date = parts[2] %}
-
-                        {% if file_date == date %}
-
-                          {% assign folder_parts = "" | split: "" %}
-
-                          {% for part in parts %}
-                            {% if forloop.index > 3 and forloop.last == false %}
-                              {% assign folder_parts = folder_parts | push: part %}
-                            {% endif %}
-                          {% endfor %}
-
-                          {% capture folder_name %}
-                            {{ folder_parts | join: " / " }}
-                          {% endcapture %}
-
-                          {% assign folder_name = folder_name | strip %}
-
-                          {% if folder_name == "" %}
-                            {% assign folder_name = "General" %}
-                          {% endif %}
-
-                          {% unless version_folders contains folder_name %}
-                            {% assign version_folders = version_folders | push: folder_name %}
-                          {% endunless %}
-
-                        {% endif %}
-
-                      {% endif %}
-
-                    {% endfor %}
+                    <summary class="files-summary">
+                      Files
+                    </summary>
 
 
+                    <div class="version-files">
 
-                    {% assign last_subject = "" %}
-
-                    {% for folder in version_folders %}
-
-                      {% assign subject_parts = folder | split: " / " %}
-                      {% assign current_subject = subject_parts[0] %}
-
-                      {% if current_subject != last_subject %}
+                      {% for subject in version_record.subjects %}
 
                         <div class="subject-divider nested-subject-divider">
 
                           <div class="subject-title">
-                            {{ current_subject | replace: "_", " " }}
+                            {{ subject.name | replace: "_", " " }}
                           </div>
 
                         </div>
 
-                        {% assign last_subject = current_subject %}
 
-                      {% endif %}
+                        {% for folder in subject.folders %}
 
+                          <details class="academic-folder nested-folder">
 
-                      <details class="academic-folder nested-folder">
+                            <summary class="folder-summary">
 
-                        <summary class="folder-summary">
+                              <span class="folder-label">
+                                {{ folder.label | replace: "_", " " }}
+                              </span>
 
-                          <span class="folder-label">
-                            {{ folder | replace: "_", " " }}
-                          </span>
-
-                        </summary>
+                            </summary>
 
 
-                        <ul class="file-list">
+                            <ul class="file-list">
 
-                          {% for file in pdf_files %}
+                              {% for file in folder.files %}
 
-                            {% if file.extname == ".pdf" or file.extname == ".PDF" %}
+                                <li class="file-item historical-file-item">
 
-                              {% assign parts = file.path | split: "/" %}
-                              {% assign file_date = parts[2] %}
+                                  <span class="historical-file-name">
+                                    {{ file.name }}
+                                  </span>
 
-                              {% if file_date == date %}
+                                </li>
 
-                                {% assign current_folder_parts = "" | split: "" %}
+                              {% endfor %}
 
-                                {% for part in parts %}
-                                  {% if forloop.index > 3 and forloop.last == false %}
-                                    {% assign current_folder_parts = current_folder_parts | push: part %}
-                                  {% endif %}
-                                {% endfor %}
+                            </ul>
 
-                                {% capture current_folder %}
-                                  {{ current_folder_parts | join: " / " }}
-                                {% endcapture %}
+                          </details>
 
-                                {% assign current_folder = current_folder | strip %}
+                        {% endfor %}
 
-                                {% if current_folder == "" %}
-                                  {% assign current_folder = "General" %}
-                                {% endif %}
+                      {% endfor %}
 
-                                {% if current_folder == folder %}
+                    </div>
 
-                                  <li class="file-item">
+                  </details>
 
-                                    <a
-                                      href="{{ file.path | relative_url }}"
-                                      target="_blank"
-                                      class="file-link"
-                                    >
-                                      {{ file.basename }}
-                                    </a>
+                {% endif %}
 
-                                  </li>
-
-                                {% endif %}
-
-                              {% endif %}
-
-                            {% endif %}
-
-                          {% endfor %}
-
-                        </ul>
-
-                      </details>
-
-                    {% endfor %}
-
-                  </div>
-
-                </details>
 
               </div>
 
@@ -849,6 +655,7 @@ nav_order: 3
     </details>
 
   {% endif %}
+
 
 </div>
 
@@ -870,7 +677,7 @@ nav_order: 3
 
 
 /* =====================================================
-   Ink accent color
+   Ink accent
    ===================================================== */
 
 :root {
@@ -1042,6 +849,11 @@ nav_order: 3
   font-size: 0.75rem;
   color: #aaa;
   white-space: nowrap;
+}
+
+.historical-file-name {
+  color: #777;
+  font-size: 0.95rem;
 }
 
 
@@ -1341,6 +1153,10 @@ nav_order: 3
 
   .file-ink {
     font-size: 0.7rem;
+  }
+
+  .historical-file-name {
+    font-size: 0.9rem;
   }
 
   .previous-version-list {
