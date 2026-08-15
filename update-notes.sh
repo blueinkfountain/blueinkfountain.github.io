@@ -7,11 +7,13 @@ else
     PYTHON="python3"
 fi
 
-echo "Updating handwritten-note records..."
+echo "Updating handwritten notes..."
 
 "$PYTHON" scripts/build_untexed_records.py
 
 git add _data/untexed_records.yml
 git add -A untexed-current/
 
-echo "Handwritten-note records updated."
+echo
+echo "Done."
+echo "You can now commit normally."

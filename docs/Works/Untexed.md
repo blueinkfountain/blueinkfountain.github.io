@@ -623,8 +623,16 @@ nav_order: 3
                                     {{ file.name }}
                                   </span>
 
-                                </li>
+                                  {% if file.ink_added_percent > 0 %}
 
+                                    <span class="file-ink">
+                                      +{{ file.ink_added_percent }}% ink
+                                    </span>
+
+                                  {% endif %}
+
+                                </li>
+                                
                               {% endfor %}
 
                             </ul>
