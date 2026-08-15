@@ -457,9 +457,6 @@ records:
         label: General
         ink_added_percent: 0.0
         files:
-        - name: Tree of Subjects 복사본
-          raw_path: Tree of Subjects 복사본.pdf
-          ink_added_percent: 0.0
         - name: Tree of Subjects
           raw_path: Tree of Subjects.pdf
           ink_added_percent: 0.0
@@ -1408,7 +1405,6 @@ records:
     - Algebra/Linear Algebra/Singular Value Decomposition (2)
     - Algebra/Linear Algebra/Spectrum Theorem
     - Algebra/Field Theory/Elementary examples of Galois group
-    - Tree of Subjects 복사본
   '260815':
     baseline: false
     total_ink_percent: 814.0
