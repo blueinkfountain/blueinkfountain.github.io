@@ -88,4 +88,5 @@ Symmetric Group, Alternating Group, Rearrangement Series, Seqeunce, Continuous, 
 - 260725_00: Start Algebraic Topology, Differential Geometry and further topics in Algebra and Analysis.
 - 260812_1: Study Galois Theory: Method for Finding Fixed field using Trace and Norm.
 - 260812_2: Study Harmoinc function in Complex Analysis
-- 260813_1: Investigate some Galois Group of typical cases. In a next day, we will find that 
+- 260813_1: Investigate some Galois Group of typical cases.
+- Record process is automated.
