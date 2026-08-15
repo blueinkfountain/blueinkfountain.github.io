@@ -1,238 +1,1260 @@
 '260807':
   baseline: true
+  total_ink_percent: null
   added: []
   modified: []
   moved_renamed: []
   deleted: []
-'260809':
+'260808':
   baseline: false
-  added: []
-  modified: []
+  total_ink_percent: 1071.2
+  added:
+  - path: Algebra/Linear Algebra/Bilinear forms
+    ink_added_percent: 59.0
+  - path: Algebra/Field Theory/Galois Theorem
+    ink_added_percent: 70.0
+  - path: Analysis/Differential equation/Coddington, Intro.ODE
+    ink_added_percent: 0.0
+  modified:
+  - path: Algebra/Ring Theory/Polynomial Ring (2)
+    ink_added_percent: 393.5
+  - path: Algebra/Ring Theory/Polynomial Ring
+    ink_added_percent: 90.5
+  - path: Algebra/Field Theory/Finite field (2)
+    ink_added_percent: 74.2
+  - path: Algebra/Field Theory/Finite field
+    ink_added_percent: 119.0
+  - path: Analysis/Complex Analysis/Residue Theorem
+    ink_added_percent: 127.1
+  - path: Analysis/Complex Analysis/Singularity
+    ink_added_percent: 137.9
   moved_renamed: []
   deleted:
-  - Analysis/2. Complex Analysis/Cauchy integral formula
-  - Analysis/2. Complex Analysis/Cauchy-Riemann equation
-  - Analysis/2. Complex Analysis/Cauchy_s Inequality
-  - Analysis/2. Complex Analysis/Complex Analysis
-  - Analysis/2. Complex Analysis/Evaluation of Real integral
-  - Analysis/2. Complex Analysis/Exponential function
-  - Analysis/2. Complex Analysis/Gauss Meanvalue Theorem
-  - Analysis/2. Complex Analysis/Goursat Theorem
-  - Analysis/2. Complex Analysis/Laurent Series of Polynomials
-  - Analysis/2. Complex Analysis/Residue Theorem
-  - Analysis/2. Complex Analysis/Silverman Solution
-  - Analysis/2. Complex Analysis/Silverman, Complex Analysis
-'260813':
+  - Algebra/Field Theory/Automotphisms of Field Extension
+  - Algebra/Field Theory/Field Automorphism
+  - Algebra/Field Theory/Galois Theory
+  - Algebra/Field Theory/Separable Extension (2)
+  - Algebra/Field Theory/Splitting field
+'260811':
   baseline: false
+  total_ink_percent: 7832.0
   added:
-  - Algebra/1. Linear Algebra/Bilinear forms
-  - Algebra/3. Finite Group Theory/Classification of small order groups
-  - Algebra/3. Finite Group Theory/Dihedral Group
-  - Algebra/3. Finite Group Theory/Sylow Theorem
-  - Algebra/4. Ring Theory/Irreducible and Prime
-  - Algebra/6. Field Theory/Conjugate Isomorphism
-  - Algebra/6. Field Theory/Field Homomorphism
-  - Algebra/6. Field Theory/Spiltting Field
-  - Algebra/7. Galois Theory/Elementary examples of Galois group
-  - Algebra/7. Galois Theory/Galois Theorem
-  - Algebra/7. Galois Theory/Norm and Trace of Galois
-  - Analysis/1. Real Analysis/Abel formula
-  - Analysis/1. Real Analysis/Banach Space
-  - Analysis/1. Real Analysis/Cantor set
-  - Analysis/1. Real Analysis/Improper integral
-  - Analysis/1. Real Analysis/Parameter dependent integral
-  - Analysis/1. Real Analysis/Trigonometric series
-  - Analysis/2. Complex Analysis/Cauchy integral formula
-  - Analysis/2. Complex Analysis/Cauchy-Riemann equation
-  - Analysis/2. Complex Analysis/Cauchy_s Inequality
-  - Analysis/2. Complex Analysis/Complex Analysis
-  - Analysis/2. Complex Analysis/Evaluation of Real integral
-  - Analysis/2. Complex Analysis/Exponential function
-  - Analysis/2. Complex Analysis/Gauss Meanvalue Theorem
-  - Analysis/2. Complex Analysis/Goursat Theorem
-  - Analysis/2. Complex Analysis/Laurent Series of Polynomials
-  - Analysis/2. Complex Analysis/Open mapping Theorem
-  - Analysis/2. Complex Analysis/Residue Theorem
-  - Analysis/2. Complex Analysis/Residue at infinite
-  - Analysis/2. Complex Analysis/Schwarz reflection principle
-  - Analysis/2. Complex Analysis/Silverman Solution
-  - Analysis/2. Complex Analysis/Silverman, Complex Analysis
-  - Analysis/2. Complex Analysis/Trigonometric integral
-  - Analysis/5. Differential equation/Coddington, Intro.ODE
-  - Differential Geometry/1. Euclidean/Calculus on Surface
-  - Differential Geometry/1. Euclidean/Covariant Derivative
-  - Differential Geometry/1. Euclidean/Cross product
-  - Differential Geometry/1. Euclidean/Differential Form
-  - Differential Geometry/1. Euclidean/Frenet fomular
-  - Differential Geometry/1. Euclidean/Mapping
-  - Differential Geometry/1. Euclidean/Shape Operater
-  - Differential Geometry/1. Euclidean/Surface
+  - path: Algebra/Field Theory/Conjugate Isomorphism
+    ink_added_percent: 37.2
+  - path: Algebra/Field Theory/Elementary examples of Galois group
+    ink_added_percent: 83.0
+  - path: Algebra/Field Theory/Spiltting Field
+    ink_added_percent: 22.8
+  - path: Analysis/Complex Analysis/Residue at infinite
+    ink_added_percent: 45.2
+  - path: Analysis/Complex Analysis/Trigonometric integral
+    ink_added_percent: 77.0
+  - path: Differential Geometry/Euclidean/Cross product
+    ink_added_percent: 59.0
+  - path: Differential Geometry/Euclidean/Differential Form
+    ink_added_percent: 54.8
+  - path: Differential Geometry/Euclidean/Frenet fomular
+    ink_added_percent: 56.6
   modified:
-  - Algebra/1. Linear Algebra/Cyclic subspace
-  - Analysis/2. Complex Analysis/Argument Principle
-  - Analysis/2. Complex Analysis/Harmonic Functions
-  - Analysis/2. Complex Analysis/Singularity
-  moved_renamed:
-  - from: Algebra/2. Group Theory/Alternating Group
-    to: Algebra/3. Finite Group Theory/Alternating Group
-  - from: Algebra/2. Group Theory/Class equation
-    to: Algebra/3. Finite Group Theory/Class equation
-  - from: Algebra/2. Group Theory/Cyclic Group
-    to: Algebra/3. Finite Group Theory/Cyclic Group
-  - from: Algebra/2. Group Theory/Division Algorithm
-    to: Algebra/3. Finite Group Theory/Division Algorithm
-  - from: Algebra/2. Group Theory/Jordan-Hölder
-    to: Algebra/3. Finite Group Theory/Jordan-Hölder
-  - from: Algebra/2. Group Theory/P-Group
-    to: Algebra/3. Finite Group Theory/P-Group
-  - from: Algebra/2. Group Theory/Symmetric Group
-    to: Algebra/3. Finite Group Theory/Symmetric Group
-  - from: Algebra/2. Group Theory/pgroups
-    to: Algebra/3. Finite Group Theory/pgroups
-  - from: Algebra/3. Ring Theory/Basic ideal
-    to: Algebra/4. Ring Theory/Basic ideal
-  - from: Algebra/3. Ring Theory/Chinese reminder theorem
-    to: Algebra/4. Ring Theory/Chinese reminder theorem
-  - from: Algebra/3. Ring Theory/Dedekind-Hasse norm
-    to: Algebra/4. Ring Theory/Dedekind-Hasse norm
-  - from: Algebra/3. Ring Theory/Domains (2)
-    to: Algebra/4. Ring Theory/Domains
-  - from: Algebra/3. Ring Theory/Domains
-    to: Algebra/4. Ring Theory/Domains (2)
-  - from: Algebra/3. Ring Theory/Eisenstein Criterion
-    to: Algebra/4. Ring Theory/Eisenstein Criterion
-  - from: Algebra/3. Ring Theory/Fraction Ring
-    to: Algebra/4. Ring Theory/Fraction Ring
-  - from: Algebra/3. Ring Theory/Ideal
-    to: Algebra/4. Ring Theory/Ideal
-  - from: Algebra/3. Ring Theory/Nilradical and Radical
-    to: Algebra/4. Ring Theory/Nilradical and Radical
-  - from: Algebra/3. Ring Theory/Notebook 3
-    to: Algebra/4. Ring Theory/Notebook 3
-  - from: Algebra/3. Ring Theory/Polynomial Ring (2)
-    to: Algebra/5. Polynomial Ring Theory/Polynomial Ring (2)
-  - from: Algebra/3. Ring Theory/Polynomial Ring
-    to: Algebra/5. Polynomial Ring Theory/Polynomial Ring
-  - from: Algebra/3. Ring Theory/Quadratic integer Ring
-    to: Algebra/4. Ring Theory/Quadratic integer Ring
-  - from: Algebra/4. Field Theory/Basic field Theory
-    to: Algebra/6. Field Theory/Basic field Theory
-  - from: Algebra/4. Field Theory/Basic field extension
-    to: Algebra/6. Field Theory/Basic field extension
-  - from: Algebra/4. Field Theory/Basic field
-    to: Algebra/6. Field Theory/Basic field
-  - from: Algebra/4. Field Theory/Biquadratic Field
-    to: Algebra/6. Field Theory/Biquadratic Field
-  - from: Algebra/4. Field Theory/Composite Field
-    to: Algebra/6. Field Theory/Composite Field
-  - from: Algebra/4. Field Theory/Cyclotomic Field
-    to: Algebra/6. Field Theory/Cyclotomic Field
-  - from: Algebra/4. Field Theory/Finite field (2)
-    to: Algebra/6. Field Theory/Finite field
-  - from: Algebra/4. Field Theory/Finite field
-    to: Algebra/6. Field Theory/Finite field (2)
-  - from: Algebra/4. Field Theory/Formal Derivative and Separablity
-    to: Algebra/6. Field Theory/Formal Derivative and Separablity
-  - from: Algebra/4. Field Theory/Rationalize
-    to: Algebra/6. Field Theory/Rationalize
-  - from: Algebra/4. Field Theory/Separable Extension
-    to: Algebra/6. Field Theory/Separable Extension
-  - from: Analysis/1. Basic Analysis/Advanced Techniques for sequence
-    to: Analysis/1. Real Analysis/Advanced Techniques for sequence
-  - from: Analysis/1. Basic Analysis/Arzelà-Ascoli
-    to: Analysis/1. Real Analysis/Arzelà-Ascoli
-  - from: Analysis/1. Basic Analysis/Basic Riemann-integral
-    to: Analysis/1. Real Analysis/Basic Riemann-integral
-  - from: Analysis/1. Basic Analysis/Bounded Variation
-    to: Analysis/1. Real Analysis/Bounded Variation
-  - from: Analysis/1. Basic Analysis/Convexity
-    to: Analysis/1. Real Analysis/Convexity
-  - from: Analysis/1. Basic Analysis/Darboux_s Theorem
-    to: Analysis/1. Real Analysis/Darboux_s Theorem
-  - from: Analysis/1. Basic Analysis/Density of rational
-    to: Analysis/1. Real Analysis/Density of rational
-  - from: Analysis/1. Basic Analysis/Differentiation
-    to: Analysis/1. Real Analysis/Differentiation
-  - from: Analysis/1. Basic Analysis/Discontinuity
-    to: Analysis/1. Real Analysis/Discontinuity
-  - from: Analysis/1. Basic Analysis/Double Sequence
-    to: Analysis/1. Real Analysis/Double Sequence
-  - from: Analysis/1. Basic Analysis/Fundamental Theorem of Calculus
-    to: Analysis/1. Real Analysis/Fundamental Theorem of Calculus
-  - from: Analysis/1. Basic Analysis/Inequalities of integral
-    to: Analysis/1. Real Analysis/Inequalities of integral
-  - from: Analysis/1. Basic Analysis/Inequality in Real numbers
-    to: Analysis/1. Real Analysis/Inequality in Real numbers
-  - from: Analysis/1. Basic Analysis/Kronecker approximation theorem
-    to: Analysis/1. Real Analysis/Kronecker approximation theorem
-  - from: Analysis/1. Basic Analysis/Lipschtiz
-    to: Analysis/1. Real Analysis/Lipschtiz
-  - from: Analysis/1. Basic Analysis/Normed Space
-    to: Analysis/1. Real Analysis/Normed Space
-  - from: Analysis/1. Basic Analysis/Open map is injective
-    to: Analysis/1. Real Analysis/Open map is injective
-  - from: Analysis/1. Basic Analysis/Power Series
-    to: Analysis/1. Real Analysis/Power Series
-  - from: Analysis/1. Basic Analysis/Riemann-Rearangement Theorem
-    to: Analysis/1. Real Analysis/Riemann-Rearangement Theorem
-  - from: Analysis/1. Basic Analysis/Sequences of functions
-    to: Analysis/1. Real Analysis/Sequences of functions
-  - from: Analysis/1. Basic Analysis/Stone-Weierstrass Theorem
-    to: Analysis/1. Real Analysis/Stone-Weierstrass Theorem
-  - from: Analysis/1. Basic Analysis/Supremum
-    to: Analysis/1. Real Analysis/Supremum
-  - from: Analysis/1. Basic Analysis/Talyor Series
-    to: Analysis/1. Real Analysis/Talyor Series
-  - from: Analysis/1. Basic Analysis/Talyor_s Theorem
-    to: Analysis/1. Real Analysis/Talyor_s Theorem
-  - from: Analysis/1. Basic Analysis/Thomae function
-    to: Analysis/1. Real Analysis/Thomae function
-  - from: Analysis/1. Basic Analysis/Typical Sequences
-    to: Analysis/1. Real Analysis/Typical Sequences
-  - from: Analysis/1. Basic Analysis/xsin1_x
-    to: Analysis/1. Real Analysis/xsin1_x
-  - from: Analysis/1. Basic Analysis/xsinx
-    to: Analysis/1. Real Analysis/xsinx
-  - from: Differential Geometry/Euclidean/Barrett O_neill Solution
-    to: Differential Geometry/1. Euclidean/Barrett O_neill Solution
-  - from: Differential Geometry/Euclidean/Barrett O_neill
-    to: Differential Geometry/1. Euclidean/Barrett O_neill
+  - path: Algebra/Linear Algebra/Action of permutation on Matrices
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Basis for Vector space
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Bilinear forms
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Canonical Form
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Cyclic subspace
+    ink_added_percent: 80.2
+  - path: Algebra/Linear Algebra/Derterminant
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Diagonalizable Criterion on Inner product Space
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Dual Space
+    ink_added_percent: 386.9
+  - path: Algebra/Linear Algebra/General Linear Group
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Hoffman
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Jordan canonical form
+    ink_added_percent: 276.7
+  - path: Algebra/Linear Algebra/Linear equation
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Minimal polynomial
+    ink_added_percent: 60.8
+  - path: Algebra/Linear Algebra/Norm induced by inner product
+    ink_added_percent: 165.6
+  - path: Algebra/Linear Algebra/Normal Operater
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Operator Norm
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Orthogonal Projection - Complete
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Positive Form
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Primary Decomposition
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Projection
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/QR-Factorization
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Replacement Theorem
+    ink_added_percent: 142.4
+  - path: Algebra/Linear Algebra/Rigid Motion
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Schur_s Triangular Theorem
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Sesqui-Linear Form
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Simultaneously Diagonalizable
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Singular Value Decomposition (2)
+    ink_added_percent: 142.7
+  - path: Algebra/Linear Algebra/Singular Value Decomposition
+    ink_added_percent: 53.9
+  - path: Algebra/Linear Algebra/Spectrum Theorem
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Unitary and Orthogonal Operator
+    ink_added_percent: 0.0
+  - path: Algebra/Group Theory/Alternating Group
+    ink_added_percent: 0.0
+  - path: Algebra/Group Theory/Class equation
+    ink_added_percent: 0.0
+  - path: Algebra/Group Theory/Commutator Subgroup
+    ink_added_percent: 0.0
+  - path: Algebra/Group Theory/Coset and Isomorphism Theorem
+    ink_added_percent: 0.0
+  - path: Algebra/Group Theory/Cyclic Group
+    ink_added_percent: 0.0
+  - path: Algebra/Group Theory/Division Algorithm
+    ink_added_percent: 112.4
+  - path: Algebra/Group Theory/Finitely Generated Abelian Group
+    ink_added_percent: 0.0
+  - path: Algebra/Group Theory/General linear group
+    ink_added_percent: 79.0
+  - path: Algebra/Group Theory/Jordan-Hölder
+    ink_added_percent: 256.7
+  - path: Algebra/Group Theory/Nilpotent Group
+    ink_added_percent: 0.0
+  - path: Algebra/Group Theory/P-Group
+    ink_added_percent: 33.9
+  - path: Algebra/Group Theory/Recognize theorem
+    ink_added_percent: 50.1
+  - path: Algebra/Group Theory/Sylow Theorem
+    ink_added_percent: 0.0
+  - path: Algebra/Group Theory/Symmetric Group
+    ink_added_percent: 0.0
+  - path: Algebra/Group Theory/pgroups
+    ink_added_percent: 32.3
+  - path: Algebra/Ring Theory/Basic ideal
+    ink_added_percent: 74.5
+  - path: Algebra/Ring Theory/Chinese reminder theorem
+    ink_added_percent: 0.0
+  - path: Algebra/Ring Theory/Dedekind-Hasse norm
+    ink_added_percent: 0.0
+  - path: Algebra/Ring Theory/Domains (2)
+    ink_added_percent: 14.7
+  - path: Algebra/Ring Theory/Domains
+    ink_added_percent: 0.0
+  - path: Algebra/Ring Theory/Eisenstein Criterion
+    ink_added_percent: 0.0
+  - path: Algebra/Ring Theory/Fraction Ring
+    ink_added_percent: 84.3
+  - path: Algebra/Ring Theory/Ideal
+    ink_added_percent: 74.5
+  - path: Algebra/Ring Theory/Nilradical and Radical
+    ink_added_percent: 0.0
+  - path: Algebra/Ring Theory/Notebook 3
+    ink_added_percent: 0.0
+  - path: Algebra/Ring Theory/Polynomial Ring (2)
+    ink_added_percent: 71.5
+  - path: Algebra/Ring Theory/Polynomial Ring
+    ink_added_percent: 394.3
+  - path: Algebra/Ring Theory/Quadratic integer Ring
+    ink_added_percent: 0.0
+  - path: Algebra/Field Theory/Basic field Theory
+    ink_added_percent: 393.4
+  - path: Algebra/Field Theory/Basic field extension
+    ink_added_percent: 191.7
+  - path: Algebra/Field Theory/Basic field
+    ink_added_percent: 393.4
+  - path: Algebra/Field Theory/Biquadratic Field
+    ink_added_percent: 0.0
+  - path: Algebra/Field Theory/Composite Field
+    ink_added_percent: 0.0
+  - path: Algebra/Field Theory/Cyclotomic Field
+    ink_added_percent: 0.0
+  - path: Algebra/Field Theory/Finite field (2)
+    ink_added_percent: 0.0
+  - path: Algebra/Field Theory/Finite field
+    ink_added_percent: 84.8
+  - path: Algebra/Field Theory/Formal Derivative and Separablity
+    ink_added_percent: 174.7
+  - path: Algebra/Field Theory/Galois Theorem
+    ink_added_percent: 46.6
+  - path: Algebra/Field Theory/Norm and Trace of Galois
+    ink_added_percent: 0.0
+  - path: Algebra/Field Theory/Rationalize
+    ink_added_percent: 0.0
+  - path: Algebra/Field Theory/Separable Extension
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/Abel formula
+    ink_added_percent: 122.7
+  - path: Analysis/Basic Analysis/Advanced Techniques for sequence
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/Arzelà-Ascoli
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/Basic Riemann-integral
+    ink_added_percent: 346.4
+  - path: Analysis/Basic Analysis/Bounded Variation
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/Cantor set
+    ink_added_percent: 129.1
+  - path: Analysis/Basic Analysis/Convexity
+    ink_added_percent: 125.1
+  - path: Analysis/Basic Analysis/Darboux_s Theorem
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/Density of rational
+    ink_added_percent: 49.9
+  - path: Analysis/Basic Analysis/Differentiation
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/Discontinuity
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/Double Sequence
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/Fundamental Theorem of Calculus
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/Inequalities of integral
+    ink_added_percent: 56.7
+  - path: Analysis/Basic Analysis/Inequality in Real numbers
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/Kronecker approximation theorem
+    ink_added_percent: 34.3
+  - path: Analysis/Basic Analysis/Lipschtiz
+    ink_added_percent: 108.0
+  - path: Analysis/Basic Analysis/Normed Space
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/Open map is injective
+    ink_added_percent: 53.2
+  - path: Analysis/Basic Analysis/Power Series
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/Riemann-Rearangement Theorem
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/Sequences of functions
+    ink_added_percent: 49.1
+  - path: Analysis/Basic Analysis/Stone-Weierstrass Theorem
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/Supremum
+    ink_added_percent: 242.2
+  - path: Analysis/Basic Analysis/Talyor Series
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/Talyor_s Theorem
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/Thomae function
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/Trigonometric series
+    ink_added_percent: 70.0
+  - path: Analysis/Basic Analysis/Typical Sequences
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/xsin1_x
+    ink_added_percent: 0.0
+  - path: Analysis/Basic Analysis/xsinx
+    ink_added_percent: 83.1
+  - path: Analysis/Complex Analysis/Argument Principle
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Cauchy integral formula
+    ink_added_percent: 145.8
+  - path: Analysis/Complex Analysis/Cauchy-Riemann equation
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Cauchy_s Inequality
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Complex Analysis
+    ink_added_percent: 81.8
+  - path: Analysis/Complex Analysis/Conformal mapping
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Evaluation of Real integral
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Exponential function
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Gauss Meanvalue Theorem
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Goursat Theorem
+    ink_added_percent: 36.6
+  - path: Analysis/Complex Analysis/Harmonic Functions
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Laurent Series of Polynomials
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Residue Theorem
+    ink_added_percent: 108.4
+  - path: Analysis/Complex Analysis/Silverman Solution
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Silverman, Complex Analysis
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Singularity
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Uniqueness Theorem
+    ink_added_percent: 0.0
+  - path: Analysis/Analysis on Manifold/Munkres, Analysis on manifold
+    ink_added_percent: 0.0
+  - path: Analysis/Differential equation/Coddington, Intro.ODE
+    ink_added_percent: 0.0
+  - path: Differential Geometry/Euclidean/Barrett O_neill Solution
+    ink_added_percent: 0.0
+  - path: Differential Geometry/Euclidean/Barrett O_neill
+    ink_added_percent: 0.0
+  - path: Topology/General Topology/Basic metric space
+    ink_added_percent: 96.3
+  - path: Topology/General Topology/Compactness
+    ink_added_percent: 209.1
+  - path: Topology/General Topology/Connected Space
+    ink_added_percent: 0.0
+  - path: Topology/General Topology/Continuous Map
+    ink_added_percent: 0.0
+  - path: Topology/General Topology/Hilbert Space
+    ink_added_percent: 115.7
+  - path: Topology/General Topology/Interior and Closure
+    ink_added_percent: 128.6
+  - path: Topology/General Topology/Isometry
+    ink_added_percent: 62.6
+  - path: Topology/General Topology/Metric diagram
+    ink_added_percent: 232.2
+  - path: Topology/General Topology/One point Compactification
+    ink_added_percent: 137.8
+  - path: Topology/General Topology/Product Topology
+    ink_added_percent: 0.0
+  - path: Topology/General Topology/Product space
+    ink_added_percent: 29.2
+  - path: Topology/General Topology/Quotient map
+    ink_added_percent: 0.0
+  - path: Topology/General Topology/Subspace
+    ink_added_percent: 61.7
+  - path: Topology/General Topology/Topological Group
+    ink_added_percent: 119.9
+  - path: Topology/General Topology/Topological basis
+    ink_added_percent: 156.9
+  - path: Topology/General Topology/Topological map 2
+    ink_added_percent: 117.8
+  - path: Topology/General Topology/Topological map
+    ink_added_percent: 85.0
+  - path: Topology/General Topology/p-norm
+    ink_added_percent: 89.1
+  - path: Topology/Algebraic Topology/Hatcher, Algebraic Topology
+    ink_added_percent: 40.0
+  - path: Tree of Subjects
+    ink_added_percent: 0.0
+  moved_renamed: []
   deleted:
-  - Algebra/1. Linear Algebra/Normal Operater
-  - Algebra/1. Linear Algebra/Rigid Motion
-  - Algebra/1. Linear Algebra/Schur_s Triangular Theorem
-  - Algebra/1. Linear Algebra/Simultaneously Diagonalizable
-  - Algebra/1. Linear Algebra/Singular Value Decomposition (2)
-  - Algebra/1. Linear Algebra/Spectrum Theorem
-  - Algebra/2. Group Theory/Sylow Theorem
-  - Algebra/4. Field Theory/Automotphisms of Field Extension
-  - Algebra/4. Field Theory/Field Automorphism
-  - Algebra/4. Field Theory/Galois Theory
-  - Algebra/4. Field Theory/Norm and Trace of Galois
-  - Algebra/4. Field Theory/Separable Extension (2)
-  - Algebra/4. Field Theory/Splitting field
-  - Analysis/1. Basic Analysis/Abel formula
-  - Analysis/1. Basic Analysis/Cantor set
-  - Analysis/1. Basic Analysis/Sequence in Real numbers
-  - Analysis/1. Basic Analysis/Series and Sequences
-  - Analysis/1. Basic Analysis/Series of product
-  - Analysis/1. Basic Analysis/Trigonometric series
+  - Analysis/Basic Analysis/Sequence in Real numbers
+  - Analysis/Basic Analysis/Series and Sequences
+  - Analysis/Basic Analysis/Series of product
   - Differential Geometry/Euclidean/1-form
   - Differential Geometry/Euclidean/Tangent space and Directional derivatives
+'260812':
+  baseline: false
+  total_ink_percent: 9371.4
+  added:
+  - path: Algebra/Finite Group Theory/Classification of small order groups
+    ink_added_percent: 25.6
+  - path: Algebra/Finite Group Theory/Dihedral Group
+    ink_added_percent: 0.0
+  - path: Algebra/Ring Theory/Irreducible and Prime
+    ink_added_percent: 66.0
+  - path: Algebra/Field Theory/Field Homomorphism
+    ink_added_percent: 32.3
+  - path: Algebra/Galois Theory/Typical Galois extensions
+    ink_added_percent: 346.5
+  - path: Analysis/Real Analysis/Banach Space
+    ink_added_percent: 13.0
+  - path: Analysis/Real Analysis/Improper integral
+    ink_added_percent: 46.7
+  - path: Analysis/Real Analysis/Parameter dependent integral
+    ink_added_percent: 71.8
+  - path: Analysis/Real Analysis/Stolz-Cesaro theorem
+    ink_added_percent: 65.4
+  - path: Analysis/Complex Analysis/Open mapping Theorem
+    ink_added_percent: 37.5
+  - path: Analysis/Complex Analysis/Schwarz reflection principle
+    ink_added_percent: 5.0
+  - path: Differential Geometry/Euclidean/Calculus on Surface
+    ink_added_percent: 12.9
+  - path: Differential Geometry/Euclidean/Covariant Derivative
+    ink_added_percent: 26.3
+  - path: Differential Geometry/Euclidean/Mapping
+    ink_added_percent: 39.1
+  - path: Differential Geometry/Euclidean/Shape Operater
+    ink_added_percent: 0.4
+  - path: Differential Geometry/Euclidean/Surface
+    ink_added_percent: 12.2
+  modified:
+  - path: Algebra/Linear Algebra/Action of permutation on Matrices
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Basis for Vector space
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Bilinear forms
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Canonical Form
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Cyclic subspace
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Derterminant
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Diagonalizable Criterion on Inner product Space
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Dual Space
+    ink_added_percent: 369.0
+  - path: Algebra/Linear Algebra/General Linear Group
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Hoffman
+    ink_added_percent: 0.1
+  - path: Algebra/Linear Algebra/Jordan canonical form
+    ink_added_percent: 266.4
+  - path: Algebra/Linear Algebra/Linear equation
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Minimal polynomial
+    ink_added_percent: 77.6
+  - path: Algebra/Linear Algebra/Norm induced by inner product
+    ink_added_percent: 161.4
+  - path: Algebra/Linear Algebra/Operator Norm
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Orthogonal Projection - Complete
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Positive Form
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Primary Decomposition
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Projection
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/QR-Factorization
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Replacement Theorem
+    ink_added_percent: 139.7
+  - path: Algebra/Linear Algebra/Sesqui-Linear Form
+    ink_added_percent: 0.0
+  - path: Algebra/Linear Algebra/Singular Value Decomposition
+    ink_added_percent: 182.7
+  - path: Algebra/Linear Algebra/Unitary and Orthogonal Operator
+    ink_added_percent: 0.0
+  - path: Algebra/Group Theory/Commutator Subgroup
+    ink_added_percent: 0.0
+  - path: Algebra/Group Theory/Coset and Isomorphism Theorem
+    ink_added_percent: 0.0
+  - path: Algebra/Group Theory/Finitely Generated Abelian Group
+    ink_added_percent: 0.0
+  - path: Algebra/Group Theory/General linear group
+    ink_added_percent: 76.2
+  - path: Algebra/Group Theory/Nilpotent Group
+    ink_added_percent: 0.0
+  - path: Algebra/Group Theory/Recognize theorem
+    ink_added_percent: 50.8
+  - path: Analysis/Complex Analysis/Argument Principle
+    ink_added_percent: 114.9
+  - path: Analysis/Complex Analysis/Cauchy integral formula
+    ink_added_percent: 110.7
+  - path: Analysis/Complex Analysis/Cauchy-Riemann equation
+    ink_added_percent: 50.6
+  - path: Analysis/Complex Analysis/Cauchy_s Inequality
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Complex Analysis
+    ink_added_percent: 130.4
+  - path: Analysis/Complex Analysis/Conformal mapping
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Evaluation of Real integral
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Exponential function
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Gauss Meanvalue Theorem
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Goursat Theorem
+    ink_added_percent: 36.2
+  - path: Analysis/Complex Analysis/Harmonic Functions
+    ink_added_percent: 118.9
+  - path: Analysis/Complex Analysis/Laurent Series of Polynomials
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Residue Theorem
+    ink_added_percent: 0.1
+  - path: Analysis/Complex Analysis/Residue at infinite
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Silverman Solution
+    ink_added_percent: 0.1
+  - path: Analysis/Complex Analysis/Silverman, Complex Analysis
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Singularity
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Trigonometric integral
+    ink_added_percent: 0.0
+  - path: Analysis/Complex Analysis/Uniqueness Theorem
+    ink_added_percent: 0.0
+  - path: Analysis/Analysis on Manifold/Munkres, Analysis on manifold
+    ink_added_percent: 0.0
+  - path: Analysis/Differential equation/Coddington, Intro.ODE
+    ink_added_percent: 0.0
+  - path: Topology/General Topology/Basic metric space
+    ink_added_percent: 91.9
+  - path: Topology/General Topology/Compactness
+    ink_added_percent: 202.9
+  - path: Topology/General Topology/Connected Space
+    ink_added_percent: 0.0
+  - path: Topology/General Topology/Continuous Map
+    ink_added_percent: 0.0
+  - path: Topology/General Topology/Hilbert Space
+    ink_added_percent: 113.1
+  - path: Topology/General Topology/Interior and Closure
+    ink_added_percent: 125.3
+  - path: Topology/General Topology/Isometry
+    ink_added_percent: 61.9
+  - path: Topology/General Topology/Metric diagram
+    ink_added_percent: 226.4
+  - path: Topology/General Topology/One point Compactification
+    ink_added_percent: 132.2
+  - path: Topology/General Topology/Product Topology
+    ink_added_percent: 0.0
+  - path: Topology/General Topology/Product space
+    ink_added_percent: 27.6
+  - path: Topology/General Topology/Quotient map
+    ink_added_percent: 0.0
+  - path: Topology/General Topology/Subspace
+    ink_added_percent: 60.9
+  - path: Topology/General Topology/Topological Group
+    ink_added_percent: 86.6
+  - path: Topology/General Topology/Topological basis
+    ink_added_percent: 155.8
+  - path: Topology/General Topology/Topological map 2
+    ink_added_percent: 116.6
+  - path: Topology/General Topology/Topological map
+    ink_added_percent: 84.1
+  - path: Topology/General Topology/p-norm
+    ink_added_percent: 86.7
+  - path: Topology/Algebraic Topology/Hatcher, Algebraic Topology
+    ink_added_percent: 54.8
+  - path: Tree of Subjects
+    ink_added_percent: 0.0
+  moved_renamed:
+  - from: Algebra/Group Theory/Alternating Group
+    to: Algebra/Finite Group Theory/Alternating Group
+    ink_added_percent: 0.0
+  - from: Algebra/Group Theory/Class equation
+    to: Algebra/Finite Group Theory/Class equation
+    ink_added_percent: 0.0
+  - from: Algebra/Group Theory/Cyclic Group
+    to: Algebra/Finite Group Theory/Cyclic Group
+    ink_added_percent: 0.0
+  - from: Algebra/Group Theory/Division Algorithm
+    to: Algebra/Finite Group Theory/Division Algorithm
+    ink_added_percent: 108.7
+  - from: Algebra/Group Theory/Jordan-Hölder
+    to: Algebra/Finite Group Theory/Jordan-Hölder
+    ink_added_percent: 249.8
+  - from: Algebra/Group Theory/P-Group
+    to: Algebra/Finite Group Theory/P-Group
+    ink_added_percent: 49.6
+  - from: Algebra/Group Theory/Sylow Theorem
+    to: Algebra/Finite Group Theory/Sylow Theorem
+    ink_added_percent: 356.3
+  - from: Algebra/Group Theory/Symmetric Group
+    to: Algebra/Finite Group Theory/Symmetric Group
+    ink_added_percent: 0.0
+  - from: Algebra/Group Theory/pgroups
+    to: Algebra/Finite Group Theory/pgroups
+    ink_added_percent: 30.9
+  - from: Algebra/Ring Theory/Basic ideal
+    to: Algebra/Ring Theory/Basic ideal
+    ink_added_percent: 73.5
+  - from: Algebra/Ring Theory/Chinese reminder theorem
+    to: Algebra/Ring Theory/Chinese reminder theorem
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Dedekind-Hasse norm
+    to: Algebra/Ring Theory/Dedekind-Hasse norm
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Domains (2)
+    to: Algebra/Ring Theory/Domains (2)
+    ink_added_percent: 62.1
+  - from: Algebra/Ring Theory/Domains
+    to: Algebra/Ring Theory/Domains
+    ink_added_percent: 844.6
+  - from: Algebra/Ring Theory/Eisenstein Criterion
+    to: Algebra/Ring Theory/Eisenstein Criterion
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Fraction Ring
+    to: Algebra/Ring Theory/Fraction Ring
+    ink_added_percent: 80.8
+  - from: Algebra/Ring Theory/Ideal
+    to: Algebra/Ring Theory/Ideal
+    ink_added_percent: 73.5
+  - from: Algebra/Ring Theory/Nilradical and Radical
+    to: Algebra/Ring Theory/Nilradical and Radical
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Notebook 3
+    to: Algebra/Ring Theory/Notebook 3
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Polynomial Ring (2)
+    to: Algebra/Polynomial Ring Theory/Polynomial Ring (2)
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Polynomial Ring
+    to: Algebra/Polynomial Ring Theory/Polynomial Ring
+    ink_added_percent: 239.8
+  - from: Algebra/Ring Theory/Quadratic integer Ring
+    to: Algebra/Ring Theory/Quadratic integer Ring
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Basic field Theory
+    to: Algebra/Field Theory/Basic field Theory
+    ink_added_percent: 379.7
+  - from: Algebra/Field Theory/Basic field extension
+    to: Algebra/Field Theory/Basic field extension
+    ink_added_percent: 189.0
+  - from: Algebra/Field Theory/Basic field
+    to: Algebra/Field Theory/Basic field
+    ink_added_percent: 379.7
+  - from: Algebra/Field Theory/Biquadratic Field
+    to: Algebra/Field Theory/Biquadratic Field
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Composite Field
+    to: Algebra/Field Theory/Composite Field
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Conjugate Isomorphism
+    to: Algebra/Field Theory/Conjugate Isomorphism
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Cyclotomic Field
+    to: Algebra/Field Theory/Cyclotomic Field
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Finite field (2)
+    to: Algebra/Field Theory/Finite field (2)
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Finite field
+    to: Algebra/Field Theory/Finite field
+    ink_added_percent: 81.9
+  - from: Algebra/Field Theory/Formal Derivative and Separablity
+    to: Algebra/Field Theory/Formal Derivative and Separablity
+    ink_added_percent: 158.9
+  - from: Algebra/Field Theory/Galois Theorem
+    to: Algebra/Galois Theory/Galois Theorem
+    ink_added_percent: 196.4
+  - from: Algebra/Field Theory/Norm and Trace of Galois
+    to: Algebra/Galois Theory/Norm and Trace of Galois
+    ink_added_percent: 17.2
+  - from: Algebra/Field Theory/Rationalize
+    to: Algebra/Field Theory/Rationalize
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Separable Extension
+    to: Algebra/Field Theory/Separable Extension
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Spiltting Field
+    to: Algebra/Field Theory/Spiltting Field
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Abel formula
+    to: Analysis/Real Analysis/Abel formula
+    ink_added_percent: 67.7
+  - from: Analysis/Basic Analysis/Advanced Techniques for sequence
+    to: Analysis/Real Analysis/Advanced Techniques for sequence
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Arzelà-Ascoli
+    to: Analysis/Real Analysis/Arzelà-Ascoli
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Basic Riemann-integral
+    to: Analysis/Real Analysis/Basic Riemann-integral
+    ink_added_percent: 348.9
+  - from: Analysis/Basic Analysis/Bounded Variation
+    to: Analysis/Real Analysis/Bounded Variation
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Cantor set
+    to: Analysis/Real Analysis/Cantor set
+    ink_added_percent: 202.5
+  - from: Analysis/Basic Analysis/Convexity
+    to: Analysis/Real Analysis/Convexity
+    ink_added_percent: 123.1
+  - from: Analysis/Basic Analysis/Darboux_s Theorem
+    to: Analysis/Real Analysis/Darboux_s Theorem
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Density of rational
+    to: Analysis/Real Analysis/Density of rational
+    ink_added_percent: 49.6
+  - from: Analysis/Basic Analysis/Differentiation
+    to: Analysis/Real Analysis/Differentiation
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Discontinuity
+    to: Analysis/Real Analysis/Discontinuity
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Double Sequence
+    to: Analysis/Real Analysis/Double Sequence
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Fundamental Theorem of Calculus
+    to: Analysis/Real Analysis/Fundamental Theorem of Calculus
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Inequalities of integral
+    to: Analysis/Real Analysis/Inequalities of integral
+    ink_added_percent: 53.3
+  - from: Analysis/Basic Analysis/Inequality in Real numbers
+    to: Analysis/Real Analysis/Inequality in Real numbers
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Kronecker approximation theorem
+    to: Analysis/Real Analysis/Kronecker approximation theorem
+    ink_added_percent: 32.6
+  - from: Analysis/Basic Analysis/Lipschtiz
+    to: Analysis/Real Analysis/Lipschtiz
+    ink_added_percent: 103.2
+  - from: Analysis/Basic Analysis/Normed Space
+    to: Analysis/Real Analysis/Normed Space
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Open map is injective
+    to: Analysis/Real Analysis/Open map is injective
+    ink_added_percent: 49.9
+  - from: Analysis/Basic Analysis/Power Series
+    to: Analysis/Real Analysis/Power Series
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Riemann-Rearangement Theorem
+    to: Analysis/Real Analysis/Riemann-Rearangement Theorem
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Sequences of functions
+    to: Analysis/Real Analysis/Sequences of functions
+    ink_added_percent: 68.8
+  - from: Analysis/Basic Analysis/Stone-Weierstrass Theorem
+    to: Analysis/Real Analysis/Stone-Weierstrass Theorem
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Supremum
+    to: Analysis/Real Analysis/Supremum
+    ink_added_percent: 242.7
+  - from: Analysis/Basic Analysis/Talyor Series
+    to: Analysis/Real Analysis/Talyor Series
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Talyor_s Theorem
+    to: Analysis/Real Analysis/Talyor_s Theorem
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Thomae function
+    to: Analysis/Real Analysis/Thomae function
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Trigonometric series
+    to: Analysis/Real Analysis/Trigonometric series
+    ink_added_percent: 0.1
+  - from: Analysis/Basic Analysis/Typical Sequences
+    to: Analysis/Real Analysis/Typical Sequences
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/xsin1_x
+    to: Analysis/Real Analysis/xsin1_x
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/xsinx
+    to: Analysis/Real Analysis/xsinx
+    ink_added_percent: 81.2
+  - from: Differential Geometry/Euclidean/Barrett O_neill Solution
+    to: Differential Geometry/Euclidean/Barrett O_neill Solution
+    ink_added_percent: 0.0
+  - from: Differential Geometry/Euclidean/Barrett O_neill
+    to: Differential Geometry/Euclidean/Barrett O_neill
+    ink_added_percent: 0.1
+  - from: Differential Geometry/Euclidean/Cross product
+    to: Differential Geometry/Euclidean/Cross product
+    ink_added_percent: 0.0
+  - from: Differential Geometry/Euclidean/Differential Form
+    to: Differential Geometry/Euclidean/Differential Form
+    ink_added_percent: 0.0
+  - from: Differential Geometry/Euclidean/Frenet fomular
+    to: Differential Geometry/Euclidean/Frenet fomular
+    ink_added_percent: 60.9
+  deleted:
+  - Algebra/Linear Algebra/Normal Operater
+  - Algebra/Linear Algebra/Rigid Motion
+  - Algebra/Linear Algebra/Schur_s Triangular Theorem
+  - Algebra/Linear Algebra/Simultaneously Diagonalizable
+  - Algebra/Linear Algebra/Singular Value Decomposition (2)
+  - Algebra/Linear Algebra/Spectrum Theorem
+  - Algebra/Field Theory/Elementary examples of Galois group
+'260813':
+  baseline: false
+  total_ink_percent: 476.9
+  added:
+  - path: Algebra/Galois Theory/Elementary examples of Galois group
+    ink_added_percent: 199.4
+  modified:
+  - path: Analysis/Complex Analysis/Argument Principle
+    ink_added_percent: 37.4
+  moved_renamed:
+  - from: Algebra/Finite Group Theory/Alternating Group
+    to: Algebra/Group Theory/Alternating Group
+    ink_added_percent: 0.0
+  - from: Algebra/Finite Group Theory/Class equation
+    to: Algebra/Group Theory/Class equation
+    ink_added_percent: 0.0
+  - from: Algebra/Finite Group Theory/Cyclic Group
+    to: Algebra/Group Theory/Cyclic Group
+    ink_added_percent: 0.0
+  - from: Algebra/Finite Group Theory/Division Algorithm
+    to: Algebra/Group Theory/Division Algorithm
+    ink_added_percent: 0.0
+  - from: Algebra/Finite Group Theory/Jordan-Hölder
+    to: Algebra/Group Theory/Jordan-Hölder
+    ink_added_percent: 0.0
+  - from: Algebra/Finite Group Theory/P-Group
+    to: Algebra/Group Theory/P-Group
+    ink_added_percent: 0.0
+  - from: Algebra/Finite Group Theory/Sylow Theorem
+    to: Algebra/Group Theory/Sylow Theorem
+    ink_added_percent: 240.0
+  - from: Algebra/Finite Group Theory/Symmetric Group
+    to: Algebra/Group Theory/Symmetric Group
+    ink_added_percent: 0.0
+  - from: Algebra/Finite Group Theory/pgroups
+    to: Algebra/Group Theory/pgroups
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Basic ideal
+    to: Algebra/Ring Theory/Basic ideal
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Chinese reminder theorem
+    to: Algebra/Ring Theory/Chinese reminder theorem
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Dedekind-Hasse norm
+    to: Algebra/Ring Theory/Dedekind-Hasse norm
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Domains (2)
+    to: Algebra/Ring Theory/Domains (2)
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Domains
+    to: Algebra/Ring Theory/Domains
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Eisenstein Criterion
+    to: Algebra/Ring Theory/Eisenstein Criterion
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Fraction Ring
+    to: Algebra/Ring Theory/Fraction Ring
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Ideal
+    to: Algebra/Ring Theory/Ideal
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Irreducible and Prime
+    to: Algebra/Ring Theory/Irreducible and Prime
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Nilradical and Radical
+    to: Algebra/Ring Theory/Nilradical and Radical
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Notebook 3
+    to: Algebra/Ring Theory/Notebook 3
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Quadratic integer Ring
+    to: Algebra/Ring Theory/Quadratic integer Ring
+    ink_added_percent: 0.0
+  - from: Algebra/Polynomial Ring Theory/Polynomial Ring (2)
+    to: Algebra/Ring Theory/Polynomial Ring (2)
+    ink_added_percent: 0.0
+  - from: Algebra/Polynomial Ring Theory/Polynomial Ring
+    to: Algebra/Ring Theory/Polynomial Ring
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Basic field Theory
+    to: Algebra/Field Theory/Basic field Theory
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Basic field extension
+    to: Algebra/Field Theory/Basic field extension
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Basic field
+    to: Algebra/Field Theory/Basic field
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Biquadratic Field
+    to: Algebra/Field Theory/Biquadratic Field
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Composite Field
+    to: Algebra/Field Theory/Composite Field
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Conjugate Isomorphism
+    to: Algebra/Field Theory/Conjugate Isomorphism
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Cyclotomic Field
+    to: Algebra/Field Theory/Cyclotomic Field
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Field Homomorphism
+    to: Algebra/Field Theory/Field Homomorphism
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Finite field (2)
+    to: Algebra/Field Theory/Finite field (2)
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Finite field
+    to: Algebra/Field Theory/Finite field
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Formal Derivative and Separablity
+    to: Algebra/Field Theory/Formal Derivative and Separablity
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Rationalize
+    to: Algebra/Field Theory/Rationalize
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Separable Extension
+    to: Algebra/Field Theory/Separable Extension
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Spiltting Field
+    to: Algebra/Field Theory/Spiltting Field
+    ink_added_percent: 0.0
+  - from: Algebra/Galois Theory/Galois Theorem
+    to: Algebra/Galois Theory/Galois Theorem
+    ink_added_percent: 0.0
+  - from: Algebra/Galois Theory/Norm and Trace of Galois
+    to: Algebra/Galois Theory/Norm and Trace of Galois
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Abel formula
+    to: Analysis/Basic Analysis/Abel formula
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Advanced Techniques for sequence
+    to: Analysis/Basic Analysis/Advanced Techniques for sequence
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Arzelà-Ascoli
+    to: Analysis/Basic Analysis/Arzelà-Ascoli
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Banach Space
+    to: Analysis/Basic Analysis/Banach Space
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Basic Riemann-integral
+    to: Analysis/Basic Analysis/Basic Riemann-integral
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Bounded Variation
+    to: Analysis/Basic Analysis/Bounded Variation
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Cantor set
+    to: Analysis/Basic Analysis/Cantor set
+    ink_added_percent: 0.1
+  - from: Analysis/Real Analysis/Convexity
+    to: Analysis/Basic Analysis/Convexity
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Darboux_s Theorem
+    to: Analysis/Basic Analysis/Darboux_s Theorem
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Density of rational
+    to: Analysis/Basic Analysis/Density of rational
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Differentiation
+    to: Analysis/Basic Analysis/Differentiation
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Discontinuity
+    to: Analysis/Basic Analysis/Discontinuity
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Double Sequence
+    to: Analysis/Basic Analysis/Double Sequence
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Fundamental Theorem of Calculus
+    to: Analysis/Basic Analysis/Fundamental Theorem of Calculus
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Improper integral
+    to: Analysis/Basic Analysis/Improper integral
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Inequalities of integral
+    to: Analysis/Basic Analysis/Inequalities of integral
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Inequality in Real numbers
+    to: Analysis/Basic Analysis/Inequality in Real numbers
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Kronecker approximation theorem
+    to: Analysis/Basic Analysis/Kronecker approximation theorem
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Lipschtiz
+    to: Analysis/Basic Analysis/Lipschtiz
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Normed Space
+    to: Analysis/Basic Analysis/Normed Space
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Open map is injective
+    to: Analysis/Basic Analysis/Open map is injective
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Parameter dependent integral
+    to: Analysis/Basic Analysis/Parameter dependent integral
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Power Series
+    to: Analysis/Basic Analysis/Power Series
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Riemann-Rearangement Theorem
+    to: Analysis/Basic Analysis/Riemann-Rearangement Theorem
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Sequences of functions
+    to: Analysis/Basic Analysis/Sequences of functions
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Stone-Weierstrass Theorem
+    to: Analysis/Basic Analysis/Stone-Weierstrass Theorem
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Supremum
+    to: Analysis/Basic Analysis/Supremum
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Talyor Series
+    to: Analysis/Basic Analysis/Talyor Series
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Talyor_s Theorem
+    to: Analysis/Basic Analysis/Talyor_s Theorem
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Thomae function
+    to: Analysis/Basic Analysis/Thomae function
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Trigonometric series
+    to: Analysis/Basic Analysis/Trigonometric series
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/Typical Sequences
+    to: Analysis/Basic Analysis/Typical Sequences
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/xsin1_x
+    to: Analysis/Basic Analysis/xsin1_x
+    ink_added_percent: 0.0
+  - from: Analysis/Real Analysis/xsinx
+    to: Analysis/Basic Analysis/xsinx
+    ink_added_percent: 0.0
+  deleted:
+  - Algebra/Finite Group Theory/Classification of small order groups
+  - Algebra/Finite Group Theory/Dihedral Group
+  - Algebra/Galois Theory/Typical Galois extensions
+  - Analysis/Real Analysis/Stolz-Cesaro theorem
+  - Analysis/Complex Analysis/Open mapping Theorem
 '260814':
   baseline: false
+  total_ink_percent: 1019.7
   added:
-  - Algebra/7. Galois Theory/Typical Galois extensions
-  - Analysis/1. Real Analysis/Stolz-Cesaro theorem
+  - path: Algebra/Finite Group Theory/Classification of small order groups
+    ink_added_percent: 25.6
+  - path: Algebra/Finite Group Theory/Dihedral Group
+    ink_added_percent: 0.0
+  - path: Algebra/Galois Theory/Typical Galois extensions
+    ink_added_percent: 346.5
+  - path: Analysis/Real Analysis/Stolz-Cesaro theorem
+    ink_added_percent: 65.4
+  - path: Analysis/Complex Analysis/Open mapping Theorem
+    ink_added_percent: 37.5
   modified:
-  - Analysis/1. Real Analysis/Advanced Techniques for sequence
-  - Analysis/1. Real Analysis/Cantor set
-  moved_renamed: []
+  - path: Analysis/Complex Analysis/Argument Principle
+    ink_added_percent: 114.2
+  moved_renamed:
+  - from: Algebra/Group Theory/Alternating Group
+    to: Algebra/Finite Group Theory/Alternating Group
+    ink_added_percent: 0.0
+  - from: Algebra/Group Theory/Class equation
+    to: Algebra/Finite Group Theory/Class equation
+    ink_added_percent: 0.0
+  - from: Algebra/Group Theory/Cyclic Group
+    to: Algebra/Finite Group Theory/Cyclic Group
+    ink_added_percent: 0.0
+  - from: Algebra/Group Theory/Division Algorithm
+    to: Algebra/Finite Group Theory/Division Algorithm
+    ink_added_percent: 0.0
+  - from: Algebra/Group Theory/Jordan-Hölder
+    to: Algebra/Finite Group Theory/Jordan-Hölder
+    ink_added_percent: 0.0
+  - from: Algebra/Group Theory/P-Group
+    to: Algebra/Finite Group Theory/P-Group
+    ink_added_percent: 0.0
+  - from: Algebra/Group Theory/Sylow Theorem
+    to: Algebra/Finite Group Theory/Sylow Theorem
+    ink_added_percent: 352.4
+  - from: Algebra/Group Theory/Symmetric Group
+    to: Algebra/Finite Group Theory/Symmetric Group
+    ink_added_percent: 0.0
+  - from: Algebra/Group Theory/pgroups
+    to: Algebra/Finite Group Theory/pgroups
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Basic ideal
+    to: Algebra/Ring Theory/Basic ideal
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Chinese reminder theorem
+    to: Algebra/Ring Theory/Chinese reminder theorem
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Dedekind-Hasse norm
+    to: Algebra/Ring Theory/Dedekind-Hasse norm
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Domains (2)
+    to: Algebra/Ring Theory/Domains (2)
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Domains
+    to: Algebra/Ring Theory/Domains
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Eisenstein Criterion
+    to: Algebra/Ring Theory/Eisenstein Criterion
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Fraction Ring
+    to: Algebra/Ring Theory/Fraction Ring
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Ideal
+    to: Algebra/Ring Theory/Ideal
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Irreducible and Prime
+    to: Algebra/Ring Theory/Irreducible and Prime
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Nilradical and Radical
+    to: Algebra/Ring Theory/Nilradical and Radical
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Notebook 3
+    to: Algebra/Ring Theory/Notebook 3
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Polynomial Ring (2)
+    to: Algebra/Polynomial Ring Theory/Polynomial Ring (2)
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Polynomial Ring
+    to: Algebra/Polynomial Ring Theory/Polynomial Ring
+    ink_added_percent: 0.0
+  - from: Algebra/Ring Theory/Quadratic integer Ring
+    to: Algebra/Ring Theory/Quadratic integer Ring
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Basic field Theory
+    to: Algebra/Field Theory/Basic field Theory
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Basic field extension
+    to: Algebra/Field Theory/Basic field extension
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Basic field
+    to: Algebra/Field Theory/Basic field
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Biquadratic Field
+    to: Algebra/Field Theory/Biquadratic Field
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Composite Field
+    to: Algebra/Field Theory/Composite Field
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Conjugate Isomorphism
+    to: Algebra/Field Theory/Conjugate Isomorphism
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Cyclotomic Field
+    to: Algebra/Field Theory/Cyclotomic Field
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Field Homomorphism
+    to: Algebra/Field Theory/Field Homomorphism
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Finite field (2)
+    to: Algebra/Field Theory/Finite field (2)
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Finite field
+    to: Algebra/Field Theory/Finite field
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Formal Derivative and Separablity
+    to: Algebra/Field Theory/Formal Derivative and Separablity
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Rationalize
+    to: Algebra/Field Theory/Rationalize
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Separable Extension
+    to: Algebra/Field Theory/Separable Extension
+    ink_added_percent: 0.0
+  - from: Algebra/Field Theory/Spiltting Field
+    to: Algebra/Field Theory/Spiltting Field
+    ink_added_percent: 0.0
+  - from: Algebra/Galois Theory/Galois Theorem
+    to: Algebra/Galois Theory/Galois Theorem
+    ink_added_percent: 0.0
+  - from: Algebra/Galois Theory/Norm and Trace of Galois
+    to: Algebra/Galois Theory/Norm and Trace of Galois
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Abel formula
+    to: Analysis/Real Analysis/Abel formula
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Advanced Techniques for sequence
+    to: Analysis/Real Analysis/Advanced Techniques for sequence
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Arzelà-Ascoli
+    to: Analysis/Real Analysis/Arzelà-Ascoli
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Banach Space
+    to: Analysis/Real Analysis/Banach Space
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Basic Riemann-integral
+    to: Analysis/Real Analysis/Basic Riemann-integral
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Bounded Variation
+    to: Analysis/Real Analysis/Bounded Variation
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Cantor set
+    to: Analysis/Real Analysis/Cantor set
+    ink_added_percent: 78.1
+  - from: Analysis/Basic Analysis/Convexity
+    to: Analysis/Real Analysis/Convexity
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Darboux_s Theorem
+    to: Analysis/Real Analysis/Darboux_s Theorem
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Density of rational
+    to: Analysis/Real Analysis/Density of rational
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Differentiation
+    to: Analysis/Real Analysis/Differentiation
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Discontinuity
+    to: Analysis/Real Analysis/Discontinuity
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Double Sequence
+    to: Analysis/Real Analysis/Double Sequence
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Fundamental Theorem of Calculus
+    to: Analysis/Real Analysis/Fundamental Theorem of Calculus
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Improper integral
+    to: Analysis/Real Analysis/Improper integral
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Inequalities of integral
+    to: Analysis/Real Analysis/Inequalities of integral
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Inequality in Real numbers
+    to: Analysis/Real Analysis/Inequality in Real numbers
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Kronecker approximation theorem
+    to: Analysis/Real Analysis/Kronecker approximation theorem
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Lipschtiz
+    to: Analysis/Real Analysis/Lipschtiz
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Normed Space
+    to: Analysis/Real Analysis/Normed Space
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Open map is injective
+    to: Analysis/Real Analysis/Open map is injective
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Parameter dependent integral
+    to: Analysis/Real Analysis/Parameter dependent integral
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Power Series
+    to: Analysis/Real Analysis/Power Series
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Riemann-Rearangement Theorem
+    to: Analysis/Real Analysis/Riemann-Rearangement Theorem
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Sequences of functions
+    to: Analysis/Real Analysis/Sequences of functions
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Stone-Weierstrass Theorem
+    to: Analysis/Real Analysis/Stone-Weierstrass Theorem
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Supremum
+    to: Analysis/Real Analysis/Supremum
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Talyor Series
+    to: Analysis/Real Analysis/Talyor Series
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Talyor_s Theorem
+    to: Analysis/Real Analysis/Talyor_s Theorem
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Thomae function
+    to: Analysis/Real Analysis/Thomae function
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Trigonometric series
+    to: Analysis/Real Analysis/Trigonometric series
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/Typical Sequences
+    to: Analysis/Real Analysis/Typical Sequences
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/xsin1_x
+    to: Analysis/Real Analysis/xsin1_x
+    ink_added_percent: 0.0
+  - from: Analysis/Basic Analysis/xsinx
+    to: Analysis/Real Analysis/xsinx
+    ink_added_percent: 0.0
   deleted:
-  - Algebra/7. Galois Theory/Elementary examples of Galois group
+  - Algebra/Galois Theory/Elementary examples of Galois group
 '260815':
   baseline: false
-  added: []
-  modified: []
+  total_ink_percent: 647.4
+  added:
+  - path: Algebra/Ring Theory/Maximal and Prime ideal
+    ink_added_percent: 64.3
+  - path: Topology/General Topology/Compact Hausdorff Space
+    ink_added_percent: 49.9
+  - path: Topology/General Topology/Kolmogorov and Fréchet Space
+    ink_added_percent: 24.9
+  - path: Topology/Algebraic Topology/Hatcher, chapter 1
+    ink_added_percent: 10.5
+  modified:
+  - path: Algebra/Finite Group Theory/Dihedral Group
+    ink_added_percent: 92.7
+  - path: Algebra/Galois Theory/Typical Galois extensions
+    ink_added_percent: 80.1
+  - path: Analysis/Real Analysis/Stolz-Cesaro theorem
+    ink_added_percent: 121.3
+  - path: Analysis/Complex Analysis/Residue Theorem
+    ink_added_percent: 4.0
+  - path: Analysis/Complex Analysis/Trigonometric integral
+    ink_added_percent: 61.8
+  - path: Topology/General Topology/Topological map
+    ink_added_percent: 137.6
   moved_renamed: []
-  deleted: []
+  deleted:
+  - Topology/General Topology/Topological map 2
