@@ -1,6 +1,3 @@
-mkdir -p .githooks
-
-cat > .githooks/pre-commit <<'EOF'
 #!/bin/sh
 set -e
 
@@ -18,8 +15,3 @@ git add _data/untexed_records.yml
 git add -A untexed-current/
 
 echo "Handwritten-note records updated."
-EOF
-
-chmod +x .githooks/pre-commit
-
-git config core.hooksPath .githooks
