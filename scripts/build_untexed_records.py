@@ -1,4 +1,4 @@
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from collections import defaultdict
 from difflib import SequenceMatcher
 import hashlib
@@ -20,20 +20,6 @@ UNTEXED = ROOT / "untexed"
 OUTPUT = ROOT / "_data" / "untexed_records.yml"
 
 
-# =========================================================
-# Ink reference
-#
-# _ink_reference/
-#   ink_100.pdf
-#   grid_template.pdf
-#
-# ink_100.pdf:
-#   이 한 페이지의 필기량을 정확히 100%로 정의
-#
-# grid_template.pdf:
-#   빈 reMarkable 격자 페이지
-# =========================================================
-
 REFERENCE_DIR = ROOT / "_ink_reference"
 
 INK_REFERENCE_PDF = (
@@ -48,33 +34,19 @@ GRID_TEMPLATE_PDF = (
 
 
 # =========================================================
-# Rendering / Ink parameters
+# Settings
 # =========================================================
 
 RENDER_SCALE = 2.0
 
-
-# 템플릿보다 최소 이만큼 어두워져야
-# 실제 필기 후보로 인정
 TEMPLATE_DIFF_THRESHOLD = 20
 
-
-# 너무 밝은 anti-aliasing이나
-# 배경 변화는 필기로 세지 않음
 MAX_INK_GRAY = 220
 
-
-# reMarkable export 과정에서
-# 페이지가 몇 pixel 정도 이동하는 경우 보정
 MAX_ALIGNMENT_SHIFT = 3
 
-
-# 기존 글씨 가장자리의 anti-aliasing 변화를
-# 새로운 필기로 잘못 세지 않기 위한 tolerance
 OLD_INK_TOLERANCE_RADIUS = 2
 
-
-# Rename 추정은 보수적으로
 RENAME_SIMILARITY_THRESHOLD = 0.80
 
 
@@ -84,7 +56,7 @@ _REFERENCE_INK_PIXELS = None
 
 
 # =========================================================
-# Path utilities
+# Path helpers
 # =========================================================
 
 def strip_pdf_suffixes(name):
@@ -92,7 +64,6 @@ def strip_pdf_suffixes(name):
     result = name
 
     while result.lower().endswith(".pdf"):
-
         result = result[:-4]
 
     return result
@@ -109,23 +80,16 @@ def display_path(relative_path):
 
         if index == len(parts) - 1:
 
-            # 파일명
-            #
-            # abc.pdf
-            # abc.pdf.pdf
-            #
-            # 모두 abc로 표시
             part = strip_pdf_suffixes(
                 part
             )
 
         else:
 
-            # 폴더명의 번호 제거
-            #
             # 3. Finite Group Theory
             # ->
             # Finite Group Theory
+
             part = re.sub(
                 r"^\d+\.\s*",
                 "",
@@ -148,21 +112,17 @@ def normalized_filename(relative_path):
         relative_path
     ).name
 
-
     name = strip_pdf_suffixes(
         name
     )
 
-
     name = name.lower()
-
 
     name = re.sub(
         r"[\s_\-()]+",
         " ",
         name
     )
-
 
     return name.strip()
 
@@ -171,15 +131,38 @@ def top_subject(relative_path):
 
     parts = relative_path.split("/")
 
-    if parts:
+    if len(parts) <= 1:
+        return "General"
 
-        return parts[0]
+    return parts[0]
 
-    return ""
+
+def folder_key(relative_path):
+
+    parent = (
+        PurePosixPath(relative_path)
+        .parent
+        .as_posix()
+    )
+
+    if parent == ".":
+        return "General"
+
+    return parent
+
+
+def subject_key(relative_path):
+
+    parts = relative_path.split("/")
+
+    if len(parts) <= 1:
+        return "General"
+
+    return parts[0]
 
 
 # =========================================================
-# PDF page rendering
+# Rendering
 # =========================================================
 
 def render_page_gray(page):
@@ -213,27 +196,18 @@ def render_page_gray(page):
     ).copy()
 
 
-# =========================================================
-# Resize grayscale template
-# =========================================================
-
-def resize_gray_nearest(
-    gray,
+def resize_nearest(
+    array,
     target_shape
 ):
 
-    if gray.shape == target_shape:
+    if array.shape == target_shape:
+        return array
 
-        return gray
 
+    target_h, target_w = target_shape
 
-    target_h, target_w = (
-        target_shape
-    )
-
-    source_h, source_w = (
-        gray.shape
-    )
+    source_h, source_w = array.shape
 
 
     y_idx = np.linspace(
@@ -262,7 +236,7 @@ def resize_gray_nearest(
     )
 
 
-    return gray[
+    return array[
 
         np.ix_(
             y_idx,
@@ -271,69 +245,6 @@ def resize_gray_nearest(
 
     ]
 
-
-# =========================================================
-# Resize boolean mask
-# =========================================================
-
-def resize_mask_nearest(
-    mask,
-    target_shape
-):
-
-    if mask.shape == target_shape:
-
-        return mask
-
-
-    target_h, target_w = (
-        target_shape
-    )
-
-    source_h, source_w = (
-        mask.shape
-    )
-
-
-    y_idx = np.linspace(
-
-        0,
-
-        source_h - 1,
-
-        target_h
-
-    ).astype(
-        np.int64
-    )
-
-
-    x_idx = np.linspace(
-
-        0,
-
-        source_w - 1,
-
-        target_w
-
-    ).astype(
-        np.int64
-    )
-
-
-    return mask[
-
-        np.ix_(
-            y_idx,
-            x_idx
-        )
-
-    ]
-
-
-# =========================================================
-# Load reference PDF first page
-# =========================================================
 
 def load_first_page_gray(
     pdf_path
@@ -348,9 +259,9 @@ def load_first_page_gray(
 
         if doc.page_count < 1:
 
-            raise ValueError(
+            raise RuntimeError(
 
-                f"No pages in reference PDF: "
+                f"No pages in PDF: "
                 f"{pdf_path}"
 
             )
@@ -369,18 +280,10 @@ def load_first_page_gray(
 
 
 # =========================================================
-# Handwriting mask
+# Handwriting detection
 #
-# 핵심:
-#
-# blank grid와 실제 page를 비교한다.
-#
-# template - actual page
-#
-# 실제 page 쪽이 충분히 어두워진 부분만
-# handwriting으로 본다.
-#
-# 따라서 격자 자체는 자동으로 제거된다.
+# blank grid와 비교해서
+# grid보다 실제로 어두워진 부분만 handwriting으로 판정
 # =========================================================
 
 def handwriting_mask_from_gray(
@@ -390,14 +293,11 @@ def handwriting_mask_from_gray(
     if _TEMPLATE_GRAY is None:
 
         raise RuntimeError(
-
-            "Ink calibration has not "
-            "been initialized."
-
+            "Ink calibration is not initialized."
         )
 
 
-    template = resize_gray_nearest(
+    template = resize_nearest(
 
         _TEMPLATE_GRAY,
 
@@ -406,7 +306,6 @@ def handwriting_mask_from_gray(
     )
 
 
-    # uint8 subtraction overflow 방지
     darkness_gain = (
 
         template.astype(
@@ -453,20 +352,14 @@ def page_ink_mask(page):
 
 
 # =========================================================
-# Calibration
+# Ink calibration
 #
-# 매번 ink_100.pdf를 직접 읽는다.
-#
-# 따라서 특정 pixel 값을 코드에 하드코딩하지 않는다.
-#
-# ink_100.pdf에서 검출된 필기량
-# = 정확히 100%
+# ink_100.pdf = 정확히 100%
 # =========================================================
 
 def initialize_ink_calibration():
 
     global _TEMPLATE_GRAY
-
     global _REFERENCE_INK_PIXELS
 
 
@@ -474,7 +367,7 @@ def initialize_ink_calibration():
 
         raise FileNotFoundError(
 
-            f"Missing ink reference PDF:\n"
+            f"Missing reference file:\n"
             f"{INK_REFERENCE_PDF}"
 
         )
@@ -484,32 +377,36 @@ def initialize_ink_calibration():
 
         raise FileNotFoundError(
 
-            f"Missing grid template PDF:\n"
+            f"Missing template file:\n"
             f"{GRID_TEMPLATE_PDF}"
 
         )
 
 
-    # 빈 격자
     _TEMPLATE_GRAY = (
+
         load_first_page_gray(
             GRID_TEMPLATE_PDF
         )
+
     )
 
 
-    # 100% 필기 기준 페이지
     reference_gray = (
+
         load_first_page_gray(
             INK_REFERENCE_PDF
         )
+
     )
 
 
     reference_mask = (
+
         handwriting_mask_from_gray(
             reference_gray
         )
+
     )
 
 
@@ -525,18 +422,16 @@ def initialize_ink_calibration():
     if _REFERENCE_INK_PIXELS <= 0:
 
         raise RuntimeError(
-
-            "Reference ink amount is zero. "
-            "Check reference/template PDFs."
-
+            "Reference ink amount is zero."
         )
 
 
-    # 빈 격자가 필기로 잘못 잡히는지 검사
     blank_mask = (
+
         handwriting_mask_from_gray(
             _TEMPLATE_GRAY
         )
+
     )
 
 
@@ -550,19 +445,9 @@ def initialize_ink_calibration():
 
 
     print()
-
-    print(
-        "=" * 70
-    )
-
-    print(
-        "Ink calibration"
-    )
-
-    print(
-        "=" * 70
-    )
-
+    print("=" * 70)
+    print("Ink calibration")
+    print("=" * 70)
 
     print(
 
@@ -571,7 +456,6 @@ def initialize_ink_calibration():
 
     )
 
-
     print(
 
         f"Blank grid ink     : "
@@ -579,24 +463,17 @@ def initialize_ink_calibration():
 
     )
 
-
-    print(
-        "=" * 70
-    )
-
+    print("=" * 70)
     print()
 
 
 # =========================================================
-# PDF visual hash
-#
-# metadata가 아니라 실제 렌더링 화면을 비교한다.
+# Visual PDF hash
 # =========================================================
 
 def visual_pdf_hash(path):
 
     h = hashlib.sha256()
-
 
     doc = fitz.open(
         path
@@ -619,6 +496,7 @@ def visual_pdf_hash(path):
         for page_number in range(
             doc.page_count
         ):
+
 
             page = doc.load_page(
                 page_number
@@ -673,7 +551,7 @@ def visual_pdf_hash(path):
 
 
 # =========================================================
-# Shift mask
+# Mask utilities
 # =========================================================
 
 def shift_mask(
@@ -682,9 +560,7 @@ def shift_mask(
     dy
 ):
 
-    height, width = (
-        mask.shape
-    )
+    height, width = mask.shape
 
 
     shifted = np.zeros_like(
@@ -706,7 +582,6 @@ def shift_mask(
         width - dx
     )
 
-
     src_y1 = max(
         0,
         -dy
@@ -727,7 +602,6 @@ def shift_mask(
         width,
         width + dx
     )
-
 
     dst_y1 = max(
         0,
@@ -767,26 +641,17 @@ def shift_mask(
     return shifted
 
 
-# =========================================================
-# Old/New page alignment
-#
-# reMarkable 재-export 과정의
-# ±몇 pixel 차이를 보정한다.
-# =========================================================
-
 def align_old_mask(
     old_mask,
     new_mask
 ):
 
-    old_mask = (
-        resize_mask_nearest(
+    old_mask = resize_nearest(
 
-            old_mask,
+        old_mask,
 
-            new_mask.shape
+        new_mask.shape
 
-        )
     )
 
 
@@ -824,12 +689,7 @@ def align_old_mask(
         ):
 
 
-            if (
-                dx == 0
-                and
-                dy == 0
-            ):
-
+            if dx == 0 and dy == 0:
                 continue
 
 
@@ -867,17 +727,12 @@ def align_old_mask(
     return best
 
 
-# =========================================================
-# Existing ink tolerance
-# =========================================================
-
 def dilate_mask(
     mask,
     radius
 ):
 
     if radius <= 0:
-
         return mask
 
 
@@ -885,29 +740,18 @@ def dilate_mask(
 
 
     for dy in range(
-
         -radius,
-
         radius + 1
-
     ):
 
 
         for dx in range(
-
             -radius,
-
             radius + 1
-
         ):
 
 
-            if (
-                dx == 0
-                and
-                dy == 0
-            ):
-
+            if dx == 0 and dy == 0:
                 continue
 
 
@@ -926,9 +770,7 @@ def dilate_mask(
 
 
 # =========================================================
-# Added file
-#
-# 새 파일 전체의 필기량 계산
+# Ink calculations
 # =========================================================
 
 def count_total_ink_pixels(
@@ -936,7 +778,6 @@ def count_total_ink_pixels(
 ):
 
     total = 0
-
 
     doc = fitz.open(
         pdf_path
@@ -950,13 +791,12 @@ def count_total_ink_pixels(
         ):
 
 
-            page = doc.load_page(
-                page_number
-            )
-
-
             mask = page_ink_mask(
-                page
+
+                doc.load_page(
+                    page_number
+                )
+
             )
 
 
@@ -977,25 +817,14 @@ def count_total_ink_pixels(
         doc.close()
 
 
-# =========================================================
-# Modified file
-#
-# old -> new에서
-# 새로 추가된 필기만 계산
-# =========================================================
-
 def count_added_ink_pixels(
-
     old_pdf_path,
-
     new_pdf_path
-
 ):
 
     old_doc = fitz.open(
         old_pdf_path
     )
-
 
     new_doc = fitz.open(
         new_pdf_path
@@ -1016,9 +845,7 @@ def count_added_ink_pixels(
         )
 
 
-        # -------------------------------------------------
-        # 기존 페이지
-        # -------------------------------------------------
+        # Existing pages
 
         for page_number in range(
             common_pages
@@ -1043,7 +870,6 @@ def count_added_ink_pixels(
             )
 
 
-            # 위치 보정
             old_mask = align_old_mask(
 
                 old_mask,
@@ -1053,7 +879,6 @@ def count_added_ink_pixels(
             )
 
 
-            # 기존 글씨 가장자리 tolerance
             old_mask = dilate_mask(
 
                 old_mask,
@@ -1063,13 +888,10 @@ def count_added_ink_pixels(
             )
 
 
-            # new에는 있지만 old에는 없었던 ink
             added_mask = (
 
                 new_mask
-
                 &
-
                 ~old_mask
 
             )
@@ -1084,12 +906,7 @@ def count_added_ink_pixels(
             )
 
 
-        # -------------------------------------------------
-        # 파일 뒤쪽에 새 페이지가 추가된 경우
-        #
-        # 해당 페이지 전체 handwriting을
-        # 그날 추가된 ink로 계산
-        # -------------------------------------------------
+        # Newly appended pages
 
         for page_number in range(
 
@@ -1124,29 +941,15 @@ def count_added_ink_pixels(
     finally:
 
         old_doc.close()
-
         new_doc.close()
 
 
-# =========================================================
-# Ink %
-#
-# 기준 페이지 한 장 = 100%
-#
-# 3.14장 분량 = 314%
-# =========================================================
-
-def ink_percent(
-    pixel_count
-):
+def ink_percent(pixel_count):
 
     if _REFERENCE_INK_PIXELS is None:
 
         raise RuntimeError(
-
-            "Ink calibration has not "
-            "been initialized."
-
+            "Ink calibration is not initialized."
         )
 
 
@@ -1198,14 +1001,9 @@ def get_pdf_snapshot(
         for path in date_dir.rglob("*")
 
         if (
-
             path.is_file()
-
             and
-
-            path.suffix.lower()
-            == ".pdf"
-
+            path.suffix.lower() == ".pdf"
         )
 
     )
@@ -1217,11 +1015,9 @@ def get_pdf_snapshot(
         relative_path = (
 
             path
-
             .relative_to(
                 date_dir
             )
-
             .as_posix()
 
         )
@@ -1255,9 +1051,7 @@ def get_pdf_snapshot(
 
 
 # =========================================================
-# Moved / Renamed
-#
-# 오판을 방지하기 위해 보수적으로 판정
+# Moved / Renamed detection
 # =========================================================
 
 def detect_moves(
@@ -1275,27 +1069,21 @@ def detect_moves(
     moved = []
 
 
-    # =====================================================
+    # -----------------------------------------------------
     # STEP 1
-    #
-    # 같은 subject
-    # + 같은 filename
-    # + 각각 후보가 하나뿐
-    #
-    # 내용이 조금 수정돼도 move로 판정 가능
-    # =====================================================
+    # Same subject + same filename
+    # -----------------------------------------------------
 
-    old_by_identity = (
-        defaultdict(list)
+    old_by_identity = defaultdict(
+        list
     )
 
-    new_by_identity = (
-        defaultdict(list)
+    new_by_identity = defaultdict(
+        list
     )
 
 
     for path in deleted_candidates:
-
 
         key = (
 
@@ -1308,7 +1096,6 @@ def detect_moves(
             )
 
         )
-
 
         old_by_identity[
             key
@@ -1319,7 +1106,6 @@ def detect_moves(
 
     for path in added_candidates:
 
-
         key = (
 
             top_subject(
@@ -1331,7 +1117,6 @@ def detect_moves(
             )
 
         )
-
 
         new_by_identity[
             key
@@ -1361,42 +1146,24 @@ def detect_moves(
 
 
         old_list = sorted(
-
-            old_by_identity[
-                key
-            ]
-
+            old_by_identity[key]
         )
 
-
         new_list = sorted(
-
-            new_by_identity[
-                key
-            ]
-
+            new_by_identity[key]
         )
 
 
         if (
-
             len(old_list) == 1
-
             and
-
             len(new_list) == 1
-
         ):
 
 
-            old_path = (
-                old_list[0]
-            )
+            old_path = old_list[0]
 
-
-            new_path = (
-                new_list[0]
-            )
+            new_path = new_list[0]
 
 
             moved.append({
@@ -1414,32 +1181,26 @@ def detect_moves(
                 old_path
             )
 
-
             added_candidates.remove(
                 new_path
             )
 
 
-    # =====================================================
+    # -----------------------------------------------------
     # STEP 2
-    #
-    # 동일 visual hash
-    # + 동일 filename
-    #
-    # 단 후보가 각각 하나일 때만
-    # =====================================================
+    # Same visual hash + similar filename
+    # -----------------------------------------------------
 
-    deleted_by_hash = (
-        defaultdict(list)
+    deleted_by_hash = defaultdict(
+        list
     )
 
-    added_by_hash = (
-        defaultdict(list)
+    added_by_hash = defaultdict(
+        list
     )
 
 
     for path in deleted_candidates:
-
 
         deleted_by_hash[
 
@@ -1453,212 +1214,6 @@ def detect_moves(
 
 
     for path in added_candidates:
-
-
-        added_by_hash[
-
-            current[path][
-                "hash"
-            ]
-
-        ].append(
-            path
-        )
-
-
-    common_hashes = (
-
-        set(
-            deleted_by_hash
-        )
-
-        &
-
-        set(
-            added_by_hash
-        )
-
-    )
-
-
-    for file_hash in sorted(
-        common_hashes
-    ):
-
-
-        old_by_name = (
-            defaultdict(list)
-        )
-
-
-        new_by_name = (
-            defaultdict(list)
-        )
-
-
-        for path in (
-            deleted_by_hash[
-                file_hash
-            ]
-        ):
-
-
-            if path in deleted_candidates:
-
-
-                old_by_name[
-
-                    normalized_filename(
-                        path
-                    )
-
-                ].append(
-                    path
-                )
-
-
-        for path in (
-            added_by_hash[
-                file_hash
-            ]
-        ):
-
-
-            if path in added_candidates:
-
-
-                new_by_name[
-
-                    normalized_filename(
-                        path
-                    )
-
-                ].append(
-                    path
-                )
-
-
-        same_names = (
-
-            set(
-                old_by_name
-            )
-
-            &
-
-            set(
-                new_by_name
-            )
-
-        )
-
-
-        for name in sorted(
-            same_names
-        ):
-
-
-            old_list = sorted(
-
-                old_by_name[
-                    name
-                ]
-
-            )
-
-
-            new_list = sorted(
-
-                new_by_name[
-                    name
-                ]
-
-            )
-
-
-            # 같은 hash / 같은 이름이 여러 개면
-            # 억지로 pairing하지 않는다.
-            if (
-
-                len(old_list) != 1
-
-                or
-
-                len(new_list) != 1
-
-            ):
-
-                continue
-
-
-            old_path = (
-                old_list[0]
-            )
-
-
-            new_path = (
-                new_list[0]
-            )
-
-
-            moved.append({
-
-                "from":
-                    old_path,
-
-                "to":
-                    new_path
-
-            })
-
-
-            deleted_candidates.remove(
-                old_path
-            )
-
-
-            added_candidates.remove(
-                new_path
-            )
-
-
-    # =====================================================
-    # STEP 3
-    #
-    # 동일 hash 그룹에
-    # old/new 후보가 정확히 하나씩이고
-    #
-    # 같은 subject
-    # + 이름이 충분히 비슷할 때만
-    #
-    # rename으로 판단
-    # =====================================================
-
-    deleted_by_hash = (
-        defaultdict(list)
-    )
-
-    added_by_hash = (
-        defaultdict(list)
-    )
-
-
-    for path in deleted_candidates:
-
-
-        deleted_by_hash[
-
-            previous[path][
-                "hash"
-            ]
-
-        ].append(
-            path
-        )
-
-
-    for path in added_candidates:
-
 
         added_by_hash[
 
@@ -1721,29 +1276,20 @@ def detect_moves(
         ]
 
 
-        # ambiguous hash group은
-        # rename으로 추정하지 않는다.
+        # ambiguous group은 pairing 안 함
+
         if (
-
             len(old_paths) != 1
-
             or
-
             len(new_paths) != 1
-
         ):
 
             continue
 
 
-        old_path = (
-            old_paths[0]
-        )
+        old_path = old_paths[0]
 
-
-        new_path = (
-            new_paths[0]
-        )
+        new_path = new_paths[0]
 
 
         if (
@@ -1763,29 +1309,32 @@ def detect_moves(
             continue
 
 
-        similarity = (
-            SequenceMatcher(
+        old_name = normalized_filename(
+            old_path
+        )
 
-                None,
-
-                normalized_filename(
-                    old_path
-                ),
-
-                normalized_filename(
-                    new_path
-                )
-
-            ).ratio()
+        new_name = normalized_filename(
+            new_path
         )
 
 
-        if (
+        similarity = SequenceMatcher(
 
+            None,
+
+            old_name,
+
+            new_name
+
+        ).ratio()
+
+
+        if (
+            old_name != new_name
+            and
             similarity
             <
             RENAME_SIMILARITY_THRESHOLD
-
         ):
 
             continue
@@ -1806,7 +1355,6 @@ def detect_moves(
             old_path
         )
 
-
         added_candidates.remove(
             new_path
         )
@@ -1821,17 +1369,8 @@ def detect_moves(
 
 def main():
 
-
-    # =====================================================
-    # 100% reference calibration
-    # =====================================================
-
     initialize_ink_calibration()
 
-
-    # =====================================================
-    # 날짜 폴더
-    # =====================================================
 
     date_dirs = sorted(
 
@@ -1842,17 +1381,11 @@ def main():
             for path in UNTEXED.iterdir()
 
             if (
-
                 path.is_dir()
-
                 and
-
                 path.name.isdigit()
-
                 and
-
                 len(path.name) == 6
-
             )
 
         ],
@@ -1882,9 +1415,7 @@ def main():
     for date_dir in date_dirs:
 
         print(
-
             f"  {date_dir.name}"
-
         )
 
 
@@ -1892,7 +1423,7 @@ def main():
 
 
     # =====================================================
-    # Snapshot 생성
+    # Snapshots
     # =====================================================
 
     snapshots = {}
@@ -1905,14 +1436,9 @@ def main():
             "=" * 70
         )
 
-
         print(
-
-            f"Scanning "
-            f"{date_dir.name}"
-
+            f"Scanning {date_dir.name}"
         )
-
 
         print(
             "=" * 70
@@ -1932,7 +1458,7 @@ def main():
 
 
     # =====================================================
-    # Record 생성
+    # Records
     # =====================================================
 
     records = {}
@@ -1943,22 +1469,16 @@ def main():
     ):
 
 
-        date = (
-            date_dir.name
-        )
-
+        date = date_dir.name
 
         current = snapshots[
             date
         ]
 
 
-        # =================================================
-        # 첫 snapshot
-        #
-        # 이전 상태가 없으므로
-        # "그날 쓴 양"을 계산할 수 없다.
-        # =================================================
+        # -------------------------------------------------
+        # Baseline
+        # -------------------------------------------------
 
         if index == 0:
 
@@ -1972,6 +1492,15 @@ def main():
 
                 "total_ink_percent":
                     None,
+
+                "subject_ink_percent":
+                    {},
+
+                "folder_ink_percent":
+                    {},
+
+                "file_ink_percent":
+                    {},
 
                 "added":
                     [],
@@ -1991,10 +1520,6 @@ def main():
             continue
 
 
-        # =================================================
-        # Previous snapshot
-        # =================================================
-
         previous_dir = (
             date_dirs[
                 index - 1
@@ -2002,20 +1527,14 @@ def main():
         )
 
 
-        previous_date = (
-            previous_dir.name
-        )
-
-
         previous = snapshots[
-            previous_date
+            previous_dir.name
         ]
 
 
         previous_paths = set(
             previous
         )
-
 
         current_paths = set(
             current
@@ -2025,17 +1544,11 @@ def main():
         common_paths = (
 
             previous_paths
-
             &
-
             current_paths
 
         )
 
-
-        # =================================================
-        # Modified candidate
-        # =================================================
 
         modified_raw = sorted(
 
@@ -2060,16 +1573,10 @@ def main():
         )
 
 
-        # =================================================
-        # Added / Deleted candidates
-        # =================================================
-
         added_candidates = set(
 
             current_paths
-
             -
-
             previous_paths
 
         )
@@ -2078,17 +1585,11 @@ def main():
         deleted_candidates = set(
 
             previous_paths
-
             -
-
             current_paths
 
         )
 
-
-        # =================================================
-        # Moved / Renamed
-        # =================================================
 
         moved_raw = detect_moves(
 
@@ -2104,13 +1605,58 @@ def main():
 
 
         # =================================================
-        # 이 날짜에 새로 추가된 전체 ink pixel
+        # Ink statistics
         #
-        # 마지막에 이것 하나로
-        # Record total을 계산한다.
+        # raw pixels로 먼저 저장한 뒤,
+        # 마지막에 전부 %로 환산한다.
         # =================================================
 
         total_added_ink_pixels = 0
+
+
+        file_ink_pixels = defaultdict(
+            int
+        )
+
+        folder_ink_pixels = defaultdict(
+            int
+        )
+
+        subject_ink_pixels = defaultdict(
+            int
+        )
+
+
+        def register_ink(
+            relative_path,
+            pixels
+        ):
+
+            nonlocal total_added_ink_pixels
+
+
+            total_added_ink_pixels += (
+                pixels
+            )
+
+
+            file_ink_pixels[
+                relative_path
+            ] += pixels
+
+
+            folder_ink_pixels[
+                folder_key(
+                    relative_path
+                )
+            ] += pixels
+
+
+            subject_ink_pixels[
+                subject_key(
+                    relative_path
+                )
+            ] += pixels
 
 
         # =================================================
@@ -2128,22 +1674,19 @@ def main():
             current_pdf = (
 
                 date_dir
-
                 /
-
                 Path(path)
 
             )
 
 
-            pixels = (
-                count_total_ink_pixels(
-                    current_pdf
-                )
+            pixels = count_total_ink_pixels(
+                current_pdf
             )
 
 
-            total_added_ink_pixels += (
+            register_ink(
+                path,
                 pixels
             )
 
@@ -2176,9 +1719,7 @@ def main():
             old_pdf = (
 
                 previous_dir
-
                 /
-
                 Path(path)
 
             )
@@ -2187,26 +1728,23 @@ def main():
             new_pdf = (
 
                 date_dir
-
                 /
-
                 Path(path)
 
             )
 
 
-            pixels = (
-                count_added_ink_pixels(
+            pixels = count_added_ink_pixels(
 
-                    old_pdf,
+                old_pdf,
 
-                    new_pdf
+                new_pdf
 
-                )
             )
 
 
-            total_added_ink_pixels += (
+            register_ink(
+                path,
                 pixels
             )
 
@@ -2228,8 +1766,6 @@ def main():
 
         # =================================================
         # Removed
-        #
-        # 삭제는 필기량 합계에 포함하지 않는다.
         # =================================================
 
         deleted = [
@@ -2247,12 +1783,6 @@ def main():
 
         # =================================================
         # Moved / Renamed
-        #
-        # 순수 이동:
-        #   ink = 0
-        #
-        # 이동하면서 내용 수정:
-        #   새로 추가된 ink만 합산
         # =================================================
 
         moved_renamed = []
@@ -2265,7 +1795,6 @@ def main():
             key=lambda value: (
 
                 value["from"],
-
                 value["to"]
 
             )
@@ -2276,7 +1805,6 @@ def main():
             old_path = item[
                 "from"
             ]
-
 
             new_path = item[
                 "to"
@@ -2301,7 +1829,6 @@ def main():
             }
 
 
-            # 이동하면서 실제 내용도 바뀜
             if (
 
                 previous[
@@ -2320,9 +1847,7 @@ def main():
                 old_pdf = (
 
                     previous_dir
-
                     /
-
                     Path(
                         old_path
                     )
@@ -2333,9 +1858,7 @@ def main():
                 new_pdf = (
 
                     date_dir
-
                     /
-
                     Path(
                         new_path
                     )
@@ -2343,18 +1866,17 @@ def main():
                 )
 
 
-                pixels = (
-                    count_added_ink_pixels(
+                pixels = count_added_ink_pixels(
 
-                        old_pdf,
+                    old_pdf,
 
-                        new_pdf
+                    new_pdf
 
-                    )
                 )
 
 
-                total_added_ink_pixels += (
+                register_ink(
+                    new_path,
                     pixels
                 )
 
@@ -2374,7 +1896,56 @@ def main():
 
 
         # =================================================
-        # Record
+        # Convert hierarchy statistics to percentage
+        # =================================================
+
+        file_ink_percent = {
+
+            path:
+                rounded_ink_percent(
+                    pixels
+                )
+
+            for path, pixels
+            in sorted(
+                file_ink_pixels.items()
+            )
+
+        }
+
+
+        folder_ink_percent = {
+
+            folder:
+                rounded_ink_percent(
+                    pixels
+                )
+
+            for folder, pixels
+            in sorted(
+                folder_ink_pixels.items()
+            )
+
+        }
+
+
+        subject_ink_percent = {
+
+            subject:
+                rounded_ink_percent(
+                    pixels
+                )
+
+            for subject, pixels
+            in sorted(
+                subject_ink_pixels.items()
+            )
+
+        }
+
+
+        # =================================================
+        # Final Record
         # =================================================
 
         records[
@@ -2386,10 +1957,17 @@ def main():
 
             "total_ink_percent":
                 rounded_ink_percent(
-
                     total_added_ink_pixels
-
                 ),
+
+            "subject_ink_percent":
+                subject_ink_percent,
+
+            "folder_ink_percent":
+                folder_ink_percent,
+
+            "file_ink_percent":
+                file_ink_percent,
 
             "added":
                 added,
@@ -2444,23 +2022,13 @@ def main():
 
 
     # =====================================================
-    # Terminal summary
+    # Summary
     # =====================================================
 
     print()
-
-    print(
-        "=" * 70
-    )
-
-    print(
-        "Record summary"
-    )
-
-    print(
-        "=" * 70
-    )
-
+    print("=" * 70)
+    print("Record summary")
+    print("=" * 70)
     print()
 
 
@@ -2491,6 +2059,31 @@ def main():
                 f"+{record['total_ink_percent']:.1f}%"
 
             )
+
+
+            if record[
+                "subject_ink_percent"
+            ]:
+
+
+                print(
+                    "  Subjects:"
+                )
+
+
+                for subject, value in (
+                    record[
+                        "subject_ink_percent"
+                    ].items()
+                ):
+
+
+                    print(
+
+                        f"    {subject:<24} "
+                        f"+{value:.1f}%"
+
+                    )
 
 
             print(
