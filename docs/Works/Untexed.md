@@ -13,7 +13,6 @@ nav_order: 2
 {% assign records = untexed_data.records %}
 {% assign latest_record = records[latest_date] %}
 
-
 <div class="academic-tree-container">
 
 
@@ -37,92 +36,6 @@ nav_order: 2
         </span>
 
       </div>
-
-      {%- comment -%}
-      =========================================================
-      Waterman-style ink bottles
-      1 bottle = 10,000% ink
-      =========================================================
-      {%- endcomment -%}
-
-      {% assign total_ink_value = latest_record.library_total_ink_percent | default: 0 | plus: 0 %}
-      {% assign full_ink_bottles = total_ink_value | divided_by: 10000 | floor %}
-      {% assign remaining_ink = total_ink_value | modulo: 10000 %}
-      {% assign remaining_fill = remaining_ink | divided_by: 100.0 %}
-
-      <div
-        class="ink-bottle-meter"
-        aria-label="Total ink: {{ total_ink_value }} percent. One bottle represents 10,000 percent ink."
-      >
-
-        <div class="ink-bottle-row">
-
-          {% if full_ink_bottles > 0 %}
-            {% for bottle_index in (1..full_ink_bottles) %}
-
-              <div
-                class="waterman-bottle"
-                title="10,000% ink"
-                aria-hidden="true"
-              >
-                <div class="waterman-bottle-cap"></div>
-                <div class="waterman-bottle-neck"></div>
-
-                <div class="waterman-bottle-body">
-                  <div class="waterman-bottle-chamber">
-
-                    <div
-                      class="waterman-bottle-fill"
-                      style="height: 100%;"
-                    ></div>
-
-                    <span class="waterman-facet waterman-facet-left"></span>
-                    <span class="waterman-facet waterman-facet-right"></span>
-                    <span class="waterman-glass-highlight"></span>
-
-                  </div>
-                </div>
-              </div>
-
-            {% endfor %}
-          {% endif %}
-
-          {% if remaining_ink > 0 %}
-
-            <div
-              class="waterman-bottle"
-              title="{{ remaining_ink }} / 10,000% ink"
-              aria-hidden="true"
-            >
-              <div class="waterman-bottle-cap"></div>
-              <div class="waterman-bottle-neck"></div>
-
-              <div class="waterman-bottle-body">
-                <div class="waterman-bottle-chamber">
-
-                  <div
-                    class="waterman-bottle-fill"
-                    style="height: {{ remaining_fill }}%;"
-                  ></div>
-
-                  <span class="waterman-facet waterman-facet-left"></span>
-                  <span class="waterman-facet waterman-facet-right"></span>
-                  <span class="waterman-glass-highlight"></span>
-
-                </div>
-              </div>
-            </div>
-
-          {% endif %}
-
-        </div>
-
-        <div class="ink-bottle-caption">
-          1 bottle = 10,000% ink
-        </div>
-
-      </div>
-
     {% endunless %}
   {% endif %}
 
@@ -783,7 +696,7 @@ nav_order: 2
    ===================================================== */
 
 .overall-ink-banner {
-  margin: 1.3rem 0 0.55rem 0;
+  margin: 1.3rem 0 2.2rem 0;
   padding: 0.8rem 0 1rem 0;
   border-bottom: 1px solid #ddd;
 }
@@ -807,192 +720,6 @@ nav_order: 2
 
 
 
-
-/* =====================================================
-   Waterman-style Total Ink bottles
-
-   One full bottle represents 10,000% ink.
-   The last bottle is filled proportionally from the bottom.
-   ===================================================== */
-
-.ink-bottle-meter {
-  margin: 0 0 2.2rem 0;
-}
-
-.ink-bottle-row {
-  display: flex;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-  min-height: 53px;
-}
-
-.waterman-bottle {
-  width: 51px;
-  height: 53px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  flex: 0 0 auto;
-  filter: drop-shadow(0 1px 1px rgba(20, 42, 58, 0.09));
-}
-
-.waterman-bottle-cap {
-  width: 23px;
-  height: 6px;
-  border: 1px solid #526675;
-  border-radius: 3px 3px 2px 2px;
-  background:
-    linear-gradient(
-      180deg,
-      #5f7483 0%,
-      #354b5a 100%
-    );
-  box-sizing: border-box;
-  position: relative;
-  z-index: 3;
-}
-
-.waterman-bottle-cap::after {
-  content: "";
-  position: absolute;
-  left: 3px;
-  right: 3px;
-  bottom: 1px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.22);
-}
-
-.waterman-bottle-neck {
-  width: 17px;
-  height: 7px;
-  margin-top: -1px;
-  border-left: 1.5px solid #697985;
-  border-right: 1.5px solid #697985;
-  background: rgba(239, 247, 251, 0.72);
-  box-sizing: border-box;
-  position: relative;
-  z-index: 2;
-}
-
-/*
-  Low, wide faceted body inspired by the classic
-  Waterman hexagonal/faceted ink-bottle silhouette.
-*/
-.waterman-bottle-body {
-  width: 49px;
-  height: 38px;
-  margin-top: -1px;
-  position: relative;
-  clip-path: polygon(
-    24% 0%,
-    76% 0%,
-    100% 28%,
-    91% 82%,
-    73% 100%,
-    27% 100%,
-    9% 82%,
-    0% 28%
-  );
-  background: #667985;
-}
-
-.waterman-bottle-chamber {
-  position: absolute;
-  inset: 1.5px;
-  overflow: hidden;
-  clip-path: polygon(
-    24% 0%,
-    76% 0%,
-    100% 28%,
-    91% 82%,
-    73% 100%,
-    27% 100%,
-    9% 82%,
-    0% 28%
-  );
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.92) 0%,
-      rgba(237, 246, 251, 0.78) 43%,
-      rgba(225, 238, 245, 0.72) 100%
-    );
-}
-
-.waterman-bottle-fill {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  min-height: 0;
-  background:
-    linear-gradient(
-      180deg,
-      #42a9e5 0%,
-      #168dcc 35%,
-      #0876b4 100%
-    );
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    inset 0 5px 8px rgba(0, 69, 115, 0.08);
-  transition: height 0.45s ease;
-}
-
-/* Faceted glass planes */
-.waterman-facet {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 28%;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.waterman-facet-left {
-  left: 0;
-  background:
-    linear-gradient(
-      110deg,
-      rgba(255, 255, 255, 0.36),
-      rgba(255, 255, 255, 0.04)
-    );
-  clip-path: polygon(0 28%, 86% 0, 100% 100%, 32% 82%);
-}
-
-.waterman-facet-right {
-  right: 0;
-  background:
-    linear-gradient(
-      250deg,
-      rgba(86, 117, 135, 0.16),
-      rgba(255, 255, 255, 0)
-    );
-  clip-path: polygon(14% 0, 100% 28%, 68% 82%, 0 100%);
-}
-
-.waterman-glass-highlight {
-  position: absolute;
-  z-index: 3;
-  top: 7px;
-  left: 12px;
-  width: 4px;
-  height: 18px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.46);
-  transform: rotate(8deg);
-  pointer-events: none;
-}
-
-.ink-bottle-caption {
-  margin-top: 0.34rem;
-  font-family: "Times New Roman", Times, serif;
-  font-size: 0.68rem;
-  line-height: 1.2;
-  color: #929ca4;
-  letter-spacing: 0.02em;
-}
 
 /* =====================================================
    Subject
@@ -1406,24 +1133,6 @@ nav_order: 2
 
   .overall-ink-value {
     font-size: 0.92rem;
-  }
-
-  .ink-bottle-row {
-    gap: 0.5rem;
-  }
-
-  .waterman-bottle {
-    width: 47px;
-    height: 50px;
-  }
-
-  .waterman-bottle-body {
-    width: 45px;
-    height: 35px;
-  }
-
-  .ink-bottle-caption {
-    font-size: 0.64rem;
   }
 
   .subject-divider {
