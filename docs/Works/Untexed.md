@@ -2,7 +2,7 @@
 layout: default
 title: Handwritten
 has_children: true
-nav_order: 2
+nav_order: 3
 ---
 
 # Handwritten notes yet to be TeXed.
@@ -12,6 +12,7 @@ nav_order: 2
 {% assign dates = untexed_data.dates %}
 {% assign records = untexed_data.records %}
 {% assign latest_record = records[latest_date] %}
+
 
 <div class="academic-tree-container">
 
@@ -74,7 +75,7 @@ nav_order: 2
 
       {% for folder in subject.folders %}
 
-        <details class="academic-folder">
+        <details class="academic-folder{% if folder.ink_added_percent > 0 %} folder-active-today{% endif %}">
 
           <summary class="folder-summary">
 
@@ -151,6 +152,40 @@ nav_order: 2
 
           <span class="record-total-ink">
             +{{ latest_record.total_ink_percent }}% ink
+          </span>
+
+          <span class="record-change-summary">
+
+            {% if latest_record.added.size > 0 %}
+              <span class="record-change-count">
+                {{ latest_record.added.size }} added
+              </span>
+            {% endif %}
+
+            {% if latest_record.modified.size > 0 %}
+              <span class="record-change-count">
+                {{ latest_record.modified.size }} modified
+              </span>
+            {% endif %}
+
+            {% if latest_record.moved_renamed.size > 0 %}
+              <span class="record-change-count">
+                {{ latest_record.moved_renamed.size }} moved
+              </span>
+            {% endif %}
+
+            {% if latest_record.deleted.size > 0 %}
+              <span class="record-change-count">
+                {{ latest_record.deleted.size }} removed
+              </span>
+            {% endif %}
+
+            {% if latest_record.added.size == 0 and latest_record.modified.size == 0 and latest_record.moved_renamed.size == 0 and latest_record.deleted.size == 0 %}
+              <span class="record-change-count">
+                no changes
+              </span>
+            {% endif %}
+
           </span>
 
         {% endunless %}
@@ -776,6 +811,12 @@ nav_order: 2
   border-bottom: 1px solid #eee;
 }
 
+.academic-folder.folder-active-today {
+  border-left: 2px solid rgba(11, 132, 198, 0.42);
+  padding-left: 0.8rem;
+  margin-left: -0.9rem;
+}
+
 .folder-summary {
   list-style: none !important;
   padding: 0.75rem 0;
@@ -971,6 +1012,27 @@ nav_order: 2
   white-space: nowrap;
 }
 
+.record-change-summary {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin-left: 0.65rem;
+  font-size: 0.74em;
+  font-weight: normal;
+  color: #aaa;
+}
+
+.record-change-count {
+  white-space: nowrap;
+}
+
+.record-change-count + .record-change-count::before {
+  content: "·";
+  display: inline-block;
+  margin: 0 0.4rem;
+  color: #c0c0c0;
+}
+
 
 /* =====================================================
    Latest Record
@@ -1153,6 +1215,17 @@ nav_order: 2
 
   .folder-ink {
     font-size: 0.68em;
+  }
+
+  .academic-folder.folder-active-today {
+    padding-left: 0.55rem;
+    margin-left: -0.65rem;
+  }
+
+  .record-change-summary {
+    display: flex;
+    margin-left: 1.45rem;
+    margin-top: 0.2rem;
   }
 
   .file-link {
