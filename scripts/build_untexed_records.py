@@ -2,6 +2,7 @@ from pathlib import Path, PurePosixPath
 from collections import defaultdict
 from difflib import SequenceMatcher
 from urllib.parse import quote
+from datetime import datetime, timedelta
 import hashlib
 import re
 import shutil
@@ -46,6 +47,10 @@ MAX_INK_GRAY = 220
 MAX_ALIGNMENT_SHIFT = 3
 OLD_INK_TOLERANCE_RADIUS = 2
 RENAME_SIMILARITY_THRESHOLD = 0.80
+
+# Keep the newest 10 calendar days recalculable.
+# Older records are frozen in _data/untexed_records.yml forever.
+ROLLING_DAYS = 10
 
 _TEMPLATE_GRAY = None
 _REFERENCE_INK_PIXELS = None
@@ -861,11 +866,187 @@ def publish_latest_snapshot(
 
 
 # =========================================================
+# Rolling-history helpers
+# =========================================================
+
+def parse_snapshot_date(name):
+    """Parse a YYMMDD snapshot key into a calendar date."""
+    try:
+        return datetime.strptime(str(name), "%y%m%d").date()
+    except ValueError as exc:
+        raise ValueError(
+            f"Invalid snapshot date '{name}'. Expected YYMMDD."
+        ) from exc
+
+
+def load_existing_history():
+    """Load the committed YAML so frozen records can be preserved verbatim."""
+    if not OUTPUT.exists():
+        return {"latest_date": None, "dates": [], "records": {}}
+
+    with OUTPUT.open("r", encoding="utf-8") as file:
+        loaded = yaml.safe_load(file) or {}
+
+    raw_records = loaded.get("records", {}) or {}
+    records = {str(date): record for date, record in raw_records.items()}
+    dates = [str(date) for date in (loaded.get("dates", []) or [])]
+
+    return {
+        "latest_date": (
+            str(loaded["latest_date"])
+            if loaded.get("latest_date") is not None
+            else None
+        ),
+        "dates": dates,
+        "records": records,
+    }
+
+
+def build_baseline_record(current):
+    return {
+        "baseline": True,
+        "total_ink_percent": None,
+        "library_total_ink_percent": None,
+        "subject_ink_percent": {},
+        "folder_ink_percent": {},
+        "file_ink_percent": {},
+        "subjects": build_subject_tree(
+            current, {}, {}, {}, include_urls=False
+        ),
+        "added": [],
+        "modified": [],
+        "moved_renamed": [],
+        "deleted": [],
+    }
+
+
+def build_comparison_record(previous_dir, date_dir, previous, current):
+    """Build one day's Record by comparing two consecutive snapshots."""
+    previous_paths = set(previous)
+    current_paths = set(current)
+    common_paths = previous_paths & current_paths
+
+    modified_raw = sorted(
+        path
+        for path in common_paths
+        if previous[path]["hash"] != current[path]["hash"]
+    )
+    added_candidates = set(current_paths - previous_paths)
+    deleted_candidates = set(previous_paths - current_paths)
+
+    moved_raw = detect_moves(
+        previous,
+        current,
+        deleted_candidates,
+        added_candidates,
+    )
+
+    total_added_ink_pixels = 0
+    file_ink_pixels = defaultdict(int)
+    folder_ink_pixels = defaultdict(int)
+    subject_ink_pixels = defaultdict(int)
+
+    def register_ink(relative_path, pixels):
+        nonlocal total_added_ink_pixels
+        total_added_ink_pixels += pixels
+        file_ink_pixels[relative_path] += pixels
+        folder_ink_pixels[folder_key(relative_path)] += pixels
+        subject_ink_pixels[subject_key(relative_path)] += pixels
+
+    added = []
+    for path in sorted(added_candidates):
+        current_pdf = date_dir / Path(path)
+        pixels = count_total_ink_pixels(current_pdf)
+        register_ink(path, pixels)
+        added.append({
+            "path": display_path(path),
+            "ink_added_percent": rounded_ink_percent(pixels),
+        })
+
+    modified = []
+    for path in modified_raw:
+        old_pdf = previous_dir / Path(path)
+        new_pdf = date_dir / Path(path)
+        pixels = count_added_ink_pixels(old_pdf, new_pdf)
+        register_ink(path, pixels)
+        modified.append({
+            "path": display_path(path),
+            "ink_added_percent": rounded_ink_percent(pixels),
+        })
+
+    deleted = [
+        display_path(path)
+        for path in sorted(deleted_candidates)
+    ]
+
+    moved_renamed = []
+    for item in sorted(
+        moved_raw,
+        key=lambda value: (value["from"], value["to"]),
+    ):
+        old_path = item["from"]
+        new_path = item["to"]
+        move_item = {
+            "from": display_path(old_path),
+            "to": display_path(new_path),
+            "ink_added_percent": 0.0,
+        }
+
+        if previous[old_path]["hash"] != current[new_path]["hash"]:
+            old_pdf = previous_dir / Path(old_path)
+            new_pdf = date_dir / Path(new_path)
+            pixels = count_added_ink_pixels(old_pdf, new_pdf)
+            register_ink(new_path, pixels)
+            move_item["ink_added_percent"] = rounded_ink_percent(pixels)
+
+        moved_renamed.append(move_item)
+
+    file_ink_percent = {
+        path: rounded_ink_percent(pixels)
+        for path, pixels in sorted(file_ink_pixels.items())
+    }
+    folder_ink_percent = {
+        folder: rounded_ink_percent(pixels)
+        for folder, pixels in sorted(folder_ink_pixels.items())
+    }
+    subject_ink_percent = {
+        subject: rounded_ink_percent(pixels)
+        for subject, pixels in sorted(subject_ink_pixels.items())
+    }
+
+    return {
+        "baseline": False,
+        "total_ink_percent": rounded_ink_percent(total_added_ink_pixels),
+        "library_total_ink_percent": None,
+        "subject_ink_percent": subject_ink_percent,
+        "folder_ink_percent": folder_ink_percent,
+        "file_ink_percent": file_ink_percent,
+        "subjects": build_subject_tree(
+            current,
+            file_ink_percent,
+            subject_ink_percent,
+            folder_ink_percent,
+            include_urls=False,
+        ),
+        "added": added,
+        "modified": modified,
+        "moved_renamed": moved_renamed,
+        "deleted": deleted,
+    }
+
+
+# =========================================================
 # Main
 # =========================================================
 
 def main():
     initialize_ink_calibration()
+
+    if not SNAPSHOT_ROOT.exists():
+        print(
+            f"Snapshot directory not found: {SNAPSHOT_ROOT}"
+        )
+        return
 
     date_dirs = sorted(
         [
@@ -878,7 +1059,9 @@ def main():
                 and len(path.name) == 6
             )
         ],
-        key=lambda path: path.name,
+        key=lambda path: parse_snapshot_date(
+            path.name
+        ),
     )
 
     if not date_dirs:
@@ -887,7 +1070,32 @@ def main():
         )
         return
 
-    print("Found versions:")
+    existing_data = load_existing_history()
+    existing_records = existing_data[
+        "records"
+    ]
+
+    latest_date_dir = date_dirs[-1]
+    latest_date = latest_date_dir.name
+    latest_calendar_date = parse_snapshot_date(
+        latest_date
+    )
+
+    # The newest 10 calendar days are recalculable.
+    # Example: latest=260816 -> rolling_start=260807.
+    rolling_start_calendar = (
+        latest_calendar_date
+        - timedelta(
+            days=ROLLING_DAYS - 1
+        )
+    )
+    rolling_start = (
+        rolling_start_calendar.strftime(
+            "%y%m%d"
+        )
+    )
+
+    print("Found local versions:")
     print()
 
     for date_dir in date_dirs:
@@ -896,14 +1104,200 @@ def main():
         )
 
     print()
+    print(
+        f"Rolling window : {ROLLING_DAYS} days"
+    )
+    print(
+        f"Recalculate    : {rolling_start} ~ {latest_date}"
+    )
 
     # =====================================================
-    # Scan all local snapshots
+    # First run / bootstrap
+    # =====================================================
+    # If no YAML exists yet, calculate every local snapshot once.
+    # After that, records older than the rolling window are frozen.
+
+    bootstrap = not bool(
+        existing_records
+    )
+
+    if bootstrap:
+        print(
+            "History mode   : bootstrap (all local snapshots)"
+        )
+        frozen_records = {}
+        scan_dirs = list(
+            date_dirs
+        )
+        active_dirs = list(
+            date_dirs
+        )
+        anchor_dir = None
+    else:
+        print(
+            "History mode   : rolling + frozen history"
+        )
+
+        # -----------------------------------------------
+        # Permanently preserve every stored record older
+        # than the rolling window. These dictionaries are
+        # copied verbatim from the existing YAML.
+        # -----------------------------------------------
+
+        frozen_records = {
+            date: record
+            for date, record
+            in existing_records.items()
+            if (
+                parse_snapshot_date(date)
+                < rolling_start_calendar
+            )
+        }
+
+        active_dirs = [
+            path
+            for path in date_dirs
+            if (
+                parse_snapshot_date(
+                    path.name
+                )
+                >= rolling_start_calendar
+            )
+        ]
+
+        # -----------------------------------------------
+        # Safety check:
+        # Any already-recorded date inside the rolling
+        # window must still exist locally. Otherwise a
+        # later record could be silently recomputed against
+        # the wrong predecessor.
+        # -----------------------------------------------
+
+        local_dates = {
+            path.name
+            for path in date_dirs
+        }
+
+        required_recent_dates = sorted(
+            date
+            for date
+            in existing_records
+            if (
+                rolling_start_calendar
+                <= parse_snapshot_date(date)
+                <= latest_calendar_date
+            )
+        )
+
+        missing_recent_dates = [
+            date
+            for date
+            in required_recent_dates
+            if date not in local_dates
+        ]
+
+        if missing_recent_dates:
+            missing_text = ", ".join(
+                missing_recent_dates
+            )
+            raise RuntimeError(
+                "A snapshot inside the 10-day rolling window "
+                "is missing locally. Refusing to recalculate, "
+                "because that could change later Records.\n"
+                f"Missing: {missing_text}\n"
+                "Restore those local snapshot folders first."
+            )
+
+        # -----------------------------------------------
+        # One older snapshot is used only as an anchor for
+        # the first recalculable date. It is scanned, but its
+        # stored Record is never changed.
+        # -----------------------------------------------
+
+        older_local_dirs = [
+            path
+            for path in date_dirs
+            if (
+                parse_snapshot_date(
+                    path.name
+                )
+                < rolling_start_calendar
+            )
+        ]
+
+        anchor_dir = (
+            older_local_dirs[-1]
+            if older_local_dirs
+            else None
+        )
+
+        if (
+            active_dirs
+            and frozen_records
+            and anchor_dir is None
+        ):
+            raise RuntimeError(
+                "The frozen history exists, but no local anchor "
+                "snapshot remains before the rolling window.\n"
+                "Keep one snapshot immediately preceding the "
+                "recent 10-day window so the oldest active Record "
+                "can be compared correctly."
+            )
+
+        scan_dirs = []
+
+        if anchor_dir is not None:
+            scan_dirs.append(
+                anchor_dir
+            )
+
+        scan_dirs.extend(
+            active_dirs
+        )
+
+        print(
+            f"Frozen records : {len(frozen_records)}"
+        )
+
+        if anchor_dir is not None:
+            print(
+                f"Anchor snapshot: {anchor_dir.name}"
+            )
+        else:
+            print(
+                "Anchor snapshot: none"
+            )
+
+        # An old local folder that is already outside the
+        # rolling window but has no stored record is not
+        # silently inserted into history.
+        ignored_old_local = [
+            path.name
+            for path in older_local_dirs
+            if path.name not in existing_records
+        ]
+
+        if ignored_old_local:
+            print()
+            print(
+                "Warning: old local snapshots without stored "
+                "Records are outside the rolling window and "
+                "will be ignored:"
+            )
+            for date in ignored_old_local:
+                print(
+                    f"  {date}"
+                )
+
+    print()
+
+    # =====================================================
+    # Scan only what is needed
     # =====================================================
 
     snapshots = {}
 
-    for date_dir in date_dirs:
+    for date_dir in scan_dirs:
         print("=" * 70)
         print(
             f"Scanning {date_dir.name}"
@@ -920,360 +1314,108 @@ def main():
         print()
 
     # =====================================================
-    # Build historical records
+    # Build / update records
     # =====================================================
 
-    records = {}
+    records = dict(
+        frozen_records
+    )
 
-    for index, date_dir in enumerate(
-        date_dirs
-    ):
-        date = date_dir.name
-        current = snapshots[date]
-
-        # -------------------------------------------------
-        # Baseline
-        # -------------------------------------------------
-
-        if index == 0:
-            records[date] = {
-                "baseline": True,
-                "total_ink_percent": None,
-                "library_total_ink_percent": None,
-                "subject_ink_percent": {},
-                "folder_ink_percent": {},
-                "file_ink_percent": {},
-                "subjects": build_subject_tree(
-                    current,
-                    {},
-                    {},
-                    {},
-                    include_urls=False,
-                ),
-                "added": [],
-                "modified": [],
-                "moved_renamed": [],
-                "deleted": [],
-            }
-
-            continue
-
-        previous_dir = (
-            date_dirs[index - 1]
-        )
-        previous = snapshots[
-            previous_dir.name
-        ]
-
-        previous_paths = set(
-            previous
-        )
-        current_paths = set(
-            current
-        )
-
-        common_paths = (
-            previous_paths
-            & current_paths
-        )
-
-        modified_raw = sorted(
-            path
-            for path in common_paths
-            if (
-                previous[path]["hash"]
-                != current[path]["hash"]
-            )
-        )
-
-        added_candidates = set(
-            current_paths
-            - previous_paths
-        )
-
-        deleted_candidates = set(
-            previous_paths
-            - current_paths
-        )
-
-        moved_raw = detect_moves(
-            previous,
-            current,
-            deleted_candidates,
-            added_candidates,
-        )
-
-        # -------------------------------------------------
-        # Daily ink statistics
-        # -------------------------------------------------
-
-        total_added_ink_pixels = 0
-
-        file_ink_pixels = defaultdict(
-            int
-        )
-        folder_ink_pixels = defaultdict(
-            int
-        )
-        subject_ink_pixels = defaultdict(
-            int
-        )
-
-        def register_ink(
-            relative_path,
-            pixels,
+    if bootstrap:
+        for index, date_dir in enumerate(
+            active_dirs
         ):
-            nonlocal total_added_ink_pixels
+            date = date_dir.name
+            current = snapshots[date]
 
-            total_added_ink_pixels += (
-                pixels
-            )
-
-            file_ink_pixels[
-                relative_path
-            ] += pixels
-
-            folder_ink_pixels[
-                folder_key(
-                    relative_path
-                )
-            ] += pixels
-
-            subject_ink_pixels[
-                subject_key(
-                    relative_path
-                )
-            ] += pixels
-
-        # -------------------------------------------------
-        # Added
-        # -------------------------------------------------
-
-        added = []
-
-        for path in sorted(
-            added_candidates
-        ):
-            current_pdf = (
-                date_dir
-                / Path(path)
-            )
-
-            pixels = (
-                count_total_ink_pixels(
-                    current_pdf
-                )
-            )
-
-            register_ink(
-                path,
-                pixels,
-            )
-
-            added.append({
-                "path": display_path(
-                    path
-                ),
-                "ink_added_percent":
-                    rounded_ink_percent(
-                        pixels
-                    ),
-            })
-
-        # -------------------------------------------------
-        # Modified
-        # -------------------------------------------------
-
-        modified = []
-
-        for path in modified_raw:
-            old_pdf = (
-                previous_dir
-                / Path(path)
-            )
-
-            new_pdf = (
-                date_dir
-                / Path(path)
-            )
-
-            pixels = (
-                count_added_ink_pixels(
-                    old_pdf,
-                    new_pdf,
-                )
-            )
-
-            register_ink(
-                path,
-                pixels,
-            )
-
-            modified.append({
-                "path": display_path(
-                    path
-                ),
-                "ink_added_percent":
-                    rounded_ink_percent(
-                        pixels
-                    ),
-            })
-
-        # -------------------------------------------------
-        # Removed
-        # -------------------------------------------------
-
-        deleted = [
-            display_path(path)
-            for path
-            in sorted(
-                deleted_candidates
-            )
-        ]
-
-        # -------------------------------------------------
-        # Moved / Renamed
-        # -------------------------------------------------
-
-        moved_renamed = []
-
-        for item in sorted(
-            moved_raw,
-            key=lambda value: (
-                value["from"],
-                value["to"],
-            ),
-        ):
-            old_path = item["from"]
-            new_path = item["to"]
-
-            move_item = {
-                "from": display_path(
-                    old_path
-                ),
-                "to": display_path(
-                    new_path
-                ),
-                "ink_added_percent":
-                    0.0,
-            }
-
-            if (
-                previous[
-                    old_path
-                ]["hash"]
-                != current[
-                    new_path
-                ]["hash"]
-            ):
-                old_pdf = (
-                    previous_dir
-                    / Path(old_path)
-                )
-
-                new_pdf = (
-                    date_dir
-                    / Path(new_path)
-                )
-
-                pixels = (
-                    count_added_ink_pixels(
-                        old_pdf,
-                        new_pdf,
+            if index == 0:
+                records[date] = (
+                    build_baseline_record(
+                        current
                     )
                 )
+                continue
 
-                register_ink(
-                    new_path,
-                    pixels,
-                )
+            previous_dir = active_dirs[
+                index - 1
+            ]
+            previous = snapshots[
+                previous_dir.name
+            ]
 
-                move_item[
-                    "ink_added_percent"
-                ] = (
-                    rounded_ink_percent(
-                        pixels
-                    )
-                )
-
-            moved_renamed.append(
-                move_item
-            )
-
-        # -------------------------------------------------
-        # Convert hierarchy totals to %
-        # -------------------------------------------------
-
-        file_ink_percent = {
-            path:
-                rounded_ink_percent(
-                    pixels
-                )
-            for path, pixels
-            in sorted(
-                file_ink_pixels.items()
-            )
-        }
-
-        folder_ink_percent = {
-            folder:
-                rounded_ink_percent(
-                    pixels
-                )
-            for folder, pixels
-            in sorted(
-                folder_ink_pixels.items()
-            )
-        }
-
-        subject_ink_percent = {
-            subject:
-                rounded_ink_percent(
-                    pixels
-                )
-            for subject, pixels
-            in sorted(
-                subject_ink_pixels.items()
-            )
-        }
-
-        records[date] = {
-            "baseline": False,
-            "total_ink_percent":
-                rounded_ink_percent(
-                    total_added_ink_pixels
-                ),
-            "library_total_ink_percent":
-                None,
-            "subject_ink_percent":
-                subject_ink_percent,
-            "folder_ink_percent":
-                folder_ink_percent,
-            "file_ink_percent":
-                file_ink_percent,
-            "subjects":
-                build_subject_tree(
+            records[date] = (
+                build_comparison_record(
+                    previous_dir,
+                    date_dir,
+                    previous,
                     current,
-                    file_ink_percent,
-                    subject_ink_percent,
-                    folder_ink_percent,
-                    include_urls=False,
-                ),
-            "added": added,
-            "modified": modified,
-            "moved_renamed":
-                moved_renamed,
-            "deleted": deleted,
-        }
+                )
+            )
+
+    else:
+        # Recalculate every local snapshot in the newest
+        # 10 calendar days. Frozen records remain untouched.
+        for index, date_dir in enumerate(
+            active_dirs
+        ):
+            date = date_dir.name
+            current = snapshots[date]
+
+            if index == 0:
+                if anchor_dir is not None:
+                    previous_dir = anchor_dir
+                    previous = snapshots[
+                        anchor_dir.name
+                    ]
+
+                    records[date] = (
+                        build_comparison_record(
+                            previous_dir,
+                            date_dir,
+                            previous,
+                            current,
+                        )
+                    )
+                elif not frozen_records:
+                    records[date] = (
+                        build_baseline_record(
+                            current
+                        )
+                    )
+                else:
+                    raise RuntimeError(
+                        "Cannot determine the predecessor of "
+                        f"{date}."
+                    )
+
+                continue
+
+            previous_dir = active_dirs[
+                index - 1
+            ]
+            previous = snapshots[
+                previous_dir.name
+            ]
+
+            records[date] = (
+                build_comparison_record(
+                    previous_dir,
+                    date_dir,
+                    previous,
+                    current,
+                )
+            )
 
     # =====================================================
     # Absolute total ink of all PDFs in newest snapshot
     # =====================================================
 
-    latest_date_dir = date_dirs[-1]
-    latest_date = (
-        latest_date_dir.name
-    )
+    if latest_date not in snapshots:
+        # This should never happen because latest is always
+        # inside the rolling window, but keep the failure clear.
+        raise RuntimeError(
+            f"Latest snapshot {latest_date} was not scanned."
+        )
 
     library_total_ink_pixels = 0
 
@@ -1356,16 +1498,26 @@ def main():
         exist_ok=True,
     )
 
+    # The date list comes from Records, not from local folders.
+    # Therefore deleting frozen local snapshots never removes
+    # them from Previous Versions.
+    all_record_dates = sorted(
+        records,
+        key=parse_snapshot_date,
+        reverse=True,
+    )
+
     data = {
         "latest_date":
             latest_date,
-        "dates": [
-            path.name
-            for path
-            in reversed(
-                date_dirs
-            )
-        ],
+        "dates":
+            all_record_dates,
+        "history_policy": {
+            "rolling_days":
+                ROLLING_DAYS,
+            "rolling_start":
+                rolling_start,
+        },
         "records":
             records,
     }
@@ -1392,10 +1544,21 @@ def main():
     print("=" * 70)
     print()
 
-    for date in data["dates"][::-1]:
+    for date in reversed(
+        data["dates"]
+    ):
         record = records[date]
 
-        print(date)
+        frozen = (
+            not bootstrap
+            and parse_snapshot_date(date)
+            < rolling_start_calendar
+        )
+
+        print(
+            f"{date}"
+            + ("  [frozen]" if frozen else "")
+        )
 
         if record["baseline"]:
             print(
@@ -1429,6 +1592,9 @@ def main():
     print(
         f"Current total ink: "
         f"{records[latest_date]['library_total_ink_percent']:.1f}%"
+    )
+    print(
+        f"Frozen before: {rolling_start}"
     )
     print(
         f"Generated: {OUTPUT}"
