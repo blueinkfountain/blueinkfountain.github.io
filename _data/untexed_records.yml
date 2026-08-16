@@ -4,6 +4,9 @@ dates:
 - '260815'
 - '260814'
 - '260813'
+history_policy:
+  rolling_days: 10
+  rolling_start: '260807'
 records:
   '260813':
     baseline: true
