@@ -120,6 +120,29 @@ def published_url(relative_path):
     return "/untexed-current/" + quote(relative_path, safe="/")
 
 
+def is_nested_note_pdf(date_dir, path):
+    """
+    Only PDFs inside at least one subfolder of a dated snapshot
+    are treated as publishable handwritten notes.
+
+    Examples:
+        untexed/260816/file.pdf              -> ignored
+        untexed/260816/Algebra/file.pdf      -> included
+        untexed/260816/Algebra/1. LA/a.pdf   -> included
+
+    This deliberately removes the old ``General`` bucket from
+    newly calculated snapshots.
+    """
+    if (
+        not path.is_file()
+        or path.suffix.lower() != ".pdf"
+    ):
+        return False
+
+    relative = path.relative_to(date_dir)
+    return len(relative.parts) >= 2
+
+
 # =========================================================
 # PDF rendering
 # =========================================================
@@ -537,7 +560,7 @@ def rounded_ink_percent(pixel_count):
 def get_pdf_snapshot(date_dir):
     snapshot = {}
 
-    pdf_paths = sorted(
+    all_pdf_paths = sorted(
         path
         for path in date_dir.rglob("*")
         if (
@@ -545,6 +568,25 @@ def get_pdf_snapshot(date_dir):
             and path.suffix.lower() == ".pdf"
         )
     )
+
+    pdf_paths = [
+        path
+        for path in all_pdf_paths
+        if is_nested_note_pdf(date_dir, path)
+    ]
+
+    ignored_top_level = [
+        path
+        for path in all_pdf_paths
+        if not is_nested_note_pdf(date_dir, path)
+    ]
+
+    for path in ignored_top_level:
+        print(
+            f"Ignoring top-level PDF "
+            f"[{date_dir.name}] "
+            f"{path.name}"
+        )
 
     for path in pdf_paths:
         relative_path = (
@@ -831,10 +873,9 @@ def publish_latest_snapshot(
     for source in sorted(
         latest_date_dir.rglob("*")
     ):
-        if (
-            not source.is_file()
-            or source.suffix.lower()
-            != ".pdf"
+        if not is_nested_note_pdf(
+            latest_date_dir,
+            source,
         ):
             continue
 

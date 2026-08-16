@@ -454,16 +454,6 @@ records:
         - name: Frenet fomular
           raw_path: Differential Geometry/Euclidean/Frenet fomular.pdf
           ink_added_percent: 0.0
-    - name: General
-      ink_added_percent: 0.0
-      folders:
-      - raw_path: General
-        label: General
-        ink_added_percent: 0.0
-        files:
-        - name: Tree of Subjects
-          raw_path: Tree of Subjects.pdf
-          ink_added_percent: 0.0
     - name: Topology
       ink_added_percent: 0.0
       folders:
@@ -1063,16 +1053,6 @@ records:
         - name: Surface
           raw_path: Differential Geometry/1. Euclidean/Surface.pdf
           ink_added_percent: 12.2
-    - name: General
-      ink_added_percent: 0.0
-      folders:
-      - raw_path: General
-        label: General
-        ink_added_percent: 0.0
-        files:
-        - name: Tree of Subjects
-          raw_path: Tree of Subjects.pdf
-          ink_added_percent: 0.0
     - name: Topology
       ink_added_percent: 0.0
       folders:
@@ -1933,16 +1913,6 @@ records:
         - name: Surface
           raw_path: Differential Geometry/1. Euclidean/Surface.pdf
           ink_added_percent: 0.0
-    - name: General
-      ink_added_percent: 0.0
-      folders:
-      - raw_path: General
-        label: General
-        ink_added_percent: 0.0
-        files:
-        - name: Tree of Subjects
-          raw_path: Tree of Subjects.pdf
-          ink_added_percent: 0.0
     - name: Topology
       ink_added_percent: 246.6
       folders:
@@ -2060,32 +2030,35 @@ records:
     - Topology/General Topology/Topological map 2
   '260816':
     baseline: false
-    total_ink_percent: 433.6
-    library_total_ink_percent: 28080.6
+    total_ink_percent: 727.9
+    library_total_ink_percent: 28218.2
     subject_ink_percent:
-      Algebra: 38.8
+      Algebra: 52.7
       Analysis: 120.2
-      Topology: 274.6
+      Topology: 555.0
     folder_ink_percent:
-      Algebra/5. Polynomial Ring Theory: 0.0
-      Algebra/7. Galois Theory: 38.8
+      Algebra/5. Polynomial Ring Theory: 8.6
+      Algebra/7. Galois Theory: 44.1
       Analysis/1. Real Analysis: 120.2
-      Topology/1. General Topology: 214.3
-      Topology/2. Algebraic Topology: 60.3
+      Topology/1. General Topology: 297.8
+      Topology/2. Algebraic Topology: 257.3
     file_ink_percent:
-      Algebra/5. Polynomial Ring Theory/Typical Polynomials.pdf: 0.0
-      Algebra/7. Galois Theory/Typical Galois extensions.pdf: 38.8
+      Algebra/5. Polynomial Ring Theory/Typical Polynomials.pdf: 8.6
+      Algebra/7. Galois Theory/Typical Galois extensions.pdf: 44.1
       Analysis/1. Real Analysis/Advanced Techniques for sequence.pdf: 0.0
       Analysis/1. Real Analysis/Bounded Variation.pdf: 67.8
+      Analysis/1. Real Analysis/Newton_s Method.pdf: 0.0
       Analysis/1. Real Analysis/Stone-Weierstrass Theorem.pdf: 1.9
       Analysis/1. Real Analysis/Thomae function.pdf: 50.4
       Topology/1. General Topology/Initial Topology.pdf: 145.9
       Topology/1. General Topology/Product Topology.pdf: 68.4
+      Topology/1. General Topology/Topological Group.pdf: 83.4
+      Topology/2. Algebraic Topology/Fundamental gp.pdf: 197.0
       Topology/2. Algebraic Topology/Homotopy.pdf: 60.3
       Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 0.0
     subjects:
     - name: Algebra
-      ink_added_percent: 38.8
+      ink_added_percent: 52.7
       folders:
       - raw_path: Algebra/1. Linear Algebra
         label: Algebra / 1. Linear Algebra
@@ -2321,7 +2294,7 @@ records:
           url: /untexed-current/Algebra/4.%20Ring%20Theory/Quadratic%20integer%20Ring.pdf
       - raw_path: Algebra/5. Polynomial Ring Theory
         label: Algebra / 5. Polynomial Ring Theory
-        ink_added_percent: 0.0
+        ink_added_percent: 8.6
         files:
         - name: Polynomial Ring (2)
           raw_path: Algebra/5. Polynomial Ring Theory/Polynomial Ring (2).pdf
@@ -2333,7 +2306,7 @@ records:
           url: /untexed-current/Algebra/5.%20Polynomial%20Ring%20Theory/Polynomial%20Ring.pdf
         - name: Typical Polynomials
           raw_path: Algebra/5. Polynomial Ring Theory/Typical Polynomials.pdf
-          ink_added_percent: 0.0
+          ink_added_percent: 8.6
           url: /untexed-current/Algebra/5.%20Polynomial%20Ring%20Theory/Typical%20Polynomials.pdf
       - raw_path: Algebra/6. Field Theory
         label: Algebra / 6. Field Theory
@@ -2397,7 +2370,7 @@ records:
           url: /untexed-current/Algebra/6.%20Field%20Theory/Spiltting%20Field.pdf
       - raw_path: Algebra/7. Galois Theory
         label: Algebra / 7. Galois Theory
-        ink_added_percent: 38.8
+        ink_added_percent: 44.1
         files:
         - name: Galois Theorem
           raw_path: Algebra/7. Galois Theory/Galois Theorem.pdf
@@ -2409,7 +2382,7 @@ records:
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Norm%20and%20Trace%20of%20Galois.pdf
         - name: Typical Galois extensions
           raw_path: Algebra/7. Galois Theory/Typical Galois extensions.pdf
-          ink_added_percent: 38.8
+          ink_added_percent: 44.1
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Typical%20Galois%20extensions.pdf
     - name: Analysis
       ink_added_percent: 120.2
@@ -2494,6 +2467,10 @@ records:
           raw_path: Analysis/1. Real Analysis/Lipschtiz.pdf
           ink_added_percent: 0.0
           url: /untexed-current/Analysis/1.%20Real%20Analysis/Lipschtiz.pdf
+        - name: Newton_s Method
+          raw_path: Analysis/1. Real Analysis/Newton_s Method.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Analysis/1.%20Real%20Analysis/Newton_s%20Method.pdf
         - name: Normed Space
           raw_path: Analysis/1. Real Analysis/Normed Space.pdf
           ink_added_percent: 0.0
@@ -2717,23 +2694,12 @@ records:
           raw_path: Differential Geometry/1. Euclidean/Surface.pdf
           ink_added_percent: 0.0
           url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Surface.pdf
-    - name: General
-      ink_added_percent: 0.0
-      folders:
-      - raw_path: General
-        label: General
-        ink_added_percent: 0.0
-        files:
-        - name: Tree of Subjects
-          raw_path: Tree of Subjects.pdf
-          ink_added_percent: 0.0
-          url: /untexed-current/Tree%20of%20Subjects.pdf
     - name: Topology
-      ink_added_percent: 274.6
+      ink_added_percent: 555.0
       folders:
       - raw_path: Topology/1. General Topology
         label: Topology / 1. General Topology
-        ink_added_percent: 214.3
+        ink_added_percent: 297.8
         files:
         - name: Basic metric space
           raw_path: Topology/1. General Topology/Basic metric space.pdf
@@ -2800,9 +2766,9 @@ records:
           ink_added_percent: 0.0
           url: /untexed-current/Topology/1.%20General%20Topology/Subspace.pdf
         - name: Topological Group
-          raw_path: Topology/1. General Topology/Topological Group.pdf.pdf
-          ink_added_percent: 0.0
-          url: /untexed-current/Topology/1.%20General%20Topology/Topological%20Group.pdf.pdf
+          raw_path: Topology/1. General Topology/Topological Group.pdf
+          ink_added_percent: 83.4
+          url: /untexed-current/Topology/1.%20General%20Topology/Topological%20Group.pdf
         - name: Topological basis
           raw_path: Topology/1. General Topology/Topological basis.pdf
           ink_added_percent: 0.0
@@ -2821,8 +2787,12 @@ records:
           url: /untexed-current/Topology/1.%20General%20Topology/p-norm.pdf
       - raw_path: Topology/2. Algebraic Topology
         label: Topology / 2. Algebraic Topology
-        ink_added_percent: 60.3
+        ink_added_percent: 257.3
         files:
+        - name: Fundamental gp
+          raw_path: Topology/2. Algebraic Topology/Fundamental gp.pdf
+          ink_added_percent: 197.0
+          url: /untexed-current/Topology/2.%20Algebraic%20Topology/Fundamental%20gp.pdf
         - name: Hatcher, Algebraic Topology
           raw_path: Topology/2. Algebraic Topology/Hatcher, Algebraic Topology.pdf
           ink_added_percent: 0.0
@@ -2837,16 +2807,20 @@ records:
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Typical%20Quotient%20Spaces.pdf
     added:
     - path: Algebra/Polynomial Ring Theory/Typical Polynomials
+      ink_added_percent: 8.6
+    - path: Analysis/Real Analysis/Newton_s Method
       ink_added_percent: 0.0
     - path: Topology/General Topology/Initial Topology
       ink_added_percent: 145.9
+    - path: Topology/Algebraic Topology/Fundamental gp
+      ink_added_percent: 197.0
     - path: Topology/Algebraic Topology/Homotopy
       ink_added_percent: 60.3
     - path: Topology/Algebraic Topology/Typical Quotient Spaces
       ink_added_percent: 0.0
     modified:
     - path: Algebra/Galois Theory/Typical Galois extensions
-      ink_added_percent: 38.8
+      ink_added_percent: 44.1
     - path: Analysis/Real Analysis/Advanced Techniques for sequence
       ink_added_percent: 0.0
     - path: Analysis/Real Analysis/Bounded Variation
@@ -2857,6 +2831,9 @@ records:
       ink_added_percent: 50.4
     - path: Topology/General Topology/Product Topology
       ink_added_percent: 68.4
-    moved_renamed: []
+    moved_renamed:
+    - from: Topology/General Topology/Topological Group
+      to: Topology/General Topology/Topological Group
+      ink_added_percent: 83.4
     deleted:
     - Topology/Algebraic Topology/Hatcher, chapter 1
