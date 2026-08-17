@@ -7,8 +7,12 @@ dates:
 - '260814'
 - '260813'
 history_policy:
-  rolling_days: 10
-  rolling_start: '260808'
+  rolling_snapshots: 3
+  active_dates:
+  - '260815'
+  - '260816'
+  - '260817'
+  anchor_date: '260814'
 records:
   '260813':
     baseline: true
