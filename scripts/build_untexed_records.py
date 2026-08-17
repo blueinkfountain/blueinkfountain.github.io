@@ -2,7 +2,7 @@ from pathlib import Path, PurePosixPath
 from collections import defaultdict
 from difflib import SequenceMatcher
 from urllib.parse import quote
-from datetime import datetime, timedelta
+from datetime import datetime
 import hashlib
 import re
 import shutil
@@ -48,9 +48,10 @@ MAX_ALIGNMENT_SHIFT = 3
 OLD_INK_TOLERANCE_RADIUS = 2
 RENAME_SIMILARITY_THRESHOLD = 0.80
 
-# Keep the newest 10 calendar days recalculable.
+# Keep the newest N snapshot folders recalculable.
+# One immediately preceding snapshot is kept as a comparison anchor.
 # Older records are frozen in _data/untexed_records.yml forever.
-ROLLING_DAYS = 10
+ROLLING_SNAPSHOTS = 3
 
 # YAML folder-tree schema.
 # Version 2 stores real recursive folders.
@@ -1359,22 +1360,55 @@ def main():
 
     latest_date_dir = date_dirs[-1]
     latest_date = latest_date_dir.name
-    latest_calendar_date = parse_snapshot_date(
-        latest_date
+
+    local_dir_by_date = {
+        path.name: path
+        for path in date_dirs
+    }
+
+    # =====================================================
+    # Snapshot-count rolling history
+    # =====================================================
+    #
+    # The newest ROLLING_SNAPSHOTS snapshot dates stay mutable.
+    # One immediately preceding snapshot is scanned only as an
+    # anchor so the oldest mutable Record can be compared against
+    # the correct predecessor.
+    #
+    # Important:
+    # Use the union of stored Record dates and local snapshot dates.
+    # This prevents a missing recent local folder from being silently
+    # skipped and causing a later Record to be compared with the
+    # wrong predecessor.
+    # =====================================================
+
+    all_known_dates = sorted(
+        (
+            set(existing_records)
+            |
+            set(local_dir_by_date)
+        ),
+        key=parse_snapshot_date,
     )
 
-    # The newest 10 calendar days are recalculable.
-    # Example: latest=260816 -> rolling_start=260807.
-    rolling_start_calendar = (
-        latest_calendar_date
-        - timedelta(
-            days=ROLLING_DAYS - 1
-        )
+    active_date_keys = (
+        all_known_dates[
+            -ROLLING_SNAPSHOTS:
+        ]
     )
-    rolling_start = (
-        rolling_start_calendar.strftime(
-            "%y%m%d"
+    active_date_set = set(
+        active_date_keys
+    )
+
+    anchor_date = (
+        all_known_dates[
+            -ROLLING_SNAPSHOTS - 1
+        ]
+        if (
+            len(all_known_dates)
+            > ROLLING_SNAPSHOTS
         )
+        else None
     )
 
     print("Found local versions:")
@@ -1387,17 +1421,15 @@ def main():
 
     print()
     print(
-        f"Rolling window : {ROLLING_DAYS} days"
-    )
-    print(
-        f"Recalculate    : {rolling_start} ~ {latest_date}"
+        f"Rolling window : newest "
+        f"{ROLLING_SNAPSHOTS} snapshots"
     )
 
     # =====================================================
     # First run / bootstrap
     # =====================================================
     # If no YAML exists yet, calculate every local snapshot once.
-    # After that, records older than the rolling window are frozen.
+    # On subsequent runs, only the newest N snapshots are mutable.
 
     bootstrap = not bool(
         existing_records
@@ -1407,6 +1439,7 @@ def main():
         print(
             "History mode   : bootstrap (all local snapshots)"
         )
+
         frozen_records = {}
         scan_dirs = list(
             date_dirs
@@ -1415,116 +1448,90 @@ def main():
             date_dirs
         )
         anchor_dir = None
+
+        print(
+            "Recalculate    : all local snapshots"
+        )
+
     else:
         print(
             "History mode   : rolling + frozen history"
         )
 
         # -----------------------------------------------
-        # Permanently preserve every stored record older
-        # than the rolling window. These dictionaries are
-        # preserved from the existing YAML (apart from a one-time
-        # recursive-tree schema migration when needed).
-        # -----------------------------------------------
-
-        frozen_records = {
-            date: record
-            for date, record
-            in existing_records.items()
-            if (
-                parse_snapshot_date(date)
-                < rolling_start_calendar
-            )
-        }
-
-        active_dirs = [
-            path
-            for path in date_dirs
-            if (
-                parse_snapshot_date(
-                    path.name
-                )
-                >= rolling_start_calendar
-            )
-        ]
-
-        # -----------------------------------------------
         # Safety check:
-        # Any already-recorded date inside the rolling
-        # window must still exist locally. Otherwise a
-        # later record could be silently recomputed against
-        # the wrong predecessor.
+        # Every date in the newest-N window must exist locally.
+        #
+        # Example:
+        # stored = 260815, 260816
+        # local  = 260815, 260817
+        #
+        # newest 3 known dates = 260815, 260816, 260817.
+        # Since 260816 is missing locally, abort instead of
+        # comparing 260817 against 260815.
         # -----------------------------------------------
 
-        local_dates = {
-            path.name
-            for path in date_dirs
-        }
-
-        required_recent_dates = sorted(
+        missing_active_dates = [
             date
-            for date
-            in existing_records
-            if (
-                rolling_start_calendar
-                <= parse_snapshot_date(date)
-                <= latest_calendar_date
-            )
-        )
-
-        missing_recent_dates = [
-            date
-            for date
-            in required_recent_dates
-            if date not in local_dates
+            for date in active_date_keys
+            if date not in local_dir_by_date
         ]
 
-        if missing_recent_dates:
+        if missing_active_dates:
             missing_text = ", ".join(
-                missing_recent_dates
+                missing_active_dates
             )
             raise RuntimeError(
-                "A snapshot inside the 10-day rolling window "
+                "A snapshot inside the newest "
+                f"{ROLLING_SNAPSHOTS}-snapshot rolling window "
                 "is missing locally. Refusing to recalculate, "
                 "because that could change later Records.\n"
                 f"Missing: {missing_text}\n"
                 "Restore those local snapshot folders first."
             )
 
-        # -----------------------------------------------
-        # One older snapshot is used only as an anchor for
-        # the first recalculable date. It is scanned, but its
-        # stored Record is never changed.
-        # -----------------------------------------------
-
-        older_local_dirs = [
-            path
-            for path in date_dirs
-            if (
-                parse_snapshot_date(
-                    path.name
-                )
-                < rolling_start_calendar
-            )
+        active_dirs = [
+            local_dir_by_date[date]
+            for date in active_date_keys
         ]
 
+        # -----------------------------------------------
+        # Freeze every stored Record outside the newest-N
+        # snapshot window verbatim.
+        # -----------------------------------------------
+
+        frozen_records = {
+            date: record
+            for date, record
+            in existing_records.items()
+            if date not in active_date_set
+        }
+
+        # -----------------------------------------------
+        # The exact immediately preceding known snapshot is
+        # the only valid anchor. If frozen history exists and
+        # that snapshot folder was deleted locally, abort.
+        # -----------------------------------------------
+
         anchor_dir = (
-            older_local_dirs[-1]
-            if older_local_dirs
+            local_dir_by_date.get(
+                anchor_date
+            )
+            if anchor_date is not None
             else None
         )
 
         if (
-            active_dirs
-            and frozen_records
+            anchor_date is not None
             and anchor_dir is None
         ):
             raise RuntimeError(
-                "The frozen history exists, but no local anchor "
-                "snapshot remains before the rolling window.\n"
-                "Keep one snapshot immediately preceding the "
-                "recent 10-day window so the oldest active Record "
-                "can be compared correctly."
+                "The snapshot immediately preceding the newest "
+                f"{ROLLING_SNAPSHOTS}-snapshot window is missing "
+                "locally.\n"
+                f"Required anchor: {anchor_date}\n"
+                "Keep that one predecessor snapshot folder so the "
+                "oldest active Record can be compared correctly."
             )
 
         scan_dirs = []
@@ -1539,6 +1546,12 @@ def main():
         )
 
         print(
+            "Recalculate    : "
+            + ", ".join(
+                active_date_keys
+            )
+        )
+        print(
             f"Frozen records : {len(frozen_records)}"
         )
 
@@ -1551,13 +1564,17 @@ def main():
                 "Anchor snapshot: none"
             )
 
-        # An old local folder that is already outside the
-        # rolling window but has no stored record is not
-        # silently inserted into history.
+        # An old local folder outside the mutable window that
+        # has no stored Record is not silently inserted into
+        # history. It may still be used as the exact anchor.
         ignored_old_local = [
             path.name
-            for path in older_local_dirs
-            if path.name not in existing_records
+            for path in date_dirs
+            if (
+                path.name not in active_date_set
+                and path.name != anchor_date
+                and path.name not in existing_records
+            )
         ]
 
         if ignored_old_local:
@@ -1636,8 +1653,8 @@ def main():
             )
 
     else:
-        # Recalculate every local snapshot in the newest
-        # 10 calendar days. Frozen records remain untouched.
+        # Recalculate only the newest N snapshot folders.
+        # Frozen records remain untouched.
         for index, date_dir in enumerate(
             active_dirs
         ):
@@ -1798,10 +1815,16 @@ def main():
         "dates":
             all_record_dates,
         "history_policy": {
-            "rolling_days":
-                ROLLING_DAYS,
-            "rolling_start":
-                rolling_start,
+            "rolling_snapshots":
+                ROLLING_SNAPSHOTS,
+            "active_dates":
+                active_date_keys,
+            "anchor_date":
+                (
+                    anchor_dir.name
+                    if anchor_dir is not None
+                    else None
+                ),
         },
         "records":
             records,
@@ -1836,8 +1859,7 @@ def main():
 
         frozen = (
             not bootstrap
-            and parse_snapshot_date(date)
-            < rolling_start_calendar
+            and date not in active_date_set
         )
 
         print(
@@ -1879,7 +1901,16 @@ def main():
         f"{records[latest_date]['library_total_ink_percent']:.1f}%"
     )
     print(
-        f"Frozen before: {rolling_start}"
+        "Mutable snapshots: "
+        + ", ".join(active_date_keys)
+    )
+    print(
+        "Anchor snapshot : "
+        + (
+            anchor_dir.name
+            if anchor_dir is not None
+            else "none"
+        )
     )
     print(
         f"Generated: {OUTPUT}"
