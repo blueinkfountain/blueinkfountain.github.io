@@ -2798,20 +2798,25 @@ records:
     - Topology/Algebraic Topology/Hatcher, chapter 1
   '260817':
     baseline: false
-    total_ink_percent: 364.0
-    library_total_ink_percent: 19499.2
+    total_ink_percent: 530.3
+    library_total_ink_percent: 28586.9
     subject_ink_percent:
       Algebra: 168.7
+      Analysis: 166.3
       Topology: 195.3
     folder_ink_percent:
       Algebra/1. Linear Algebra: 168.7
       Algebra/1. Linear Algebra/3. Further topics: 168.7
+      Analysis/1. Real Analysis: 166.3
+      Analysis/1. Real Analysis/2. Real-valued Function: 166.3
       Topology/1. General Topology: 85.8
       Topology/1. General Topology/Metric Space: 85.8
       Topology/2. Algebraic Topology: 109.5
     file_ink_percent:
       Algebra/1. Linear Algebra/3. Further topics/Continuous Function Space.pdf: 49.3
       Algebra/1. Linear Algebra/3. Further topics/Polynomial Space.pdf: 119.4
+      Analysis/1. Real Analysis/2. Real-valued Function/Continuously Extension.pdf: 95.0
+      Analysis/1. Real Analysis/2. Real-valued Function/Darboux_s Theorem.pdf: 71.4
       Topology/1. General Topology/Metric Space/Distance.pdf: 85.8
       Topology/2. Algebraic Topology/Homotopy.pdf: 0.0
       Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 109.5
@@ -3184,6 +3189,316 @@ records:
           ink_added_percent: 0.0
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Typical%20Galois%20extensions.pdf
         folders: []
+    - name: Analysis
+      ink_added_percent: 166.3
+      files: []
+      folders:
+      - name: 1. Real Analysis
+        label: 1. Real Analysis
+        raw_path: Analysis/1. Real Analysis
+        ink_added_percent: 166.3
+        files: []
+        folders:
+        - name: 1. Real numbers
+          label: 1. Real numbers
+          raw_path: Analysis/1. Real Analysis/1. Real numbers
+          ink_added_percent: 0.0
+          files:
+          - name: Abel formula
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Abel formula.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Abel%20formula.pdf
+          - name: Advanced Techniques for sequence
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Advanced Techniques for sequence.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Advanced%20Techniques%20for%20sequence.pdf
+          - name: Cantor set
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Cantor set.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Cantor%20set.pdf
+          - name: Density of rational
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Density of rational.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Density%20of%20rational.pdf
+          - name: Inequality in Real numbers
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Inequality in Real numbers.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Inequality%20in%20Real%20numbers.pdf
+          - name: Kronecker approximation theorem
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Kronecker approximation theorem.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Kronecker%20approximation%20theorem.pdf
+          - name: Riemann-Rearangement Theorem
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Riemann-Rearangement Theorem.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Riemann-Rearangement%20Theorem.pdf
+          - name: Stolz-Cesaro theorem
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Stolz-Cesaro theorem.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Stolz-Cesaro%20theorem.pdf
+          - name: Supremum
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Supremum.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Supremum.pdf
+          - name: Typical Sequences
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Typical Sequences.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Typical%20Sequences.pdf
+          folders: []
+        - name: 2. Real-valued Function
+          label: 2. Real-valued Function
+          raw_path: Analysis/1. Real Analysis/2. Real-valued Function
+          ink_added_percent: 166.3
+          files:
+          - name: Basic Riemann-integral
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Basic Riemann-integral.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Basic%20Riemann-integral.pdf
+          - name: Bounded Variation
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Bounded Variation.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Bounded%20Variation.pdf
+          - name: Continuously Extension
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Continuously Extension.pdf
+            ink_added_percent: 95.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Continuously%20Extension.pdf
+          - name: Convexity
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Convexity.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Convexity.pdf
+          - name: Darboux_s Theorem
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Darboux_s Theorem.pdf
+            ink_added_percent: 71.4
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Darboux_s%20Theorem.pdf
+          - name: Differentiation
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Differentiation.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Differentiation.pdf
+          - name: Discontinuity
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Discontinuity.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Discontinuity.pdf
+          - name: Fundamental Theorem of Calculus
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Fundamental Theorem of Calculus.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Fundamental%20Theorem%20of%20Calculus.pdf
+          - name: Improper integral
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Improper integral.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Improper%20integral.pdf
+          - name: Lipschtiz
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Lipschtiz.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Lipschtiz.pdf
+          - name: Newton_s Method
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Newton_s Method.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Newton_s%20Method.pdf
+          - name: Open map is injective
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Open map is injective.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Open%20map%20is%20injective.pdf
+          - name: Parameter dependent integral
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Parameter dependent integral.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Parameter%20dependent%20integral.pdf
+          - name: Power Series
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Power Series.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Power%20Series.pdf
+          - name: Talyor Series
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Talyor Series.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Talyor%20Series.pdf
+          - name: Talyor_s Theorem
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Talyor_s Theorem.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Talyor_s%20Theorem.pdf
+          - name: Thomae function
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Thomae function.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Thomae%20function.pdf
+          - name: Trigonometric series
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Trigonometric series.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Trigonometric%20series.pdf
+          - name: xsin1_x
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/xsin1_x.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/xsin1_x.pdf
+          folders: []
+        - name: 3. Functional Space
+          label: 3. Functional Space
+          raw_path: Analysis/1. Real Analysis/3. Functional Space
+          ink_added_percent: 0.0
+          files:
+          - name: Arzelà-Ascoli
+            raw_path: Analysis/1. Real Analysis/3. Functional Space/Arzelà-Ascoli.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Arzel%C3%A0-Ascoli.pdf
+          - name: Banach Space
+            raw_path: Analysis/1. Real Analysis/3. Functional Space/Banach Space.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Banach%20Space.pdf
+          - name: Double Sequence
+            raw_path: Analysis/1. Real Analysis/3. Functional Space/Double Sequence.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Double%20Sequence.pdf
+          - name: Inequalities of integral
+            raw_path: Analysis/1. Real Analysis/3. Functional Space/Inequalities of integral.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Inequalities%20of%20integral.pdf
+          - name: Normed Space
+            raw_path: Analysis/1. Real Analysis/3. Functional Space/Normed Space.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Normed%20Space.pdf
+          - name: Sequences of functions
+            raw_path: Analysis/1. Real Analysis/3. Functional Space/Sequences of functions.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Sequences%20of%20functions.pdf
+          - name: Stone-Weierstrass Theorem
+            raw_path: Analysis/1. Real Analysis/3. Functional Space/Stone-Weierstrass Theorem.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Stone-Weierstrass%20Theorem.pdf
+          folders: []
+      - name: 2. Complex Analysis
+        label: 2. Complex Analysis
+        raw_path: Analysis/2. Complex Analysis
+        ink_added_percent: 0.0
+        files:
+        - name: Complex Analysis
+          raw_path: Analysis/2. Complex Analysis/Complex Analysis.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Analysis/2.%20Complex%20Analysis/Complex%20Analysis.pdf
+        - name: Exponential function
+          raw_path: Analysis/2. Complex Analysis/Exponential function.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Analysis/2.%20Complex%20Analysis/Exponential%20function.pdf
+        - name: Schwarz reflection principle
+          raw_path: Analysis/2. Complex Analysis/Schwarz reflection principle.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Analysis/2.%20Complex%20Analysis/Schwarz%20reflection%20principle.pdf
+        - name: Silverman Solution
+          raw_path: Analysis/2. Complex Analysis/Silverman Solution.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Analysis/2.%20Complex%20Analysis/Silverman%20Solution.pdf
+        - name: Silverman, Complex Analysis
+          raw_path: Analysis/2. Complex Analysis/Silverman, Complex Analysis.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Analysis/2.%20Complex%20Analysis/Silverman%2C%20Complex%20Analysis.pdf
+        folders:
+        - name: 2. Holomorphic function
+          label: 2. Holomorphic function
+          raw_path: Analysis/2. Complex Analysis/2. Holomorphic function
+          ink_added_percent: 0.0
+          files:
+          - name: Cauchy-Riemann equation
+            raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Cauchy-Riemann equation.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Cauchy-Riemann%20equation.pdf
+          - name: Harmonic Functions
+            raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Harmonic Functions.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Harmonic%20Functions.pdf
+          - name: Uniqueness Theorem
+            raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Uniqueness Theorem.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Uniqueness%20Theorem.pdf
+          folders: []
+        - name: 3. Line integral
+          label: 3. Line integral
+          raw_path: Analysis/2. Complex Analysis/3. Line integral
+          ink_added_percent: 0.0
+          files:
+          - name: Argument Principle
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Argument Principle.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Argument%20Principle.pdf
+          - name: Cauchy integral formula
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Cauchy integral formula.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Cauchy%20integral%20formula.pdf
+          - name: Cauchy_s Inequality
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Cauchy_s Inequality.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Cauchy_s%20Inequality.pdf
+          - name: Evaluation of Real integral
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Evaluation of Real integral.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Evaluation%20of%20Real%20integral.pdf
+          - name: Gauss Meanvalue Theorem
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Gauss Meanvalue Theorem.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Gauss%20Meanvalue%20Theorem.pdf
+          - name: Goursat Theorem
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Goursat Theorem.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Goursat%20Theorem.pdf
+          - name: Laurent Series of Polynomials
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Laurent Series of Polynomials.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Laurent%20Series%20of%20Polynomials.pdf
+          - name: Open mapping Theorem
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Open mapping Theorem.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Open%20mapping%20Theorem.pdf
+          - name: Residue at infinite
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Residue at infinite.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Residue%20at%20infinite.pdf
+          - name: Residue Theorem
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Residue Theorem.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Residue%20Theorem.pdf
+          - name: Singularity
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Singularity.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Singularity.pdf
+          - name: Trigonometric integral
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Trigonometric integral.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Trigonometric%20integral.pdf
+          folders: []
+        - name: 4. Conformal mapping
+          label: 4. Conformal mapping
+          raw_path: Analysis/2. Complex Analysis/4. Conformal mapping
+          ink_added_percent: 0.0
+          files:
+          - name: Conformal mapping
+            raw_path: Analysis/2. Complex Analysis/4. Conformal mapping/Conformal mapping.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/4.%20Conformal%20mapping/Conformal%20mapping.pdf
+          folders: []
+      - name: 3. Analysis on Manifold
+        label: 3. Analysis on Manifold
+        raw_path: Analysis/3. Analysis on Manifold
+        ink_added_percent: 0.0
+        files:
+        - name: Munkres, Analysis on manifold
+          raw_path: Analysis/3. Analysis on Manifold/Munkres, Analysis on manifold.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Analysis/3.%20Analysis%20on%20Manifold/Munkres%2C%20Analysis%20on%20manifold.pdf
+        folders: []
+      - name: 4. Measure Theory
+        label: 4. Measure Theory
+        raw_path: Analysis/4. Measure Theory
+        ink_added_percent: 0.0
+        files:
+        - name: Measurable Space
+          raw_path: Analysis/4. Measure Theory/Measurable Space.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Analysis/4.%20Measure%20Theory/Measurable%20Space.pdf
+        folders: []
+      - name: 5. Differential equation
+        label: 5. Differential equation
+        raw_path: Analysis/5. Differential equation
+        ink_added_percent: 0.0
+        files:
+        - name: Coddington, Intro.ODE
+          raw_path: Analysis/5. Differential equation/Coddington, Intro.ODE.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Analysis/5.%20Differential%20equation/Coddington%2C%20Intro.ODE.pdf
+        folders: []
     - name: Differential Geometry
       ink_added_percent: 0.0
       files: []
@@ -3197,6 +3512,42 @@ records:
           raw_path: Differential Geometry/1. Euclidean/Barrett O_neill.pdf
           ink_added_percent: 0.0
           url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Barrett%20O_neill.pdf
+        - name: Barrett O_neill Solution
+          raw_path: Differential Geometry/1. Euclidean/Barrett O_neill Solution.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Barrett%20O_neill%20Solution.pdf
+        - name: Calculus on Surface
+          raw_path: Differential Geometry/1. Euclidean/Calculus on Surface.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Calculus%20on%20Surface.pdf
+        - name: Covariant Derivative
+          raw_path: Differential Geometry/1. Euclidean/Covariant Derivative.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Covariant%20Derivative.pdf
+        - name: Cross product
+          raw_path: Differential Geometry/1. Euclidean/Cross product.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Cross%20product.pdf
+        - name: Differential Form
+          raw_path: Differential Geometry/1. Euclidean/Differential Form.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Differential%20Form.pdf
+        - name: Frenet fomular
+          raw_path: Differential Geometry/1. Euclidean/Frenet fomular.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Frenet%20fomular.pdf
+        - name: Mapping
+          raw_path: Differential Geometry/1. Euclidean/Mapping.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Mapping.pdf
+        - name: Shape Operater
+          raw_path: Differential Geometry/1. Euclidean/Shape Operater.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Shape%20Operater.pdf
+        - name: Surface
+          raw_path: Differential Geometry/1. Euclidean/Surface.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Surface.pdf
         folders: []
     - name: Topology
       ink_added_percent: 195.3
@@ -3329,6 +3680,8 @@ records:
       ink_added_percent: 49.3
     - path: Algebra/Linear Algebra/Further topics/Polynomial Space
       ink_added_percent: 119.4
+    - path: Analysis/Real Analysis/Real-valued Function/Continuously Extension
+      ink_added_percent: 95.0
     - path: Topology/General Topology/Metric Space/Distance
       ink_added_percent: 85.8
     modified:
@@ -3406,6 +3759,159 @@ records:
     - from: Algebra/Linear Algebra/Unitary and Orthogonal Operator
       to: Algebra/Linear Algebra/Inner product Theory/Unitary and Orthogonal Operator
       ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Abel formula
+      to: Analysis/Real Analysis/Real numbers/Abel formula
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Advanced Techniques for sequence
+      to: Analysis/Real Analysis/Real numbers/Advanced Techniques for sequence
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Arzelà-Ascoli
+      to: Analysis/Real Analysis/Functional Space/Arzelà-Ascoli
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Banach Space
+      to: Analysis/Real Analysis/Functional Space/Banach Space
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Basic Riemann-integral
+      to: Analysis/Real Analysis/Real-valued Function/Basic Riemann-integral
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Bounded Variation
+      to: Analysis/Real Analysis/Real-valued Function/Bounded Variation
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Cantor set
+      to: Analysis/Real Analysis/Real numbers/Cantor set
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Convexity
+      to: Analysis/Real Analysis/Real-valued Function/Convexity
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Darboux_s Theorem
+      to: Analysis/Real Analysis/Real-valued Function/Darboux_s Theorem
+      ink_added_percent: 71.4
+    - from: Analysis/Real Analysis/Density of rational
+      to: Analysis/Real Analysis/Real numbers/Density of rational
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Differentiation
+      to: Analysis/Real Analysis/Real-valued Function/Differentiation
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Discontinuity
+      to: Analysis/Real Analysis/Real-valued Function/Discontinuity
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Double Sequence
+      to: Analysis/Real Analysis/Functional Space/Double Sequence
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Fundamental Theorem of Calculus
+      to: Analysis/Real Analysis/Real-valued Function/Fundamental Theorem of Calculus
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Improper integral
+      to: Analysis/Real Analysis/Real-valued Function/Improper integral
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Inequalities of integral
+      to: Analysis/Real Analysis/Functional Space/Inequalities of integral
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Inequality in Real numbers
+      to: Analysis/Real Analysis/Real numbers/Inequality in Real numbers
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Kronecker approximation theorem
+      to: Analysis/Real Analysis/Real numbers/Kronecker approximation theorem
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Lipschtiz
+      to: Analysis/Real Analysis/Real-valued Function/Lipschtiz
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Newton_s Method
+      to: Analysis/Real Analysis/Real-valued Function/Newton_s Method
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Normed Space
+      to: Analysis/Real Analysis/Functional Space/Normed Space
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Open map is injective
+      to: Analysis/Real Analysis/Real-valued Function/Open map is injective
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Parameter dependent integral
+      to: Analysis/Real Analysis/Real-valued Function/Parameter dependent integral
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Power Series
+      to: Analysis/Real Analysis/Real-valued Function/Power Series
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Riemann-Rearangement Theorem
+      to: Analysis/Real Analysis/Real numbers/Riemann-Rearangement Theorem
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Sequences of functions
+      to: Analysis/Real Analysis/Functional Space/Sequences of functions
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Stolz-Cesaro theorem
+      to: Analysis/Real Analysis/Real numbers/Stolz-Cesaro theorem
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Stone-Weierstrass Theorem
+      to: Analysis/Real Analysis/Functional Space/Stone-Weierstrass Theorem
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Supremum
+      to: Analysis/Real Analysis/Real numbers/Supremum
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Talyor Series
+      to: Analysis/Real Analysis/Real-valued Function/Talyor Series
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Talyor_s Theorem
+      to: Analysis/Real Analysis/Real-valued Function/Talyor_s Theorem
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Thomae function
+      to: Analysis/Real Analysis/Real-valued Function/Thomae function
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Trigonometric series
+      to: Analysis/Real Analysis/Real-valued Function/Trigonometric series
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/Typical Sequences
+      to: Analysis/Real Analysis/Real numbers/Typical Sequences
+      ink_added_percent: 0.0
+    - from: Analysis/Real Analysis/xsin1_x
+      to: Analysis/Real Analysis/Real-valued Function/xsin1_x
+      ink_added_percent: 0.0
+    - from: Analysis/Complex Analysis/Argument Principle
+      to: Analysis/Complex Analysis/Line integral/Argument Principle
+      ink_added_percent: 0.0
+    - from: Analysis/Complex Analysis/Cauchy integral formula
+      to: Analysis/Complex Analysis/Line integral/Cauchy integral formula
+      ink_added_percent: 0.0
+    - from: Analysis/Complex Analysis/Cauchy-Riemann equation
+      to: Analysis/Complex Analysis/Holomorphic function/Cauchy-Riemann equation
+      ink_added_percent: 0.0
+    - from: Analysis/Complex Analysis/Cauchy_s Inequality
+      to: Analysis/Complex Analysis/Line integral/Cauchy_s Inequality
+      ink_added_percent: 0.0
+    - from: Analysis/Complex Analysis/Conformal mapping
+      to: Analysis/Complex Analysis/Conformal mapping/Conformal mapping
+      ink_added_percent: 0.0
+    - from: Analysis/Complex Analysis/Evaluation of Real integral
+      to: Analysis/Complex Analysis/Line integral/Evaluation of Real integral
+      ink_added_percent: 0.0
+    - from: Analysis/Complex Analysis/Gauss Meanvalue Theorem
+      to: Analysis/Complex Analysis/Line integral/Gauss Meanvalue Theorem
+      ink_added_percent: 0.0
+    - from: Analysis/Complex Analysis/Goursat Theorem
+      to: Analysis/Complex Analysis/Line integral/Goursat Theorem
+      ink_added_percent: 0.0
+    - from: Analysis/Complex Analysis/Harmonic Functions
+      to: Analysis/Complex Analysis/Holomorphic function/Harmonic Functions
+      ink_added_percent: 0.0
+    - from: Analysis/Complex Analysis/Laurent Series of Polynomials
+      to: Analysis/Complex Analysis/Line integral/Laurent Series of Polynomials
+      ink_added_percent: 0.0
+    - from: Analysis/Complex Analysis/Open mapping Theorem
+      to: Analysis/Complex Analysis/Line integral/Open mapping Theorem
+      ink_added_percent: 0.0
+    - from: Analysis/Complex Analysis/Residue Theorem
+      to: Analysis/Complex Analysis/Line integral/Residue Theorem
+      ink_added_percent: 0.0
+    - from: Analysis/Complex Analysis/Residue at infinite
+      to: Analysis/Complex Analysis/Line integral/Residue at infinite
+      ink_added_percent: 0.0
+    - from: Analysis/Complex Analysis/Singularity
+      to: Analysis/Complex Analysis/Line integral/Singularity
+      ink_added_percent: 0.0
+    - from: Analysis/Complex Analysis/Trigonometric integral
+      to: Analysis/Complex Analysis/Line integral/Trigonometric integral
+      ink_added_percent: 0.0
+    - from: Analysis/Complex Analysis/Uniqueness Theorem
+      to: Analysis/Complex Analysis/Holomorphic function/Uniqueness Theorem
+      ink_added_percent: 0.0
     - from: Topology/General Topology/Basic metric space
       to: Topology/General Topology/Metric Space/Basic metric space
       ink_added_percent: 0.0
@@ -3428,72 +3934,4 @@ records:
       to: Topology/Algebraic Topology/Fundamental gp - by Lee
       ink_added_percent: 0.0
     deleted:
-    - Analysis/Real Analysis/Abel formula
-    - Analysis/Real Analysis/Advanced Techniques for sequence
-    - Analysis/Real Analysis/Arzelà-Ascoli
-    - Analysis/Real Analysis/Banach Space
-    - Analysis/Real Analysis/Basic Riemann-integral
-    - Analysis/Real Analysis/Bounded Variation
-    - Analysis/Real Analysis/Cantor set
-    - Analysis/Real Analysis/Convexity
-    - Analysis/Real Analysis/Darboux_s Theorem
-    - Analysis/Real Analysis/Density of rational
-    - Analysis/Real Analysis/Differentiation
-    - Analysis/Real Analysis/Discontinuity
-    - Analysis/Real Analysis/Double Sequence
-    - Analysis/Real Analysis/Fundamental Theorem of Calculus
-    - Analysis/Real Analysis/Improper integral
-    - Analysis/Real Analysis/Inequalities of integral
-    - Analysis/Real Analysis/Inequality in Real numbers
-    - Analysis/Real Analysis/Kronecker approximation theorem
-    - Analysis/Real Analysis/Lipschtiz
-    - Analysis/Real Analysis/Newton_s Method
-    - Analysis/Real Analysis/Normed Space
-    - Analysis/Real Analysis/Open map is injective
-    - Analysis/Real Analysis/Parameter dependent integral
-    - Analysis/Real Analysis/Power Series
-    - Analysis/Real Analysis/Riemann-Rearangement Theorem
-    - Analysis/Real Analysis/Sequences of functions
-    - Analysis/Real Analysis/Stolz-Cesaro theorem
-    - Analysis/Real Analysis/Stone-Weierstrass Theorem
-    - Analysis/Real Analysis/Supremum
-    - Analysis/Real Analysis/Talyor Series
-    - Analysis/Real Analysis/Talyor_s Theorem
-    - Analysis/Real Analysis/Thomae function
-    - Analysis/Real Analysis/Trigonometric series
-    - Analysis/Real Analysis/Typical Sequences
-    - Analysis/Real Analysis/xsin1_x
     - Analysis/Real Analysis/xsinx
-    - Analysis/Complex Analysis/Argument Principle
-    - Analysis/Complex Analysis/Cauchy integral formula
-    - Analysis/Complex Analysis/Cauchy-Riemann equation
-    - Analysis/Complex Analysis/Cauchy_s Inequality
-    - Analysis/Complex Analysis/Complex Analysis
-    - Analysis/Complex Analysis/Conformal mapping
-    - Analysis/Complex Analysis/Evaluation of Real integral
-    - Analysis/Complex Analysis/Exponential function
-    - Analysis/Complex Analysis/Gauss Meanvalue Theorem
-    - Analysis/Complex Analysis/Goursat Theorem
-    - Analysis/Complex Analysis/Harmonic Functions
-    - Analysis/Complex Analysis/Laurent Series of Polynomials
-    - Analysis/Complex Analysis/Open mapping Theorem
-    - Analysis/Complex Analysis/Residue Theorem
-    - Analysis/Complex Analysis/Residue at infinite
-    - Analysis/Complex Analysis/Schwarz reflection principle
-    - Analysis/Complex Analysis/Silverman Solution
-    - Analysis/Complex Analysis/Silverman, Complex Analysis
-    - Analysis/Complex Analysis/Singularity
-    - Analysis/Complex Analysis/Trigonometric integral
-    - Analysis/Complex Analysis/Uniqueness Theorem
-    - Analysis/Analysis on Manifold/Munkres, Analysis on manifold
-    - Analysis/Measure Theory/Measurable Space
-    - Analysis/Differential equation/Coddington, Intro.ODE
-    - Differential Geometry/Euclidean/Barrett O_neill Solution
-    - Differential Geometry/Euclidean/Calculus on Surface
-    - Differential Geometry/Euclidean/Covariant Derivative
-    - Differential Geometry/Euclidean/Cross product
-    - Differential Geometry/Euclidean/Differential Form
-    - Differential Geometry/Euclidean/Frenet fomular
-    - Differential Geometry/Euclidean/Mapping
-    - Differential Geometry/Euclidean/Shape Operater
-    - Differential Geometry/Euclidean/Surface
