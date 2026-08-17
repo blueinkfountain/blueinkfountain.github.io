@@ -391,7 +391,63 @@ nav_order: 3
             <details class="version-folder">
 
               <summary class="version-summary">
-                {{ date }}
+
+                <span class="version-date">
+                  {{ date }}
+                </span>
+
+                {% if version_record %}
+
+                  {% unless version_record.baseline %}
+
+                    <span class="record-total-ink">
+                      +{{ version_record.total_ink_percent }}% ink
+                    </span>
+
+                    <span class="record-change-summary">
+
+                      {% if version_record.added.size > 0 %}
+                        <span class="record-change-count">
+                          {{ version_record.added.size }} added
+                        </span>
+                      {% endif %}
+
+                      {% if version_record.modified.size > 0 %}
+                        <span class="record-change-count">
+                          {{ version_record.modified.size }} modified
+                        </span>
+                      {% endif %}
+
+                      {% if version_record.moved_renamed.size > 0 %}
+                        <span class="record-change-count">
+                          {{ version_record.moved_renamed.size }} moved
+                        </span>
+                      {% endif %}
+
+                      {% if version_record.deleted.size > 0 %}
+                        <span class="record-change-count">
+                          {{ version_record.deleted.size }} removed
+                        </span>
+                      {% endif %}
+
+                      {% if version_record.added.size == 0 and version_record.modified.size == 0 and version_record.moved_renamed.size == 0 and version_record.deleted.size == 0 %}
+                        <span class="record-change-count">
+                          no changes
+                        </span>
+                      {% endif %}
+
+                    </span>
+
+                  {% else %}
+
+                    <span class="version-baseline-label">
+                      baseline
+                    </span>
+
+                  {% endunless %}
+
+                {% endif %}
+
               </summary>
 
 
@@ -723,6 +779,7 @@ nav_order: 3
 
 :root {
   --ink-accent: #0b84c6;
+  --record-blue: #1938c6;
 }
 
 
@@ -896,12 +953,12 @@ nav_order: 3
   display: inline-block;
   margin-left: 0.45rem;
   font-size: 0.75rem;
-  color: #aaa;
+  color: var(--record-blue);
   white-space: nowrap;
 }
 
 .historical-file-name {
-  color: #777;
+  color: var(--record-blue);
   font-size: 0.95rem;
 }
 
@@ -921,13 +978,13 @@ nav_order: 3
 .record-label {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #777;
+  color: var(--record-blue);
   margin-bottom: 0.25rem;
 }
 
 .record-note {
   font-size: 0.85rem;
-  color: #888;
+  color: var(--record-blue);
   font-style: italic;
 }
 
@@ -943,7 +1000,7 @@ nav_order: 3
   margin: 0.25rem 0 !important;
   padding-left: 1.3rem !important;
   font-size: 0.85rem;
-  color: #777;
+  color: var(--record-blue);
   overflow-wrap: anywhere;
 }
 
@@ -978,15 +1035,15 @@ nav_order: 3
 .record-arrow {
   display: inline-block;
   margin: 0 0.45rem;
-  color: #aaa;
+  color: var(--record-blue);
 }
 
 .record-move-from {
-  color: #888;
+  color: var(--record-blue);
 }
 
 .record-move-to {
-  color: #666;
+  color: var(--record-blue);
 }
 
 
@@ -999,7 +1056,7 @@ nav_order: 3
   margin-left: 0.45rem;
   font-size: 0.80em;
   font-weight: normal;
-  color: #aaa;
+  color: var(--record-blue);
   white-space: nowrap;
 }
 
@@ -1008,7 +1065,7 @@ nav_order: 3
   margin-left: 0.65rem;
   font-size: 0.78em;
   font-weight: normal;
-  color: #aaa;
+  color: var(--record-blue);
   white-space: nowrap;
 }
 
@@ -1019,7 +1076,7 @@ nav_order: 3
   margin-left: 0.65rem;
   font-size: 0.74em;
   font-weight: normal;
-  color: #aaa;
+  color: var(--record-blue);
 }
 
 .record-change-count {
@@ -1030,7 +1087,7 @@ nav_order: 3
   content: "·";
   display: inline-block;
   margin: 0 0.4rem;
-  color: #c0c0c0;
+  color: var(--record-blue);
 }
 
 
@@ -1050,7 +1107,7 @@ nav_order: 3
   list-style: none !important;
   cursor: pointer;
   font-size: 0.9rem;
-  color: #888;
+  color: var(--record-blue);
   font-weight: 600;
 }
 
@@ -1085,7 +1142,7 @@ nav_order: 3
 .files-summary {
   list-style: none !important;
   cursor: pointer;
-  color: #777;
+  color: var(--record-blue);
   font-weight: 600;
 }
 
@@ -1095,6 +1152,22 @@ nav_order: 3
 
 .version-summary {
   font-size: 0.95rem;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.version-date {
+  white-space: nowrap;
+}
+
+.version-baseline-label {
+  display: inline-block;
+  margin-left: 0.65rem;
+  font-size: 0.74em;
+  font-weight: normal;
+  color: var(--record-blue);
+  white-space: nowrap;
 }
 
 .files-summary {
@@ -1149,7 +1222,7 @@ nav_order: 3
 .record-heading {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #666;
+  color: var(--record-blue);
   margin-bottom: 0.35rem;
 }
 
@@ -1226,6 +1299,11 @@ nav_order: 3
     display: flex;
     margin-left: 1.45rem;
     margin-top: 0.2rem;
+  }
+
+  .version-summary .record-change-summary {
+    flex-basis: 100%;
+    margin-left: 1.45rem;
   }
 
   .file-link {
