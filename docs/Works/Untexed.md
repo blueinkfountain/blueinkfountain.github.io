@@ -5,7 +5,7 @@ has_children: true
 nav_order: 3
 ---
 
-# Handwritten notes yet to be TeXed.
+# Handwritten notes.
 
 {% assign untexed_data = site.data.untexed_records %}
 {% assign latest_date = untexed_data.latest_date %}
