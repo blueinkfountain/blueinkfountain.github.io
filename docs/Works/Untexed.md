@@ -73,57 +73,39 @@ nav_order: 3
       </div>
 
 
+      {% if subject.files.size > 0 %}
+
+        <ul class="file-list subject-direct-files">
+
+          {% for file in subject.files %}
+
+            <li class="file-item">
+
+              <a
+                href="{{ file.url | relative_url }}"
+                target="_blank"
+                class="file-link"
+              >
+                {{ file.name }}
+              </a>
+
+              {% if file.ink_added_percent > 0 %}
+                <span class="file-ink">
+                  +{{ file.ink_added_percent }}% ink
+                </span>
+              {% endif %}
+
+            </li>
+
+          {% endfor %}
+
+        </ul>
+
+      {% endif %}
+
+
       {% for folder in subject.folders %}
-
-        <details class="academic-folder{% if folder.ink_added_percent > 0 %} folder-active-today{% endif %}">
-
-          <summary class="folder-summary">
-
-            <span class="folder-label">
-              {{ folder.label | replace: "_", " " }}
-            </span>
-
-            {% if folder.ink_added_percent > 0 %}
-
-              <span class="folder-ink">
-                +{{ folder.ink_added_percent }}% ink
-              </span>
-
-            {% endif %}
-
-          </summary>
-
-
-          <ul class="file-list">
-
-            {% for file in folder.files %}
-
-              <li class="file-item">
-
-                <a
-                  href="{{ file.url | relative_url }}"
-                  target="_blank"
-                  class="file-link"
-                >
-                  {{ file.name }}
-                </a>
-
-                {% if file.ink_added_percent > 0 %}
-
-                  <span class="file-ink">
-                    +{{ file.ink_added_percent }}% ink
-                  </span>
-
-                {% endif %}
-
-              </li>
-
-            {% endfor %}
-
-          </ul>
-
-        </details>
-
+        {% include untexed_folder.html node=folder mode="latest" %}
       {% endfor %}
 
     {% endfor %}
@@ -689,45 +671,35 @@ nav_order: 3
                         </div>
 
 
-                        {% for folder in subject.folders %}
+                        {% if subject.files.size > 0 %}
 
-                          <details class="academic-folder nested-folder">
+                          <ul class="file-list subject-direct-files">
 
-                            <summary class="folder-summary">
+                            {% for file in subject.files %}
 
-                              <span class="folder-label">
-                                {{ folder.label | replace: "_", " " }}
-                              </span>
+                              <li class="file-item historical-file-item">
 
-                            </summary>
+                                <span class="historical-file-name">
+                                  {{ file.name }}
+                                </span>
 
-
-                            <ul class="file-list">
-
-                              {% for file in folder.files %}
-
-                                <li class="file-item historical-file-item">
-
-                                  <span class="historical-file-name">
-                                    {{ file.name }}
+                                {% if file.ink_added_percent > 0 %}
+                                  <span class="file-ink">
+                                    +{{ file.ink_added_percent }}% ink
                                   </span>
+                                {% endif %}
 
-                                  {% if file.ink_added_percent > 0 %}
+                              </li>
 
-                                    <span class="file-ink">
-                                      +{{ file.ink_added_percent }}% ink
-                                    </span>
+                            {% endfor %}
 
-                                  {% endif %}
+                          </ul>
 
-                                </li>
+                        {% endif %}
 
-                              {% endfor %}
 
-                            </ul>
-
-                          </details>
-
+                        {% for folder in subject.folders %}
+                          {% include untexed_folder.html node=folder mode="historical" %}
                         {% endfor %}
 
                       {% endfor %}
@@ -866,6 +838,25 @@ nav_order: 3
 .academic-folder {
   margin-bottom: 0.5rem;
   border-bottom: 1px solid #eee;
+}
+
+.recursive-folder {
+  margin-bottom: 0.35rem;
+}
+
+.folder-contents {
+  padding-bottom: 0.15rem;
+}
+
+.folder-children {
+  margin-left: 1.15rem;
+  padding-left: 0.9rem;
+  border-left: 1px solid #dce7f5;
+}
+
+.subject-direct-files {
+  margin-top: -0.2rem !important;
+  margin-bottom: 0.6rem !important;
 }
 
 .academic-folder.folder-active-today {
@@ -1107,7 +1098,7 @@ nav_order: 3
   list-style: none !important;
   cursor: pointer;
   font-size: 0.9rem;
-  color: var(--record-blue);
+  color: #888;
   font-weight: 600;
 }
 
@@ -1222,7 +1213,7 @@ nav_order: 3
 .record-heading {
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--record-blue);
+  color: #666;
   margin-bottom: 0.35rem;
 }
 
@@ -1245,7 +1236,7 @@ nav_order: 3
   margin-top: 0.8rem;
 }
 
-.nested-folder .folder-summary {
+.version-files .recursive-folder .folder-summary {
   font-size: 0.95rem;
   padding: 0.4rem 0;
 }
@@ -1293,6 +1284,11 @@ nav_order: 3
   .academic-folder.folder-active-today {
     padding-left: 0.55rem;
     margin-left: -0.65rem;
+  }
+
+  .folder-children {
+    margin-left: 0.7rem;
+    padding-left: 0.55rem;
   }
 
   .record-change-summary {

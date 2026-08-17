@@ -1,0 +1,77 @@
+{% assign node = include.node %}
+{% assign mode = include.mode | default: "latest" %}
+
+<details class="academic-folder recursive-folder{% if mode == 'latest' and node.ink_added_percent > 0 %} folder-active-today{% endif %}">
+
+  <summary class="folder-summary">
+
+    <span class="folder-label">
+      {{ node.name | replace: "_", " " }}
+    </span>
+
+    {% if mode == "latest" and node.ink_added_percent > 0 %}
+      <span class="folder-ink">
+        +{{ node.ink_added_percent }}% ink
+      </span>
+    {% endif %}
+
+  </summary>
+
+  <div class="folder-contents">
+
+    {% if node.files.size > 0 %}
+
+      <ul class="file-list">
+
+        {% for file in node.files %}
+
+          <li class="file-item{% if mode == 'historical' %} historical-file-item{% endif %}">
+
+            {% if mode == "latest" and file.url %}
+
+              <a
+                href="{{ file.url | relative_url }}"
+                target="_blank"
+                class="file-link"
+              >
+                {{ file.name }}
+              </a>
+
+            {% else %}
+
+              <span class="historical-file-name">
+                {{ file.name }}
+              </span>
+
+            {% endif %}
+
+            {% if file.ink_added_percent > 0 %}
+              <span class="file-ink">
+                +{{ file.ink_added_percent }}% ink
+              </span>
+            {% endif %}
+
+          </li>
+
+        {% endfor %}
+
+      </ul>
+
+    {% endif %}
+
+
+    {% if node.folders.size > 0 %}
+
+      <div class="folder-children">
+
+        {% for child in node.folders %}
+          {% include untexed_folder.html node=child mode=mode %}
+        {% endfor %}
+
+      </div>
+
+    {% endif %}
+
+  </div>
+
+</details>

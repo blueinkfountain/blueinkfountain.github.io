@@ -52,6 +52,9 @@ RENAME_SIMILARITY_THRESHOLD = 0.80
 # Older records are frozen in _data/untexed_records.yml forever.
 ROLLING_DAYS = 10
 
+# YAML folder-tree schema. Version 2 stores real recursive folders.
+TREE_SCHEMA_VERSION = 2
+
 _TEMPLATE_GRAY = None
 _REFERENCE_INK_PIXELS = None
 
@@ -114,6 +117,31 @@ def folder_key(relative_path):
     if parent == ".":
         return "General"
     return parent
+
+
+def folder_ancestor_keys(relative_path):
+    """
+    Return every real folder ancestor below the subject level.
+
+    Example:
+        Analysis/Real Analysis/Sequences/a.pdf
+        -> [
+             "Analysis/Real Analysis",
+             "Analysis/Real Analysis/Sequences",
+           ]
+
+    The first component is the subject, so it is intentionally not
+    repeated as a folder subtotal. Subject ink is tracked separately.
+    """
+    parts = list(PurePosixPath(relative_path).parts[:-1])
+
+    if len(parts) <= 1:
+        return []
+
+    return [
+        "/".join(parts[:depth])
+        for depth in range(2, len(parts) + 1)
+    ]
 
 
 def published_url(relative_path):
@@ -776,78 +804,217 @@ def build_subject_tree(
     folder_ink_percent,
     include_urls=False,
 ):
-    subject_folders = defaultdict(
-        lambda: defaultdict(list)
-    )
+    """
+    Build a true recursive tree:
+
+        Subject
+        ├─ files directly under the subject
+        └─ folders
+           ├─ files
+           └─ folders
+              └─ ...
+
+    Folder depth is unlimited. The first path component is always the
+    subject; every later directory component becomes one recursive node.
+    """
+    subject_nodes = {}
+
+    def make_folder_node(name, raw_path):
+        return {
+            "name": name,
+            "label": name,
+            "raw_path": raw_path,
+            "files": [],
+            "folders": {},
+        }
 
     for path in sorted(snapshot):
-        subject = subject_key(path)
-        folder = folder_key(path)
+        parts = list(PurePosixPath(path).parts)
+
+        # Top-level PDFs are already filtered by get_pdf_snapshot(), but
+        # keep this guard so this function never recreates General.
+        if len(parts) < 2:
+            continue
+
+        subject = parts[0]
+        folder_parts = parts[1:-1]
+
+        subject_node = subject_nodes.setdefault(
+            subject,
+            {
+                "name": subject,
+                "files": [],
+                "folders": {},
+            },
+        )
 
         file_item = {
-            "name": strip_pdf_suffixes(
-                Path(path).name
-            ),
+            "name": strip_pdf_suffixes(Path(path).name),
             "raw_path": path,
-            "ink_added_percent":
-                file_ink_percent.get(
-                    path,
-                    0.0,
-                ),
+            "ink_added_percent": file_ink_percent.get(path, 0.0),
         }
 
         if include_urls:
-            file_item["url"] = (
-                published_url(path)
-            )
+            file_item["url"] = published_url(path)
 
-        subject_folders[
-            subject
-        ][
-            folder
-        ].append(
-            file_item
-        )
+        # A PDF directly under the subject has no extra folder node.
+        if not folder_parts:
+            subject_node["files"].append(file_item)
+            continue
+
+        current_folders = subject_node["folders"]
+        raw_parts = [subject]
+        current_node = None
+
+        for folder_name in folder_parts:
+            raw_parts.append(folder_name)
+            raw_path = "/".join(raw_parts)
+
+            current_node = current_folders.setdefault(
+                folder_name,
+                make_folder_node(folder_name, raw_path),
+            )
+            current_folders = current_node["folders"]
+
+        current_node["files"].append(file_item)
+
+    def finalize_folder(node):
+        children = [
+            finalize_folder(node["folders"][name])
+            for name in sorted(node["folders"])
+        ]
+
+        return {
+            "name": node["name"],
+            "label": node["label"],
+            "raw_path": node["raw_path"],
+            "ink_added_percent": folder_ink_percent.get(
+                node["raw_path"],
+                0.0,
+            ),
+            "files": sorted(
+                node["files"],
+                key=lambda item: item["name"].lower(),
+            ),
+            "folders": children,
+        }
 
     subjects = []
 
-    for subject in sorted(
-        subject_folders
-    ):
-        folders = []
-
-        for folder in sorted(
-            subject_folders[subject]
-        ):
-            folders.append({
-                "raw_path": folder,
-                "label": display_folder(
-                    folder
-                ),
-                "ink_added_percent":
-                    folder_ink_percent.get(
-                        folder,
-                        0.0,
-                    ),
-                "files":
-                    subject_folders[
-                        subject
-                    ][
-                        folder
-                    ],
-            })
+    for subject in sorted(subject_nodes):
+        node = subject_nodes[subject]
 
         subjects.append({
             "name": subject,
-            "ink_added_percent":
-                subject_ink_percent.get(
-                    subject,
-                    0.0,
-                ),
-            "folders": folders,
+            "ink_added_percent": subject_ink_percent.get(subject, 0.0),
+            "files": sorted(
+                node["files"],
+                key=lambda item: item["name"].lower(),
+            ),
+            "folders": [
+                finalize_folder(node["folders"][name])
+                for name in sorted(node["folders"])
+            ],
         })
 
     return subjects
+
+
+def snapshot_from_stored_subjects(subjects):
+    """Recover the historical PDF path list from either schema v1 or v2."""
+    snapshot = {}
+
+    def add_file(file_item, fallback_parent=None):
+        raw_path = file_item.get("raw_path")
+
+        if not raw_path and fallback_parent:
+            # Compatibility fallback for very old data.
+            raw_path = (
+                fallback_parent.rstrip("/")
+                + "/"
+                + str(file_item.get("name", "")).rstrip()
+                + ".pdf"
+            )
+
+        if raw_path:
+            snapshot[str(raw_path)] = {
+                "name": Path(str(raw_path)).name,
+            }
+
+    def walk_folder(folder):
+        raw_path = folder.get("raw_path")
+
+        for file_item in folder.get("files", []) or []:
+            add_file(file_item, raw_path)
+
+        for child in folder.get("folders", []) or []:
+            walk_folder(child)
+
+    for subject in subjects or []:
+        subject_name = str(subject.get("name", ""))
+
+        for file_item in subject.get("files", []) or []:
+            add_file(file_item, subject_name)
+
+        for folder in subject.get("folders", []) or []:
+            walk_folder(folder)
+
+    return snapshot
+
+
+def cumulative_folder_percent_from_legacy(folder_ink_percent):
+    """
+    Convert schema-v1 leaf-folder ink totals into recursive subtotals.
+
+    Old records counted ink only in the PDF's immediate parent folder.
+    Recursive folders should show the total of every descendant, so each
+    old leaf subtotal is propagated to all of its ancestors below subject.
+    """
+    cumulative = defaultdict(float)
+
+    for raw_folder, value in (folder_ink_percent or {}).items():
+        if raw_folder == "General":
+            continue
+
+        parts = str(raw_folder).split("/")
+
+        if len(parts) < 2:
+            continue
+
+        numeric_value = float(value or 0.0)
+
+        for depth in range(2, len(parts) + 1):
+            cumulative["/".join(parts[:depth])] += numeric_value
+
+    return {
+        key: round(value, 1)
+        for key, value in sorted(cumulative.items())
+    }
+
+
+def migrate_record_tree_to_v2(record):
+    """One-time structural migration for frozen schema-v1 history."""
+    if not record:
+        return record
+
+    snapshot = snapshot_from_stored_subjects(
+        record.get("subjects", [])
+    )
+
+    recursive_folder_ink = cumulative_folder_percent_from_legacy(
+        record.get("folder_ink_percent", {})
+    )
+
+    record["folder_ink_percent"] = recursive_folder_ink
+    record["subjects"] = build_subject_tree(
+        snapshot,
+        record.get("file_ink_percent", {}) or {},
+        record.get("subject_ink_percent", {}) or {},
+        recursive_folder_ink,
+        include_urls=False,
+    )
+
+    return record
 
 
 # =========================================================
@@ -921,16 +1088,42 @@ def parse_snapshot_date(name):
 
 
 def load_existing_history():
-    """Load the committed YAML so frozen records can be preserved verbatim."""
+    """Load committed YAML and preserve frozen records across runs."""
     if not OUTPUT.exists():
-        return {"latest_date": None, "dates": [], "records": {}}
+        return {
+            "latest_date": None,
+            "dates": [],
+            "records": {},
+            "tree_schema_version": TREE_SCHEMA_VERSION,
+        }
 
     with OUTPUT.open("r", encoding="utf-8") as file:
         loaded = yaml.safe_load(file) or {}
 
     raw_records = loaded.get("records", {}) or {}
-    records = {str(date): record for date, record in raw_records.items()}
-    dates = [str(date) for date in (loaded.get("dates", []) or [])]
+    records = {
+        str(date): record
+        for date, record in raw_records.items()
+    }
+    dates = [
+        str(date)
+        for date in (loaded.get("dates", []) or [])
+    ]
+
+    stored_schema = int(
+        loaded.get("tree_schema_version", 1) or 1
+    )
+
+    if stored_schema < TREE_SCHEMA_VERSION:
+        print()
+        print(
+            "Migrating stored folder history to recursive tree schema..."
+        )
+
+        records = {
+            date: migrate_record_tree_to_v2(record)
+            for date, record in records.items()
+        }
 
     return {
         "latest_date": (
@@ -940,6 +1133,7 @@ def load_existing_history():
         ),
         "dates": dates,
         "records": records,
+        "tree_schema_version": TREE_SCHEMA_VERSION,
     }
 
 
@@ -991,7 +1185,11 @@ def build_comparison_record(previous_dir, date_dir, previous, current):
         nonlocal total_added_ink_pixels
         total_added_ink_pixels += pixels
         file_ink_pixels[relative_path] += pixels
-        folder_ink_pixels[folder_key(relative_path)] += pixels
+
+        # Every recursive folder shows the subtotal of all descendants.
+        for folder in folder_ancestor_keys(relative_path):
+            folder_ink_pixels[folder] += pixels
+
         subject_ink_pixels[subject_key(relative_path)] += pixels
 
     added = []
@@ -1182,7 +1380,8 @@ def main():
         # -----------------------------------------------
         # Permanently preserve every stored record older
         # than the rolling window. These dictionaries are
-        # copied verbatim from the existing YAML.
+        # preserved from the existing YAML (apart from a one-time
+        # recursive-tree schema migration when needed).
         # -----------------------------------------------
 
         frozen_records = {
@@ -1549,6 +1748,8 @@ def main():
     )
 
     data = {
+        "tree_schema_version":
+            TREE_SCHEMA_VERSION,
         "latest_date":
             latest_date,
         "dates":
