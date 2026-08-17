@@ -267,11 +267,17 @@ nav_order: 3
 
           {% if latest_record.moved_renamed.size > 0 %}
 
-            <div class="record-section">
+            <details class="record-section record-collapsible-section">
 
-              <div class="record-label">
-                Moved / Renamed
-              </div>
+              <summary class="record-label record-collapsible-summary">
+                <span>
+                  Moved / Renamed
+                </span>
+
+                <span class="record-collapsible-count">
+                  {{ latest_record.moved_renamed.size }}
+                </span>
+              </summary>
 
               <ul class="record-list">
 
@@ -305,7 +311,7 @@ nav_order: 3
 
               </ul>
 
-            </div>
+            </details>
 
           {% endif %}
 
@@ -358,7 +364,7 @@ nav_order: 3
     <details class="previous-versions">
 
       <summary class="previous-summary">
-        Previous versions
+        Previous
       </summary>
 
 
@@ -559,11 +565,17 @@ nav_order: 3
 
                         {% if version_record.moved_renamed.size > 0 %}
 
-                          <div class="record-section">
+                          <details class="record-section record-collapsible-section">
 
-                            <div class="record-label">
-                              Moved / Renamed
-                            </div>
+                            <summary class="record-label record-collapsible-summary">
+                              <span>
+                                Moved / Renamed
+                              </span>
+
+                              <span class="record-collapsible-count">
+                                {{ version_record.moved_renamed.size }}
+                              </span>
+                            </summary>
 
                             <ul class="record-list">
 
@@ -597,7 +609,7 @@ nav_order: 3
 
                             </ul>
 
-                          </div>
+                          </details>
 
                         {% endif %}
 
@@ -971,6 +983,41 @@ nav_order: 3
   font-weight: 600;
   color: var(--record-blue);
   margin-bottom: 0.25rem;
+}
+
+.record-collapsible-summary {
+  list-style: none !important;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  width: fit-content;
+}
+
+.record-collapsible-summary::-webkit-details-marker {
+  display: none;
+}
+
+.record-collapsible-summary::before {
+  content: "\25B8";
+  display: inline-block;
+  margin-right: 0.4rem;
+  color: #888;
+  transition: transform 0.15s;
+}
+
+.record-collapsible-section[open] > .record-collapsible-summary::before {
+  transform: rotate(90deg);
+}
+
+.record-collapsible-count {
+  margin-left: 0.45rem;
+  font-size: 0.82em;
+  font-weight: normal;
+  color: #888;
+}
+
+.record-collapsible-section > .record-list {
+  margin-top: 0.3rem !important;
 }
 
 .record-note {
