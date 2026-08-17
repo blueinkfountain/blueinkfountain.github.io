@@ -52,8 +52,10 @@ RENAME_SIMILARITY_THRESHOLD = 0.80
 # Older records are frozen in _data/untexed_records.yml forever.
 ROLLING_DAYS = 10
 
-# YAML folder-tree schema. Version 2 stores real recursive folders.
-TREE_SCHEMA_VERSION = 2
+# YAML folder-tree schema.
+# Version 2 stores real recursive folders.
+# Version 3 restores top-level PDFs under a special ``Others`` section.
+TREE_SCHEMA_VERSION = 3
 
 _TEMPLATE_GRAY = None
 _REFERENCE_INK_PIXELS = None
@@ -89,8 +91,8 @@ def display_path(relative_path):
 
 
 def display_folder(raw_folder):
-    if raw_folder == "General":
-        return "General"
+    if raw_folder in {"General", "Others"}:
+        return "Others"
     return " / ".join(raw_folder.split("/"))
 
 
@@ -104,8 +106,13 @@ def normalized_filename(relative_path):
 def subject_key(relative_path):
     parts = relative_path.split("/")
     if len(parts) <= 1:
-        return "General"
+        return "Others"
     return parts[0]
+
+
+def subject_sort_key(subject):
+    """Keep the synthetic top-level-PDF section at the very bottom."""
+    return (subject == "Others", subject.lower())
 
 
 def top_subject(relative_path):
@@ -115,7 +122,7 @@ def top_subject(relative_path):
 def folder_key(relative_path):
     parent = PurePosixPath(relative_path).parent.as_posix()
     if parent == ".":
-        return "General"
+        return "Others"
     return parent
 
 
@@ -148,27 +155,22 @@ def published_url(relative_path):
     return "/untexed-current/" + quote(relative_path, safe="/")
 
 
-def is_nested_note_pdf(date_dir, path):
+def is_note_pdf(date_dir, path):
     """
-    Only PDFs inside at least one subfolder of a dated snapshot
-    are treated as publishable handwritten notes.
+    Treat every PDF inside a dated snapshot as a handwritten note.
+
+    PDFs directly under the dated folder are no longer ignored;
+    they are grouped into the synthetic ``Others`` section.
 
     Examples:
-        untexed/260816/file.pdf              -> ignored
-        untexed/260816/Algebra/file.pdf      -> included
-        untexed/260816/Algebra/1. LA/a.pdf   -> included
-
-    This deliberately removes the old ``General`` bucket from
-    newly calculated snapshots.
+        untexed/260816/file.pdf              -> Others
+        untexed/260816/Algebra/file.pdf      -> Algebra
+        untexed/260816/Algebra/1. LA/a.pdf   -> Algebra / 1. LA
     """
-    if (
-        not path.is_file()
-        or path.suffix.lower() != ".pdf"
-    ):
-        return False
-
-    relative = path.relative_to(date_dir)
-    return len(relative.parts) >= 2
+    return (
+        path.is_file()
+        and path.suffix.lower() == ".pdf"
+    )
 
 
 # =========================================================
@@ -600,21 +602,8 @@ def get_pdf_snapshot(date_dir):
     pdf_paths = [
         path
         for path in all_pdf_paths
-        if is_nested_note_pdf(date_dir, path)
+        if is_note_pdf(date_dir, path)
     ]
-
-    ignored_top_level = [
-        path
-        for path in all_pdf_paths
-        if not is_nested_note_pdf(date_dir, path)
-    ]
-
-    for path in ignored_top_level:
-        print(
-            f"Ignoring top-level PDF "
-            f"[{date_dir.name}] "
-            f"{path.name}"
-        )
 
     for path in pdf_paths:
         relative_path = (
@@ -814,8 +803,9 @@ def build_subject_tree(
            └─ folders
               └─ ...
 
-    Folder depth is unlimited. The first path component is always the
-    subject; every later directory component becomes one recursive node.
+    Folder depth is unlimited. For nested PDFs, the first path component is
+    the subject and every later directory component becomes one recursive
+    node. Top-level PDFs are collected under ``Others``.
     """
     subject_nodes = {}
 
@@ -831,13 +821,14 @@ def build_subject_tree(
     for path in sorted(snapshot):
         parts = list(PurePosixPath(path).parts)
 
-        # Top-level PDFs are already filtered by get_pdf_snapshot(), but
-        # keep this guard so this function never recreates General.
-        if len(parts) < 2:
-            continue
-
-        subject = parts[0]
-        folder_parts = parts[1:-1]
+        # A PDF directly under the dated snapshot has no natural subject.
+        # Keep it, but place it in a synthetic ``Others`` section.
+        if len(parts) == 1:
+            subject = "Others"
+            folder_parts = []
+        else:
+            subject = parts[0]
+            folder_parts = parts[1:-1]
 
         subject_node = subject_nodes.setdefault(
             subject,
@@ -901,7 +892,7 @@ def build_subject_tree(
 
     subjects = []
 
-    for subject in sorted(subject_nodes):
+    for subject in sorted(subject_nodes, key=subject_sort_key):
         node = subject_nodes[subject]
 
         subjects.append({
@@ -1017,8 +1008,49 @@ def migrate_record_tree_to_v2(record):
     return record
 
 
+def migrate_record_tree_to_v3(record):
+    """Rename the old top-level ``General`` bucket to ``Others``."""
+    if not record:
+        return record
+
+    snapshot = snapshot_from_stored_subjects(
+        record.get("subjects", [])
+    )
+
+    subject_ink = dict(
+        record.get("subject_ink_percent", {}) or {}
+    )
+
+    if "General" in subject_ink:
+        subject_ink["Others"] = round(
+            float(subject_ink.get("Others", 0.0))
+            + float(subject_ink.pop("General", 0.0)),
+            1,
+        )
+
+    folder_ink = dict(
+        record.get("folder_ink_percent", {}) or {}
+    )
+
+    # In older schemas the root bucket could be called General.
+    # It is not a real folder in the recursive tree, so drop that subtotal.
+    folder_ink.pop("General", None)
+
+    record["subject_ink_percent"] = subject_ink
+    record["folder_ink_percent"] = folder_ink
+    record["subjects"] = build_subject_tree(
+        snapshot,
+        record.get("file_ink_percent", {}) or {},
+        subject_ink,
+        folder_ink,
+        include_urls=False,
+    )
+
+    return record
+
+
 # =========================================================
-# Publish only the newest snapshot
+# Publish only the newest snapshot, including top-level PDFs
 #
 # Local dated folders stay under untexed/ and are never copied
 # to GitHub.  untexed-current/ is replaced on every run.
@@ -1040,7 +1072,7 @@ def publish_latest_snapshot(
     for source in sorted(
         latest_date_dir.rglob("*")
     ):
-        if not is_nested_note_pdf(
+        if not is_note_pdf(
             latest_date_dir,
             source,
         ):
@@ -1114,7 +1146,7 @@ def load_existing_history():
         loaded.get("tree_schema_version", 1) or 1
     )
 
-    if stored_schema < TREE_SCHEMA_VERSION:
+    if stored_schema < 2:
         print()
         print(
             "Migrating stored folder history to recursive tree schema..."
@@ -1122,6 +1154,17 @@ def load_existing_history():
 
         records = {
             date: migrate_record_tree_to_v2(record)
+            for date, record in records.items()
+        }
+
+    if stored_schema < 3:
+        print()
+        print(
+            "Migrating top-level General history to Others..."
+        )
+
+        records = {
+            date: migrate_record_tree_to_v3(record)
             for date, record in records.items()
         }
 

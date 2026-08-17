@@ -1,4 +1,4 @@
-tree_schema_version: 2
+tree_schema_version: 3
 latest_date: '260817'
 dates:
 - '260817'
@@ -550,6 +550,13 @@ records:
           raw_path: Topology/2. Algebraic Topology/Hatcher, Algebraic Topology.pdf
           ink_added_percent: 0.0
         folders: []
+    - name: Others
+      ink_added_percent: 0.0
+      files:
+      - name: Tree of Subjects
+        raw_path: Tree of Subjects.pdf
+        ink_added_percent: 0.0
+      folders: []
     added: []
     modified: []
     moved_renamed: []
@@ -1181,6 +1188,13 @@ records:
           raw_path: Topology/2. Algebraic Topology/Hatcher, Algebraic Topology.pdf
           ink_added_percent: 0.0
         folders: []
+    - name: Others
+      ink_added_percent: 0.0
+      files:
+      - name: Tree of Subjects
+        raw_path: Tree of Subjects.pdf
+        ink_added_percent: 0.0
+      folders: []
     added:
     - path: Algebra/Finite Group Theory/Classification of small order groups
       ink_added_percent: 25.6
@@ -2084,6 +2098,13 @@ records:
           raw_path: Topology/2. Algebraic Topology/Hatcher, chapter 1.pdf
           ink_added_percent: 10.5
         folders: []
+    - name: Others
+      ink_added_percent: 0.0
+      files:
+      - name: Tree of Subjects
+        raw_path: Tree of Subjects.pdf
+        ink_added_percent: 0.0
+      folders: []
     added:
     - path: Algebra/Group Theory/Normalizer and Centralizer
       ink_added_percent: 27.9
@@ -2124,11 +2145,12 @@ records:
     - Topology/General Topology/Topological map 2
   '260816':
     baseline: false
-    total_ink_percent: 727.9
+    total_ink_percent: 793.7
     library_total_ink_percent: null
     subject_ink_percent:
       Algebra: 52.7
       Analysis: 120.2
+      Others: 65.8
       Topology: 555.0
     folder_ink_percent:
       Algebra/5. Polynomial Ring Theory: 8.6
@@ -2144,6 +2166,7 @@ records:
       Analysis/1. Real Analysis/Newton_s Method.pdf: 0.0
       Analysis/1. Real Analysis/Stone-Weierstrass Theorem.pdf: 1.9
       Analysis/1. Real Analysis/Thomae function.pdf: 50.4
+      Notebook 5.pdf: 65.8
       Topology/1. General Topology/Initial Topology.pdf: 145.9
       Topology/1. General Topology/Product Topology.pdf: 68.4
       Topology/1. General Topology/Topological Group.pdf: 83.4
@@ -2764,11 +2787,23 @@ records:
           raw_path: Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf
           ink_added_percent: 0.0
         folders: []
+    - name: Others
+      ink_added_percent: 65.8
+      files:
+      - name: Notebook 5
+        raw_path: Notebook 5.pdf
+        ink_added_percent: 65.8
+      - name: Tree of Subjects
+        raw_path: Tree of Subjects.pdf
+        ink_added_percent: 0.0
+      folders: []
     added:
     - path: Algebra/Polynomial Ring Theory/Typical Polynomials
       ink_added_percent: 8.6
     - path: Analysis/Real Analysis/Newton_s Method
       ink_added_percent: 0.0
+    - path: Notebook 5
+      ink_added_percent: 65.8
     - path: Topology/General Topology/Initial Topology
       ink_added_percent: 145.9
     - path: Topology/Algebraic Topology/Fundamental gp
@@ -2798,31 +2833,37 @@ records:
     - Topology/Algebraic Topology/Hatcher, chapter 1
   '260817':
     baseline: false
-    total_ink_percent: 530.3
-    library_total_ink_percent: 28586.9
+    total_ink_percent: 837.3
+    library_total_ink_percent: 28970.1
     subject_ink_percent:
-      Algebra: 168.7
+      Algebra: 203.3
       Analysis: 166.3
-      Topology: 195.3
+      Others: 198.8
+      Topology: 268.8
     folder_ink_percent:
       Algebra/1. Linear Algebra: 168.7
       Algebra/1. Linear Algebra/3. Further topics: 168.7
+      Algebra/3. Finite Group Theory: 34.6
       Analysis/1. Real Analysis: 166.3
       Analysis/1. Real Analysis/2. Real-valued Function: 166.3
       Topology/1. General Topology: 85.8
       Topology/1. General Topology/Metric Space: 85.8
-      Topology/2. Algebraic Topology: 109.5
+      Topology/2. Algebraic Topology: 183.1
     file_ink_percent:
       Algebra/1. Linear Algebra/3. Further topics/Continuous Function Space.pdf: 49.3
       Algebra/1. Linear Algebra/3. Further topics/Polynomial Space.pdf: 119.4
+      Algebra/3. Finite Group Theory/Group Action.pdf: 34.6
       Analysis/1. Real Analysis/2. Real-valued Function/Continuously Extension.pdf: 95.0
       Analysis/1. Real Analysis/2. Real-valued Function/Darboux_s Theorem.pdf: 71.4
+      SNU solution.pdf: 198.8
       Topology/1. General Topology/Metric Space/Distance.pdf: 85.8
+      Topology/2. Algebraic Topology/Borsuk-Ulam Theorem.pdf: 41.8
+      Topology/2. Algebraic Topology/Covering Space.pdf: 31.7
       Topology/2. Algebraic Topology/Homotopy.pdf: 0.0
       Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 109.5
     subjects:
     - name: Algebra
-      ink_added_percent: 168.7
+      ink_added_percent: 203.3
       files: []
       folders:
       - name: 1. Linear Algebra
@@ -2990,7 +3031,7 @@ records:
       - name: 3. Finite Group Theory
         label: 3. Finite Group Theory
         raw_path: Algebra/3. Finite Group Theory
-        ink_added_percent: 0.0
+        ink_added_percent: 34.6
         files:
         - name: Alternating Group
           raw_path: Algebra/3. Finite Group Theory/Alternating Group.pdf
@@ -3012,6 +3053,10 @@ records:
           raw_path: Algebra/3. Finite Group Theory/Division Algorithm.pdf
           ink_added_percent: 0.0
           url: /untexed-current/Algebra/3.%20Finite%20Group%20Theory/Division%20Algorithm.pdf
+        - name: Group Action
+          raw_path: Algebra/3. Finite Group Theory/Group Action.pdf
+          ink_added_percent: 34.6
+          url: /untexed-current/Algebra/3.%20Finite%20Group%20Theory/Group%20Action.pdf
         - name: Jordan-Hölder
           raw_path: Algebra/3. Finite Group Theory/Jordan-Hölder.pdf
           ink_added_percent: 0.0
@@ -3550,7 +3595,7 @@ records:
           url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Surface.pdf
         folders: []
     - name: Topology
-      ink_added_percent: 195.3
+      ink_added_percent: 268.8
       files: []
       folders:
       - name: 1. General Topology
@@ -3652,8 +3697,16 @@ records:
       - name: 2. Algebraic Topology
         label: 2. Algebraic Topology
         raw_path: Topology/2. Algebraic Topology
-        ink_added_percent: 109.5
+        ink_added_percent: 183.1
         files:
+        - name: Borsuk-Ulam Theorem
+          raw_path: Topology/2. Algebraic Topology/Borsuk-Ulam Theorem.pdf
+          ink_added_percent: 41.8
+          url: /untexed-current/Topology/2.%20Algebraic%20Topology/Borsuk-Ulam%20Theorem.pdf
+        - name: Covering Space
+          raw_path: Topology/2. Algebraic Topology/Covering Space.pdf
+          ink_added_percent: 31.7
+          url: /untexed-current/Topology/2.%20Algebraic%20Topology/Covering%20Space.pdf
         - name: Fundamental gp - by Lee
           raw_path: Topology/2. Algebraic Topology/Fundamental gp - by Lee.pdf
           ink_added_percent: 0.0
@@ -3675,15 +3728,35 @@ records:
           ink_added_percent: 109.5
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Typical%20Quotient%20Spaces.pdf
         folders: []
+    - name: Others
+      ink_added_percent: 198.8
+      files:
+      - name: SNU solution
+        raw_path: SNU solution.pdf
+        ink_added_percent: 198.8
+        url: /untexed-current/SNU%20solution.pdf
+      - name: Tree of Subjects
+        raw_path: Tree of Subjects.pdf
+        ink_added_percent: 0.0
+        url: /untexed-current/Tree%20of%20Subjects.pdf
+      folders: []
     added:
     - path: Algebra/Linear Algebra/Further topics/Continuous Function Space
       ink_added_percent: 49.3
     - path: Algebra/Linear Algebra/Further topics/Polynomial Space
       ink_added_percent: 119.4
+    - path: Algebra/Finite Group Theory/Group Action
+      ink_added_percent: 34.6
     - path: Analysis/Real Analysis/Real-valued Function/Continuously Extension
       ink_added_percent: 95.0
+    - path: SNU solution
+      ink_added_percent: 198.8
     - path: Topology/General Topology/Metric Space/Distance
       ink_added_percent: 85.8
+    - path: Topology/Algebraic Topology/Borsuk-Ulam Theorem
+      ink_added_percent: 41.8
+    - path: Topology/Algebraic Topology/Covering Space
+      ink_added_percent: 31.7
     modified:
     - path: Topology/Algebraic Topology/Homotopy
       ink_added_percent: 0.0
@@ -3935,3 +4008,4 @@ records:
       ink_added_percent: 0.0
     deleted:
     - Analysis/Real Analysis/xsinx
+    - Notebook 5
