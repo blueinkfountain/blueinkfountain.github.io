@@ -1,6 +1,5 @@
 from pathlib import Path, PurePosixPath
 from collections import defaultdict
-from difflib import SequenceMatcher
 from urllib.parse import quote
 from datetime import datetime
 import hashlib
@@ -46,7 +45,6 @@ TEMPLATE_DIFF_THRESHOLD = 20
 MAX_INK_GRAY = 220
 MAX_ALIGNMENT_SHIFT = 3
 OLD_INK_TOLERANCE_RADIUS = 2
-RENAME_SIMILARITY_THRESHOLD = 0.80
 
 # Page-sequence alignment for insertion/deletion handling
 PAGE_SIGNATURE_ROWS = 24
@@ -828,38 +826,49 @@ def detect_moves(
 
     # -----------------------------------------------------
     # STEP 2:
-    # Same visual hash + same subject + sufficiently similar name.
-    # Ambiguous hash groups are deliberately left as Added/Removed.
+    # Same visual hash + same subject = same logical PDF.
+    #
+    # Filename similarity is intentionally NOT required here.  If the
+    # rendered PDF is exactly the same and it remains in the same subject,
+    # a changed filename is treated as a rename/move.
+    #
+    # Ambiguous groups are still left as Added/Removed.  For example, if
+    # two byte/visual-identical PDFs exist in the same subject, there is no
+    # safe way to know which old path corresponds to which new path.
     # -----------------------------------------------------
 
-    deleted_by_hash = defaultdict(list)
-    added_by_hash = defaultdict(list)
+    deleted_by_identity = defaultdict(list)
+    added_by_identity = defaultdict(list)
 
     for path in deleted_candidates:
-        deleted_by_hash[
-            previous[path]["hash"]
-        ].append(path)
+        key = (
+            top_subject(path),
+            previous[path]["hash"],
+        )
+        deleted_by_identity[key].append(path)
 
     for path in added_candidates:
-        added_by_hash[
-            current[path]["hash"]
-        ].append(path)
+        key = (
+            top_subject(path),
+            current[path]["hash"],
+        )
+        added_by_identity[key].append(path)
 
-    common_hashes = (
-        set(deleted_by_hash)
-        & set(added_by_hash)
+    common_identities = (
+        set(deleted_by_identity)
+        & set(added_by_identity)
     )
 
-    for file_hash in sorted(common_hashes):
+    for key in sorted(common_identities):
         old_paths = [
             path
-            for path in deleted_by_hash[file_hash]
+            for path in deleted_by_identity[key]
             if path in deleted_candidates
         ]
 
         new_paths = [
             path
-            for path in added_by_hash[file_hash]
+            for path in added_by_identity[key]
             if path in added_candidates
         ]
 
@@ -871,32 +880,6 @@ def detect_moves(
 
         old_path = old_paths[0]
         new_path = new_paths[0]
-
-        if (
-            top_subject(old_path)
-            != top_subject(new_path)
-        ):
-            continue
-
-        old_name = normalized_filename(
-            old_path
-        )
-        new_name = normalized_filename(
-            new_path
-        )
-
-        similarity = SequenceMatcher(
-            None,
-            old_name,
-            new_name,
-        ).ratio()
-
-        if (
-            old_name != new_name
-            and similarity
-            < RENAME_SIMILARITY_THRESHOLD
-        ):
-            continue
 
         moved.append({
             "from": old_path,
@@ -1838,6 +1821,31 @@ def main():
                     current,
                 )
             )
+
+    # =====================================================
+    # Sort Added / Modified by ink amount for display
+    # =====================================================
+    #
+    # Apply this to every record, including frozen history,
+    # so both the latest Record and Previous sections are
+    # consistently ordered by largest ink contribution first.
+    # Ties are resolved alphabetically by path.
+    for record in records.values():
+        record["added"] = sorted(
+            record.get("added", []) or [],
+            key=lambda item: (
+                -float(item.get("ink_added_percent", 0.0) or 0.0),
+                str(item.get("path", "")).lower(),
+            ),
+        )
+
+        record["modified"] = sorted(
+            record.get("modified", []) or [],
+            key=lambda item: (
+                -float(item.get("ink_added_percent", 0.0) or 0.0),
+                str(item.get("path", "")).lower(),
+            ),
+        )
 
     # =====================================================
     # Absolute total ink of all PDFs in newest snapshot
