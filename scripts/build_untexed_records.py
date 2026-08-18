@@ -4,7 +4,6 @@ from difflib import SequenceMatcher
 from urllib.parse import quote
 from datetime import datetime
 import hashlib
-import math
 import re
 import shutil
 
@@ -45,57 +44,15 @@ GRID_TEMPLATE_PDF = REFERENCE_DIR / "grid_template.pdf"
 RENDER_SCALE = 2.0
 TEMPLATE_DIFF_THRESHOLD = 20
 MAX_INK_GRAY = 220
-
-# The exported page can shift its blank grid by a few raster pixels even when
-# no handwriting changed.  Align the reference grid before subtracting it so
-# grid jitter is not mistaken for newly written ink.
-TEMPLATE_ALIGNMENT_SHIFT = 4
-TEMPLATE_ALIGNMENT_SAMPLE_STEP = 4
-TEMPLATE_ALIGNMENT_DIFF_CLIP = 40
-
-# Old/new PDF exports can move or very slightly rescale a rendered page even
-# when the handwriting itself did not change.  Registration therefore uses a
-# cheap coarse search over a much wider translation window plus a few nearby
-# uniform scales, then refines only around the best candidate at full size.
-MAX_ALIGNMENT_SHIFT = 8
-GLOBAL_ALIGNMENT_MAX_SHIFT = 48
-GLOBAL_ALIGNMENT_COARSE_FACTOR = 6
-GLOBAL_ALIGNMENT_REFINE_RADIUS = 5
-GLOBAL_ALIGNMENT_SCALES = (0.97, 0.985, 1.0, 1.015, 1.03)
+MAX_ALIGNMENT_SHIFT = 3
 OLD_INK_TOLERANCE_RADIUS = 2
-
-# A PDF app may silently re-export a note and slightly change anti-aliasing,
-# stroke thickness, or grid rasterization.  Before calling such a file
-# "Modified", compare the *structure* of the two ink masks with a wider
-# tolerance.  Two masks that mutually cover one another this well are treated
-# as the same handwriting.
-REEXPORT_TOLERANCE_RADIUS = 8
-REEXPORT_STRONG_COVERAGE = 0.995
-REEXPORT_NORMAL_COVERAGE = 0.985
-REEXPORT_STRONG_MAX_INK_DELTA = 0.08
-REEXPORT_NORMAL_MAX_INK_DELTA = 0.02
-
-# Fallback for pathological re-exports where almost the whole page appears to
-# move at once.  Genuine additions are directional (new ink without a matching
-# amount of vanished old ink); a re-export usually creates large *balanced*
-# apparent added/removed ink while the coarse page structure and total ink stay
-# nearly unchanged.
-REEXPORT_BALANCED_COARSE_SIMILARITY = 0.90
-REEXPORT_BALANCED_MIN_CHURN = 0.10
-REEXPORT_BALANCED_MIN_SYMMETRY = 0.72
-REEXPORT_BALANCED_MAX_INK_DELTA = 0.08
-
 RENAME_SIMILARITY_THRESHOLD = 0.80
 
-# Page-sequence alignment.  A page inserted or deleted in the middle of a PDF
-# must not shift every later page comparison by one.  Each page gets a coarse
-# handwriting signature, and a sequence alignment chooses the most plausible
-# old/new page correspondence before ink differences are measured.
-PAGE_SIGNATURE_ROWS = 32
-PAGE_SIGNATURE_COLS = 24
-PAGE_MATCH_BASELINE = 0.40
-PAGE_GAP_PENALTY = -0.18
-PAGE_MIN_REPORTED_MATCH = 0.18
+# Page-sequence alignment for insertion/deletion handling
+PAGE_SIGNATURE_ROWS = 24
+PAGE_SIGNATURE_COLS = 18
+PAGE_MATCH_THRESHOLD = 0.40
+PAGE_GAP_PENALTY = -0.12
 
 # Keep the newest N snapshot folders recalculable.
 # One immediately preceding snapshot is kept as a comparison anchor.
@@ -278,139 +235,6 @@ def load_first_page_gray(pdf_path):
         doc.close()
 
 
-def shift_gray(array, dx, dy, fill=255):
-    """Shift a grayscale image without wrap-around."""
-    height, width = array.shape
-
-    shifted = np.full_like(
-        array,
-        fill,
-    )
-
-    src_x1 = max(0, -dx)
-    src_x2 = min(width, width - dx)
-    src_y1 = max(0, -dy)
-    src_y2 = min(height, height - dy)
-
-    dst_x1 = max(0, dx)
-    dst_x2 = min(width, width + dx)
-    dst_y1 = max(0, dy)
-    dst_y2 = min(height, height + dy)
-
-    if (
-        src_x1 >= src_x2
-        or src_y1 >= src_y2
-    ):
-        return shifted
-
-    shifted[
-        dst_y1:dst_y2,
-        dst_x1:dst_x2,
-    ] = array[
-        src_y1:src_y2,
-        src_x1:src_x2,
-    ]
-
-    return shifted
-
-
-def template_alignment_score(template, gray, dx, dy):
-    """Coarse robust score for shifting ``template`` by (dx, dy)."""
-    height, width = gray.shape
-
-    src_x1 = max(0, -dx)
-    src_x2 = min(width, width - dx)
-    src_y1 = max(0, -dy)
-    src_y2 = min(height, height - dy)
-
-    dst_x1 = max(0, dx)
-    dst_x2 = min(width, width + dx)
-    dst_y1 = max(0, dy)
-    dst_y2 = min(height, height + dy)
-
-    if (
-        src_x1 >= src_x2
-        or src_y1 >= src_y2
-    ):
-        return float("inf")
-
-    step = TEMPLATE_ALIGNMENT_SAMPLE_STEP
-
-    template_sample = template[
-        src_y1:src_y2:step,
-        src_x1:src_x2:step,
-    ].astype(np.int16)
-
-    gray_sample = gray[
-        dst_y1:dst_y2:step,
-        dst_x1:dst_x2:step,
-    ].astype(np.int16)
-
-    difference = np.abs(
-        template_sample - gray_sample
-    )
-
-    # Handwriting should not dominate the background-grid registration.
-    difference = np.minimum(
-        difference,
-        TEMPLATE_ALIGNMENT_DIFF_CLIP,
-    )
-
-    return float(
-        difference.mean()
-    )
-
-
-def align_template_gray(template, gray):
-    """
-    Align the blank-grid template to one rendered page.
-
-    This fixes the common case where a PDF app silently re-exports the same
-    note with the background shifted by a few raster pixels.  Without this
-    step, parts of the grid itself can be counted as handwriting.
-    """
-    best_dx = 0
-    best_dy = 0
-    best_score = template_alignment_score(
-        template,
-        gray,
-        0,
-        0,
-    )
-
-    for dy in range(
-        -TEMPLATE_ALIGNMENT_SHIFT,
-        TEMPLATE_ALIGNMENT_SHIFT + 1,
-    ):
-        for dx in range(
-            -TEMPLATE_ALIGNMENT_SHIFT,
-            TEMPLATE_ALIGNMENT_SHIFT + 1,
-        ):
-            if dx == 0 and dy == 0:
-                continue
-
-            score = template_alignment_score(
-                template,
-                gray,
-                dx,
-                dy,
-            )
-
-            if score < best_score:
-                best_score = score
-                best_dx = dx
-                best_dy = dy
-
-    if best_dx == 0 and best_dy == 0:
-        return template
-
-    return shift_gray(
-        template,
-        best_dx,
-        best_dy,
-    )
-
-
 # =========================================================
 # Handwriting detection
 #
@@ -426,11 +250,6 @@ def handwriting_mask_from_gray(gray):
     template = resize_nearest(
         _TEMPLATE_GRAY,
         gray.shape,
-    )
-
-    template = align_template_gray(
-        template,
-        gray,
     )
 
     darkness_gain = (
@@ -519,10 +338,6 @@ def initialize_ink_calibration():
 # Visual PDF hash
 #
 # Metadata changes do not count; rendered PDF appearance does.
-#
-# Important: this exact hash is only a *candidate detector*.  Re-exporting a
-# visually identical PDF can still alter anti-aliasing enough to change this
-# hash.  Final Modified status is decided later by robust ink-mask comparison.
 # =========================================================
 
 def visual_pdf_hash(path):
@@ -598,246 +413,47 @@ def shift_mask(mask, dx, dy):
     return shifted
 
 
-def scale_mask_centered(mask, scale, target_shape=None):
-    """Uniformly scale a binary mask around the page center."""
-    if target_shape is None:
-        target_shape = mask.shape
-
-    target_h, target_w = target_shape
-    source_h, source_w = mask.shape
-
-    scaled_h = max(1, int(round(source_h * scale)))
-    scaled_w = max(1, int(round(source_w * scale)))
-
-    scaled = resize_nearest(
-        mask,
-        (scaled_h, scaled_w),
-    ).astype(bool)
-
-    result = np.zeros(
-        (target_h, target_w),
-        dtype=bool,
-    )
-
-    src_y1 = max(0, (scaled_h - target_h) // 2)
-    src_x1 = max(0, (scaled_w - target_w) // 2)
-    dst_y1 = max(0, (target_h - scaled_h) // 2)
-    dst_x1 = max(0, (target_w - scaled_w) // 2)
-
-    copy_h = min(
-        scaled_h - src_y1,
-        target_h - dst_y1,
-    )
-    copy_w = min(
-        scaled_w - src_x1,
-        target_w - dst_x1,
-    )
-
-    if copy_h > 0 and copy_w > 0:
-        result[
-            dst_y1:dst_y1 + copy_h,
-            dst_x1:dst_x1 + copy_w,
-        ] = scaled[
-            src_y1:src_y1 + copy_h,
-            src_x1:src_x1 + copy_w,
-        ]
-
-    return result
-
-
-def downsample_mask_any(mask, factor):
-    """Block-reduce a binary mask while preserving thin handwriting strokes."""
-    if factor <= 1:
-        return mask.astype(bool)
-
-    height, width = mask.shape
-    padded_h = ((height + factor - 1) // factor) * factor
-    padded_w = ((width + factor - 1) // factor) * factor
-
-    padded = np.zeros(
-        (padded_h, padded_w),
-        dtype=bool,
-    )
-    padded[:height, :width] = mask
-
-    return padded.reshape(
-        padded_h // factor,
-        factor,
-        padded_w // factor,
-        factor,
-    ).any(axis=(1, 3))
-
-
-def shifted_overlap_score(old_mask, new_mask, dx, dy):
-    """Dice-style overlap score for a translation, without allocating a shift."""
-    height, width = new_mask.shape
-
-    src_x1 = max(0, -dx)
-    src_x2 = min(width, width - dx)
-    src_y1 = max(0, -dy)
-    src_y2 = min(height, height - dy)
-
-    dst_x1 = max(0, dx)
-    dst_x2 = min(width, width + dx)
-    dst_y1 = max(0, dy)
-    dst_y2 = min(height, height + dy)
-
-    if src_x1 >= src_x2 or src_y1 >= src_y2:
-        return 0.0
-
-    old_view = old_mask[
-        src_y1:src_y2,
-        src_x1:src_x2,
-    ]
-    new_view = new_mask[
-        dst_y1:dst_y2,
-        dst_x1:dst_x2,
-    ]
-
-    old_count = int(np.count_nonzero(old_view))
-    new_count = int(np.count_nonzero(new_view))
-
-    if old_count == 0 and new_count == 0:
-        return 1.0
-    if old_count == 0 or new_count == 0:
-        return 0.0
-
-    overlap = int(
-        np.count_nonzero(old_view & new_view)
-    )
-
-    return (
-        2.0 * overlap
-        / (old_count + new_count)
-    )
-
-
 def align_old_mask(old_mask, new_mask):
-    """
-    Register old handwriting to new handwriting.
-
-    The earlier implementation searched only +/-8 full-resolution pixels.
-    Some PDF re-exports move the entire ink layer farther than that, or change
-    its scale by about one or two percent.  Such a change makes almost every
-    old stroke look simultaneously removed and re-added.
-
-    This version first searches cheaply on a block-reduced mask over a much
-    wider translation window and several tiny uniform scales, then performs a
-    small full-resolution refinement around the best result.
-    """
     old_mask = resize_nearest(
         old_mask,
         new_mask.shape,
-    ).astype(bool)
-    new_mask = new_mask.astype(bool)
-
-    if (
-        np.count_nonzero(old_mask) == 0
-        or np.count_nonzero(new_mask) == 0
-    ):
-        return old_mask
-
-    factor = GLOBAL_ALIGNMENT_COARSE_FACTOR
-    coarse_new = downsample_mask_any(
-        new_mask,
-        factor,
     )
 
-    coarse_limit = max(
-        1,
-        int(math.ceil(
-            GLOBAL_ALIGNMENT_MAX_SHIFT / factor
-        )),
-    )
-
-    best_score = -1.0
-    best_scale = 1.0
-    best_coarse_dx = 0
-    best_coarse_dy = 0
-
-    for scale in GLOBAL_ALIGNMENT_SCALES:
-        scaled_old = scale_mask_centered(
-            old_mask,
-            scale,
-            new_mask.shape,
+    best = old_mask
+    best_overlap = int(
+        np.count_nonzero(
+            old_mask & new_mask
         )
-        coarse_old = downsample_mask_any(
-            scaled_old,
-            factor,
-        )
-
-        for coarse_dy in range(
-            -coarse_limit,
-            coarse_limit + 1,
-        ):
-            for coarse_dx in range(
-                -coarse_limit,
-                coarse_limit + 1,
-            ):
-                score = shifted_overlap_score(
-                    coarse_old,
-                    coarse_new,
-                    coarse_dx,
-                    coarse_dy,
-                )
-
-                if score > best_score:
-                    best_score = score
-                    best_scale = scale
-                    best_coarse_dx = coarse_dx
-                    best_coarse_dy = coarse_dy
-
-    scaled_old = scale_mask_centered(
-        old_mask,
-        best_scale,
-        new_mask.shape,
     )
-
-    base_dx = best_coarse_dx * factor
-    base_dy = best_coarse_dy * factor
-
-    best_dx = base_dx
-    best_dy = base_dy
-    best_score = shifted_overlap_score(
-        scaled_old,
-        new_mask,
-        best_dx,
-        best_dy,
-    )
-
-    refine = GLOBAL_ALIGNMENT_REFINE_RADIUS
 
     for dy in range(
-        base_dy - refine,
-        base_dy + refine + 1,
+        -MAX_ALIGNMENT_SHIFT,
+        MAX_ALIGNMENT_SHIFT + 1,
     ):
-        if abs(dy) > GLOBAL_ALIGNMENT_MAX_SHIFT:
-            continue
-
         for dx in range(
-            base_dx - refine,
-            base_dx + refine + 1,
+            -MAX_ALIGNMENT_SHIFT,
+            MAX_ALIGNMENT_SHIFT + 1,
         ):
-            if abs(dx) > GLOBAL_ALIGNMENT_MAX_SHIFT:
+            if dx == 0 and dy == 0:
                 continue
 
-            score = shifted_overlap_score(
-                scaled_old,
-                new_mask,
+            candidate = shift_mask(
+                old_mask,
                 dx,
                 dy,
             )
 
-            if score > best_score:
-                best_score = score
-                best_dx = dx
-                best_dy = dy
+            overlap = int(
+                np.count_nonzero(
+                    candidate & new_mask
+                )
+            )
 
-    return shift_mask(
-        scaled_old,
-        best_dx,
-        best_dy,
-    )
+            if overlap > best_overlap:
+                best_overlap = overlap
+                best = candidate
+
+    return best
 
 
 def dilate_mask(mask, radius):
@@ -866,146 +482,15 @@ def dilate_mask(mask, radius):
     return result
 
 
-def masks_are_render_equivalent(old_mask, new_mask):
-    """
-    Return True when two page ink masks have the same handwriting structure
-    and differ only by small rasterization/export noise.
-
-    The old mask is expected to be already aligned to the new mask.  A wider
-    dilation is used *only* for deciding whether the page is structurally the
-    same; it is not used for the actual added-ink count.
-
-    We require high coverage in both directions so a genuine new line or note
-    does not disappear merely because most of the page stayed unchanged.
-    """
-    old_count = int(np.count_nonzero(old_mask))
-    new_count = int(np.count_nonzero(new_mask))
-
-    if old_count == 0 and new_count == 0:
-        return True
-
-    if old_count == 0 or new_count == 0:
-        return False
-
-    wide_old = dilate_mask(
-        old_mask,
-        REEXPORT_TOLERANCE_RADIUS,
-    )
-    wide_new = dilate_mask(
-        new_mask,
-        REEXPORT_TOLERANCE_RADIUS,
-    )
-
-    new_covered = int(
-        np.count_nonzero(
-            new_mask & wide_old
-        )
-    ) / new_count
-
-    old_covered = int(
-        np.count_nonzero(
-            old_mask & wide_new
-        )
-    ) / old_count
-
-    mutual_coverage = min(
-        new_covered,
-        old_covered,
-    )
-
-    ink_delta_ratio = (
-        abs(new_count - old_count)
-        / max(new_count, old_count)
-    )
-
-    # Very high structural agreement permits a little more change in raster
-    # thickness.  Otherwise require both high agreement and near-equal ink
-    # area.  This catches PDFium-style re-exports without hiding real notes.
-    if (
-        mutual_coverage >= REEXPORT_STRONG_COVERAGE
-        and ink_delta_ratio <= REEXPORT_STRONG_MAX_INK_DELTA
-    ):
-        return True
-
-    if (
-        mutual_coverage >= REEXPORT_NORMAL_COVERAGE
-        and ink_delta_ratio <= REEXPORT_NORMAL_MAX_INK_DELTA
-    ):
-        return True
-
-    # Pathological re-export fallback.
-    #
-    # If a raster/export transform moves many old pixels and creates nearly the
-    # same amount of apparently new pixels, the change is symmetric.  Real
-    # note-taking is usually directional: added ink has no matching amount of
-    # vanished ink.  Requiring both balanced churn and high coarse structural
-    # similarity keeps small genuine additions visible while suppressing the
-    # "whole page rewritten" false positive.
-    narrow_old = dilate_mask(
-        old_mask,
-        OLD_INK_TOLERANCE_RADIUS,
-    )
-    narrow_new = dilate_mask(
-        new_mask,
-        OLD_INK_TOLERANCE_RADIUS,
-    )
-
-    apparent_added = int(
-        np.count_nonzero(
-            new_mask & ~narrow_old
-        )
-    )
-    apparent_removed = int(
-        np.count_nonzero(
-            old_mask & ~narrow_new
-        )
-    )
-
-    churn_max = max(
-        apparent_added,
-        apparent_removed,
-    )
-
-    if churn_max <= 0:
-        return True
-
-    churn_ratio = (
-        apparent_added + apparent_removed
-    ) / max(old_count, new_count)
-
-    churn_symmetry = (
-        min(apparent_added, apparent_removed)
-        / churn_max
-    )
-
-    coarse_similarity = page_signature_similarity(
-        page_signature(old_mask),
-        page_signature(new_mask),
-    )
-
-    return (
-        coarse_similarity
-        >= REEXPORT_BALANCED_COARSE_SIMILARITY
-        and churn_ratio
-        >= REEXPORT_BALANCED_MIN_CHURN
-        and churn_symmetry
-        >= REEXPORT_BALANCED_MIN_SYMMETRY
-        and ink_delta_ratio
-        <= REEXPORT_BALANCED_MAX_INK_DELTA
-    )
-
-
 # =========================================================
-# Page-sequence alignment
+# Page-sequence matching
 #
-# A single inserted/deleted page must not make every later page look changed.
-# Pages are first represented by coarse handwriting-density signatures, then a
-# monotone dynamic-programming alignment determines their correspondence.
+# This prevents a single inserted/deleted page from causing
+# every later page to be compared against the wrong partner.
 # =========================================================
 
 def page_signature(mask):
-    """Return a coarse handwriting-density signature for one page mask."""
-    row_blocks = np.array_split(
+    rows = np.array_split(
         mask.astype(np.float32),
         PAGE_SIGNATURE_ROWS,
         axis=0,
@@ -1016,93 +501,31 @@ def page_signature(mask):
         dtype=np.float32,
     )
 
-    for row_index, row_block in enumerate(row_blocks):
-        col_blocks = np.array_split(
+    for row_index, row_block in enumerate(rows):
+        cols = np.array_split(
             row_block,
             PAGE_SIGNATURE_COLS,
             axis=1,
         )
 
-        for col_index, cell in enumerate(col_blocks):
-            if cell.size:
+        for col_index, cell in enumerate(cols):
+            if cell.size > 0:
                 signature[row_index, col_index] = float(cell.mean())
 
     return signature
 
 
-def page_signature_similarity(old_signature, new_signature):
-    """
-    Compare two coarse page signatures in [0, 1].
-
-    The score combines cosine similarity (where the writing is), coarse
-    occupancy overlap, and total-ink ratio.  This is deliberately tolerant of
-    small additions and PDF re-export jitter while still distinguishing nearby
-    pages in a sequence.
-    """
-    old_vector = old_signature.ravel()
-    new_vector = new_signature.ravel()
-
-    old_mass = float(old_vector.sum())
-    new_mass = float(new_vector.sum())
-
-    if old_mass <= 1e-9 and new_mass <= 1e-9:
-        return 1.0
-
-    if old_mass <= 1e-9 or new_mass <= 1e-9:
-        return 0.0
-
-    old_norm = float(np.linalg.norm(old_vector))
-    new_norm = float(np.linalg.norm(new_vector))
-
-    cosine = float(
-        np.dot(old_vector, new_vector)
-        / max(old_norm * new_norm, 1e-9)
-    )
-    cosine = max(0.0, min(1.0, cosine))
-
-    # A cell is considered occupied if at least a tiny amount of ink lands in
-    # it.  Coarse occupancy is much less sensitive to a few-pixel shift than
-    # an exact rendered-page comparison.
-    old_occupied = old_signature > 0.002
-    new_occupied = new_signature > 0.002
-
-    intersection = int(
-        np.count_nonzero(old_occupied & new_occupied)
-    )
-    occupied_total = int(
-        np.count_nonzero(old_occupied)
-        + np.count_nonzero(new_occupied)
-    )
-
-    dice = (
-        2.0 * intersection / occupied_total
-        if occupied_total > 0
-        else 1.0
-    )
-
-    mass_ratio = (
-        min(old_mass, new_mass)
-        / max(old_mass, new_mass)
-    )
-
-    similarity = (
-        0.60 * cosine
-        + 0.25 * dice
-        + 0.15 * mass_ratio
-    )
-
-    return max(0.0, min(1.0, float(similarity)))
+def page_similarity_from_signatures(old_signature, new_signature):
+    difference = np.abs(old_signature - new_signature)
+    return float(1.0 - difference.mean())
 
 
-def load_pdf_ink_masks(pdf_path):
-    """Render every page of a PDF once and return its handwriting masks."""
+def pdf_page_masks(pdf_path):
     doc = fitz.open(pdf_path)
 
     try:
         return [
-            page_ink_mask(
-                doc.load_page(page_number)
-            )
+            page_ink_mask(doc.load_page(page_number))
             for page_number in range(doc.page_count)
         ]
 
@@ -1111,18 +534,6 @@ def load_pdf_ink_masks(pdf_path):
 
 
 def align_page_sequences(old_masks, new_masks):
-    """
-    Return monotone old/new page correspondence.
-
-    The result has:
-      - ``pairs``: (old_index, new_index, similarity)
-      - ``unmatched_old``: deleted pages
-      - ``unmatched_new``: inserted/appended pages
-
-    This is a Needleman-Wunsch-style alignment over page signatures.  It
-    preserves order, which is exactly what we want for ordinary note editing:
-    inserting a page shifts later indices but does not reorder the document.
-    """
     old_signatures = [
         page_signature(mask)
         for mask in old_masks
@@ -1135,140 +546,86 @@ def align_page_sequences(old_masks, new_masks):
     old_count = len(old_masks)
     new_count = len(new_masks)
 
-    scores = np.full(
+    dp = np.full(
         (old_count + 1, new_count + 1),
         -np.inf,
-        dtype=np.float64,
+        dtype=np.float32,
     )
-    back = [
-        [None] * (new_count + 1)
-        for _ in range(old_count + 1)
-    ]
+    back = [[None] * (new_count + 1) for _ in range(old_count + 1)]
 
-    scores[0, 0] = 0.0
+    dp[0, 0] = 0.0
 
-    for old_index in range(1, old_count + 1):
-        scores[old_index, 0] = (
-            scores[old_index - 1, 0]
-            + PAGE_GAP_PENALTY
-        )
-        back[old_index][0] = "old_gap"
+    for i in range(1, old_count + 1):
+        dp[i, 0] = dp[i - 1, 0] + PAGE_GAP_PENALTY
+        back[i][0] = "up"
 
-    for new_index in range(1, new_count + 1):
-        scores[0, new_index] = (
-            scores[0, new_index - 1]
-            + PAGE_GAP_PENALTY
-        )
-        back[0][new_index] = "new_gap"
+    for j in range(1, new_count + 1):
+        dp[0, j] = dp[0, j - 1] + PAGE_GAP_PENALTY
+        back[0][j] = "left"
 
     similarity_cache = {}
 
-    def similarity(old_index, new_index):
-        key = (old_index, new_index)
+    def similarity(i, j):
+        key = (i, j)
         if key not in similarity_cache:
-            similarity_cache[key] = page_signature_similarity(
-                old_signatures[old_index],
-                new_signatures[new_index],
+            similarity_cache[key] = page_similarity_from_signatures(
+                old_signatures[i],
+                new_signatures[j],
             )
         return similarity_cache[key]
 
-    for old_index in range(1, old_count + 1):
-        for new_index in range(1, new_count + 1):
-            page_similarity = similarity(
-                old_index - 1,
-                new_index - 1,
-            )
+    for i in range(1, old_count + 1):
+        for j in range(1, new_count + 1):
+            sim = similarity(i - 1, j - 1)
+            match_score = sim - PAGE_MATCH_THRESHOLD
 
-            # Matching is rewarded only above a neutral baseline.  Two gaps
-            # beat an obviously unrelated page pair, while a moderately edited
-            # same page still remains matchable.
-            match_score = (
-                page_similarity
-                - PAGE_MATCH_BASELINE
-            )
+            diag = dp[i - 1, j - 1] + match_score
+            up = dp[i - 1, j] + PAGE_GAP_PENALTY
+            left = dp[i, j - 1] + PAGE_GAP_PENALTY
 
-            diagonal = (
-                scores[old_index - 1, new_index - 1]
-                + match_score
-            )
-            old_gap = (
-                scores[old_index - 1, new_index]
-                + PAGE_GAP_PENALTY
-            )
-            new_gap = (
-                scores[old_index, new_index - 1]
-                + PAGE_GAP_PENALTY
-            )
+            best = diag
+            move = "diag"
 
-            best_score = diagonal
-            best_move = "match"
+            if up > best:
+                best = up
+                move = "up"
 
-            if old_gap > best_score:
-                best_score = old_gap
-                best_move = "old_gap"
+            if left > best:
+                best = left
+                move = "left"
 
-            if new_gap > best_score:
-                best_score = new_gap
-                best_move = "new_gap"
+            dp[i, j] = best
+            back[i][j] = move
 
-            scores[old_index, new_index] = best_score
-            back[old_index][new_index] = best_move
-
-    pairs = []
+    matched_pairs = []
     unmatched_old = []
     unmatched_new = []
 
-    old_index = old_count
-    new_index = new_count
+    i = old_count
+    j = new_count
 
-    while old_index > 0 or new_index > 0:
-        move = back[old_index][new_index]
+    while i > 0 or j > 0:
+        move = back[i][j]
 
-        if move == "match":
-            similarity_value = similarity(
-                old_index - 1,
-                new_index - 1,
-            )
-
-            # Extremely weak diagonal matches are safer to interpret as one
-            # deletion plus one insertion.  This prevents unrelated pages from
-            # being forced together merely because both sequences are short.
-            if similarity_value < PAGE_MIN_REPORTED_MATCH:
-                unmatched_old.append(old_index - 1)
-                unmatched_new.append(new_index - 1)
-            else:
-                pairs.append((
-                    old_index - 1,
-                    new_index - 1,
-                    similarity_value,
-                ))
-
-            old_index -= 1
-            new_index -= 1
-
-        elif move == "old_gap":
-            unmatched_old.append(old_index - 1)
-            old_index -= 1
-
-        elif move == "new_gap":
-            unmatched_new.append(new_index - 1)
-            new_index -= 1
-
+        if move == "diag":
+            matched_pairs.append((i - 1, j - 1, similarity(i - 1, j - 1)))
+            i -= 1
+            j -= 1
+        elif move == "up":
+            unmatched_old.append(i - 1)
+            i -= 1
+        elif move == "left":
+            unmatched_new.append(j - 1)
+            j -= 1
         else:
-            # Defensive fallback; normally unreachable except at (0, 0).
-            if old_index > 0:
-                unmatched_old.append(old_index - 1)
-                old_index -= 1
-            elif new_index > 0:
-                unmatched_new.append(new_index - 1)
-                new_index -= 1
+            break
 
-    pairs.reverse()
+    matched_pairs.reverse()
     unmatched_old.reverse()
     unmatched_new.reverse()
 
     return {
-        "pairs": pairs,
+        "pairs": matched_pairs,
         "unmatched_old": unmatched_old,
         "unmatched_new": unmatched_new,
     }
@@ -1298,43 +655,23 @@ def count_total_ink_pixels(pdf_path):
         doc.close()
 
 
-def compare_pdf_ink(
+def count_added_ink_pixels(
     old_pdf_path,
     new_pdf_path,
 ):
-    """
-    Compare two PDF versions after aligning their page sequences.
+    old_masks = pdf_page_masks(old_pdf_path)
+    new_masks = pdf_page_masks(new_pdf_path)
 
-    Returns:
-        (added_ink_pixels, meaningful_change)
-
-    Important behaviors:
-      - inserted/deleted middle pages do not shift every later comparison;
-      - re-export-only raster changes remain ignored;
-      - unmatched new pages count all handwriting as newly added ink;
-      - unmatched old pages mark the PDF as meaningfully changed, but add no ink.
-    """
-    old_masks = load_pdf_ink_masks(
-        old_pdf_path
-    )
-    new_masks = load_pdf_ink_masks(
-        new_pdf_path
-    )
-
-    page_alignment = align_page_sequences(
+    alignment = align_page_sequences(
         old_masks,
         new_masks,
     )
 
     total_added = 0
-    meaningful_change = bool(
-        page_alignment["unmatched_old"]
-        or page_alignment["unmatched_new"]
-    )
 
-    # Compare only pages selected as actual counterparts by the sequence
-    # alignment.  This is what makes middle-page insertion safe.
-    for old_index, new_index, _similarity in page_alignment["pairs"]:
+    # Matched pages: compare the most likely corresponding pages,
+    # even if pages were inserted/deleted in the middle.
+    for old_index, new_index, _similarity in alignment["pairs"]:
         old_mask = old_masks[old_index]
         new_mask = new_masks[new_index]
 
@@ -1343,51 +680,21 @@ def compare_pdf_ink(
             new_mask,
         )
 
-        # Silent PDF re-export / anti-aliasing changes are not real note edits.
-        if masks_are_render_equivalent(
-            old_mask,
-            new_mask,
-        ):
-            continue
-
-        meaningful_change = True
-
-        old_tolerant = dilate_mask(
+        old_mask = dilate_mask(
             old_mask,
             OLD_INK_TOLERANCE_RADIUS,
         )
 
-        added_mask = (
-            new_mask
-            & ~old_tolerant
-        )
+        added_mask = new_mask & ~old_mask
+        total_added += int(np.count_nonzero(added_mask))
 
+    # Unmatched new pages are genuinely new insertions/appends.
+    for new_index in alignment["unmatched_new"]:
         total_added += int(
-            np.count_nonzero(added_mask)
+            np.count_nonzero(new_masks[new_index])
         )
 
-    # A page that exists only in the new PDF is a genuine insertion/appending.
-    # Count its entire handwriting content as new ink.
-    for new_index in page_alignment["unmatched_new"]:
-        total_added += int(
-            np.count_nonzero(
-                new_masks[new_index]
-            )
-        )
-
-    return total_added, meaningful_change
-
-
-def count_added_ink_pixels(
-    old_pdf_path,
-    new_pdf_path,
-):
-    """Compatibility wrapper returning only the added-ink pixel count."""
-    pixels, _ = compare_pdf_ink(
-        old_pdf_path,
-        new_pdf_path,
-    )
-    return pixels
+    return total_added
 
 
 def ink_percent(pixel_count):
@@ -2076,18 +1383,7 @@ def build_comparison_record(previous_dir, date_dir, previous, current):
     for path in modified_raw:
         old_pdf = previous_dir / Path(path)
         new_pdf = date_dir / Path(path)
-
-        pixels, meaningful_change = compare_pdf_ink(
-            old_pdf,
-            new_pdf,
-        )
-
-        if not meaningful_change:
-            print(
-                f"Ignoring render-only PDF change: {path}"
-            )
-            continue
-
+        pixels = count_added_ink_pixels(old_pdf, new_pdf)
         register_ink(path, pixels)
         modified.append({
             "path": display_path(path),
@@ -2115,15 +1411,9 @@ def build_comparison_record(previous_dir, date_dir, previous, current):
         if previous[old_path]["hash"] != current[new_path]["hash"]:
             old_pdf = previous_dir / Path(old_path)
             new_pdf = date_dir / Path(new_path)
-
-            pixels, meaningful_change = compare_pdf_ink(
-                old_pdf,
-                new_pdf,
-            )
-
-            if meaningful_change:
-                register_ink(new_path, pixels)
-                move_item["ink_added_percent"] = rounded_ink_percent(pixels)
+            pixels = count_added_ink_pixels(old_pdf, new_pdf)
+            register_ink(new_path, pixels)
+            move_item["ink_added_percent"] = rounded_ink_percent(pixels)
 
         moved_renamed.append(move_item)
 
