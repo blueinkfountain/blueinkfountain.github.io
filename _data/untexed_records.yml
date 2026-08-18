@@ -2150,21 +2150,25 @@ records:
     - Topology/General Topology/Topological map 2
   '260816':
     baseline: false
-    total_ink_percent: 783.4
+    total_ink_percent: 959.8
     library_total_ink_percent: null
     subject_ink_percent:
-      Algebra: 69.3
+      Algebra: 245.7
       Analysis: 120.2
       Others: 65.8
       Topology: 528.2
     folder_ink_percent:
+      Algebra/4. Ring Theory: 86.3
       Algebra/5. Polynomial Ring Theory: 8.6
+      Algebra/6. Field Theory: 90.1
       Algebra/7. Galois Theory: 60.7
       Analysis/1. Real Analysis: 120.2
       Topology/1. General Topology: 270.9
       Topology/2. Algebraic Topology: 257.3
     file_ink_percent:
+      Algebra/4. Ring Theory/Domains_Revised.pdf: 86.3
       Algebra/5. Polynomial Ring Theory/Typical Polynomials.pdf: 8.6
+      Algebra/6. Field Theory/Finite field_Revised.pdf: 90.1
       Algebra/7. Galois Theory/Typical Galois extensions.pdf: 60.7
       Analysis/1. Real Analysis/Advanced Techniques for sequence.pdf: 0.0
       Analysis/1. Real Analysis/Bounded Variation.pdf: 67.8
@@ -2180,7 +2184,7 @@ records:
       Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 0.0
     subjects:
     - name: Algebra
-      ink_added_percent: 69.3
+      ink_added_percent: 245.7
       files: []
       folders:
       - name: 1. Linear Algebra
@@ -2327,7 +2331,7 @@ records:
       - name: 4. Ring Theory
         label: 4. Ring Theory
         raw_path: Algebra/4. Ring Theory
-        ink_added_percent: 0.0
+        ink_added_percent: 86.3
         files:
         - name: Basic ideal
           raw_path: Algebra/4. Ring Theory/Basic ideal.pdf
@@ -2341,9 +2345,9 @@ records:
         - name: Domains
           raw_path: Algebra/4. Ring Theory/Domains.pdf
           ink_added_percent: 0.0
-        - name: Domains (2)
-          raw_path: Algebra/4. Ring Theory/Domains (2).pdf
-          ink_added_percent: 0.0
+        - name: Domains_Revised
+          raw_path: Algebra/4. Ring Theory/Domains_Revised.pdf
+          ink_added_percent: 86.3
         - name: Eisenstein Criterion
           raw_path: Algebra/4. Ring Theory/Eisenstein Criterion.pdf
           ink_added_percent: 0.0
@@ -2387,7 +2391,7 @@ records:
       - name: 6. Field Theory
         label: 6. Field Theory
         raw_path: Algebra/6. Field Theory
-        ink_added_percent: 0.0
+        ink_added_percent: 90.1
         files:
         - name: Basic field
           raw_path: Algebra/6. Field Theory/Basic field.pdf
@@ -2416,9 +2420,9 @@ records:
         - name: Finite field
           raw_path: Algebra/6. Field Theory/Finite field.pdf
           ink_added_percent: 0.0
-        - name: Finite field (2)
-          raw_path: Algebra/6. Field Theory/Finite field (2).pdf
-          ink_added_percent: 0.0
+        - name: Finite field_Revised
+          raw_path: Algebra/6. Field Theory/Finite field_Revised.pdf
+          ink_added_percent: 90.1
         - name: Formal Derivative and Separablity
           raw_path: Algebra/6. Field Theory/Formal Derivative and Separablity.pdf
           ink_added_percent: 0.0
@@ -2803,8 +2807,12 @@ records:
         ink_added_percent: 0.0
       folders: []
     added:
+    - path: Algebra/Ring Theory/Domains_Revised
+      ink_added_percent: 86.3
     - path: Algebra/Polynomial Ring Theory/Typical Polynomials
       ink_added_percent: 8.6
+    - path: Algebra/Field Theory/Finite field_Revised
+      ink_added_percent: 90.1
     - path: Analysis/Real Analysis/Newton_s Method
       ink_added_percent: 0.0
     - path: Notebook 5
@@ -2835,6 +2843,8 @@ records:
       to: Topology/General Topology/Topological Group
       ink_added_percent: 83.4
     deleted:
+    - Algebra/Ring Theory/Domains (2)
+    - Algebra/Field Theory/Finite field (2)
     - Topology/Algebraic Topology/Hatcher, chapter 1
   '260817':
     baseline: false
@@ -3056,8 +3066,8 @@ records:
         - name: Domains
           raw_path: Algebra/4. Ring Theory/Domains.pdf
           ink_added_percent: 0.0
-        - name: Domains (2)
-          raw_path: Algebra/4. Ring Theory/Domains (2).pdf
+        - name: Domains_Revised
+          raw_path: Algebra/4. Ring Theory/Domains_Revised.pdf
           ink_added_percent: 0.0
         - name: Eisenstein Criterion
           raw_path: Algebra/4. Ring Theory/Eisenstein Criterion.pdf
@@ -3131,8 +3141,8 @@ records:
         - name: Finite field
           raw_path: Algebra/6. Field Theory/Finite field.pdf
           ink_added_percent: 0.0
-        - name: Finite field (2)
-          raw_path: Algebra/6. Field Theory/Finite field (2).pdf
+        - name: Finite field_Revised
+          raw_path: Algebra/6. Field Theory/Finite field_Revised.pdf
           ink_added_percent: 0.0
         - name: Formal Derivative and Separablity
           raw_path: Algebra/6. Field Theory/Formal Derivative and Separablity.pdf
@@ -3839,10 +3849,10 @@ records:
     - Notebook 5
   '260818':
     baseline: false
-    total_ink_percent: 1589.4
+    total_ink_percent: 598.7
     library_total_ink_percent: 29488.0
     subject_ink_percent:
-      Algebra: 1365.5
+      Algebra: 374.7
       Analysis: 105.8
       Others: 97.6
       Topology: 20.5
@@ -3852,8 +3862,6 @@ records:
       Algebra/1. Linear Algebra/3. Further topics: 136.3
       Algebra/2. Group Theory: 40.3
       Algebra/3. Finite Group Theory: 64.8
-      Algebra/4. Ring Theory: 900.6
-      Algebra/6. Field Theory: 90.1
       Algebra/7. Galois Theory: 72.9
       Analysis/2. Complex Analysis: 105.8
       Analysis/2. Complex Analysis/3. Line integral: 25.7
@@ -3866,9 +3874,6 @@ records:
       Algebra/2. Group Theory/Conjugation.pdf: 40.3
       Algebra/3. Finite Group Theory/Symmetric Group.pdf: 43.7
       Algebra/3. Finite Group Theory/Typical Finite groups.pdf: 21.0
-      Algebra/4. Ring Theory/Domains (2).pdf: 842.6
-      Algebra/4. Ring Theory/Domains.pdf: 58.0
-      Algebra/6. Field Theory/Finite field_Revised.pdf: 90.1
       Algebra/7. Galois Theory/Typical Galois extensions.pdf: 72.9
       Analysis/2. Complex Analysis/3. Line integral/Argument Principle.pdf: 25.7
       Analysis/2. Complex Analysis/4. Conformal mapping/Conformal mapping.pdf: 37.9
@@ -3878,7 +3883,7 @@ records:
       Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 11.3
     subjects:
     - name: Algebra
-      ink_added_percent: 1365.5
+      ink_added_percent: 374.7
       files: []
       folders:
       - name: 1. Linear Algebra
@@ -4112,7 +4117,7 @@ records:
       - name: 4. Ring Theory
         label: 4. Ring Theory
         raw_path: Algebra/4. Ring Theory
-        ink_added_percent: 900.6
+        ink_added_percent: 0.0
         files:
         - name: Basic ideal
           raw_path: Algebra/4. Ring Theory/Basic ideal.pdf
@@ -4128,12 +4133,12 @@ records:
           url: /untexed-current/Algebra/4.%20Ring%20Theory/Dedekind-Hasse%20norm.pdf
         - name: Domains
           raw_path: Algebra/4. Ring Theory/Domains.pdf
-          ink_added_percent: 58.0
+          ink_added_percent: 0.0
           url: /untexed-current/Algebra/4.%20Ring%20Theory/Domains.pdf
-        - name: Domains (2)
-          raw_path: Algebra/4. Ring Theory/Domains (2).pdf
-          ink_added_percent: 842.6
-          url: /untexed-current/Algebra/4.%20Ring%20Theory/Domains%20%282%29.pdf
+        - name: Domains_Revised
+          raw_path: Algebra/4. Ring Theory/Domains_Revised.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Algebra/4.%20Ring%20Theory/Domains_Revised.pdf
         - name: Eisenstein Criterion
           raw_path: Algebra/4. Ring Theory/Eisenstein Criterion.pdf
           ink_added_percent: 0.0
@@ -4188,7 +4193,7 @@ records:
       - name: 6. Field Theory
         label: 6. Field Theory
         raw_path: Algebra/6. Field Theory
-        ink_added_percent: 90.1
+        ink_added_percent: 0.0
         files:
         - name: Basic field
           raw_path: Algebra/6. Field Theory/Basic field.pdf
@@ -4228,7 +4233,7 @@ records:
           url: /untexed-current/Algebra/6.%20Field%20Theory/Finite%20field.pdf
         - name: Finite field_Revised
           raw_path: Algebra/6. Field Theory/Finite field_Revised.pdf
-          ink_added_percent: 90.1
+          ink_added_percent: 0.0
           url: /untexed-current/Algebra/6.%20Field%20Theory/Finite%20field_Revised.pdf
         - name: Formal Derivative and Separablity
           raw_path: Algebra/6. Field Theory/Formal Derivative and Separablity.pdf
@@ -4784,8 +4789,6 @@ records:
       ink_added_percent: 40.3
     - path: Algebra/Finite Group Theory/Typical Finite groups
       ink_added_percent: 21.0
-    - path: Algebra/Field Theory/Finite field_Revised
-      ink_added_percent: 90.1
     - path: Analysis/Complex Analysis/Conformal mapping/Linear fractional transformation
       ink_added_percent: 42.2
     modified:
@@ -4793,10 +4796,6 @@ records:
       ink_added_percent: 136.3
     - path: Algebra/Finite Group Theory/Symmetric Group
       ink_added_percent: 43.7
-    - path: Algebra/Ring Theory/Domains (2)
-      ink_added_percent: 842.6
-    - path: Algebra/Ring Theory/Domains
-      ink_added_percent: 58.0
     - path: Algebra/Galois Theory/Typical Galois extensions
       ink_added_percent: 72.9
     - path: Analysis/Complex Analysis/Line integral/Argument Principle
@@ -4813,5 +4812,4 @@ records:
     - from: Algebra/Polynomial Ring Theory/Polynomial Ring (2)
       to: Algebra/Polynomial Ring Theory/Polynomial Ring_Revised
       ink_added_percent: 0.0
-    deleted:
-    - Algebra/Field Theory/Finite field (2)
+    deleted: []
