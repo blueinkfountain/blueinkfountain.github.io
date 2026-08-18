@@ -2150,37 +2150,37 @@ records:
     - Topology/General Topology/Topological map 2
   '260816':
     baseline: false
-    total_ink_percent: 721.0
+    total_ink_percent: 783.4
     library_total_ink_percent: null
     subject_ink_percent:
-      Algebra: 52.0
-      Analysis: 106.2
+      Algebra: 69.3
+      Analysis: 120.2
       Others: 65.8
-      Topology: 497.0
+      Topology: 528.2
     folder_ink_percent:
       Algebra/5. Polynomial Ring Theory: 8.6
-      Algebra/7. Galois Theory: 43.4
-      Analysis/1. Real Analysis: 106.2
-      Topology/1. General Topology: 239.8
+      Algebra/7. Galois Theory: 60.7
+      Analysis/1. Real Analysis: 120.2
+      Topology/1. General Topology: 270.9
       Topology/2. Algebraic Topology: 257.3
     file_ink_percent:
       Algebra/5. Polynomial Ring Theory/Typical Polynomials.pdf: 8.6
-      Algebra/7. Galois Theory/Typical Galois extensions.pdf: 43.4
+      Algebra/7. Galois Theory/Typical Galois extensions.pdf: 60.7
       Analysis/1. Real Analysis/Advanced Techniques for sequence.pdf: 0.0
       Analysis/1. Real Analysis/Bounded Variation.pdf: 67.8
       Analysis/1. Real Analysis/Newton_s Method.pdf: 0.0
       Analysis/1. Real Analysis/Stone-Weierstrass Theorem.pdf: 1.9
-      Analysis/1. Real Analysis/Thomae function.pdf: 36.5
+      Analysis/1. Real Analysis/Thomae function.pdf: 50.4
       Notebook 5.pdf: 65.8
       Topology/1. General Topology/Initial Topology.pdf: 145.9
       Topology/1. General Topology/Product Topology.pdf: 41.6
-      Topology/1. General Topology/Topological Group.pdf: 52.3
+      Topology/1. General Topology/Topological Group.pdf: 83.4
       Topology/2. Algebraic Topology/Fundamental gp.pdf: 197.0
       Topology/2. Algebraic Topology/Homotopy.pdf: 60.3
       Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 0.0
     subjects:
     - name: Algebra
-      ink_added_percent: 52.0
+      ink_added_percent: 69.3
       files: []
       folders:
       - name: 1. Linear Algebra
@@ -2435,7 +2435,7 @@ records:
       - name: 7. Galois Theory
         label: 7. Galois Theory
         raw_path: Algebra/7. Galois Theory
-        ink_added_percent: 43.4
+        ink_added_percent: 60.7
         files:
         - name: Galois Theorem
           raw_path: Algebra/7. Galois Theory/Galois Theorem.pdf
@@ -2445,16 +2445,16 @@ records:
           ink_added_percent: 0.0
         - name: Typical Galois extensions
           raw_path: Algebra/7. Galois Theory/Typical Galois extensions.pdf
-          ink_added_percent: 43.4
+          ink_added_percent: 60.7
         folders: []
     - name: Analysis
-      ink_added_percent: 106.2
+      ink_added_percent: 120.2
       files: []
       folders:
       - name: 1. Real Analysis
         label: 1. Real Analysis
         raw_path: Analysis/1. Real Analysis
-        ink_added_percent: 106.2
+        ink_added_percent: 120.2
         files:
         - name: Abel formula
           raw_path: Analysis/1. Real Analysis/Abel formula.pdf
@@ -2551,7 +2551,7 @@ records:
           ink_added_percent: 0.0
         - name: Thomae function
           raw_path: Analysis/1. Real Analysis/Thomae function.pdf
-          ink_added_percent: 36.5
+          ink_added_percent: 50.4
         - name: Trigonometric series
           raw_path: Analysis/1. Real Analysis/Trigonometric series.pdf
           ink_added_percent: 0.0
@@ -2702,13 +2702,13 @@ records:
           ink_added_percent: 0.0
         folders: []
     - name: Topology
-      ink_added_percent: 497.0
+      ink_added_percent: 528.2
       files: []
       folders:
       - name: 1. General Topology
         label: 1. General Topology
         raw_path: Topology/1. General Topology
-        ink_added_percent: 239.8
+        ink_added_percent: 270.9
         files:
         - name: Basic metric space
           raw_path: Topology/1. General Topology/Basic metric space.pdf
@@ -2766,7 +2766,7 @@ records:
           ink_added_percent: 0.0
         - name: Topological Group
           raw_path: Topology/1. General Topology/Topological Group.pdf
-          ink_added_percent: 52.3
+          ink_added_percent: 83.4
         - name: Topological map
           raw_path: Topology/1. General Topology/Topological map.pdf
           ink_added_percent: 0.0
@@ -2819,7 +2819,7 @@ records:
       ink_added_percent: 0.0
     modified:
     - path: Algebra/Galois Theory/Typical Galois extensions
-      ink_added_percent: 43.4
+      ink_added_percent: 60.7
     - path: Analysis/Real Analysis/Advanced Techniques for sequence
       ink_added_percent: 0.0
     - path: Analysis/Real Analysis/Bounded Variation
@@ -2827,13 +2827,13 @@ records:
     - path: Analysis/Real Analysis/Stone-Weierstrass Theorem
       ink_added_percent: 1.9
     - path: Analysis/Real Analysis/Thomae function
-      ink_added_percent: 36.5
+      ink_added_percent: 50.4
     - path: Topology/General Topology/Product Topology
       ink_added_percent: 41.6
     moved_renamed:
     - from: Topology/General Topology/Topological Group
       to: Topology/General Topology/Topological Group
-      ink_added_percent: 52.3
+      ink_added_percent: 83.4
     deleted:
     - Topology/Algebraic Topology/Hatcher, chapter 1
   '260817':
@@ -3839,50 +3839,52 @@ records:
     - Notebook 5
   '260818':
     baseline: false
-    total_ink_percent: 780.5
-    library_total_ink_percent: 29486.9
+    total_ink_percent: 1589.4
+    library_total_ink_percent: 29488.0
     subject_ink_percent:
-      Algebra: 549.9
-      Analysis: 113.2
-      Others: 97.0
-      Topology: 20.3
+      Algebra: 1365.5
+      Analysis: 105.8
+      Others: 97.6
+      Topology: 20.5
     folder_ink_percent:
-      Algebra/1. Linear Algebra: 193.9
+      Algebra/1. Linear Algebra: 196.7
       Algebra/1. Linear Algebra/2. Inner product Theory: 60.4
-      Algebra/1. Linear Algebra/3. Further topics: 133.5
+      Algebra/1. Linear Algebra/3. Further topics: 136.3
       Algebra/2. Group Theory: 40.3
-      Algebra/3. Finite Group Theory: 60.7
-      Algebra/6. Field Theory: 182.1
+      Algebra/3. Finite Group Theory: 64.8
+      Algebra/4. Ring Theory: 900.6
+      Algebra/6. Field Theory: 90.1
       Algebra/7. Galois Theory: 72.9
-      Analysis/2. Complex Analysis: 113.2
+      Analysis/2. Complex Analysis: 105.8
       Analysis/2. Complex Analysis/3. Line integral: 25.7
-      Analysis/2. Complex Analysis/4. Conformal mapping: 87.5
-      Topology/2. Algebraic Topology: 20.3
+      Analysis/2. Complex Analysis/4. Conformal mapping: 80.1
+      Topology/2. Algebraic Topology: 20.5
     file_ink_percent:
       Algebra/1. Linear Algebra/2. Inner product Theory/Riesz Representation Theorem.pdf: 60.4
-      Algebra/1. Linear Algebra/3. Further topics/Sesqui-Linear Form.pdf: 133.5
+      Algebra/1. Linear Algebra/3. Further topics/Sesqui-Linear Form.pdf: 136.3
       Algebra/1. Linear Algebra/3. Further topics/Symmetric Bilinear form.pdf: 0.0
       Algebra/2. Group Theory/Conjugation.pdf: 40.3
-      Algebra/3. Finite Group Theory/Symmetric Group.pdf: 39.6
+      Algebra/3. Finite Group Theory/Symmetric Group.pdf: 43.7
       Algebra/3. Finite Group Theory/Typical Finite groups.pdf: 21.0
-      Algebra/6. Field Theory/Finite field (2).pdf: 113.0
-      Algebra/6. Field Theory/Finite field.pdf: 69.1
+      Algebra/4. Ring Theory/Domains (2).pdf: 842.6
+      Algebra/4. Ring Theory/Domains.pdf: 58.0
+      Algebra/6. Field Theory/Finite field_Revised.pdf: 90.1
       Algebra/7. Galois Theory/Typical Galois extensions.pdf: 72.9
       Analysis/2. Complex Analysis/3. Line integral/Argument Principle.pdf: 25.7
-      Analysis/2. Complex Analysis/4. Conformal mapping/Conformal mapping.pdf: 45.3
+      Analysis/2. Complex Analysis/4. Conformal mapping/Conformal mapping.pdf: 37.9
       Analysis/2. Complex Analysis/4. Conformal mapping/Linear fractional transformation.pdf: 42.2
-      SNU solution.pdf: 97.0
+      SNU solution.pdf: 97.6
       Topology/2. Algebraic Topology/Covering Space.pdf: 9.2
-      Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 11.1
+      Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 11.3
     subjects:
     - name: Algebra
-      ink_added_percent: 549.9
+      ink_added_percent: 1365.5
       files: []
       folders:
       - name: 1. Linear Algebra
         label: 1. Linear Algebra
         raw_path: Algebra/1. Linear Algebra
-        ink_added_percent: 193.9
+        ink_added_percent: 196.7
         files:
         - name: Hoffman
           raw_path: Algebra/1. Linear Algebra/Hoffman.pdf
@@ -3988,7 +3990,7 @@ records:
         - name: 3. Further topics
           label: 3. Further topics
           raw_path: Algebra/1. Linear Algebra/3. Further topics
-          ink_added_percent: 133.5
+          ink_added_percent: 136.3
           files:
           - name: Bilinear forms
             raw_path: Algebra/1. Linear Algebra/3. Further topics/Bilinear forms.pdf
@@ -4008,7 +4010,7 @@ records:
             url: /untexed-current/Algebra/1.%20Linear%20Algebra/3.%20Further%20topics/Positive%20Form.pdf
           - name: Sesqui-Linear Form
             raw_path: Algebra/1. Linear Algebra/3. Further topics/Sesqui-Linear Form.pdf
-            ink_added_percent: 133.5
+            ink_added_percent: 136.3
             url: /untexed-current/Algebra/1.%20Linear%20Algebra/3.%20Further%20topics/Sesqui-Linear%20Form.pdf
           - name: Symmetric Bilinear form
             raw_path: Algebra/1. Linear Algebra/3. Further topics/Symmetric Bilinear form.pdf
@@ -4056,7 +4058,7 @@ records:
       - name: 3. Finite Group Theory
         label: 3. Finite Group Theory
         raw_path: Algebra/3. Finite Group Theory
-        ink_added_percent: 60.7
+        ink_added_percent: 64.8
         files:
         - name: Alternating Group
           raw_path: Algebra/3. Finite Group Theory/Alternating Group.pdf
@@ -4100,7 +4102,7 @@ records:
           url: /untexed-current/Algebra/3.%20Finite%20Group%20Theory/Sylow%20Theorem.pdf
         - name: Symmetric Group
           raw_path: Algebra/3. Finite Group Theory/Symmetric Group.pdf
-          ink_added_percent: 39.6
+          ink_added_percent: 43.7
           url: /untexed-current/Algebra/3.%20Finite%20Group%20Theory/Symmetric%20Group.pdf
         - name: Typical Finite groups
           raw_path: Algebra/3. Finite Group Theory/Typical Finite groups.pdf
@@ -4110,7 +4112,7 @@ records:
       - name: 4. Ring Theory
         label: 4. Ring Theory
         raw_path: Algebra/4. Ring Theory
-        ink_added_percent: 0.0
+        ink_added_percent: 900.6
         files:
         - name: Basic ideal
           raw_path: Algebra/4. Ring Theory/Basic ideal.pdf
@@ -4124,13 +4126,13 @@ records:
           raw_path: Algebra/4. Ring Theory/Dedekind-Hasse norm.pdf
           ink_added_percent: 0.0
           url: /untexed-current/Algebra/4.%20Ring%20Theory/Dedekind-Hasse%20norm.pdf
-        - name: 'Domains '
-          raw_path: Algebra/4. Ring Theory/Domains .pdf
-          ink_added_percent: 0.0
-          url: /untexed-current/Algebra/4.%20Ring%20Theory/Domains%20.pdf
+        - name: Domains
+          raw_path: Algebra/4. Ring Theory/Domains.pdf
+          ink_added_percent: 58.0
+          url: /untexed-current/Algebra/4.%20Ring%20Theory/Domains.pdf
         - name: Domains (2)
           raw_path: Algebra/4. Ring Theory/Domains (2).pdf
-          ink_added_percent: 0.0
+          ink_added_percent: 842.6
           url: /untexed-current/Algebra/4.%20Ring%20Theory/Domains%20%282%29.pdf
         - name: Eisenstein Criterion
           raw_path: Algebra/4. Ring Theory/Eisenstein Criterion.pdf
@@ -4174,10 +4176,10 @@ records:
           raw_path: Algebra/5. Polynomial Ring Theory/Polynomial Ring.pdf
           ink_added_percent: 0.0
           url: /untexed-current/Algebra/5.%20Polynomial%20Ring%20Theory/Polynomial%20Ring.pdf
-        - name: Polynomial Ring (2)
-          raw_path: Algebra/5. Polynomial Ring Theory/Polynomial Ring (2).pdf
+        - name: Polynomial Ring_Revised
+          raw_path: Algebra/5. Polynomial Ring Theory/Polynomial Ring_Revised.pdf
           ink_added_percent: 0.0
-          url: /untexed-current/Algebra/5.%20Polynomial%20Ring%20Theory/Polynomial%20Ring%20%282%29.pdf
+          url: /untexed-current/Algebra/5.%20Polynomial%20Ring%20Theory/Polynomial%20Ring_Revised.pdf
         - name: Typical Polynomials
           raw_path: Algebra/5. Polynomial Ring Theory/Typical Polynomials.pdf
           ink_added_percent: 0.0
@@ -4186,7 +4188,7 @@ records:
       - name: 6. Field Theory
         label: 6. Field Theory
         raw_path: Algebra/6. Field Theory
-        ink_added_percent: 182.1
+        ink_added_percent: 90.1
         files:
         - name: Basic field
           raw_path: Algebra/6. Field Theory/Basic field.pdf
@@ -4222,12 +4224,12 @@ records:
           url: /untexed-current/Algebra/6.%20Field%20Theory/Field%20Homomorphism.pdf
         - name: Finite field
           raw_path: Algebra/6. Field Theory/Finite field.pdf
-          ink_added_percent: 69.1
+          ink_added_percent: 0.0
           url: /untexed-current/Algebra/6.%20Field%20Theory/Finite%20field.pdf
-        - name: Finite field (2)
-          raw_path: Algebra/6. Field Theory/Finite field (2).pdf
-          ink_added_percent: 113.0
-          url: /untexed-current/Algebra/6.%20Field%20Theory/Finite%20field%20%282%29.pdf
+        - name: Finite field_Revised
+          raw_path: Algebra/6. Field Theory/Finite field_Revised.pdf
+          ink_added_percent: 90.1
+          url: /untexed-current/Algebra/6.%20Field%20Theory/Finite%20field_Revised.pdf
         - name: Formal Derivative and Separablity
           raw_path: Algebra/6. Field Theory/Formal Derivative and Separablity.pdf
           ink_added_percent: 0.0
@@ -4264,7 +4266,7 @@ records:
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Typical%20Galois%20extensions.pdf
         folders: []
     - name: Analysis
-      ink_added_percent: 113.2
+      ink_added_percent: 105.8
       files: []
       folders:
       - name: 1. Real Analysis
@@ -4438,7 +4440,7 @@ records:
       - name: 2. Complex Analysis
         label: 2. Complex Analysis
         raw_path: Analysis/2. Complex Analysis
-        ink_added_percent: 113.2
+        ink_added_percent: 105.8
         files:
         - name: Complex Analysis
           raw_path: Analysis/2. Complex Analysis/Complex Analysis.pdf
@@ -4536,11 +4538,11 @@ records:
         - name: 4. Conformal mapping
           label: 4. Conformal mapping
           raw_path: Analysis/2. Complex Analysis/4. Conformal mapping
-          ink_added_percent: 87.5
+          ink_added_percent: 80.1
           files:
           - name: Conformal mapping
             raw_path: Analysis/2. Complex Analysis/4. Conformal mapping/Conformal mapping.pdf
-            ink_added_percent: 45.3
+            ink_added_percent: 37.9
             url: /untexed-current/Analysis/2.%20Complex%20Analysis/4.%20Conformal%20mapping/Conformal%20mapping.pdf
           - name: Linear fractional transformation
             raw_path: Analysis/2. Complex Analysis/4. Conformal mapping/Linear fractional transformation.pdf
@@ -4628,7 +4630,7 @@ records:
           url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Surface.pdf
         folders: []
     - name: Topology
-      ink_added_percent: 20.3
+      ink_added_percent: 20.5
       files: []
       folders:
       - name: 1. General Topology
@@ -4730,7 +4732,7 @@ records:
       - name: 2. Algebraic Topology
         label: 2. Algebraic Topology
         raw_path: Topology/2. Algebraic Topology
-        ink_added_percent: 20.3
+        ink_added_percent: 20.5
         files:
         - name: Borsuk-Ulam Theorem
           raw_path: Topology/2. Algebraic Topology/Borsuk-Ulam Theorem.pdf
@@ -4758,15 +4760,15 @@ records:
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Quotient%20map.pdf
         - name: Typical Quotient Spaces
           raw_path: Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf
-          ink_added_percent: 11.1
+          ink_added_percent: 11.3
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Typical%20Quotient%20Spaces.pdf
         folders: []
     - name: Others
-      ink_added_percent: 97.0
+      ink_added_percent: 97.6
       files:
       - name: SNU solution
         raw_path: SNU solution.pdf
-        ink_added_percent: 97.0
+        ink_added_percent: 97.6
         url: /untexed-current/SNU%20solution.pdf
       - name: Tree of Subjects
         raw_path: Tree of Subjects.pdf
@@ -4782,31 +4784,34 @@ records:
       ink_added_percent: 40.3
     - path: Algebra/Finite Group Theory/Typical Finite groups
       ink_added_percent: 21.0
+    - path: Algebra/Field Theory/Finite field_Revised
+      ink_added_percent: 90.1
     - path: Analysis/Complex Analysis/Conformal mapping/Linear fractional transformation
       ink_added_percent: 42.2
     modified:
     - path: Algebra/Linear Algebra/Further topics/Sesqui-Linear Form
-      ink_added_percent: 133.5
+      ink_added_percent: 136.3
     - path: Algebra/Finite Group Theory/Symmetric Group
-      ink_added_percent: 39.6
-    - path: Algebra/Field Theory/Finite field (2)
-      ink_added_percent: 113.0
-    - path: Algebra/Field Theory/Finite field
-      ink_added_percent: 69.1
+      ink_added_percent: 43.7
+    - path: Algebra/Ring Theory/Domains (2)
+      ink_added_percent: 842.6
+    - path: Algebra/Ring Theory/Domains
+      ink_added_percent: 58.0
     - path: Algebra/Galois Theory/Typical Galois extensions
       ink_added_percent: 72.9
     - path: Analysis/Complex Analysis/Line integral/Argument Principle
       ink_added_percent: 25.7
     - path: Analysis/Complex Analysis/Conformal mapping/Conformal mapping
-      ink_added_percent: 45.3
+      ink_added_percent: 37.9
     - path: SNU solution
-      ink_added_percent: 97.0
+      ink_added_percent: 97.6
     - path: Topology/Algebraic Topology/Covering Space
       ink_added_percent: 9.2
     - path: Topology/Algebraic Topology/Typical Quotient Spaces
-      ink_added_percent: 11.1
+      ink_added_percent: 11.3
     moved_renamed:
-    - from: Algebra/Ring Theory/Domains
-      to: 'Algebra/Ring Theory/Domains '
+    - from: Algebra/Polynomial Ring Theory/Polynomial Ring (2)
+      to: Algebra/Polynomial Ring Theory/Polynomial Ring_Revised
       ink_added_percent: 0.0
-    deleted: []
+    deleted:
+    - Algebra/Field Theory/Finite field (2)
