@@ -2,7 +2,7 @@ from pathlib import Path, PurePosixPath
 from collections import defaultdict
 from difflib import SequenceMatcher
 from urllib.parse import quote
-from datetime import datetime, timedelta
+from datetime import datetime
 import hashlib
 import re
 import shutil
@@ -44,13 +44,52 @@ GRID_TEMPLATE_PDF = REFERENCE_DIR / "grid_template.pdf"
 RENDER_SCALE = 2.0
 TEMPLATE_DIFF_THRESHOLD = 20
 MAX_INK_GRAY = 220
-MAX_ALIGNMENT_SHIFT = 3
+
+# The exported page can shift its blank grid by a few raster pixels even when
+# no handwriting changed.  Align the reference grid before subtracting it so
+# grid jitter is not mistaken for newly written ink.
+TEMPLATE_ALIGNMENT_SHIFT = 4
+TEMPLATE_ALIGNMENT_SAMPLE_STEP = 4
+TEMPLATE_ALIGNMENT_DIFF_CLIP = 40
+
+# Old/new PDF exports can move the rendered page by a few pixels even when
+# the handwriting itself did not change.  Use a wider search for page-to-page
+# registration, but keep the actual added-ink tolerance comparatively small.
+MAX_ALIGNMENT_SHIFT = 8
 OLD_INK_TOLERANCE_RADIUS = 2
+
+# A PDF app may silently re-export a note and slightly change anti-aliasing,
+# stroke thickness, or grid rasterization.  Before calling such a file
+# "Modified", compare the *structure* of the two ink masks with a wider
+# tolerance.  Two masks that mutually cover one another this well are treated
+# as the same handwriting.
+REEXPORT_TOLERANCE_RADIUS = 8
+REEXPORT_STRONG_COVERAGE = 0.995
+REEXPORT_NORMAL_COVERAGE = 0.985
+REEXPORT_STRONG_MAX_INK_DELTA = 0.08
+REEXPORT_NORMAL_MAX_INK_DELTA = 0.02
+
 RENAME_SIMILARITY_THRESHOLD = 0.80
 
-# Keep the newest 10 calendar days recalculable.
+# Page-sequence alignment.  A page inserted or deleted in the middle of a PDF
+# must not shift every later page comparison by one.  Each page gets a coarse
+# handwriting signature, and a sequence alignment chooses the most plausible
+# old/new page correspondence before ink differences are measured.
+PAGE_SIGNATURE_ROWS = 32
+PAGE_SIGNATURE_COLS = 24
+PAGE_MATCH_BASELINE = 0.40
+PAGE_GAP_PENALTY = -0.18
+PAGE_MIN_REPORTED_MATCH = 0.18
+
+# Keep the newest N snapshot folders recalculable.
+# One immediately preceding snapshot is kept as a comparison anchor.
 # Older records are frozen in _data/untexed_records.yml forever.
-ROLLING_DAYS = 10
+ROLLING_SNAPSHOTS = 3
+
+# YAML folder-tree schema.
+# Version 2 stores real recursive folders.
+# Version 3 restores top-level PDFs under a special ``Others`` section.
+TREE_SCHEMA_VERSION = 3
 
 _TEMPLATE_GRAY = None
 _REFERENCE_INK_PIXELS = None
@@ -86,8 +125,8 @@ def display_path(relative_path):
 
 
 def display_folder(raw_folder):
-    if raw_folder == "General":
-        return "General"
+    if raw_folder in {"General", "Others"}:
+        return "Others"
     return " / ".join(raw_folder.split("/"))
 
 
@@ -101,8 +140,13 @@ def normalized_filename(relative_path):
 def subject_key(relative_path):
     parts = relative_path.split("/")
     if len(parts) <= 1:
-        return "General"
+        return "Others"
     return parts[0]
+
+
+def subject_sort_key(subject):
+    """Keep the synthetic top-level-PDF section at the very bottom."""
+    return (subject == "Others", subject.lower())
 
 
 def top_subject(relative_path):
@@ -112,12 +156,55 @@ def top_subject(relative_path):
 def folder_key(relative_path):
     parent = PurePosixPath(relative_path).parent.as_posix()
     if parent == ".":
-        return "General"
+        return "Others"
     return parent
+
+
+def folder_ancestor_keys(relative_path):
+    """
+    Return every real folder ancestor below the subject level.
+
+    Example:
+        Analysis/Real Analysis/Sequences/a.pdf
+        -> [
+             "Analysis/Real Analysis",
+             "Analysis/Real Analysis/Sequences",
+           ]
+
+    The first component is the subject, so it is intentionally not
+    repeated as a folder subtotal. Subject ink is tracked separately.
+    """
+    parts = list(PurePosixPath(relative_path).parts[:-1])
+
+    if len(parts) <= 1:
+        return []
+
+    return [
+        "/".join(parts[:depth])
+        for depth in range(2, len(parts) + 1)
+    ]
 
 
 def published_url(relative_path):
     return "/untexed-current/" + quote(relative_path, safe="/")
+
+
+def is_note_pdf(date_dir, path):
+    """
+    Treat every PDF inside a dated snapshot as a handwritten note.
+
+    PDFs directly under the dated folder are no longer ignored;
+    they are grouped into the synthetic ``Others`` section.
+
+    Examples:
+        untexed/260816/file.pdf              -> Others
+        untexed/260816/Algebra/file.pdf      -> Algebra
+        untexed/260816/Algebra/1. LA/a.pdf   -> Algebra / 1. LA
+    """
+    return (
+        path.is_file()
+        and path.suffix.lower() == ".pdf"
+    )
 
 
 # =========================================================
@@ -175,6 +262,139 @@ def load_first_page_gray(pdf_path):
         doc.close()
 
 
+def shift_gray(array, dx, dy, fill=255):
+    """Shift a grayscale image without wrap-around."""
+    height, width = array.shape
+
+    shifted = np.full_like(
+        array,
+        fill,
+    )
+
+    src_x1 = max(0, -dx)
+    src_x2 = min(width, width - dx)
+    src_y1 = max(0, -dy)
+    src_y2 = min(height, height - dy)
+
+    dst_x1 = max(0, dx)
+    dst_x2 = min(width, width + dx)
+    dst_y1 = max(0, dy)
+    dst_y2 = min(height, height + dy)
+
+    if (
+        src_x1 >= src_x2
+        or src_y1 >= src_y2
+    ):
+        return shifted
+
+    shifted[
+        dst_y1:dst_y2,
+        dst_x1:dst_x2,
+    ] = array[
+        src_y1:src_y2,
+        src_x1:src_x2,
+    ]
+
+    return shifted
+
+
+def template_alignment_score(template, gray, dx, dy):
+    """Coarse robust score for shifting ``template`` by (dx, dy)."""
+    height, width = gray.shape
+
+    src_x1 = max(0, -dx)
+    src_x2 = min(width, width - dx)
+    src_y1 = max(0, -dy)
+    src_y2 = min(height, height - dy)
+
+    dst_x1 = max(0, dx)
+    dst_x2 = min(width, width + dx)
+    dst_y1 = max(0, dy)
+    dst_y2 = min(height, height + dy)
+
+    if (
+        src_x1 >= src_x2
+        or src_y1 >= src_y2
+    ):
+        return float("inf")
+
+    step = TEMPLATE_ALIGNMENT_SAMPLE_STEP
+
+    template_sample = template[
+        src_y1:src_y2:step,
+        src_x1:src_x2:step,
+    ].astype(np.int16)
+
+    gray_sample = gray[
+        dst_y1:dst_y2:step,
+        dst_x1:dst_x2:step,
+    ].astype(np.int16)
+
+    difference = np.abs(
+        template_sample - gray_sample
+    )
+
+    # Handwriting should not dominate the background-grid registration.
+    difference = np.minimum(
+        difference,
+        TEMPLATE_ALIGNMENT_DIFF_CLIP,
+    )
+
+    return float(
+        difference.mean()
+    )
+
+
+def align_template_gray(template, gray):
+    """
+    Align the blank-grid template to one rendered page.
+
+    This fixes the common case where a PDF app silently re-exports the same
+    note with the background shifted by a few raster pixels.  Without this
+    step, parts of the grid itself can be counted as handwriting.
+    """
+    best_dx = 0
+    best_dy = 0
+    best_score = template_alignment_score(
+        template,
+        gray,
+        0,
+        0,
+    )
+
+    for dy in range(
+        -TEMPLATE_ALIGNMENT_SHIFT,
+        TEMPLATE_ALIGNMENT_SHIFT + 1,
+    ):
+        for dx in range(
+            -TEMPLATE_ALIGNMENT_SHIFT,
+            TEMPLATE_ALIGNMENT_SHIFT + 1,
+        ):
+            if dx == 0 and dy == 0:
+                continue
+
+            score = template_alignment_score(
+                template,
+                gray,
+                dx,
+                dy,
+            )
+
+            if score < best_score:
+                best_score = score
+                best_dx = dx
+                best_dy = dy
+
+    if best_dx == 0 and best_dy == 0:
+        return template
+
+    return shift_gray(
+        template,
+        best_dx,
+        best_dy,
+    )
+
+
 # =========================================================
 # Handwriting detection
 #
@@ -190,6 +410,11 @@ def handwriting_mask_from_gray(gray):
     template = resize_nearest(
         _TEMPLATE_GRAY,
         gray.shape,
+    )
+
+    template = align_template_gray(
+        template,
+        gray,
     )
 
     darkness_gain = (
@@ -278,6 +503,10 @@ def initialize_ink_calibration():
 # Visual PDF hash
 #
 # Metadata changes do not count; rendered PDF appearance does.
+#
+# Important: this exact hash is only a *candidate detector*.  Re-exporting a
+# visually identical PDF can still alter anti-aliasing enough to change this
+# hash.  Final Modified status is decided later by robust ink-mask comparison.
 # =========================================================
 
 def visual_pdf_hash(path):
@@ -422,6 +651,352 @@ def dilate_mask(mask, radius):
     return result
 
 
+def masks_are_render_equivalent(old_mask, new_mask):
+    """
+    Return True when two page ink masks have the same handwriting structure
+    and differ only by small rasterization/export noise.
+
+    The old mask is expected to be already aligned to the new mask.  A wider
+    dilation is used *only* for deciding whether the page is structurally the
+    same; it is not used for the actual added-ink count.
+
+    We require high coverage in both directions so a genuine new line or note
+    does not disappear merely because most of the page stayed unchanged.
+    """
+    old_count = int(np.count_nonzero(old_mask))
+    new_count = int(np.count_nonzero(new_mask))
+
+    if old_count == 0 and new_count == 0:
+        return True
+
+    if old_count == 0 or new_count == 0:
+        return False
+
+    wide_old = dilate_mask(
+        old_mask,
+        REEXPORT_TOLERANCE_RADIUS,
+    )
+    wide_new = dilate_mask(
+        new_mask,
+        REEXPORT_TOLERANCE_RADIUS,
+    )
+
+    new_covered = int(
+        np.count_nonzero(
+            new_mask & wide_old
+        )
+    ) / new_count
+
+    old_covered = int(
+        np.count_nonzero(
+            old_mask & wide_new
+        )
+    ) / old_count
+
+    mutual_coverage = min(
+        new_covered,
+        old_covered,
+    )
+
+    ink_delta_ratio = (
+        abs(new_count - old_count)
+        / max(new_count, old_count)
+    )
+
+    # Very high structural agreement permits a little more change in raster
+    # thickness.  Otherwise require both high agreement and near-equal ink
+    # area.  This catches PDFium-style re-exports without hiding real notes.
+    if (
+        mutual_coverage >= REEXPORT_STRONG_COVERAGE
+        and ink_delta_ratio <= REEXPORT_STRONG_MAX_INK_DELTA
+    ):
+        return True
+
+    return (
+        mutual_coverage >= REEXPORT_NORMAL_COVERAGE
+        and ink_delta_ratio <= REEXPORT_NORMAL_MAX_INK_DELTA
+    )
+
+
+# =========================================================
+# Page-sequence alignment
+#
+# A single inserted/deleted page must not make every later page look changed.
+# Pages are first represented by coarse handwriting-density signatures, then a
+# monotone dynamic-programming alignment determines their correspondence.
+# =========================================================
+
+def page_signature(mask):
+    """Return a coarse handwriting-density signature for one page mask."""
+    row_blocks = np.array_split(
+        mask.astype(np.float32),
+        PAGE_SIGNATURE_ROWS,
+        axis=0,
+    )
+
+    signature = np.zeros(
+        (PAGE_SIGNATURE_ROWS, PAGE_SIGNATURE_COLS),
+        dtype=np.float32,
+    )
+
+    for row_index, row_block in enumerate(row_blocks):
+        col_blocks = np.array_split(
+            row_block,
+            PAGE_SIGNATURE_COLS,
+            axis=1,
+        )
+
+        for col_index, cell in enumerate(col_blocks):
+            if cell.size:
+                signature[row_index, col_index] = float(cell.mean())
+
+    return signature
+
+
+def page_signature_similarity(old_signature, new_signature):
+    """
+    Compare two coarse page signatures in [0, 1].
+
+    The score combines cosine similarity (where the writing is), coarse
+    occupancy overlap, and total-ink ratio.  This is deliberately tolerant of
+    small additions and PDF re-export jitter while still distinguishing nearby
+    pages in a sequence.
+    """
+    old_vector = old_signature.ravel()
+    new_vector = new_signature.ravel()
+
+    old_mass = float(old_vector.sum())
+    new_mass = float(new_vector.sum())
+
+    if old_mass <= 1e-9 and new_mass <= 1e-9:
+        return 1.0
+
+    if old_mass <= 1e-9 or new_mass <= 1e-9:
+        return 0.0
+
+    old_norm = float(np.linalg.norm(old_vector))
+    new_norm = float(np.linalg.norm(new_vector))
+
+    cosine = float(
+        np.dot(old_vector, new_vector)
+        / max(old_norm * new_norm, 1e-9)
+    )
+    cosine = max(0.0, min(1.0, cosine))
+
+    # A cell is considered occupied if at least a tiny amount of ink lands in
+    # it.  Coarse occupancy is much less sensitive to a few-pixel shift than
+    # an exact rendered-page comparison.
+    old_occupied = old_signature > 0.002
+    new_occupied = new_signature > 0.002
+
+    intersection = int(
+        np.count_nonzero(old_occupied & new_occupied)
+    )
+    occupied_total = int(
+        np.count_nonzero(old_occupied)
+        + np.count_nonzero(new_occupied)
+    )
+
+    dice = (
+        2.0 * intersection / occupied_total
+        if occupied_total > 0
+        else 1.0
+    )
+
+    mass_ratio = (
+        min(old_mass, new_mass)
+        / max(old_mass, new_mass)
+    )
+
+    similarity = (
+        0.60 * cosine
+        + 0.25 * dice
+        + 0.15 * mass_ratio
+    )
+
+    return max(0.0, min(1.0, float(similarity)))
+
+
+def load_pdf_ink_masks(pdf_path):
+    """Render every page of a PDF once and return its handwriting masks."""
+    doc = fitz.open(pdf_path)
+
+    try:
+        return [
+            page_ink_mask(
+                doc.load_page(page_number)
+            )
+            for page_number in range(doc.page_count)
+        ]
+
+    finally:
+        doc.close()
+
+
+def align_page_sequences(old_masks, new_masks):
+    """
+    Return monotone old/new page correspondence.
+
+    The result has:
+      - ``pairs``: (old_index, new_index, similarity)
+      - ``unmatched_old``: deleted pages
+      - ``unmatched_new``: inserted/appended pages
+
+    This is a Needleman-Wunsch-style alignment over page signatures.  It
+    preserves order, which is exactly what we want for ordinary note editing:
+    inserting a page shifts later indices but does not reorder the document.
+    """
+    old_signatures = [
+        page_signature(mask)
+        for mask in old_masks
+    ]
+    new_signatures = [
+        page_signature(mask)
+        for mask in new_masks
+    ]
+
+    old_count = len(old_masks)
+    new_count = len(new_masks)
+
+    scores = np.full(
+        (old_count + 1, new_count + 1),
+        -np.inf,
+        dtype=np.float64,
+    )
+    back = [
+        [None] * (new_count + 1)
+        for _ in range(old_count + 1)
+    ]
+
+    scores[0, 0] = 0.0
+
+    for old_index in range(1, old_count + 1):
+        scores[old_index, 0] = (
+            scores[old_index - 1, 0]
+            + PAGE_GAP_PENALTY
+        )
+        back[old_index][0] = "old_gap"
+
+    for new_index in range(1, new_count + 1):
+        scores[0, new_index] = (
+            scores[0, new_index - 1]
+            + PAGE_GAP_PENALTY
+        )
+        back[0][new_index] = "new_gap"
+
+    similarity_cache = {}
+
+    def similarity(old_index, new_index):
+        key = (old_index, new_index)
+        if key not in similarity_cache:
+            similarity_cache[key] = page_signature_similarity(
+                old_signatures[old_index],
+                new_signatures[new_index],
+            )
+        return similarity_cache[key]
+
+    for old_index in range(1, old_count + 1):
+        for new_index in range(1, new_count + 1):
+            page_similarity = similarity(
+                old_index - 1,
+                new_index - 1,
+            )
+
+            # Matching is rewarded only above a neutral baseline.  Two gaps
+            # beat an obviously unrelated page pair, while a moderately edited
+            # same page still remains matchable.
+            match_score = (
+                page_similarity
+                - PAGE_MATCH_BASELINE
+            )
+
+            diagonal = (
+                scores[old_index - 1, new_index - 1]
+                + match_score
+            )
+            old_gap = (
+                scores[old_index - 1, new_index]
+                + PAGE_GAP_PENALTY
+            )
+            new_gap = (
+                scores[old_index, new_index - 1]
+                + PAGE_GAP_PENALTY
+            )
+
+            best_score = diagonal
+            best_move = "match"
+
+            if old_gap > best_score:
+                best_score = old_gap
+                best_move = "old_gap"
+
+            if new_gap > best_score:
+                best_score = new_gap
+                best_move = "new_gap"
+
+            scores[old_index, new_index] = best_score
+            back[old_index][new_index] = best_move
+
+    pairs = []
+    unmatched_old = []
+    unmatched_new = []
+
+    old_index = old_count
+    new_index = new_count
+
+    while old_index > 0 or new_index > 0:
+        move = back[old_index][new_index]
+
+        if move == "match":
+            similarity_value = similarity(
+                old_index - 1,
+                new_index - 1,
+            )
+
+            # Extremely weak diagonal matches are safer to interpret as one
+            # deletion plus one insertion.  This prevents unrelated pages from
+            # being forced together merely because both sequences are short.
+            if similarity_value < PAGE_MIN_REPORTED_MATCH:
+                unmatched_old.append(old_index - 1)
+                unmatched_new.append(new_index - 1)
+            else:
+                pairs.append((
+                    old_index - 1,
+                    new_index - 1,
+                    similarity_value,
+                ))
+
+            old_index -= 1
+            new_index -= 1
+
+        elif move == "old_gap":
+            unmatched_old.append(old_index - 1)
+            old_index -= 1
+
+        elif move == "new_gap":
+            unmatched_new.append(new_index - 1)
+            new_index -= 1
+
+        else:
+            # Defensive fallback; normally unreachable except at (0, 0).
+            if old_index > 0:
+                unmatched_old.append(old_index - 1)
+                old_index -= 1
+            elif new_index > 0:
+                unmatched_new.append(new_index - 1)
+                new_index -= 1
+
+    pairs.reverse()
+    unmatched_old.reverse()
+    unmatched_new.reverse()
+
+    return {
+        "pairs": pairs,
+        "unmatched_old": unmatched_old,
+        "unmatched_new": unmatched_new,
+    }
+
+
 # =========================================================
 # Ink calculations
 # =========================================================
@@ -446,68 +1021,96 @@ def count_total_ink_pixels(pdf_path):
         doc.close()
 
 
+def compare_pdf_ink(
+    old_pdf_path,
+    new_pdf_path,
+):
+    """
+    Compare two PDF versions after aligning their page sequences.
+
+    Returns:
+        (added_ink_pixels, meaningful_change)
+
+    Important behaviors:
+      - inserted/deleted middle pages do not shift every later comparison;
+      - re-export-only raster changes remain ignored;
+      - unmatched new pages count all handwriting as newly added ink;
+      - unmatched old pages mark the PDF as meaningfully changed, but add no ink.
+    """
+    old_masks = load_pdf_ink_masks(
+        old_pdf_path
+    )
+    new_masks = load_pdf_ink_masks(
+        new_pdf_path
+    )
+
+    page_alignment = align_page_sequences(
+        old_masks,
+        new_masks,
+    )
+
+    total_added = 0
+    meaningful_change = bool(
+        page_alignment["unmatched_old"]
+        or page_alignment["unmatched_new"]
+    )
+
+    # Compare only pages selected as actual counterparts by the sequence
+    # alignment.  This is what makes middle-page insertion safe.
+    for old_index, new_index, _similarity in page_alignment["pairs"]:
+        old_mask = old_masks[old_index]
+        new_mask = new_masks[new_index]
+
+        old_mask = align_old_mask(
+            old_mask,
+            new_mask,
+        )
+
+        # Silent PDF re-export / anti-aliasing changes are not real note edits.
+        if masks_are_render_equivalent(
+            old_mask,
+            new_mask,
+        ):
+            continue
+
+        meaningful_change = True
+
+        old_tolerant = dilate_mask(
+            old_mask,
+            OLD_INK_TOLERANCE_RADIUS,
+        )
+
+        added_mask = (
+            new_mask
+            & ~old_tolerant
+        )
+
+        total_added += int(
+            np.count_nonzero(added_mask)
+        )
+
+    # A page that exists only in the new PDF is a genuine insertion/appending.
+    # Count its entire handwriting content as new ink.
+    for new_index in page_alignment["unmatched_new"]:
+        total_added += int(
+            np.count_nonzero(
+                new_masks[new_index]
+            )
+        )
+
+    return total_added, meaningful_change
+
+
 def count_added_ink_pixels(
     old_pdf_path,
     new_pdf_path,
 ):
-    old_doc = fitz.open(old_pdf_path)
-    new_doc = fitz.open(new_pdf_path)
-
-    try:
-        total_added = 0
-
-        common_pages = min(
-            old_doc.page_count,
-            new_doc.page_count,
-        )
-
-        # Existing pages
-        for page_number in range(common_pages):
-            old_mask = page_ink_mask(
-                old_doc.load_page(page_number)
-            )
-
-            new_mask = page_ink_mask(
-                new_doc.load_page(page_number)
-            )
-
-            old_mask = align_old_mask(
-                old_mask,
-                new_mask,
-            )
-
-            old_mask = dilate_mask(
-                old_mask,
-                OLD_INK_TOLERANCE_RADIUS,
-            )
-
-            added_mask = (
-                new_mask
-                & ~old_mask
-            )
-
-            total_added += int(
-                np.count_nonzero(added_mask)
-            )
-
-        # Newly appended pages
-        for page_number in range(
-            common_pages,
-            new_doc.page_count,
-        ):
-            new_mask = page_ink_mask(
-                new_doc.load_page(page_number)
-            )
-
-            total_added += int(
-                np.count_nonzero(new_mask)
-            )
-
-        return total_added
-
-    finally:
-        old_doc.close()
-        new_doc.close()
+    """Compatibility wrapper returning only the added-ink pixel count."""
+    pixels, _ = compare_pdf_ink(
+        old_pdf_path,
+        new_pdf_path,
+    )
+    return pixels
 
 
 def ink_percent(pixel_count):
@@ -537,7 +1140,7 @@ def rounded_ink_percent(pixel_count):
 def get_pdf_snapshot(date_dir):
     snapshot = {}
 
-    pdf_paths = sorted(
+    all_pdf_paths = sorted(
         path
         for path in date_dir.rglob("*")
         if (
@@ -545,6 +1148,12 @@ def get_pdf_snapshot(date_dir):
             and path.suffix.lower() == ".pdf"
         )
     )
+
+    pdf_paths = [
+        path
+        for path in all_pdf_paths
+        if is_note_pdf(date_dir, path)
+    ]
 
     for path in pdf_paths:
         relative_path = (
@@ -734,82 +1343,264 @@ def build_subject_tree(
     folder_ink_percent,
     include_urls=False,
 ):
-    subject_folders = defaultdict(
-        lambda: defaultdict(list)
-    )
+    """
+    Build a true recursive tree:
+
+        Subject
+        ├─ files directly under the subject
+        └─ folders
+           ├─ files
+           └─ folders
+              └─ ...
+
+    Folder depth is unlimited. For nested PDFs, the first path component is
+    the subject and every later directory component becomes one recursive
+    node. Top-level PDFs are collected under ``Others``.
+    """
+    subject_nodes = {}
+
+    def make_folder_node(name, raw_path):
+        return {
+            "name": name,
+            "label": name,
+            "raw_path": raw_path,
+            "files": [],
+            "folders": {},
+        }
 
     for path in sorted(snapshot):
-        subject = subject_key(path)
-        folder = folder_key(path)
+        parts = list(PurePosixPath(path).parts)
+
+        # A PDF directly under the dated snapshot has no natural subject.
+        # Keep it, but place it in a synthetic ``Others`` section.
+        if len(parts) == 1:
+            subject = "Others"
+            folder_parts = []
+        else:
+            subject = parts[0]
+            folder_parts = parts[1:-1]
+
+        subject_node = subject_nodes.setdefault(
+            subject,
+            {
+                "name": subject,
+                "files": [],
+                "folders": {},
+            },
+        )
 
         file_item = {
-            "name": strip_pdf_suffixes(
-                Path(path).name
-            ),
+            "name": strip_pdf_suffixes(Path(path).name),
             "raw_path": path,
-            "ink_added_percent":
-                file_ink_percent.get(
-                    path,
-                    0.0,
-                ),
+            "ink_added_percent": file_ink_percent.get(path, 0.0),
         }
 
         if include_urls:
-            file_item["url"] = (
-                published_url(path)
-            )
+            file_item["url"] = published_url(path)
 
-        subject_folders[
-            subject
-        ][
-            folder
-        ].append(
-            file_item
-        )
+        # A PDF directly under the subject has no extra folder node.
+        if not folder_parts:
+            subject_node["files"].append(file_item)
+            continue
+
+        current_folders = subject_node["folders"]
+        raw_parts = [subject]
+        current_node = None
+
+        for folder_name in folder_parts:
+            raw_parts.append(folder_name)
+            raw_path = "/".join(raw_parts)
+
+            current_node = current_folders.setdefault(
+                folder_name,
+                make_folder_node(folder_name, raw_path),
+            )
+            current_folders = current_node["folders"]
+
+        current_node["files"].append(file_item)
+
+    def finalize_folder(node):
+        children = [
+            finalize_folder(node["folders"][name])
+            for name in sorted(node["folders"])
+        ]
+
+        return {
+            "name": node["name"],
+            "label": node["label"],
+            "raw_path": node["raw_path"],
+            "ink_added_percent": folder_ink_percent.get(
+                node["raw_path"],
+                0.0,
+            ),
+            "files": sorted(
+                node["files"],
+                key=lambda item: item["name"].lower(),
+            ),
+            "folders": children,
+        }
 
     subjects = []
 
-    for subject in sorted(
-        subject_folders
-    ):
-        folders = []
-
-        for folder in sorted(
-            subject_folders[subject]
-        ):
-            folders.append({
-                "raw_path": folder,
-                "label": display_folder(
-                    folder
-                ),
-                "ink_added_percent":
-                    folder_ink_percent.get(
-                        folder,
-                        0.0,
-                    ),
-                "files":
-                    subject_folders[
-                        subject
-                    ][
-                        folder
-                    ],
-            })
+    for subject in sorted(subject_nodes, key=subject_sort_key):
+        node = subject_nodes[subject]
 
         subjects.append({
             "name": subject,
-            "ink_added_percent":
-                subject_ink_percent.get(
-                    subject,
-                    0.0,
-                ),
-            "folders": folders,
+            "ink_added_percent": subject_ink_percent.get(subject, 0.0),
+            "files": sorted(
+                node["files"],
+                key=lambda item: item["name"].lower(),
+            ),
+            "folders": [
+                finalize_folder(node["folders"][name])
+                for name in sorted(node["folders"])
+            ],
         })
 
     return subjects
 
 
+def snapshot_from_stored_subjects(subjects):
+    """Recover the historical PDF path list from either schema v1 or v2."""
+    snapshot = {}
+
+    def add_file(file_item, fallback_parent=None):
+        raw_path = file_item.get("raw_path")
+
+        if not raw_path and fallback_parent:
+            # Compatibility fallback for very old data.
+            raw_path = (
+                fallback_parent.rstrip("/")
+                + "/"
+                + str(file_item.get("name", "")).rstrip()
+                + ".pdf"
+            )
+
+        if raw_path:
+            snapshot[str(raw_path)] = {
+                "name": Path(str(raw_path)).name,
+            }
+
+    def walk_folder(folder):
+        raw_path = folder.get("raw_path")
+
+        for file_item in folder.get("files", []) or []:
+            add_file(file_item, raw_path)
+
+        for child in folder.get("folders", []) or []:
+            walk_folder(child)
+
+    for subject in subjects or []:
+        subject_name = str(subject.get("name", ""))
+
+        for file_item in subject.get("files", []) or []:
+            add_file(file_item, subject_name)
+
+        for folder in subject.get("folders", []) or []:
+            walk_folder(folder)
+
+    return snapshot
+
+
+def cumulative_folder_percent_from_legacy(folder_ink_percent):
+    """
+    Convert schema-v1 leaf-folder ink totals into recursive subtotals.
+
+    Old records counted ink only in the PDF's immediate parent folder.
+    Recursive folders should show the total of every descendant, so each
+    old leaf subtotal is propagated to all of its ancestors below subject.
+    """
+    cumulative = defaultdict(float)
+
+    for raw_folder, value in (folder_ink_percent or {}).items():
+        if raw_folder == "General":
+            continue
+
+        parts = str(raw_folder).split("/")
+
+        if len(parts) < 2:
+            continue
+
+        numeric_value = float(value or 0.0)
+
+        for depth in range(2, len(parts) + 1):
+            cumulative["/".join(parts[:depth])] += numeric_value
+
+    return {
+        key: round(value, 1)
+        for key, value in sorted(cumulative.items())
+    }
+
+
+def migrate_record_tree_to_v2(record):
+    """One-time structural migration for frozen schema-v1 history."""
+    if not record:
+        return record
+
+    snapshot = snapshot_from_stored_subjects(
+        record.get("subjects", [])
+    )
+
+    recursive_folder_ink = cumulative_folder_percent_from_legacy(
+        record.get("folder_ink_percent", {})
+    )
+
+    record["folder_ink_percent"] = recursive_folder_ink
+    record["subjects"] = build_subject_tree(
+        snapshot,
+        record.get("file_ink_percent", {}) or {},
+        record.get("subject_ink_percent", {}) or {},
+        recursive_folder_ink,
+        include_urls=False,
+    )
+
+    return record
+
+
+def migrate_record_tree_to_v3(record):
+    """Rename the old top-level ``General`` bucket to ``Others``."""
+    if not record:
+        return record
+
+    snapshot = snapshot_from_stored_subjects(
+        record.get("subjects", [])
+    )
+
+    subject_ink = dict(
+        record.get("subject_ink_percent", {}) or {}
+    )
+
+    if "General" in subject_ink:
+        subject_ink["Others"] = round(
+            float(subject_ink.get("Others", 0.0))
+            + float(subject_ink.pop("General", 0.0)),
+            1,
+        )
+
+    folder_ink = dict(
+        record.get("folder_ink_percent", {}) or {}
+    )
+
+    # In older schemas the root bucket could be called General.
+    # It is not a real folder in the recursive tree, so drop that subtotal.
+    folder_ink.pop("General", None)
+
+    record["subject_ink_percent"] = subject_ink
+    record["folder_ink_percent"] = folder_ink
+    record["subjects"] = build_subject_tree(
+        snapshot,
+        record.get("file_ink_percent", {}) or {},
+        subject_ink,
+        folder_ink,
+        include_urls=False,
+    )
+
+    return record
+
+
 # =========================================================
-# Publish only the newest snapshot
+# Publish only the newest snapshot, including top-level PDFs
 #
 # Local dated folders stay under untexed/ and are never copied
 # to GitHub.  untexed-current/ is replaced on every run.
@@ -831,10 +1622,9 @@ def publish_latest_snapshot(
     for source in sorted(
         latest_date_dir.rglob("*")
     ):
-        if (
-            not source.is_file()
-            or source.suffix.lower()
-            != ".pdf"
+        if not is_note_pdf(
+            latest_date_dir,
+            source,
         ):
             continue
 
@@ -880,16 +1670,53 @@ def parse_snapshot_date(name):
 
 
 def load_existing_history():
-    """Load the committed YAML so frozen records can be preserved verbatim."""
+    """Load committed YAML and preserve frozen records across runs."""
     if not OUTPUT.exists():
-        return {"latest_date": None, "dates": [], "records": {}}
+        return {
+            "latest_date": None,
+            "dates": [],
+            "records": {},
+            "tree_schema_version": TREE_SCHEMA_VERSION,
+        }
 
     with OUTPUT.open("r", encoding="utf-8") as file:
         loaded = yaml.safe_load(file) or {}
 
     raw_records = loaded.get("records", {}) or {}
-    records = {str(date): record for date, record in raw_records.items()}
-    dates = [str(date) for date in (loaded.get("dates", []) or [])]
+    records = {
+        str(date): record
+        for date, record in raw_records.items()
+    }
+    dates = [
+        str(date)
+        for date in (loaded.get("dates", []) or [])
+    ]
+
+    stored_schema = int(
+        loaded.get("tree_schema_version", 1) or 1
+    )
+
+    if stored_schema < 2:
+        print()
+        print(
+            "Migrating stored folder history to recursive tree schema..."
+        )
+
+        records = {
+            date: migrate_record_tree_to_v2(record)
+            for date, record in records.items()
+        }
+
+    if stored_schema < 3:
+        print()
+        print(
+            "Migrating top-level General history to Others..."
+        )
+
+        records = {
+            date: migrate_record_tree_to_v3(record)
+            for date, record in records.items()
+        }
 
     return {
         "latest_date": (
@@ -899,6 +1726,7 @@ def load_existing_history():
         ),
         "dates": dates,
         "records": records,
+        "tree_schema_version": TREE_SCHEMA_VERSION,
     }
 
 
@@ -950,7 +1778,11 @@ def build_comparison_record(previous_dir, date_dir, previous, current):
         nonlocal total_added_ink_pixels
         total_added_ink_pixels += pixels
         file_ink_pixels[relative_path] += pixels
-        folder_ink_pixels[folder_key(relative_path)] += pixels
+
+        # Every recursive folder shows the subtotal of all descendants.
+        for folder in folder_ancestor_keys(relative_path):
+            folder_ink_pixels[folder] += pixels
+
         subject_ink_pixels[subject_key(relative_path)] += pixels
 
     added = []
@@ -967,7 +1799,18 @@ def build_comparison_record(previous_dir, date_dir, previous, current):
     for path in modified_raw:
         old_pdf = previous_dir / Path(path)
         new_pdf = date_dir / Path(path)
-        pixels = count_added_ink_pixels(old_pdf, new_pdf)
+
+        pixels, meaningful_change = compare_pdf_ink(
+            old_pdf,
+            new_pdf,
+        )
+
+        if not meaningful_change:
+            print(
+                f"Ignoring render-only PDF change: {path}"
+            )
+            continue
+
         register_ink(path, pixels)
         modified.append({
             "path": display_path(path),
@@ -995,9 +1838,15 @@ def build_comparison_record(previous_dir, date_dir, previous, current):
         if previous[old_path]["hash"] != current[new_path]["hash"]:
             old_pdf = previous_dir / Path(old_path)
             new_pdf = date_dir / Path(new_path)
-            pixels = count_added_ink_pixels(old_pdf, new_pdf)
-            register_ink(new_path, pixels)
-            move_item["ink_added_percent"] = rounded_ink_percent(pixels)
+
+            pixels, meaningful_change = compare_pdf_ink(
+                old_pdf,
+                new_pdf,
+            )
+
+            if meaningful_change:
+                register_ink(new_path, pixels)
+                move_item["ink_added_percent"] = rounded_ink_percent(pixels)
 
         moved_renamed.append(move_item)
 
@@ -1077,22 +1926,55 @@ def main():
 
     latest_date_dir = date_dirs[-1]
     latest_date = latest_date_dir.name
-    latest_calendar_date = parse_snapshot_date(
-        latest_date
+
+    local_dir_by_date = {
+        path.name: path
+        for path in date_dirs
+    }
+
+    # =====================================================
+    # Snapshot-count rolling history
+    # =====================================================
+    #
+    # The newest ROLLING_SNAPSHOTS snapshot dates stay mutable.
+    # One immediately preceding snapshot is scanned only as an
+    # anchor so the oldest mutable Record can be compared against
+    # the correct predecessor.
+    #
+    # Important:
+    # Use the union of stored Record dates and local snapshot dates.
+    # This prevents a missing recent local folder from being silently
+    # skipped and causing a later Record to be compared with the
+    # wrong predecessor.
+    # =====================================================
+
+    all_known_dates = sorted(
+        (
+            set(existing_records)
+            |
+            set(local_dir_by_date)
+        ),
+        key=parse_snapshot_date,
     )
 
-    # The newest 10 calendar days are recalculable.
-    # Example: latest=260816 -> rolling_start=260807.
-    rolling_start_calendar = (
-        latest_calendar_date
-        - timedelta(
-            days=ROLLING_DAYS - 1
-        )
+    active_date_keys = (
+        all_known_dates[
+            -ROLLING_SNAPSHOTS:
+        ]
     )
-    rolling_start = (
-        rolling_start_calendar.strftime(
-            "%y%m%d"
+    active_date_set = set(
+        active_date_keys
+    )
+
+    anchor_date = (
+        all_known_dates[
+            -ROLLING_SNAPSHOTS - 1
+        ]
+        if (
+            len(all_known_dates)
+            > ROLLING_SNAPSHOTS
         )
+        else None
     )
 
     print("Found local versions:")
@@ -1105,17 +1987,15 @@ def main():
 
     print()
     print(
-        f"Rolling window : {ROLLING_DAYS} days"
-    )
-    print(
-        f"Recalculate    : {rolling_start} ~ {latest_date}"
+        f"Rolling window : newest "
+        f"{ROLLING_SNAPSHOTS} snapshots"
     )
 
     # =====================================================
     # First run / bootstrap
     # =====================================================
     # If no YAML exists yet, calculate every local snapshot once.
-    # After that, records older than the rolling window are frozen.
+    # On subsequent runs, only the newest N snapshots are mutable.
 
     bootstrap = not bool(
         existing_records
@@ -1125,6 +2005,7 @@ def main():
         print(
             "History mode   : bootstrap (all local snapshots)"
         )
+
         frozen_records = {}
         scan_dirs = list(
             date_dirs
@@ -1133,115 +2014,90 @@ def main():
             date_dirs
         )
         anchor_dir = None
+
+        print(
+            "Recalculate    : all local snapshots"
+        )
+
     else:
         print(
             "History mode   : rolling + frozen history"
         )
 
         # -----------------------------------------------
-        # Permanently preserve every stored record older
-        # than the rolling window. These dictionaries are
-        # copied verbatim from the existing YAML.
-        # -----------------------------------------------
-
-        frozen_records = {
-            date: record
-            for date, record
-            in existing_records.items()
-            if (
-                parse_snapshot_date(date)
-                < rolling_start_calendar
-            )
-        }
-
-        active_dirs = [
-            path
-            for path in date_dirs
-            if (
-                parse_snapshot_date(
-                    path.name
-                )
-                >= rolling_start_calendar
-            )
-        ]
-
-        # -----------------------------------------------
         # Safety check:
-        # Any already-recorded date inside the rolling
-        # window must still exist locally. Otherwise a
-        # later record could be silently recomputed against
-        # the wrong predecessor.
+        # Every date in the newest-N window must exist locally.
+        #
+        # Example:
+        # stored = 260815, 260816
+        # local  = 260815, 260817
+        #
+        # newest 3 known dates = 260815, 260816, 260817.
+        # Since 260816 is missing locally, abort instead of
+        # comparing 260817 against 260815.
         # -----------------------------------------------
 
-        local_dates = {
-            path.name
-            for path in date_dirs
-        }
-
-        required_recent_dates = sorted(
+        missing_active_dates = [
             date
-            for date
-            in existing_records
-            if (
-                rolling_start_calendar
-                <= parse_snapshot_date(date)
-                <= latest_calendar_date
-            )
-        )
-
-        missing_recent_dates = [
-            date
-            for date
-            in required_recent_dates
-            if date not in local_dates
+            for date in active_date_keys
+            if date not in local_dir_by_date
         ]
 
-        if missing_recent_dates:
+        if missing_active_dates:
             missing_text = ", ".join(
-                missing_recent_dates
+                missing_active_dates
             )
             raise RuntimeError(
-                "A snapshot inside the 10-day rolling window "
+                "A snapshot inside the newest "
+                f"{ROLLING_SNAPSHOTS}-snapshot rolling window "
                 "is missing locally. Refusing to recalculate, "
                 "because that could change later Records.\n"
                 f"Missing: {missing_text}\n"
                 "Restore those local snapshot folders first."
             )
 
-        # -----------------------------------------------
-        # One older snapshot is used only as an anchor for
-        # the first recalculable date. It is scanned, but its
-        # stored Record is never changed.
-        # -----------------------------------------------
-
-        older_local_dirs = [
-            path
-            for path in date_dirs
-            if (
-                parse_snapshot_date(
-                    path.name
-                )
-                < rolling_start_calendar
-            )
+        active_dirs = [
+            local_dir_by_date[date]
+            for date in active_date_keys
         ]
 
+        # -----------------------------------------------
+        # Freeze every stored Record outside the newest-N
+        # snapshot window verbatim.
+        # -----------------------------------------------
+
+        frozen_records = {
+            date: record
+            for date, record
+            in existing_records.items()
+            if date not in active_date_set
+        }
+
+        # -----------------------------------------------
+        # The exact immediately preceding known snapshot is
+        # the only valid anchor. If frozen history exists and
+        # that snapshot folder was deleted locally, abort.
+        # -----------------------------------------------
+
         anchor_dir = (
-            older_local_dirs[-1]
-            if older_local_dirs
+            local_dir_by_date.get(
+                anchor_date
+            )
+            if anchor_date is not None
             else None
         )
 
         if (
-            active_dirs
-            and frozen_records
+            anchor_date is not None
             and anchor_dir is None
         ):
             raise RuntimeError(
-                "The frozen history exists, but no local anchor "
-                "snapshot remains before the rolling window.\n"
-                "Keep one snapshot immediately preceding the "
-                "recent 10-day window so the oldest active Record "
-                "can be compared correctly."
+                "The snapshot immediately preceding the newest "
+                f"{ROLLING_SNAPSHOTS}-snapshot window is missing "
+                "locally.\n"
+                f"Required anchor: {anchor_date}\n"
+                "Keep that one predecessor snapshot folder so the "
+                "oldest active Record can be compared correctly."
             )
 
         scan_dirs = []
@@ -1256,6 +2112,12 @@ def main():
         )
 
         print(
+            "Recalculate    : "
+            + ", ".join(
+                active_date_keys
+            )
+        )
+        print(
             f"Frozen records : {len(frozen_records)}"
         )
 
@@ -1268,13 +2130,17 @@ def main():
                 "Anchor snapshot: none"
             )
 
-        # An old local folder that is already outside the
-        # rolling window but has no stored record is not
-        # silently inserted into history.
+        # An old local folder outside the mutable window that
+        # has no stored Record is not silently inserted into
+        # history. It may still be used as the exact anchor.
         ignored_old_local = [
             path.name
-            for path in older_local_dirs
-            if path.name not in existing_records
+            for path in date_dirs
+            if (
+                path.name not in active_date_set
+                and path.name != anchor_date
+                and path.name not in existing_records
+            )
         ]
 
         if ignored_old_local:
@@ -1353,8 +2219,8 @@ def main():
             )
 
     else:
-        # Recalculate every local snapshot in the newest
-        # 10 calendar days. Frozen records remain untouched.
+        # Recalculate only the newest N snapshot folders.
+        # Frozen records remain untouched.
         for index, date_dir in enumerate(
             active_dirs
         ):
@@ -1508,15 +2374,23 @@ def main():
     )
 
     data = {
+        "tree_schema_version":
+            TREE_SCHEMA_VERSION,
         "latest_date":
             latest_date,
         "dates":
             all_record_dates,
         "history_policy": {
-            "rolling_days":
-                ROLLING_DAYS,
-            "rolling_start":
-                rolling_start,
+            "rolling_snapshots":
+                ROLLING_SNAPSHOTS,
+            "active_dates":
+                active_date_keys,
+            "anchor_date":
+                (
+                    anchor_dir.name
+                    if anchor_dir is not None
+                    else None
+                ),
         },
         "records":
             records,
@@ -1551,8 +2425,7 @@ def main():
 
         frozen = (
             not bootstrap
-            and parse_snapshot_date(date)
-            < rolling_start_calendar
+            and date not in active_date_set
         )
 
         print(
@@ -1594,7 +2467,16 @@ def main():
         f"{records[latest_date]['library_total_ink_percent']:.1f}%"
     )
     print(
-        f"Frozen before: {rolling_start}"
+        "Mutable snapshots: "
+        + ", ".join(active_date_keys)
+    )
+    print(
+        "Anchor snapshot : "
+        + (
+            anchor_dir.name
+            if anchor_dir is not None
+            else "none"
+        )
     )
     print(
         f"Generated: {OUTPUT}"
