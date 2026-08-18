@@ -2,7 +2,7 @@ from pathlib import Path, PurePosixPath
 from collections import defaultdict
 from difflib import SequenceMatcher
 from urllib.parse import quote
-from datetime import datetime
+from datetime import datetime, timedelta
 import hashlib
 import re
 import shutil
@@ -48,15 +48,9 @@ MAX_ALIGNMENT_SHIFT = 3
 OLD_INK_TOLERANCE_RADIUS = 2
 RENAME_SIMILARITY_THRESHOLD = 0.80
 
-# Keep the newest N snapshot folders recalculable.
-# One immediately preceding snapshot is kept as a comparison anchor.
+# Keep the newest 10 calendar days recalculable.
 # Older records are frozen in _data/untexed_records.yml forever.
-ROLLING_SNAPSHOTS = 3
-
-# YAML folder-tree schema.
-# Version 2 stores real recursive folders.
-# Version 3 restores top-level PDFs under a special ``Others`` section.
-TREE_SCHEMA_VERSION = 3
+ROLLING_DAYS = 10
 
 _TEMPLATE_GRAY = None
 _REFERENCE_INK_PIXELS = None
@@ -92,8 +86,8 @@ def display_path(relative_path):
 
 
 def display_folder(raw_folder):
-    if raw_folder in {"General", "Others"}:
-        return "Others"
+    if raw_folder == "General":
+        return "General"
     return " / ".join(raw_folder.split("/"))
 
 
@@ -107,13 +101,8 @@ def normalized_filename(relative_path):
 def subject_key(relative_path):
     parts = relative_path.split("/")
     if len(parts) <= 1:
-        return "Others"
+        return "General"
     return parts[0]
-
-
-def subject_sort_key(subject):
-    """Keep the synthetic top-level-PDF section at the very bottom."""
-    return (subject == "Others", subject.lower())
 
 
 def top_subject(relative_path):
@@ -123,55 +112,12 @@ def top_subject(relative_path):
 def folder_key(relative_path):
     parent = PurePosixPath(relative_path).parent.as_posix()
     if parent == ".":
-        return "Others"
+        return "General"
     return parent
-
-
-def folder_ancestor_keys(relative_path):
-    """
-    Return every real folder ancestor below the subject level.
-
-    Example:
-        Analysis/Real Analysis/Sequences/a.pdf
-        -> [
-             "Analysis/Real Analysis",
-             "Analysis/Real Analysis/Sequences",
-           ]
-
-    The first component is the subject, so it is intentionally not
-    repeated as a folder subtotal. Subject ink is tracked separately.
-    """
-    parts = list(PurePosixPath(relative_path).parts[:-1])
-
-    if len(parts) <= 1:
-        return []
-
-    return [
-        "/".join(parts[:depth])
-        for depth in range(2, len(parts) + 1)
-    ]
 
 
 def published_url(relative_path):
     return "/untexed-current/" + quote(relative_path, safe="/")
-
-
-def is_note_pdf(date_dir, path):
-    """
-    Treat every PDF inside a dated snapshot as a handwritten note.
-
-    PDFs directly under the dated folder are no longer ignored;
-    they are grouped into the synthetic ``Others`` section.
-
-    Examples:
-        untexed/260816/file.pdf              -> Others
-        untexed/260816/Algebra/file.pdf      -> Algebra
-        untexed/260816/Algebra/1. LA/a.pdf   -> Algebra / 1. LA
-    """
-    return (
-        path.is_file()
-        and path.suffix.lower() == ".pdf"
-    )
 
 
 # =========================================================
@@ -591,7 +537,7 @@ def rounded_ink_percent(pixel_count):
 def get_pdf_snapshot(date_dir):
     snapshot = {}
 
-    all_pdf_paths = sorted(
+    pdf_paths = sorted(
         path
         for path in date_dir.rglob("*")
         if (
@@ -599,12 +545,6 @@ def get_pdf_snapshot(date_dir):
             and path.suffix.lower() == ".pdf"
         )
     )
-
-    pdf_paths = [
-        path
-        for path in all_pdf_paths
-        if is_note_pdf(date_dir, path)
-    ]
 
     for path in pdf_paths:
         relative_path = (
@@ -794,264 +734,82 @@ def build_subject_tree(
     folder_ink_percent,
     include_urls=False,
 ):
-    """
-    Build a true recursive tree:
-
-        Subject
-        ├─ files directly under the subject
-        └─ folders
-           ├─ files
-           └─ folders
-              └─ ...
-
-    Folder depth is unlimited. For nested PDFs, the first path component is
-    the subject and every later directory component becomes one recursive
-    node. Top-level PDFs are collected under ``Others``.
-    """
-    subject_nodes = {}
-
-    def make_folder_node(name, raw_path):
-        return {
-            "name": name,
-            "label": name,
-            "raw_path": raw_path,
-            "files": [],
-            "folders": {},
-        }
+    subject_folders = defaultdict(
+        lambda: defaultdict(list)
+    )
 
     for path in sorted(snapshot):
-        parts = list(PurePosixPath(path).parts)
-
-        # A PDF directly under the dated snapshot has no natural subject.
-        # Keep it, but place it in a synthetic ``Others`` section.
-        if len(parts) == 1:
-            subject = "Others"
-            folder_parts = []
-        else:
-            subject = parts[0]
-            folder_parts = parts[1:-1]
-
-        subject_node = subject_nodes.setdefault(
-            subject,
-            {
-                "name": subject,
-                "files": [],
-                "folders": {},
-            },
-        )
+        subject = subject_key(path)
+        folder = folder_key(path)
 
         file_item = {
-            "name": strip_pdf_suffixes(Path(path).name),
+            "name": strip_pdf_suffixes(
+                Path(path).name
+            ),
             "raw_path": path,
-            "ink_added_percent": file_ink_percent.get(path, 0.0),
+            "ink_added_percent":
+                file_ink_percent.get(
+                    path,
+                    0.0,
+                ),
         }
 
         if include_urls:
-            file_item["url"] = published_url(path)
-
-        # A PDF directly under the subject has no extra folder node.
-        if not folder_parts:
-            subject_node["files"].append(file_item)
-            continue
-
-        current_folders = subject_node["folders"]
-        raw_parts = [subject]
-        current_node = None
-
-        for folder_name in folder_parts:
-            raw_parts.append(folder_name)
-            raw_path = "/".join(raw_parts)
-
-            current_node = current_folders.setdefault(
-                folder_name,
-                make_folder_node(folder_name, raw_path),
+            file_item["url"] = (
+                published_url(path)
             )
-            current_folders = current_node["folders"]
 
-        current_node["files"].append(file_item)
-
-    def finalize_folder(node):
-        children = [
-            finalize_folder(node["folders"][name])
-            for name in sorted(node["folders"])
-        ]
-
-        return {
-            "name": node["name"],
-            "label": node["label"],
-            "raw_path": node["raw_path"],
-            "ink_added_percent": folder_ink_percent.get(
-                node["raw_path"],
-                0.0,
-            ),
-            "files": sorted(
-                node["files"],
-                key=lambda item: item["name"].lower(),
-            ),
-            "folders": children,
-        }
+        subject_folders[
+            subject
+        ][
+            folder
+        ].append(
+            file_item
+        )
 
     subjects = []
 
-    for subject in sorted(subject_nodes, key=subject_sort_key):
-        node = subject_nodes[subject]
+    for subject in sorted(
+        subject_folders
+    ):
+        folders = []
+
+        for folder in sorted(
+            subject_folders[subject]
+        ):
+            folders.append({
+                "raw_path": folder,
+                "label": display_folder(
+                    folder
+                ),
+                "ink_added_percent":
+                    folder_ink_percent.get(
+                        folder,
+                        0.0,
+                    ),
+                "files":
+                    subject_folders[
+                        subject
+                    ][
+                        folder
+                    ],
+            })
 
         subjects.append({
             "name": subject,
-            "ink_added_percent": subject_ink_percent.get(subject, 0.0),
-            "files": sorted(
-                node["files"],
-                key=lambda item: item["name"].lower(),
-            ),
-            "folders": [
-                finalize_folder(node["folders"][name])
-                for name in sorted(node["folders"])
-            ],
+            "ink_added_percent":
+                subject_ink_percent.get(
+                    subject,
+                    0.0,
+                ),
+            "folders": folders,
         })
 
     return subjects
 
 
-def snapshot_from_stored_subjects(subjects):
-    """Recover the historical PDF path list from either schema v1 or v2."""
-    snapshot = {}
-
-    def add_file(file_item, fallback_parent=None):
-        raw_path = file_item.get("raw_path")
-
-        if not raw_path and fallback_parent:
-            # Compatibility fallback for very old data.
-            raw_path = (
-                fallback_parent.rstrip("/")
-                + "/"
-                + str(file_item.get("name", "")).rstrip()
-                + ".pdf"
-            )
-
-        if raw_path:
-            snapshot[str(raw_path)] = {
-                "name": Path(str(raw_path)).name,
-            }
-
-    def walk_folder(folder):
-        raw_path = folder.get("raw_path")
-
-        for file_item in folder.get("files", []) or []:
-            add_file(file_item, raw_path)
-
-        for child in folder.get("folders", []) or []:
-            walk_folder(child)
-
-    for subject in subjects or []:
-        subject_name = str(subject.get("name", ""))
-
-        for file_item in subject.get("files", []) or []:
-            add_file(file_item, subject_name)
-
-        for folder in subject.get("folders", []) or []:
-            walk_folder(folder)
-
-    return snapshot
-
-
-def cumulative_folder_percent_from_legacy(folder_ink_percent):
-    """
-    Convert schema-v1 leaf-folder ink totals into recursive subtotals.
-
-    Old records counted ink only in the PDF's immediate parent folder.
-    Recursive folders should show the total of every descendant, so each
-    old leaf subtotal is propagated to all of its ancestors below subject.
-    """
-    cumulative = defaultdict(float)
-
-    for raw_folder, value in (folder_ink_percent or {}).items():
-        if raw_folder == "General":
-            continue
-
-        parts = str(raw_folder).split("/")
-
-        if len(parts) < 2:
-            continue
-
-        numeric_value = float(value or 0.0)
-
-        for depth in range(2, len(parts) + 1):
-            cumulative["/".join(parts[:depth])] += numeric_value
-
-    return {
-        key: round(value, 1)
-        for key, value in sorted(cumulative.items())
-    }
-
-
-def migrate_record_tree_to_v2(record):
-    """One-time structural migration for frozen schema-v1 history."""
-    if not record:
-        return record
-
-    snapshot = snapshot_from_stored_subjects(
-        record.get("subjects", [])
-    )
-
-    recursive_folder_ink = cumulative_folder_percent_from_legacy(
-        record.get("folder_ink_percent", {})
-    )
-
-    record["folder_ink_percent"] = recursive_folder_ink
-    record["subjects"] = build_subject_tree(
-        snapshot,
-        record.get("file_ink_percent", {}) or {},
-        record.get("subject_ink_percent", {}) or {},
-        recursive_folder_ink,
-        include_urls=False,
-    )
-
-    return record
-
-
-def migrate_record_tree_to_v3(record):
-    """Rename the old top-level ``General`` bucket to ``Others``."""
-    if not record:
-        return record
-
-    snapshot = snapshot_from_stored_subjects(
-        record.get("subjects", [])
-    )
-
-    subject_ink = dict(
-        record.get("subject_ink_percent", {}) or {}
-    )
-
-    if "General" in subject_ink:
-        subject_ink["Others"] = round(
-            float(subject_ink.get("Others", 0.0))
-            + float(subject_ink.pop("General", 0.0)),
-            1,
-        )
-
-    folder_ink = dict(
-        record.get("folder_ink_percent", {}) or {}
-    )
-
-    # In older schemas the root bucket could be called General.
-    # It is not a real folder in the recursive tree, so drop that subtotal.
-    folder_ink.pop("General", None)
-
-    record["subject_ink_percent"] = subject_ink
-    record["folder_ink_percent"] = folder_ink
-    record["subjects"] = build_subject_tree(
-        snapshot,
-        record.get("file_ink_percent", {}) or {},
-        subject_ink,
-        folder_ink,
-        include_urls=False,
-    )
-
-    return record
-
-
 # =========================================================
-# Publish only the newest snapshot, including top-level PDFs
+# Publish only the newest snapshot
 #
 # Local dated folders stay under untexed/ and are never copied
 # to GitHub.  untexed-current/ is replaced on every run.
@@ -1073,9 +831,10 @@ def publish_latest_snapshot(
     for source in sorted(
         latest_date_dir.rglob("*")
     ):
-        if not is_note_pdf(
-            latest_date_dir,
-            source,
+        if (
+            not source.is_file()
+            or source.suffix.lower()
+            != ".pdf"
         ):
             continue
 
@@ -1121,53 +880,16 @@ def parse_snapshot_date(name):
 
 
 def load_existing_history():
-    """Load committed YAML and preserve frozen records across runs."""
+    """Load the committed YAML so frozen records can be preserved verbatim."""
     if not OUTPUT.exists():
-        return {
-            "latest_date": None,
-            "dates": [],
-            "records": {},
-            "tree_schema_version": TREE_SCHEMA_VERSION,
-        }
+        return {"latest_date": None, "dates": [], "records": {}}
 
     with OUTPUT.open("r", encoding="utf-8") as file:
         loaded = yaml.safe_load(file) or {}
 
     raw_records = loaded.get("records", {}) or {}
-    records = {
-        str(date): record
-        for date, record in raw_records.items()
-    }
-    dates = [
-        str(date)
-        for date in (loaded.get("dates", []) or [])
-    ]
-
-    stored_schema = int(
-        loaded.get("tree_schema_version", 1) or 1
-    )
-
-    if stored_schema < 2:
-        print()
-        print(
-            "Migrating stored folder history to recursive tree schema..."
-        )
-
-        records = {
-            date: migrate_record_tree_to_v2(record)
-            for date, record in records.items()
-        }
-
-    if stored_schema < 3:
-        print()
-        print(
-            "Migrating top-level General history to Others..."
-        )
-
-        records = {
-            date: migrate_record_tree_to_v3(record)
-            for date, record in records.items()
-        }
+    records = {str(date): record for date, record in raw_records.items()}
+    dates = [str(date) for date in (loaded.get("dates", []) or [])]
 
     return {
         "latest_date": (
@@ -1177,7 +899,6 @@ def load_existing_history():
         ),
         "dates": dates,
         "records": records,
-        "tree_schema_version": TREE_SCHEMA_VERSION,
     }
 
 
@@ -1229,11 +950,7 @@ def build_comparison_record(previous_dir, date_dir, previous, current):
         nonlocal total_added_ink_pixels
         total_added_ink_pixels += pixels
         file_ink_pixels[relative_path] += pixels
-
-        # Every recursive folder shows the subtotal of all descendants.
-        for folder in folder_ancestor_keys(relative_path):
-            folder_ink_pixels[folder] += pixels
-
+        folder_ink_pixels[folder_key(relative_path)] += pixels
         subject_ink_pixels[subject_key(relative_path)] += pixels
 
     added = []
@@ -1360,55 +1077,22 @@ def main():
 
     latest_date_dir = date_dirs[-1]
     latest_date = latest_date_dir.name
-
-    local_dir_by_date = {
-        path.name: path
-        for path in date_dirs
-    }
-
-    # =====================================================
-    # Snapshot-count rolling history
-    # =====================================================
-    #
-    # The newest ROLLING_SNAPSHOTS snapshot dates stay mutable.
-    # One immediately preceding snapshot is scanned only as an
-    # anchor so the oldest mutable Record can be compared against
-    # the correct predecessor.
-    #
-    # Important:
-    # Use the union of stored Record dates and local snapshot dates.
-    # This prevents a missing recent local folder from being silently
-    # skipped and causing a later Record to be compared with the
-    # wrong predecessor.
-    # =====================================================
-
-    all_known_dates = sorted(
-        (
-            set(existing_records)
-            |
-            set(local_dir_by_date)
-        ),
-        key=parse_snapshot_date,
+    latest_calendar_date = parse_snapshot_date(
+        latest_date
     )
 
-    active_date_keys = (
-        all_known_dates[
-            -ROLLING_SNAPSHOTS:
-        ]
-    )
-    active_date_set = set(
-        active_date_keys
-    )
-
-    anchor_date = (
-        all_known_dates[
-            -ROLLING_SNAPSHOTS - 1
-        ]
-        if (
-            len(all_known_dates)
-            > ROLLING_SNAPSHOTS
+    # The newest 10 calendar days are recalculable.
+    # Example: latest=260816 -> rolling_start=260807.
+    rolling_start_calendar = (
+        latest_calendar_date
+        - timedelta(
+            days=ROLLING_DAYS - 1
         )
-        else None
+    )
+    rolling_start = (
+        rolling_start_calendar.strftime(
+            "%y%m%d"
+        )
     )
 
     print("Found local versions:")
@@ -1421,15 +1105,17 @@ def main():
 
     print()
     print(
-        f"Rolling window : newest "
-        f"{ROLLING_SNAPSHOTS} snapshots"
+        f"Rolling window : {ROLLING_DAYS} days"
+    )
+    print(
+        f"Recalculate    : {rolling_start} ~ {latest_date}"
     )
 
     # =====================================================
     # First run / bootstrap
     # =====================================================
     # If no YAML exists yet, calculate every local snapshot once.
-    # On subsequent runs, only the newest N snapshots are mutable.
+    # After that, records older than the rolling window are frozen.
 
     bootstrap = not bool(
         existing_records
@@ -1439,7 +1125,6 @@ def main():
         print(
             "History mode   : bootstrap (all local snapshots)"
         )
-
         frozen_records = {}
         scan_dirs = list(
             date_dirs
@@ -1448,90 +1133,115 @@ def main():
             date_dirs
         )
         anchor_dir = None
-
-        print(
-            "Recalculate    : all local snapshots"
-        )
-
     else:
         print(
             "History mode   : rolling + frozen history"
         )
 
         # -----------------------------------------------
-        # Safety check:
-        # Every date in the newest-N window must exist locally.
-        #
-        # Example:
-        # stored = 260815, 260816
-        # local  = 260815, 260817
-        #
-        # newest 3 known dates = 260815, 260816, 260817.
-        # Since 260816 is missing locally, abort instead of
-        # comparing 260817 against 260815.
-        # -----------------------------------------------
-
-        missing_active_dates = [
-            date
-            for date in active_date_keys
-            if date not in local_dir_by_date
-        ]
-
-        if missing_active_dates:
-            missing_text = ", ".join(
-                missing_active_dates
-            )
-            raise RuntimeError(
-                "A snapshot inside the newest "
-                f"{ROLLING_SNAPSHOTS}-snapshot rolling window "
-                "is missing locally. Refusing to recalculate, "
-                "because that could change later Records.\n"
-                f"Missing: {missing_text}\n"
-                "Restore those local snapshot folders first."
-            )
-
-        active_dirs = [
-            local_dir_by_date[date]
-            for date in active_date_keys
-        ]
-
-        # -----------------------------------------------
-        # Freeze every stored Record outside the newest-N
-        # snapshot window verbatim.
+        # Permanently preserve every stored record older
+        # than the rolling window. These dictionaries are
+        # copied verbatim from the existing YAML.
         # -----------------------------------------------
 
         frozen_records = {
             date: record
             for date, record
             in existing_records.items()
-            if date not in active_date_set
+            if (
+                parse_snapshot_date(date)
+                < rolling_start_calendar
+            )
         }
 
+        active_dirs = [
+            path
+            for path in date_dirs
+            if (
+                parse_snapshot_date(
+                    path.name
+                )
+                >= rolling_start_calendar
+            )
+        ]
+
         # -----------------------------------------------
-        # The exact immediately preceding known snapshot is
-        # the only valid anchor. If frozen history exists and
-        # that snapshot folder was deleted locally, abort.
+        # Safety check:
+        # Any already-recorded date inside the rolling
+        # window must still exist locally. Otherwise a
+        # later record could be silently recomputed against
+        # the wrong predecessor.
         # -----------------------------------------------
 
-        anchor_dir = (
-            local_dir_by_date.get(
-                anchor_date
+        local_dates = {
+            path.name
+            for path in date_dirs
+        }
+
+        required_recent_dates = sorted(
+            date
+            for date
+            in existing_records
+            if (
+                rolling_start_calendar
+                <= parse_snapshot_date(date)
+                <= latest_calendar_date
             )
-            if anchor_date is not None
+        )
+
+        missing_recent_dates = [
+            date
+            for date
+            in required_recent_dates
+            if date not in local_dates
+        ]
+
+        if missing_recent_dates:
+            missing_text = ", ".join(
+                missing_recent_dates
+            )
+            raise RuntimeError(
+                "A snapshot inside the 10-day rolling window "
+                "is missing locally. Refusing to recalculate, "
+                "because that could change later Records.\n"
+                f"Missing: {missing_text}\n"
+                "Restore those local snapshot folders first."
+            )
+
+        # -----------------------------------------------
+        # One older snapshot is used only as an anchor for
+        # the first recalculable date. It is scanned, but its
+        # stored Record is never changed.
+        # -----------------------------------------------
+
+        older_local_dirs = [
+            path
+            for path in date_dirs
+            if (
+                parse_snapshot_date(
+                    path.name
+                )
+                < rolling_start_calendar
+            )
+        ]
+
+        anchor_dir = (
+            older_local_dirs[-1]
+            if older_local_dirs
             else None
         )
 
         if (
-            anchor_date is not None
+            active_dirs
+            and frozen_records
             and anchor_dir is None
         ):
             raise RuntimeError(
-                "The snapshot immediately preceding the newest "
-                f"{ROLLING_SNAPSHOTS}-snapshot window is missing "
-                "locally.\n"
-                f"Required anchor: {anchor_date}\n"
-                "Keep that one predecessor snapshot folder so the "
-                "oldest active Record can be compared correctly."
+                "The frozen history exists, but no local anchor "
+                "snapshot remains before the rolling window.\n"
+                "Keep one snapshot immediately preceding the "
+                "recent 10-day window so the oldest active Record "
+                "can be compared correctly."
             )
 
         scan_dirs = []
@@ -1546,12 +1256,6 @@ def main():
         )
 
         print(
-            "Recalculate    : "
-            + ", ".join(
-                active_date_keys
-            )
-        )
-        print(
             f"Frozen records : {len(frozen_records)}"
         )
 
@@ -1564,17 +1268,13 @@ def main():
                 "Anchor snapshot: none"
             )
 
-        # An old local folder outside the mutable window that
-        # has no stored Record is not silently inserted into
-        # history. It may still be used as the exact anchor.
+        # An old local folder that is already outside the
+        # rolling window but has no stored record is not
+        # silently inserted into history.
         ignored_old_local = [
             path.name
-            for path in date_dirs
-            if (
-                path.name not in active_date_set
-                and path.name != anchor_date
-                and path.name not in existing_records
-            )
+            for path in older_local_dirs
+            if path.name not in existing_records
         ]
 
         if ignored_old_local:
@@ -1653,8 +1353,8 @@ def main():
             )
 
     else:
-        # Recalculate only the newest N snapshot folders.
-        # Frozen records remain untouched.
+        # Recalculate every local snapshot in the newest
+        # 10 calendar days. Frozen records remain untouched.
         for index, date_dir in enumerate(
             active_dirs
         ):
@@ -1808,23 +1508,15 @@ def main():
     )
 
     data = {
-        "tree_schema_version":
-            TREE_SCHEMA_VERSION,
         "latest_date":
             latest_date,
         "dates":
             all_record_dates,
         "history_policy": {
-            "rolling_snapshots":
-                ROLLING_SNAPSHOTS,
-            "active_dates":
-                active_date_keys,
-            "anchor_date":
-                (
-                    anchor_dir.name
-                    if anchor_dir is not None
-                    else None
-                ),
+            "rolling_days":
+                ROLLING_DAYS,
+            "rolling_start":
+                rolling_start,
         },
         "records":
             records,
@@ -1859,7 +1551,8 @@ def main():
 
         frozen = (
             not bootstrap
-            and date not in active_date_set
+            and parse_snapshot_date(date)
+            < rolling_start_calendar
         )
 
         print(
@@ -1901,16 +1594,7 @@ def main():
         f"{records[latest_date]['library_total_ink_percent']:.1f}%"
     )
     print(
-        "Mutable snapshots: "
-        + ", ".join(active_date_keys)
-    )
-    print(
-        "Anchor snapshot : "
-        + (
-            anchor_dir.name
-            if anchor_dir is not None
-            else "none"
-        )
+        f"Frozen before: {rolling_start}"
     )
     print(
         f"Generated: {OUTPUT}"
