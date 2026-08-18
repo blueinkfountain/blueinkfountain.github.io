@@ -4,6 +4,7 @@ from difflib import SequenceMatcher
 from urllib.parse import quote
 from datetime import datetime
 import hashlib
+import math
 import re
 import shutil
 
@@ -52,10 +53,15 @@ TEMPLATE_ALIGNMENT_SHIFT = 4
 TEMPLATE_ALIGNMENT_SAMPLE_STEP = 4
 TEMPLATE_ALIGNMENT_DIFF_CLIP = 40
 
-# Old/new PDF exports can move the rendered page by a few pixels even when
-# the handwriting itself did not change.  Use a wider search for page-to-page
-# registration, but keep the actual added-ink tolerance comparatively small.
+# Old/new PDF exports can move or very slightly rescale a rendered page even
+# when the handwriting itself did not change.  Registration therefore uses a
+# cheap coarse search over a much wider translation window plus a few nearby
+# uniform scales, then refines only around the best candidate at full size.
 MAX_ALIGNMENT_SHIFT = 8
+GLOBAL_ALIGNMENT_MAX_SHIFT = 48
+GLOBAL_ALIGNMENT_COARSE_FACTOR = 6
+GLOBAL_ALIGNMENT_REFINE_RADIUS = 5
+GLOBAL_ALIGNMENT_SCALES = (0.97, 0.985, 1.0, 1.015, 1.03)
 OLD_INK_TOLERANCE_RADIUS = 2
 
 # A PDF app may silently re-export a note and slightly change anti-aliasing,
@@ -68,6 +74,16 @@ REEXPORT_STRONG_COVERAGE = 0.995
 REEXPORT_NORMAL_COVERAGE = 0.985
 REEXPORT_STRONG_MAX_INK_DELTA = 0.08
 REEXPORT_NORMAL_MAX_INK_DELTA = 0.02
+
+# Fallback for pathological re-exports where almost the whole page appears to
+# move at once.  Genuine additions are directional (new ink without a matching
+# amount of vanished old ink); a re-export usually creates large *balanced*
+# apparent added/removed ink while the coarse page structure and total ink stay
+# nearly unchanged.
+REEXPORT_BALANCED_COARSE_SIMILARITY = 0.90
+REEXPORT_BALANCED_MIN_CHURN = 0.10
+REEXPORT_BALANCED_MIN_SYMMETRY = 0.72
+REEXPORT_BALANCED_MAX_INK_DELTA = 0.08
 
 RENAME_SIMILARITY_THRESHOLD = 0.80
 
@@ -582,47 +598,246 @@ def shift_mask(mask, dx, dy):
     return shifted
 
 
+def scale_mask_centered(mask, scale, target_shape=None):
+    """Uniformly scale a binary mask around the page center."""
+    if target_shape is None:
+        target_shape = mask.shape
+
+    target_h, target_w = target_shape
+    source_h, source_w = mask.shape
+
+    scaled_h = max(1, int(round(source_h * scale)))
+    scaled_w = max(1, int(round(source_w * scale)))
+
+    scaled = resize_nearest(
+        mask,
+        (scaled_h, scaled_w),
+    ).astype(bool)
+
+    result = np.zeros(
+        (target_h, target_w),
+        dtype=bool,
+    )
+
+    src_y1 = max(0, (scaled_h - target_h) // 2)
+    src_x1 = max(0, (scaled_w - target_w) // 2)
+    dst_y1 = max(0, (target_h - scaled_h) // 2)
+    dst_x1 = max(0, (target_w - scaled_w) // 2)
+
+    copy_h = min(
+        scaled_h - src_y1,
+        target_h - dst_y1,
+    )
+    copy_w = min(
+        scaled_w - src_x1,
+        target_w - dst_x1,
+    )
+
+    if copy_h > 0 and copy_w > 0:
+        result[
+            dst_y1:dst_y1 + copy_h,
+            dst_x1:dst_x1 + copy_w,
+        ] = scaled[
+            src_y1:src_y1 + copy_h,
+            src_x1:src_x1 + copy_w,
+        ]
+
+    return result
+
+
+def downsample_mask_any(mask, factor):
+    """Block-reduce a binary mask while preserving thin handwriting strokes."""
+    if factor <= 1:
+        return mask.astype(bool)
+
+    height, width = mask.shape
+    padded_h = ((height + factor - 1) // factor) * factor
+    padded_w = ((width + factor - 1) // factor) * factor
+
+    padded = np.zeros(
+        (padded_h, padded_w),
+        dtype=bool,
+    )
+    padded[:height, :width] = mask
+
+    return padded.reshape(
+        padded_h // factor,
+        factor,
+        padded_w // factor,
+        factor,
+    ).any(axis=(1, 3))
+
+
+def shifted_overlap_score(old_mask, new_mask, dx, dy):
+    """Dice-style overlap score for a translation, without allocating a shift."""
+    height, width = new_mask.shape
+
+    src_x1 = max(0, -dx)
+    src_x2 = min(width, width - dx)
+    src_y1 = max(0, -dy)
+    src_y2 = min(height, height - dy)
+
+    dst_x1 = max(0, dx)
+    dst_x2 = min(width, width + dx)
+    dst_y1 = max(0, dy)
+    dst_y2 = min(height, height + dy)
+
+    if src_x1 >= src_x2 or src_y1 >= src_y2:
+        return 0.0
+
+    old_view = old_mask[
+        src_y1:src_y2,
+        src_x1:src_x2,
+    ]
+    new_view = new_mask[
+        dst_y1:dst_y2,
+        dst_x1:dst_x2,
+    ]
+
+    old_count = int(np.count_nonzero(old_view))
+    new_count = int(np.count_nonzero(new_view))
+
+    if old_count == 0 and new_count == 0:
+        return 1.0
+    if old_count == 0 or new_count == 0:
+        return 0.0
+
+    overlap = int(
+        np.count_nonzero(old_view & new_view)
+    )
+
+    return (
+        2.0 * overlap
+        / (old_count + new_count)
+    )
+
+
 def align_old_mask(old_mask, new_mask):
+    """
+    Register old handwriting to new handwriting.
+
+    The earlier implementation searched only +/-8 full-resolution pixels.
+    Some PDF re-exports move the entire ink layer farther than that, or change
+    its scale by about one or two percent.  Such a change makes almost every
+    old stroke look simultaneously removed and re-added.
+
+    This version first searches cheaply on a block-reduced mask over a much
+    wider translation window and several tiny uniform scales, then performs a
+    small full-resolution refinement around the best result.
+    """
     old_mask = resize_nearest(
         old_mask,
         new_mask.shape,
+    ).astype(bool)
+    new_mask = new_mask.astype(bool)
+
+    if (
+        np.count_nonzero(old_mask) == 0
+        or np.count_nonzero(new_mask) == 0
+    ):
+        return old_mask
+
+    factor = GLOBAL_ALIGNMENT_COARSE_FACTOR
+    coarse_new = downsample_mask_any(
+        new_mask,
+        factor,
     )
 
-    best = old_mask
-    best_overlap = int(
-        np.count_nonzero(
-            old_mask & new_mask
-        )
+    coarse_limit = max(
+        1,
+        int(math.ceil(
+            GLOBAL_ALIGNMENT_MAX_SHIFT / factor
+        )),
     )
+
+    best_score = -1.0
+    best_scale = 1.0
+    best_coarse_dx = 0
+    best_coarse_dy = 0
+
+    for scale in GLOBAL_ALIGNMENT_SCALES:
+        scaled_old = scale_mask_centered(
+            old_mask,
+            scale,
+            new_mask.shape,
+        )
+        coarse_old = downsample_mask_any(
+            scaled_old,
+            factor,
+        )
+
+        for coarse_dy in range(
+            -coarse_limit,
+            coarse_limit + 1,
+        ):
+            for coarse_dx in range(
+                -coarse_limit,
+                coarse_limit + 1,
+            ):
+                score = shifted_overlap_score(
+                    coarse_old,
+                    coarse_new,
+                    coarse_dx,
+                    coarse_dy,
+                )
+
+                if score > best_score:
+                    best_score = score
+                    best_scale = scale
+                    best_coarse_dx = coarse_dx
+                    best_coarse_dy = coarse_dy
+
+    scaled_old = scale_mask_centered(
+        old_mask,
+        best_scale,
+        new_mask.shape,
+    )
+
+    base_dx = best_coarse_dx * factor
+    base_dy = best_coarse_dy * factor
+
+    best_dx = base_dx
+    best_dy = base_dy
+    best_score = shifted_overlap_score(
+        scaled_old,
+        new_mask,
+        best_dx,
+        best_dy,
+    )
+
+    refine = GLOBAL_ALIGNMENT_REFINE_RADIUS
 
     for dy in range(
-        -MAX_ALIGNMENT_SHIFT,
-        MAX_ALIGNMENT_SHIFT + 1,
+        base_dy - refine,
+        base_dy + refine + 1,
     ):
+        if abs(dy) > GLOBAL_ALIGNMENT_MAX_SHIFT:
+            continue
+
         for dx in range(
-            -MAX_ALIGNMENT_SHIFT,
-            MAX_ALIGNMENT_SHIFT + 1,
+            base_dx - refine,
+            base_dx + refine + 1,
         ):
-            if dx == 0 and dy == 0:
+            if abs(dx) > GLOBAL_ALIGNMENT_MAX_SHIFT:
                 continue
 
-            candidate = shift_mask(
-                old_mask,
+            score = shifted_overlap_score(
+                scaled_old,
+                new_mask,
                 dx,
                 dy,
             )
 
-            overlap = int(
-                np.count_nonzero(
-                    candidate & new_mask
-                )
-            )
+            if score > best_score:
+                best_score = score
+                best_dx = dx
+                best_dy = dy
 
-            if overlap > best_overlap:
-                best_overlap = overlap
-                best = candidate
-
-    return best
+    return shift_mask(
+        scaled_old,
+        best_dx,
+        best_dy,
+    )
 
 
 def dilate_mask(mask, radius):
@@ -712,9 +927,71 @@ def masks_are_render_equivalent(old_mask, new_mask):
     ):
         return True
 
-    return (
+    if (
         mutual_coverage >= REEXPORT_NORMAL_COVERAGE
         and ink_delta_ratio <= REEXPORT_NORMAL_MAX_INK_DELTA
+    ):
+        return True
+
+    # Pathological re-export fallback.
+    #
+    # If a raster/export transform moves many old pixels and creates nearly the
+    # same amount of apparently new pixels, the change is symmetric.  Real
+    # note-taking is usually directional: added ink has no matching amount of
+    # vanished ink.  Requiring both balanced churn and high coarse structural
+    # similarity keeps small genuine additions visible while suppressing the
+    # "whole page rewritten" false positive.
+    narrow_old = dilate_mask(
+        old_mask,
+        OLD_INK_TOLERANCE_RADIUS,
+    )
+    narrow_new = dilate_mask(
+        new_mask,
+        OLD_INK_TOLERANCE_RADIUS,
+    )
+
+    apparent_added = int(
+        np.count_nonzero(
+            new_mask & ~narrow_old
+        )
+    )
+    apparent_removed = int(
+        np.count_nonzero(
+            old_mask & ~narrow_new
+        )
+    )
+
+    churn_max = max(
+        apparent_added,
+        apparent_removed,
+    )
+
+    if churn_max <= 0:
+        return True
+
+    churn_ratio = (
+        apparent_added + apparent_removed
+    ) / max(old_count, new_count)
+
+    churn_symmetry = (
+        min(apparent_added, apparent_removed)
+        / churn_max
+    )
+
+    coarse_similarity = page_signature_similarity(
+        page_signature(old_mask),
+        page_signature(new_mask),
+    )
+
+    return (
+        coarse_similarity
+        >= REEXPORT_BALANCED_COARSE_SIMILARITY
+        and churn_ratio
+        >= REEXPORT_BALANCED_MIN_CHURN
+        and churn_symmetry
+        >= REEXPORT_BALANCED_MIN_SYMMETRY
+        and ink_delta_ratio
+        <= REEXPORT_BALANCED_MAX_INK_DELTA
     )
 
 
