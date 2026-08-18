@@ -3839,10 +3839,10 @@ records:
     - Notebook 5
   '260818':
     baseline: false
-    total_ink_percent: 2055.1
+    total_ink_percent: 780.5
     library_total_ink_percent: 29486.9
     subject_ink_percent:
-      Algebra: 1824.6
+      Algebra: 549.9
       Analysis: 113.2
       Others: 97.0
       Topology: 20.3
@@ -3852,8 +3852,6 @@ records:
       Algebra/1. Linear Algebra/3. Further topics: 133.5
       Algebra/2. Group Theory: 40.3
       Algebra/3. Finite Group Theory: 60.7
-      Algebra/4. Ring Theory: 827.9
-      Algebra/5. Polynomial Ring Theory: 446.7
       Algebra/6. Field Theory: 182.1
       Algebra/7. Galois Theory: 72.9
       Analysis/2. Complex Analysis: 113.2
@@ -3867,10 +3865,6 @@ records:
       Algebra/2. Group Theory/Conjugation.pdf: 40.3
       Algebra/3. Finite Group Theory/Symmetric Group.pdf: 39.6
       Algebra/3. Finite Group Theory/Typical Finite groups.pdf: 21.0
-      Algebra/4. Ring Theory/Domains (2).pdf: 805.5
-      Algebra/4. Ring Theory/Domains.pdf: 22.4
-      Algebra/5. Polynomial Ring Theory/Polynomial Ring (2).pdf: 373.0
-      Algebra/5. Polynomial Ring Theory/Polynomial Ring.pdf: 73.7
       Algebra/6. Field Theory/Finite field (2).pdf: 113.0
       Algebra/6. Field Theory/Finite field.pdf: 69.1
       Algebra/7. Galois Theory/Typical Galois extensions.pdf: 72.9
@@ -3882,7 +3876,7 @@ records:
       Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 11.1
     subjects:
     - name: Algebra
-      ink_added_percent: 1824.6
+      ink_added_percent: 549.9
       files: []
       folders:
       - name: 1. Linear Algebra
@@ -4116,7 +4110,7 @@ records:
       - name: 4. Ring Theory
         label: 4. Ring Theory
         raw_path: Algebra/4. Ring Theory
-        ink_added_percent: 827.9
+        ink_added_percent: 0.0
         files:
         - name: Basic ideal
           raw_path: Algebra/4. Ring Theory/Basic ideal.pdf
@@ -4130,13 +4124,13 @@ records:
           raw_path: Algebra/4. Ring Theory/Dedekind-Hasse norm.pdf
           ink_added_percent: 0.0
           url: /untexed-current/Algebra/4.%20Ring%20Theory/Dedekind-Hasse%20norm.pdf
-        - name: Domains
-          raw_path: Algebra/4. Ring Theory/Domains.pdf
-          ink_added_percent: 22.4
-          url: /untexed-current/Algebra/4.%20Ring%20Theory/Domains.pdf
+        - name: 'Domains '
+          raw_path: Algebra/4. Ring Theory/Domains .pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Algebra/4.%20Ring%20Theory/Domains%20.pdf
         - name: Domains (2)
           raw_path: Algebra/4. Ring Theory/Domains (2).pdf
-          ink_added_percent: 805.5
+          ink_added_percent: 0.0
           url: /untexed-current/Algebra/4.%20Ring%20Theory/Domains%20%282%29.pdf
         - name: Eisenstein Criterion
           raw_path: Algebra/4. Ring Theory/Eisenstein Criterion.pdf
@@ -4174,15 +4168,15 @@ records:
       - name: 5. Polynomial Ring Theory
         label: 5. Polynomial Ring Theory
         raw_path: Algebra/5. Polynomial Ring Theory
-        ink_added_percent: 446.7
+        ink_added_percent: 0.0
         files:
         - name: Polynomial Ring
           raw_path: Algebra/5. Polynomial Ring Theory/Polynomial Ring.pdf
-          ink_added_percent: 73.7
+          ink_added_percent: 0.0
           url: /untexed-current/Algebra/5.%20Polynomial%20Ring%20Theory/Polynomial%20Ring.pdf
         - name: Polynomial Ring (2)
           raw_path: Algebra/5. Polynomial Ring Theory/Polynomial Ring (2).pdf
-          ink_added_percent: 373.0
+          ink_added_percent: 0.0
           url: /untexed-current/Algebra/5.%20Polynomial%20Ring%20Theory/Polynomial%20Ring%20%282%29.pdf
         - name: Typical Polynomials
           raw_path: Algebra/5. Polynomial Ring Theory/Typical Polynomials.pdf
@@ -4795,14 +4789,6 @@ records:
       ink_added_percent: 133.5
     - path: Algebra/Finite Group Theory/Symmetric Group
       ink_added_percent: 39.6
-    - path: Algebra/Ring Theory/Domains (2)
-      ink_added_percent: 805.5
-    - path: Algebra/Ring Theory/Domains
-      ink_added_percent: 22.4
-    - path: Algebra/Polynomial Ring Theory/Polynomial Ring (2)
-      ink_added_percent: 373.0
-    - path: Algebra/Polynomial Ring Theory/Polynomial Ring
-      ink_added_percent: 73.7
     - path: Algebra/Field Theory/Finite field (2)
       ink_added_percent: 113.0
     - path: Algebra/Field Theory/Finite field
@@ -4819,5 +4805,8 @@ records:
       ink_added_percent: 9.2
     - path: Topology/Algebraic Topology/Typical Quotient Spaces
       ink_added_percent: 11.1
-    moved_renamed: []
+    moved_renamed:
+    - from: Algebra/Ring Theory/Domains
+      to: 'Algebra/Ring Theory/Domains '
+      ink_added_percent: 0.0
     deleted: []
