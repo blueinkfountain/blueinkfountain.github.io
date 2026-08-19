@@ -4630,19 +4630,31 @@ records:
     deleted: []
   '260819':
     baseline: false
-    total_ink_percent: 173.7
-    library_total_ink_percent: 29651.8
+    total_ink_percent: 680.3
+    library_total_ink_percent: 30155.2
     subject_ink_percent:
-      Algebra: 96.7
-      Others: 77.0
+      Algebra: 377.6
+      Analysis: 57.6
+      Others: 240.9
+      Topology: 4.2
     folder_ink_percent:
+      Algebra/3. Finite Group Theory: 105.9
       Algebra/4. Ring Theory: 96.7
+      Algebra/7. Galois Theory: 175.0
+      Analysis/2. Complex Analysis: 57.6
+      Analysis/2. Complex Analysis/4. Conformal mapping: 57.6
+      Topology/1. General Topology: 4.2
     file_ink_percent:
+      Algebra/3. Finite Group Theory/Symmetric Group.pdf: 26.8
+      Algebra/3. Finite Group Theory/Typical Finite groups.pdf: 79.1
       Algebra/4. Ring Theory/Chinese reminder theorem.pdf: 96.7
-      SNU solution.pdf: 77.0
+      Algebra/7. Galois Theory/Typical Galois extensions.pdf: 175.0
+      Analysis/2. Complex Analysis/4. Conformal mapping/Linear fractional transformation.pdf: 57.6
+      SNU solution.pdf: 240.9
+      Topology/1. General Topology/Topological Group.pdf: 4.2
     subjects:
     - name: Algebra
-      ink_added_percent: 96.7
+      ink_added_percent: 377.6
       files: []
       folders:
       - name: 1. Linear Algebra
@@ -4822,7 +4834,7 @@ records:
       - name: 3. Finite Group Theory
         label: 3. Finite Group Theory
         raw_path: Algebra/3. Finite Group Theory
-        ink_added_percent: 0.0
+        ink_added_percent: 105.9
         files:
         - name: Alternating Group
           raw_path: Algebra/3. Finite Group Theory/Alternating Group.pdf
@@ -4866,11 +4878,11 @@ records:
           url: /untexed-current/Algebra/3.%20Finite%20Group%20Theory/Sylow%20Theorem.pdf
         - name: Symmetric Group
           raw_path: Algebra/3. Finite Group Theory/Symmetric Group.pdf
-          ink_added_percent: 0.0
+          ink_added_percent: 26.8
           url: /untexed-current/Algebra/3.%20Finite%20Group%20Theory/Symmetric%20Group.pdf
         - name: Typical Finite groups
           raw_path: Algebra/3. Finite Group Theory/Typical Finite groups.pdf
-          ink_added_percent: 0.0
+          ink_added_percent: 79.1
           url: /untexed-current/Algebra/3.%20Finite%20Group%20Theory/Typical%20Finite%20groups.pdf
         folders: []
       - name: 4. Ring Theory
@@ -5014,7 +5026,7 @@ records:
       - name: 7. Galois Theory
         label: 7. Galois Theory
         raw_path: Algebra/7. Galois Theory
-        ink_added_percent: 0.0
+        ink_added_percent: 175.0
         files:
         - name: Galois Theorem
           raw_path: Algebra/7. Galois Theory/Galois Theorem.pdf
@@ -5026,11 +5038,11 @@ records:
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Norm%20and%20Trace%20of%20Galois.pdf
         - name: Typical Galois extensions
           raw_path: Algebra/7. Galois Theory/Typical Galois extensions.pdf
-          ink_added_percent: 0.0
+          ink_added_percent: 175.0
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Typical%20Galois%20extensions.pdf
         folders: []
     - name: Analysis
-      ink_added_percent: 0.0
+      ink_added_percent: 57.6
       files: []
       folders:
       - name: 1. Real Analysis
@@ -5204,7 +5216,7 @@ records:
       - name: 2. Complex Analysis
         label: 2. Complex Analysis
         raw_path: Analysis/2. Complex Analysis
-        ink_added_percent: 0.0
+        ink_added_percent: 57.6
         files:
         - name: Complex Analysis
           raw_path: Analysis/2. Complex Analysis/Complex Analysis.pdf
@@ -5302,7 +5314,7 @@ records:
         - name: 4. Conformal mapping
           label: 4. Conformal mapping
           raw_path: Analysis/2. Complex Analysis/4. Conformal mapping
-          ink_added_percent: 0.0
+          ink_added_percent: 57.6
           files:
           - name: Conformal mapping
             raw_path: Analysis/2. Complex Analysis/4. Conformal mapping/Conformal mapping.pdf
@@ -5310,7 +5322,7 @@ records:
             url: /untexed-current/Analysis/2.%20Complex%20Analysis/4.%20Conformal%20mapping/Conformal%20mapping.pdf
           - name: Linear fractional transformation
             raw_path: Analysis/2. Complex Analysis/4. Conformal mapping/Linear fractional transformation.pdf
-            ink_added_percent: 0.0
+            ink_added_percent: 57.6
             url: /untexed-current/Analysis/2.%20Complex%20Analysis/4.%20Conformal%20mapping/Linear%20fractional%20transformation.pdf
           folders: []
       - name: 3. Analysis on Manifold
@@ -5394,13 +5406,13 @@ records:
           url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Surface.pdf
         folders: []
     - name: Topology
-      ink_added_percent: 0.0
+      ink_added_percent: 4.2
       files: []
       folders:
       - name: 1. General Topology
         label: 1. General Topology
         raw_path: Topology/1. General Topology
-        ink_added_percent: 0.0
+        ink_added_percent: 4.2
         files:
         - name: Compact Hausdorff Space
           raw_path: Topology/1. General Topology/Compact Hausdorff Space.pdf
@@ -5456,7 +5468,7 @@ records:
           url: /untexed-current/Topology/1.%20General%20Topology/Topological%20basis.pdf
         - name: Topological Group
           raw_path: Topology/1. General Topology/Topological Group.pdf
-          ink_added_percent: 0.0
+          ink_added_percent: 4.2
           url: /untexed-current/Topology/1.%20General%20Topology/Topological%20Group.pdf
         - name: Topological map
           raw_path: Topology/1. General Topology/Topological map.pdf
@@ -5528,11 +5540,11 @@ records:
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Typical%20Quotient%20Spaces.pdf
         folders: []
     - name: Others
-      ink_added_percent: 77.0
+      ink_added_percent: 240.9
       files:
       - name: SNU solution
         raw_path: SNU solution.pdf
-        ink_added_percent: 77.0
+        ink_added_percent: 240.9
         url: /untexed-current/SNU%20solution.pdf
       - name: Tree of Subjects
         raw_path: Tree of Subjects.pdf
@@ -5541,9 +5553,19 @@ records:
       folders: []
     added: []
     modified:
+    - path: SNU solution
+      ink_added_percent: 240.9
+    - path: Algebra/Galois Theory/Typical Galois extensions
+      ink_added_percent: 175.0
     - path: Algebra/Ring Theory/Chinese reminder theorem
       ink_added_percent: 96.7
-    - path: SNU solution
-      ink_added_percent: 77.0
+    - path: Algebra/Finite Group Theory/Typical Finite groups
+      ink_added_percent: 79.1
+    - path: Analysis/Complex Analysis/Conformal mapping/Linear fractional transformation
+      ink_added_percent: 57.6
+    - path: Algebra/Finite Group Theory/Symmetric Group
+      ink_added_percent: 26.8
+    - path: Topology/General Topology/Topological Group
+      ink_added_percent: 4.2
     moved_renamed: []
     deleted: []
