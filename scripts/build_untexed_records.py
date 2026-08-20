@@ -411,18 +411,222 @@ def shift_mask(mask, dx, dy):
     return shifted
 
 
+def place_mask_on_canvas(mask, target_shape, dx=0, dy=0):
+    """
+    Place ``mask`` on a new boolean canvas without stretching it.
+
+    ``dx`` and ``dy`` are the source mask's top-left offsets inside the
+    target canvas. Negative offsets are allowed, so this also handles a
+    page that became shorter by cropping from the top/left.
+    """
+    target_h, target_w = target_shape
+    source_h, source_w = mask.shape
+
+    placed = np.zeros(
+        (target_h, target_w),
+        dtype=bool,
+    )
+
+    src_x1 = max(0, -dx)
+    src_x2 = min(source_w, target_w - dx)
+    src_y1 = max(0, -dy)
+    src_y2 = min(source_h, target_h - dy)
+
+    if (
+        src_x1 >= src_x2
+        or src_y1 >= src_y2
+    ):
+        return placed
+
+    dst_x1 = src_x1 + dx
+    dst_x2 = src_x2 + dx
+    dst_y1 = src_y1 + dy
+    dst_y2 = src_y2 + dy
+
+    placed[
+        dst_y1:dst_y2,
+        dst_x1:dst_x2,
+    ] = mask[
+        src_y1:src_y2,
+        src_x1:src_x2,
+    ]
+
+    return placed
+
+
+def mask_overlap_at_offset(
+    old_mask,
+    new_mask,
+    dx=0,
+    dy=0,
+):
+    """
+    Count overlapping ink pixels without allocating a full shifted canvas.
+    """
+    new_h, new_w = new_mask.shape
+    old_h, old_w = old_mask.shape
+
+    old_x1 = max(0, -dx)
+    old_x2 = min(old_w, new_w - dx)
+    old_y1 = max(0, -dy)
+    old_y2 = min(old_h, new_h - dy)
+
+    if (
+        old_x1 >= old_x2
+        or old_y1 >= old_y2
+    ):
+        return 0
+
+    new_x1 = old_x1 + dx
+    new_x2 = old_x2 + dx
+    new_y1 = old_y1 + dy
+    new_y2 = old_y2 + dy
+
+    return int(
+        np.count_nonzero(
+            old_mask[
+                old_y1:old_y2,
+                old_x1:old_x2,
+            ]
+            &
+            new_mask[
+                new_y1:new_y2,
+                new_x1:new_x2,
+            ]
+        )
+    )
+
+
+def resize_mask_to_width(mask, target_width):
+    """
+    Match page width while preserving the old page's aspect ratio.
+
+    For vertically extensible note pages, a changed page height usually means
+    that blank canvas was added above/below; it should not stretch the old
+    handwriting vertically.
+    """
+    source_h, source_w = mask.shape
+
+    if source_w == target_width:
+        return mask
+
+    scale = target_width / source_w
+    target_h = max(
+        1,
+        int(round(source_h * scale)),
+    )
+
+    return resize_nearest(
+        mask,
+        (target_h, target_width),
+    )
+
+
+def likely_vertical_offsets(old_mask, new_mask, limit=5):
+    """
+    Find likely vertical placements for a height-changed page.
+
+    The search uses 1-D row ink profiles, which is much cheaper than trying
+    every possible full-size 2-D shift. The best few offsets are refined later
+    with the ordinary small-pixel alignment search.
+    """
+    old_h = old_mask.shape[0]
+    new_h = new_mask.shape[0]
+
+    if old_h == new_h:
+        return [0]
+
+    old_profile = np.count_nonzero(
+        old_mask,
+        axis=1,
+    ).astype(np.float32)
+
+    new_profile = np.count_nonzero(
+        new_mask,
+        axis=1,
+    ).astype(np.float32)
+
+    if (
+        not np.any(old_profile)
+        or not np.any(new_profile)
+    ):
+        if old_h <= new_h:
+            return [0, new_h - old_h]
+        return [0, -(old_h - new_h)]
+
+    if old_h <= new_h:
+        # Every valid result corresponds to placing the full old page inside
+        # the taller new canvas at dy = index.
+        scores = np.correlate(
+            new_profile,
+            old_profile,
+            mode="valid",
+        )
+        offset_from_index = lambda index: int(index)
+        edge_offsets = [0, new_h - old_h]
+
+    else:
+        # The new page is shorter. Match it against a vertical crop of the old
+        # page; crop_start = index corresponds to dy = -index.
+        scores = np.correlate(
+            old_profile,
+            new_profile,
+            mode="valid",
+        )
+        offset_from_index = lambda index: -int(index)
+        edge_offsets = [0, -(old_h - new_h)]
+
+    if scores.size <= limit:
+        best_indices = np.argsort(scores)[::-1]
+    else:
+        best_indices = np.argpartition(
+            scores,
+            -limit,
+        )[-limit:]
+        best_indices = best_indices[
+            np.argsort(
+                scores[best_indices]
+            )[::-1]
+        ]
+
+    offsets = [
+        offset_from_index(index)
+        for index in best_indices
+    ]
+
+    # Bottom-only extension/crop and top-only extension/crop are common enough
+    # to always keep as explicit candidates.
+    offsets.extend(edge_offsets)
+
+    return list(dict.fromkeys(offsets))
+
+
 def align_old_mask(old_mask, new_mask):
-    old_mask = resize_nearest(
+    """
+    Align old handwriting to the new page.
+
+    Two hypotheses are tested:
+
+    1. Legacy whole-page resize:
+       useful when the PDF really changed scale.
+
+    2. Vertical canvas extension/crop:
+       match width only, preserve the old handwriting scale, and search for
+       where the old page sits inside the taller/shorter new canvas.
+
+    Whichever hypothesis produces the largest real ink overlap is used.
+    """
+
+    # -----------------------------------------------------
+    # Hypothesis 1: legacy whole-page resize + tiny translation
+    # -----------------------------------------------------
+    resized_old = resize_nearest(
         old_mask,
         new_mask.shape,
     )
 
-    best = old_mask
-    best_overlap = int(
-        np.count_nonzero(
-            old_mask & new_mask
-        )
-    )
+    best = resized_old
+    best_overlap = -1
 
     for dy in range(
         -MAX_ALIGNMENT_SHIFT,
@@ -432,24 +636,61 @@ def align_old_mask(old_mask, new_mask):
             -MAX_ALIGNMENT_SHIFT,
             MAX_ALIGNMENT_SHIFT + 1,
         ):
-            if dx == 0 and dy == 0:
-                continue
-
-            candidate = shift_mask(
-                old_mask,
+            overlap = mask_overlap_at_offset(
+                resized_old,
+                new_mask,
                 dx,
                 dy,
             )
 
-            overlap = int(
-                np.count_nonzero(
-                    candidate & new_mask
-                )
-            )
-
             if overlap > best_overlap:
                 best_overlap = overlap
-                best = candidate
+                best = place_mask_on_canvas(
+                    resized_old,
+                    new_mask.shape,
+                    dx,
+                    dy,
+                )
+
+    # -----------------------------------------------------
+    # Hypothesis 2: vertically extensible canvas
+    # -----------------------------------------------------
+    width_matched_old = resize_mask_to_width(
+        old_mask,
+        new_mask.shape[1],
+    )
+
+    base_offsets = likely_vertical_offsets(
+        width_matched_old,
+        new_mask,
+    )
+
+    for base_dy in base_offsets:
+        for local_dy in range(
+            -MAX_ALIGNMENT_SHIFT,
+            MAX_ALIGNMENT_SHIFT + 1,
+        ):
+            dy = base_dy + local_dy
+
+            for dx in range(
+                -MAX_ALIGNMENT_SHIFT,
+                MAX_ALIGNMENT_SHIFT + 1,
+            ):
+                overlap = mask_overlap_at_offset(
+                    width_matched_old,
+                    new_mask,
+                    dx,
+                    dy,
+                )
+
+                if overlap > best_overlap:
+                    best_overlap = overlap
+                    best = place_mask_on_canvas(
+                        width_matched_old,
+                        new_mask.shape,
+                        dx,
+                        dy,
+                    )
 
     return best
 
