@@ -6155,25 +6155,25 @@ records:
     deleted: []
   '260821':
     baseline: false
-    total_ink_percent: 207.5
-    library_total_ink_percent: 30867.0
+    total_ink_percent: 350.8
+    library_total_ink_percent: 31010.3
     subject_ink_percent:
-      Algebra: 163.9
-      Others: 43.6
+      Algebra: 266.3
+      Others: 84.5
     folder_ink_percent:
       Algebra/1. Linear Algebra: 15.3
       Algebra/1. Linear Algebra/1. Vector space Theory: 15.3
-      Algebra/3. Finite Group Theory: 148.6
+      Algebra/3. Finite Group Theory: 251.0
     file_ink_percent:
       Algebra/1. Linear Algebra/1. Vector space Theory/Cyclic subspace.pdf: 15.3
-      Algebra/3. Finite Group Theory/Group Action.pdf: 6.7
+      Algebra/3. Finite Group Theory/Group Action.pdf: 109.1
       Algebra/3. Finite Group Theory/Group of order pq.pdf: 46.8
       Algebra/3. Finite Group Theory/Quaternion group.pdf: 3.3
       Algebra/3. Finite Group Theory/Sylow Theorem.pdf: 91.9
-      SNU solution.pdf: 43.6
+      SNU solution.pdf: 84.5
     subjects:
     - name: Algebra
-      ink_added_percent: 163.9
+      ink_added_percent: 266.3
       files: []
       folders:
       - name: 1. Linear Algebra
@@ -6353,7 +6353,7 @@ records:
       - name: 3. Finite Group Theory
         label: 3. Finite Group Theory
         raw_path: Algebra/3. Finite Group Theory
-        ink_added_percent: 148.6
+        ink_added_percent: 251.0
         files:
         - name: Alternating Group
           raw_path: Algebra/3. Finite Group Theory/Alternating Group.pdf
@@ -6377,7 +6377,7 @@ records:
           url: /untexed-current/Algebra/3.%20Finite%20Group%20Theory/Division%20Algorithm.pdf
         - name: Group Action
           raw_path: Algebra/3. Finite Group Theory/Group Action.pdf
-          ink_added_percent: 6.7
+          ink_added_percent: 109.1
           url: /untexed-current/Algebra/3.%20Finite%20Group%20Theory/Group%20Action.pdf
         - name: Group of order pq
           raw_path: Algebra/3. Finite Group Theory/Group of order pq.pdf
@@ -7079,11 +7079,11 @@ records:
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Typical%20Quotient%20Spaces.pdf
         folders: []
     - name: Others
-      ink_added_percent: 43.6
+      ink_added_percent: 84.5
       files:
       - name: SNU solution
         raw_path: SNU solution.pdf
-        ink_added_percent: 43.6
+        ink_added_percent: 84.5
         url: /untexed-current/SNU%20solution.pdf
       - name: Tree of Subjects
         raw_path: Tree of Subjects.pdf
@@ -7096,13 +7096,13 @@ records:
     - path: Algebra/Finite Group Theory/Quaternion group
       ink_added_percent: 3.3
     modified:
+    - path: Algebra/Finite Group Theory/Group Action
+      ink_added_percent: 109.1
     - path: Algebra/Finite Group Theory/Sylow Theorem
       ink_added_percent: 91.9
     - path: SNU solution
-      ink_added_percent: 43.6
+      ink_added_percent: 84.5
     - path: Algebra/Linear Algebra/Vector space Theory/Cyclic subspace
       ink_added_percent: 15.3
-    - path: Algebra/Finite Group Theory/Group Action
-      ink_added_percent: 6.7
     moved_renamed: []
     deleted: []
