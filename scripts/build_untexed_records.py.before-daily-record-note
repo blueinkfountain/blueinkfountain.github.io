@@ -3,7 +3,6 @@ from collections import defaultdict
 from urllib.parse import quote
 from datetime import datetime
 import hashlib
-import os
 import re
 import shutil
 
@@ -2062,54 +2061,6 @@ def main():
                     previous,
                     current,
                 )
-            )
-
-    # =====================================================
-    # Daily Record note
-    # =====================================================
-    #
-    # update-notes.sh passes the text typed in the update! prompt through
-    # DAILY_RECORD_NOTE.  Because the newest records are recalculated inside
-    # the rolling window, notes already stored in YAML must be copied back
-    # into recalculated records before saving.
-    #
-    # Empty input = keep the existing note.
-    # /clear      = remove the latest note.
-    # =====================================================
-
-    for date, record in records.items():
-        stored_record = existing_records.get(date) or {}
-        stored_note = str(
-            stored_record.get("note", "") or ""
-        ).strip()
-
-        if stored_note:
-            record["note"] = stored_note
-
-    daily_record_note = os.environ.get(
-        "DAILY_RECORD_NOTE"
-    )
-
-    if daily_record_note is not None:
-        daily_record_note = daily_record_note.strip()
-
-        if daily_record_note == "/clear":
-            records[latest_date]["note"] = ""
-
-        elif daily_record_note:
-            records[latest_date]["note"] = daily_record_note
-
-        else:
-            # Pressing Enter should never erase an existing note.
-            records[latest_date].setdefault(
-                "note",
-                str(
-                    (
-                        existing_records.get(latest_date)
-                        or {}
-                    ).get("note", "")
-                    or ""
-                ).strip(),
             )
 
     # =====================================================
