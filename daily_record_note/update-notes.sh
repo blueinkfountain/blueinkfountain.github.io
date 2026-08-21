@@ -23,7 +23,7 @@ if command -v osascript >/dev/null 2>&1; then
         osascript <<'APPLESCRIPT'
 try
     set dialogResult to display dialog ¬
-        "오늘 어떤 일이 있었나요?\n\n짧게 적어두면 Record 옆에 표시됩니다.\n빈칸 = 기존 기록 유지, /clear = 기록 삭제" ¬
+        "How about today?" ¬
         default answer "" ¬
         buttons {"취소", "확인"} ¬
         default button "확인" ¬
