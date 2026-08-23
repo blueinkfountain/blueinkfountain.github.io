@@ -7692,23 +7692,27 @@ records:
     - Algebra/Field Theory/Formal Derivative and Separablity
   '260823':
     baseline: false
-    total_ink_percent: 148.1
-    library_total_ink_percent: 31282.4
+    total_ink_percent: 296.3
+    library_total_ink_percent: 31392.5
     subject_ink_percent:
       Algebra: 85.1
+      Analysis: 14.9
       Differential Geometry: 56.6
-      Others: 6.3
+      Others: 139.6
     folder_ink_percent:
       Algebra/2. Group Theory: 83.6
       Algebra/3. Finite Group Theory: 1.6
+      Analysis/2. Complex Analysis: 14.9
+      Analysis/2. Complex Analysis/2. Holomorphic function: 14.9
       Differential Geometry/1. Euclidean: 56.6
     file_ink_percent:
       Algebra/2. Group Theory/Group Action.pdf: 83.6
       Algebra/3. Finite Group Theory/Symmetric Group.pdf: 1.6
+      Analysis/2. Complex Analysis/2. Holomorphic function/Harmonic Functions.pdf: 14.9
       Arbitrary.pdf: 0.0
       Differential Geometry/1. Euclidean/Diffeomorphism.pdf: 11.0
       Differential Geometry/1. Euclidean/Regular Surface.pdf: 45.6
-      SNU solution.pdf: 6.3
+      SNU solution.pdf: 139.6
     subjects:
     - name: Algebra
       ink_added_percent: 85.1
@@ -8099,7 +8103,7 @@ records:
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Typical%20Galois%20extensions.pdf
         folders: []
     - name: Analysis
-      ink_added_percent: 0.0
+      ink_added_percent: 14.9
       files: []
       folders:
       - name: 1. Real Analysis
@@ -8273,7 +8277,7 @@ records:
       - name: 2. Complex Analysis
         label: 2. Complex Analysis
         raw_path: Analysis/2. Complex Analysis
-        ink_added_percent: 0.0
+        ink_added_percent: 14.9
         files:
         - name: Complex Analysis
           raw_path: Analysis/2. Complex Analysis/Complex Analysis.pdf
@@ -8299,7 +8303,7 @@ records:
         - name: 2. Holomorphic function
           label: 2. Holomorphic function
           raw_path: Analysis/2. Complex Analysis/2. Holomorphic function
-          ink_added_percent: 0.0
+          ink_added_percent: 14.9
           files:
           - name: Cauchy-Riemann equation
             raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Cauchy-Riemann equation.pdf
@@ -8307,7 +8311,7 @@ records:
             url: /untexed-current/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Cauchy-Riemann%20equation.pdf
           - name: Harmonic Functions
             raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Harmonic Functions.pdf
-            ink_added_percent: 0.0
+            ink_added_percent: 14.9
             url: /untexed-current/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Harmonic%20Functions.pdf
           - name: Uniqueness Theorem
             raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Uniqueness Theorem.pdf
@@ -8617,7 +8621,7 @@ records:
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Typical%20Quotient%20Spaces.pdf
         folders: []
     - name: Others
-      ink_added_percent: 6.3
+      ink_added_percent: 139.6
       files:
       - name: Arbitrary
         raw_path: Arbitrary.pdf
@@ -8625,7 +8629,7 @@ records:
         url: /untexed-current/Arbitrary.pdf
       - name: SNU solution
         raw_path: SNU solution.pdf
-        ink_added_percent: 6.3
+        ink_added_percent: 139.6
         url: /untexed-current/SNU%20solution.pdf
       - name: Tree of Subjects
         raw_path: Tree of Subjects.pdf
@@ -8638,10 +8642,12 @@ records:
     - path: Arbitrary
       ink_added_percent: 0.0
     modified:
+    - path: SNU solution
+      ink_added_percent: 139.6
     - path: Differential Geometry/Euclidean/Regular Surface
       ink_added_percent: 45.6
-    - path: SNU solution
-      ink_added_percent: 6.3
+    - path: Analysis/Complex Analysis/Holomorphic function/Harmonic Functions
+      ink_added_percent: 14.9
     - path: Algebra/Finite Group Theory/Symmetric Group
       ink_added_percent: 1.6
     moved_renamed:
