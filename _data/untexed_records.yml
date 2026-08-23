@@ -7692,30 +7692,35 @@ records:
     - Algebra/Field Theory/Formal Derivative and Separablity
   '260823':
     baseline: false
-    total_ink_percent: 390.8
-    library_total_ink_percent: 31487.1
+    total_ink_percent: 457.4
+    library_total_ink_percent: 31553.7
     subject_ink_percent:
       Algebra: 85.1
-      Analysis: 56.5
+      Analysis: 121.6
       Differential Geometry: 56.6
       Others: 170.2
-      Topology: 22.3
+      Topology: 23.9
     folder_ink_percent:
       Algebra/2. Group Theory: 83.6
       Algebra/3. Finite Group Theory: 1.6
-      Analysis/2. Complex Analysis: 56.5
+      Analysis/1. Real Analysis: 25.2
+      Analysis/1. Real Analysis/2. Real-valued Function: 25.2
+      Analysis/2. Complex Analysis: 96.4
       Analysis/2. Complex Analysis/2. Holomorphic function: 56.5
+      Analysis/2. Complex Analysis/3. Line integral: 39.9
       Differential Geometry/1. Euclidean: 56.6
-      Topology/2. Algebraic Topology: 22.3
+      Topology/2. Algebraic Topology: 23.9
     file_ink_percent:
       Algebra/2. Group Theory/Group Action.pdf: 83.6
       Algebra/3. Finite Group Theory/Symmetric Group.pdf: 1.6
+      Analysis/1. Real Analysis/2. Real-valued Function/Integral Transform.pdf: 25.2
       Analysis/2. Complex Analysis/2. Holomorphic function/Harmonic Functions.pdf: 56.5
+      Analysis/2. Complex Analysis/3. Line integral/Typical Line integral.pdf: 39.9
       Arbitrary.pdf: 0.0
       Differential Geometry/1. Euclidean/Diffeomorphism.pdf: 11.0
       Differential Geometry/1. Euclidean/Regular Surface.pdf: 45.6
       SNU solution.pdf: 170.2
-      Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 22.3
+      Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 23.9
     subjects:
     - name: Algebra
       ink_added_percent: 85.1
@@ -8106,13 +8111,13 @@ records:
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Typical%20Galois%20extensions.pdf
         folders: []
     - name: Analysis
-      ink_added_percent: 56.5
+      ink_added_percent: 121.6
       files: []
       folders:
       - name: 1. Real Analysis
         label: 1. Real Analysis
         raw_path: Analysis/1. Real Analysis
-        ink_added_percent: 0.0
+        ink_added_percent: 25.2
         files: []
         folders:
         - name: 1. Real numbers
@@ -8164,7 +8169,7 @@ records:
         - name: 2. Real-valued Function
           label: 2. Real-valued Function
           raw_path: Analysis/1. Real Analysis/2. Real-valued Function
-          ink_added_percent: 0.0
+          ink_added_percent: 25.2
           files:
           - name: Basic Riemann-integral
             raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Basic Riemann-integral.pdf
@@ -8202,6 +8207,10 @@ records:
             raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Improper integral.pdf
             ink_added_percent: 0.0
             url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Improper%20integral.pdf
+          - name: Integral Transform
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Integral Transform.pdf
+            ink_added_percent: 25.2
+            url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Integral%20Transform.pdf
           - name: Lipschtiz
             raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Lipschtiz.pdf
             ink_added_percent: 0.0
@@ -8280,7 +8289,7 @@ records:
       - name: 2. Complex Analysis
         label: 2. Complex Analysis
         raw_path: Analysis/2. Complex Analysis
-        ink_added_percent: 56.5
+        ink_added_percent: 96.4
         files:
         - name: Complex Analysis
           raw_path: Analysis/2. Complex Analysis/Complex Analysis.pdf
@@ -8324,7 +8333,7 @@ records:
         - name: 3. Line integral
           label: 3. Line integral
           raw_path: Analysis/2. Complex Analysis/3. Line integral
-          ink_added_percent: 0.0
+          ink_added_percent: 39.9
           files:
           - name: Argument Principle
             raw_path: Analysis/2. Complex Analysis/3. Line integral/Argument Principle.pdf
@@ -8374,6 +8383,10 @@ records:
             raw_path: Analysis/2. Complex Analysis/3. Line integral/Trigonometric integral.pdf
             ink_added_percent: 0.0
             url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Trigonometric%20integral.pdf
+          - name: Typical Line integral
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Typical Line integral.pdf
+            ink_added_percent: 39.9
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Typical%20Line%20integral.pdf
           folders: []
         - name: 4. Conformal mapping
           label: 4. Conformal mapping
@@ -8486,7 +8499,7 @@ records:
           url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Surface.pdf
         folders: []
     - name: Topology
-      ink_added_percent: 22.3
+      ink_added_percent: 23.9
       files: []
       folders:
       - name: 1. General Topology
@@ -8592,7 +8605,7 @@ records:
       - name: 2. Algebraic Topology
         label: 2. Algebraic Topology
         raw_path: Topology/2. Algebraic Topology
-        ink_added_percent: 22.3
+        ink_added_percent: 23.9
         files:
         - name: Borsuk-Ulam Theorem
           raw_path: Topology/2. Algebraic Topology/Borsuk-Ulam Theorem.pdf
@@ -8620,7 +8633,7 @@ records:
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Quotient%20map.pdf
         - name: Typical Quotient Spaces
           raw_path: Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf
-          ink_added_percent: 22.3
+          ink_added_percent: 23.9
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Typical%20Quotient%20Spaces.pdf
         folders: []
     - name: Others
@@ -8640,6 +8653,10 @@ records:
         url: /untexed-current/Tree%20of%20Subjects.pdf
       folders: []
     added:
+    - path: Analysis/Complex Analysis/Line integral/Typical Line integral
+      ink_added_percent: 39.9
+    - path: Analysis/Real Analysis/Real-valued Function/Integral Transform
+      ink_added_percent: 25.2
     - path: Differential Geometry/Euclidean/Diffeomorphism
       ink_added_percent: 11.0
     - path: Arbitrary
@@ -8652,7 +8669,7 @@ records:
     - path: Differential Geometry/Euclidean/Regular Surface
       ink_added_percent: 45.6
     - path: Topology/Algebraic Topology/Typical Quotient Spaces
-      ink_added_percent: 22.3
+      ink_added_percent: 23.9
     - path: Algebra/Finite Group Theory/Symmetric Group
       ink_added_percent: 1.6
     moved_renamed:
