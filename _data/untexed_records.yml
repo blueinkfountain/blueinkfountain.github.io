@@ -7692,19 +7692,21 @@ records:
     - Algebra/Field Theory/Formal Derivative and Separablity
   '260823':
     baseline: false
-    total_ink_percent: 368.5
-    library_total_ink_percent: 31464.7
+    total_ink_percent: 390.8
+    library_total_ink_percent: 31487.1
     subject_ink_percent:
       Algebra: 85.1
       Analysis: 56.5
       Differential Geometry: 56.6
       Others: 170.2
+      Topology: 22.3
     folder_ink_percent:
       Algebra/2. Group Theory: 83.6
       Algebra/3. Finite Group Theory: 1.6
       Analysis/2. Complex Analysis: 56.5
       Analysis/2. Complex Analysis/2. Holomorphic function: 56.5
       Differential Geometry/1. Euclidean: 56.6
+      Topology/2. Algebraic Topology: 22.3
     file_ink_percent:
       Algebra/2. Group Theory/Group Action.pdf: 83.6
       Algebra/3. Finite Group Theory/Symmetric Group.pdf: 1.6
@@ -7713,6 +7715,7 @@ records:
       Differential Geometry/1. Euclidean/Diffeomorphism.pdf: 11.0
       Differential Geometry/1. Euclidean/Regular Surface.pdf: 45.6
       SNU solution.pdf: 170.2
+      Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 22.3
     subjects:
     - name: Algebra
       ink_added_percent: 85.1
@@ -8483,7 +8486,7 @@ records:
           url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Surface.pdf
         folders: []
     - name: Topology
-      ink_added_percent: 0.0
+      ink_added_percent: 22.3
       files: []
       folders:
       - name: 1. General Topology
@@ -8589,7 +8592,7 @@ records:
       - name: 2. Algebraic Topology
         label: 2. Algebraic Topology
         raw_path: Topology/2. Algebraic Topology
-        ink_added_percent: 0.0
+        ink_added_percent: 22.3
         files:
         - name: Borsuk-Ulam Theorem
           raw_path: Topology/2. Algebraic Topology/Borsuk-Ulam Theorem.pdf
@@ -8617,7 +8620,7 @@ records:
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Quotient%20map.pdf
         - name: Typical Quotient Spaces
           raw_path: Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf
-          ink_added_percent: 0.0
+          ink_added_percent: 22.3
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Typical%20Quotient%20Spaces.pdf
         folders: []
     - name: Others
@@ -8648,6 +8651,8 @@ records:
       ink_added_percent: 56.5
     - path: Differential Geometry/Euclidean/Regular Surface
       ink_added_percent: 45.6
+    - path: Topology/Algebraic Topology/Typical Quotient Spaces
+      ink_added_percent: 22.3
     - path: Algebra/Finite Group Theory/Symmetric Group
       ink_added_percent: 1.6
     moved_renamed:
