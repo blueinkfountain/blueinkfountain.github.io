@@ -8491,12 +8491,12 @@ records:
     - Algebra/Finite Group Theory/Group of order pq
   '260824':
     baseline: false
-    total_ink_percent: 459.6
-    library_total_ink_percent: 31964.2
+    total_ink_percent: 556.4
+    library_total_ink_percent: 32061.0
     subject_ink_percent:
       Algebra: 277.5
-      Analysis: 107.3
-      Others: 74.8
+      Analysis: 189.9
+      Others: 89.1
     folder_ink_percent:
       Algebra/1. Linear Algebra: 50.2
       Algebra/1. Linear Algebra/2. Inner product Theory: 50.2
@@ -8505,7 +8505,7 @@ records:
       Algebra/7. Galois Theory: 0.0
       Analysis/1. Real Analysis: 51.5
       Analysis/1. Real Analysis/2. Real-valued Function: 51.5
-      Analysis/5. Differential equation: 55.8
+      Analysis/5. Differential equation: 138.4
     file_ink_percent:
       Algebra/1. Linear Algebra/2. Inner product Theory/Normal operator.pdf: 50.2
       Algebra/2. Group Theory/Coset and Isomorphism Theorem.pdf: 101.0
@@ -8513,8 +8513,8 @@ records:
       Algebra/5. Polynomial Ring Theory/Typical Polynomials.pdf: 34.2
       Algebra/7. Galois Theory/Typical Galois extensions.pdf: 0.0
       Analysis/1. Real Analysis/2. Real-valued Function/Integral Transform.pdf: 51.5
-      Analysis/5. Differential equation/Linear equation with constant coefficients.pdf: 55.8
-      SNU solution.pdf: 74.8
+      Analysis/5. Differential equation/Linear equation with constant coefficients.pdf: 138.4
+      SNU solution.pdf: 89.1
     subjects:
     - name: Algebra
       ink_added_percent: 277.5
@@ -8905,7 +8905,7 @@ records:
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Typical%20Galois%20extensions.pdf
         folders: []
     - name: Analysis
-      ink_added_percent: 107.3
+      ink_added_percent: 189.9
       files: []
       folders:
       - name: 1. Real Analysis
@@ -9219,7 +9219,7 @@ records:
       - name: 5. Differential equation
         label: 5. Differential equation
         raw_path: Analysis/5. Differential equation
-        ink_added_percent: 55.8
+        ink_added_percent: 138.4
         files:
         - name: Coddington, Intro.ODE
           raw_path: Analysis/5. Differential equation/Coddington, Intro.ODE.pdf
@@ -9231,7 +9231,7 @@ records:
           url: /untexed-current/Analysis/5.%20Differential%20equation/Existence%20and%20Uniqueness%20of%20ODE.pdf
         - name: Linear equation with constant coefficients
           raw_path: Analysis/5. Differential equation/Linear equation with constant coefficients.pdf
-          ink_added_percent: 55.8
+          ink_added_percent: 138.4
           url: /untexed-current/Analysis/5.%20Differential%20equation/Linear%20equation%20with%20constant%20coefficients.pdf
         - name: Typical differential equation
           raw_path: Analysis/5. Differential equation/Typical differential equation.pdf
@@ -9435,7 +9435,7 @@ records:
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Typical%20Quotient%20Spaces.pdf
         folders: []
     - name: Others
-      ink_added_percent: 74.8
+      ink_added_percent: 89.1
       files:
       - name: Arbitrary
         raw_path: Arbitrary.pdf
@@ -9443,7 +9443,7 @@ records:
         url: /untexed-current/Arbitrary.pdf
       - name: SNU solution
         raw_path: SNU solution.pdf
-        ink_added_percent: 74.8
+        ink_added_percent: 89.1
         url: /untexed-current/SNU%20solution.pdf
       - name: Tree of Subjects
         raw_path: Tree of Subjects.pdf
@@ -9452,7 +9452,7 @@ records:
       folders: []
     added:
     - path: Analysis/Differential equation/Linear equation with constant coefficients
-      ink_added_percent: 55.8
+      ink_added_percent: 138.4
     - path: Algebra/Linear Algebra/Inner product Theory/Normal operator
       ink_added_percent: 50.2
     modified:
@@ -9461,7 +9461,7 @@ records:
     - path: Algebra/Group Theory/Group Action
       ink_added_percent: 92.1
     - path: SNU solution
-      ink_added_percent: 74.8
+      ink_added_percent: 89.1
     - path: Analysis/Real Analysis/Real-valued Function/Integral Transform
       ink_added_percent: 51.5
     - path: Algebra/Polynomial Ring Theory/Typical Polynomials
