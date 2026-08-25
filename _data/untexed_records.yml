@@ -9283,20 +9283,23 @@ records:
     - Algebra/Group Theory/Conjugation
   '260825':
     baseline: false
-    total_ink_percent: 385.8
-    library_total_ink_percent: 32441.6
+    total_ink_percent: 489.0
+    library_total_ink_percent: 32544.8
     subject_ink_percent:
+      Algebra: 103.1
       Analysis: 67.9
       Differential Geometry: 90.1
       Others: 169.9
       Topology: 57.9
     folder_ink_percent:
+      Algebra/6. Field Theory: 103.1
       Analysis/1. Real Analysis: 14.8
       Analysis/1. Real Analysis/3. Functional Space: 14.8
       Analysis/5. Differential equation: 53.1
       Differential Geometry/1. Euclidean: 90.1
       Topology/2. Algebraic Topology: 57.9
     file_ink_percent:
+      Algebra/6. Field Theory/Spiltting Field.pdf: 103.1
       Analysis/1. Real Analysis/3. Functional Space/Inequalities of real-valued functions.pdf: 14.8
       Analysis/5. Differential equation/Differential Operator.pdf: 53.1
       Differential Geometry/1. Euclidean/Regular Surface.pdf: 54.3
@@ -9305,7 +9308,7 @@ records:
       Topology/2. Algebraic Topology/Quotient map.pdf: 57.9
     subjects:
     - name: Algebra
-      ink_added_percent: 0.0
+      ink_added_percent: 103.1
       files: []
       folders:
       - name: 1. Linear Algebra
@@ -9619,7 +9622,7 @@ records:
       - name: 6. Field Theory
         label: 6. Field Theory
         raw_path: Algebra/6. Field Theory
-        ink_added_percent: 0.0
+        ink_added_percent: 103.1
         files:
         - name: Basic field
           raw_path: Algebra/6. Field Theory/Basic field.pdf
@@ -9671,7 +9674,7 @@ records:
           url: /untexed-current/Algebra/6.%20Field%20Theory/Separable%20Extension.pdf
         - name: Spiltting Field
           raw_path: Algebra/6. Field Theory/Spiltting Field.pdf
-          ink_added_percent: 0.0
+          ink_added_percent: 103.1
           url: /untexed-current/Algebra/6.%20Field%20Theory/Spiltting%20Field.pdf
         folders: []
       - name: 7. Galois Theory
@@ -10260,6 +10263,8 @@ records:
     modified:
     - path: SNU solution
       ink_added_percent: 169.9
+    - path: Algebra/Field Theory/Spiltting Field
+      ink_added_percent: 103.1
     - path: Topology/Algebraic Topology/Quotient map
       ink_added_percent: 57.9
     - path: Differential Geometry/Euclidean/Regular Surface
