@@ -10872,21 +10872,32 @@ records:
     - Algebra/Field Theory/Spiltting Field
   '260827':
     baseline: false
-    total_ink_percent: 222.6
-    library_total_ink_percent: 33201.3
+    total_ink_percent: 646.0
+    library_total_ink_percent: 33563.7
     subject_ink_percent:
-      Algebra: 95.8
-      Others: 126.8
+      Algebra: 122.5
+      Analysis: 175.2
+      Differential Geometry: 80.5
+      Others: 267.8
     folder_ink_percent:
-      Algebra/2. Group Theory: 55.7
+      Algebra/2. Group Theory: 82.5
       Algebra/7. Galois Theory: 40.1
+      Analysis/2. Complex Analysis: 175.2
+      Analysis/2. Complex Analysis/2. Holomorphic function: 85.5
+      Analysis/2. Complex Analysis/3. Line integral: 89.8
+      Differential Geometry/1. Euclidean: 80.5
     file_ink_percent:
       Algebra/2. Group Theory/Commutator Subgroup.pdf: 55.7
+      Algebra/2. Group Theory/Group Action.pdf: 26.8
       Algebra/7. Galois Theory/Automorphisms of Field.pdf: 40.1
-      SNU solution.pdf: 126.8
+      Analysis/2. Complex Analysis/2. Holomorphic function/Sequence of functions.pdf: 85.5
+      Analysis/2. Complex Analysis/3. Line integral/Goursat Theorem.pdf: 89.8
+      Differential Geometry/1. Euclidean/First fundamental form.pdf: 48.7
+      Differential Geometry/1. Euclidean/Tangent Plane.pdf: 31.8
+      SNU solution.pdf: 267.8
     subjects:
     - name: Algebra
-      ink_added_percent: 95.8
+      ink_added_percent: 122.5
       files: []
       folders:
       - name: 1. Linear Algebra
@@ -11032,7 +11043,7 @@ records:
       - name: 2. Group Theory
         label: 2. Group Theory
         raw_path: Algebra/2. Group Theory
-        ink_added_percent: 55.7
+        ink_added_percent: 82.5
         files:
         - name: Commutator Subgroup
           raw_path: Algebra/2. Group Theory/Commutator Subgroup.pdf
@@ -11052,7 +11063,7 @@ records:
           url: /untexed-current/Algebra/2.%20Group%20Theory/General%20linear%20group.pdf
         - name: Group Action
           raw_path: Algebra/2. Group Theory/Group Action.pdf
-          ink_added_percent: 0.0
+          ink_added_percent: 26.8
           url: /untexed-current/Algebra/2.%20Group%20Theory/Group%20Action.pdf
         - name: Nilpotent Group
           raw_path: Algebra/2. Group Theory/Nilpotent Group.pdf
@@ -11278,7 +11289,7 @@ records:
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Typical%20Galois%20extensions.pdf
         folders: []
     - name: Analysis
-      ink_added_percent: 0.0
+      ink_added_percent: 175.2
       files: []
       folders:
       - name: 1. Real Analysis
@@ -11460,7 +11471,7 @@ records:
       - name: 2. Complex Analysis
         label: 2. Complex Analysis
         raw_path: Analysis/2. Complex Analysis
-        ink_added_percent: 0.0
+        ink_added_percent: 175.2
         files:
         - name: Complex Analysis
           raw_path: Analysis/2. Complex Analysis/Complex Analysis.pdf
@@ -11486,7 +11497,7 @@ records:
         - name: 2. Holomorphic function
           label: 2. Holomorphic function
           raw_path: Analysis/2. Complex Analysis/2. Holomorphic function
-          ink_added_percent: 0.0
+          ink_added_percent: 85.5
           files:
           - name: Cauchy-Riemann equation
             raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Cauchy-Riemann equation.pdf
@@ -11496,6 +11507,10 @@ records:
             raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Harmonic Functions.pdf
             ink_added_percent: 0.0
             url: /untexed-current/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Harmonic%20Functions.pdf
+          - name: Sequence of functions
+            raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Sequence of functions.pdf
+            ink_added_percent: 85.5
+            url: /untexed-current/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Sequence%20of%20functions.pdf
           - name: Uniqueness Theorem
             raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Uniqueness Theorem.pdf
             ink_added_percent: 0.0
@@ -11504,7 +11519,7 @@ records:
         - name: 3. Line integral
           label: 3. Line integral
           raw_path: Analysis/2. Complex Analysis/3. Line integral
-          ink_added_percent: 0.0
+          ink_added_percent: 89.8
           files:
           - name: Argument Principle
             raw_path: Analysis/2. Complex Analysis/3. Line integral/Argument Principle.pdf
@@ -11528,7 +11543,7 @@ records:
             url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Gauss%20Meanvalue%20Theorem.pdf
           - name: Goursat Theorem
             raw_path: Analysis/2. Complex Analysis/3. Line integral/Goursat Theorem.pdf
-            ink_added_percent: 0.0
+            ink_added_percent: 89.8
             url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Goursat%20Theorem.pdf
           - name: Laurent Series of Polynomials
             raw_path: Analysis/2. Complex Analysis/3. Line integral/Laurent Series of Polynomials.pdf
@@ -11620,13 +11635,13 @@ records:
           url: /untexed-current/Analysis/5.%20Differential%20equation/Typical%20differential%20equation.pdf
         folders: []
     - name: Differential Geometry
-      ink_added_percent: 0.0
+      ink_added_percent: 80.5
       files: []
       folders:
       - name: 1. Euclidean
         label: 1. Euclidean
         raw_path: Differential Geometry/1. Euclidean
-        ink_added_percent: 0.0
+        ink_added_percent: 80.5
         files:
         - name: Barrett O_neill
           raw_path: Differential Geometry/1. Euclidean/Barrett O_neill.pdf
@@ -11656,6 +11671,10 @@ records:
           raw_path: Differential Geometry/1. Euclidean/Differential Form.pdf
           ink_added_percent: 0.0
           url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Differential%20Form.pdf
+        - name: First fundamental form
+          raw_path: Differential Geometry/1. Euclidean/First fundamental form.pdf
+          ink_added_percent: 48.7
+          url: /untexed-current/Differential%20Geometry/1.%20Euclidean/First%20fundamental%20form.pdf
         - name: Frenet fomular
           raw_path: Differential Geometry/1. Euclidean/Frenet fomular.pdf
           ink_added_percent: 0.0
@@ -11678,7 +11697,7 @@ records:
           url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Surface.pdf
         - name: Tangent Plane
           raw_path: Differential Geometry/1. Euclidean/Tangent Plane.pdf
-          ink_added_percent: 0.0
+          ink_added_percent: 31.8
           url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Tangent%20Plane.pdf
         folders: []
     - name: Topology
@@ -11820,7 +11839,7 @@ records:
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Typical%20Quotient%20Spaces.pdf
         folders: []
     - name: Others
-      ink_added_percent: 126.8
+      ink_added_percent: 267.8
       files:
       - name: Arbitrary
         raw_path: Arbitrary.pdf
@@ -11828,7 +11847,7 @@ records:
         url: /untexed-current/Arbitrary.pdf
       - name: SNU solution
         raw_path: SNU solution.pdf
-        ink_added_percent: 126.8
+        ink_added_percent: 267.8
         url: /untexed-current/SNU%20solution.pdf
       - name: Tree of Subjects
         raw_path: Tree of Subjects.pdf
@@ -11836,13 +11855,23 @@ records:
         url: /untexed-current/Tree%20of%20Subjects.pdf
       folders: []
     added:
+    - path: Analysis/Complex Analysis/Holomorphic function/Sequence of functions
+      ink_added_percent: 85.5
+    - path: Differential Geometry/Euclidean/First fundamental form
+      ink_added_percent: 48.7
     - path: Algebra/Galois Theory/Automorphisms of Field
       ink_added_percent: 40.1
     modified:
     - path: SNU solution
-      ink_added_percent: 126.8
+      ink_added_percent: 267.8
+    - path: Analysis/Complex Analysis/Line integral/Goursat Theorem
+      ink_added_percent: 89.8
     - path: Algebra/Group Theory/Commutator Subgroup
       ink_added_percent: 55.7
+    - path: Differential Geometry/Euclidean/Tangent Plane
+      ink_added_percent: 31.8
+    - path: Algebra/Group Theory/Group Action
+      ink_added_percent: 26.8
     moved_renamed: []
     deleted: []
     note: ''
