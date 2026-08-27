@@ -10872,15 +10872,15 @@ records:
     - Algebra/Field Theory/Spiltting Field
   '260827':
     baseline: false
-    total_ink_percent: 646.0
-    library_total_ink_percent: 33563.7
+    total_ink_percent: 662.2
+    library_total_ink_percent: 33579.9
     subject_ink_percent:
-      Algebra: 122.5
+      Algebra: 138.7
       Analysis: 175.2
       Differential Geometry: 80.5
       Others: 267.8
     folder_ink_percent:
-      Algebra/2. Group Theory: 82.5
+      Algebra/2. Group Theory: 98.6
       Algebra/7. Galois Theory: 40.1
       Analysis/2. Complex Analysis: 175.2
       Analysis/2. Complex Analysis/2. Holomorphic function: 85.5
@@ -10888,7 +10888,7 @@ records:
       Differential Geometry/1. Euclidean: 80.5
     file_ink_percent:
       Algebra/2. Group Theory/Commutator Subgroup.pdf: 55.7
-      Algebra/2. Group Theory/Group Action.pdf: 26.8
+      Algebra/2. Group Theory/Group Action.pdf: 43.0
       Algebra/7. Galois Theory/Automorphisms of Field.pdf: 40.1
       Analysis/2. Complex Analysis/2. Holomorphic function/Sequence of functions.pdf: 85.5
       Analysis/2. Complex Analysis/3. Line integral/Goursat Theorem.pdf: 89.8
@@ -10897,7 +10897,7 @@ records:
       SNU solution.pdf: 267.8
     subjects:
     - name: Algebra
-      ink_added_percent: 122.5
+      ink_added_percent: 138.7
       files: []
       folders:
       - name: 1. Linear Algebra
@@ -11043,7 +11043,7 @@ records:
       - name: 2. Group Theory
         label: 2. Group Theory
         raw_path: Algebra/2. Group Theory
-        ink_added_percent: 82.5
+        ink_added_percent: 98.6
         files:
         - name: Commutator Subgroup
           raw_path: Algebra/2. Group Theory/Commutator Subgroup.pdf
@@ -11063,7 +11063,7 @@ records:
           url: /untexed-current/Algebra/2.%20Group%20Theory/General%20linear%20group.pdf
         - name: Group Action
           raw_path: Algebra/2. Group Theory/Group Action.pdf
-          ink_added_percent: 26.8
+          ink_added_percent: 43.0
           url: /untexed-current/Algebra/2.%20Group%20Theory/Group%20Action.pdf
         - name: Nilpotent Group
           raw_path: Algebra/2. Group Theory/Nilpotent Group.pdf
@@ -11868,10 +11868,10 @@ records:
       ink_added_percent: 89.8
     - path: Algebra/Group Theory/Commutator Subgroup
       ink_added_percent: 55.7
+    - path: Algebra/Group Theory/Group Action
+      ink_added_percent: 43.0
     - path: Differential Geometry/Euclidean/Tangent Plane
       ink_added_percent: 31.8
-    - path: Algebra/Group Theory/Group Action
-      ink_added_percent: 26.8
     moved_renamed: []
     deleted: []
     note: ''
