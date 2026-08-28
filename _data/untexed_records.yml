@@ -11680,10 +11680,11 @@ records:
     deleted: []
   '260828':
     baseline: false
-    total_ink_percent: 1301.9
-    library_total_ink_percent: 34066.2
+    total_ink_percent: 1365.1
+    library_total_ink_percent: 34122.8
     subject_ink_percent:
       Algebra: 654.2
+      Analysis: 63.1
       Differential Geometry: 44.1
       Others: 603.7
     folder_ink_percent:
@@ -11691,6 +11692,7 @@ records:
       Algebra/1. Linear Algebra/1. Vector space Theory: 434.9
       Algebra/3. Finite Group Theory: 124.5
       Algebra/4. Ring Theory: 94.7
+      Analysis/5. Differential equation: 63.1
       Differential Geometry/1. Euclidean: 44.1
     file_ink_percent:
       Algebra/1. Linear Algebra/1. Vector space Theory/Canonical Form.pdf: 0.0
@@ -11698,6 +11700,8 @@ records:
       Algebra/3. Finite Group Theory/Solvablity.pdf: 28.3
       Algebra/3. Finite Group Theory/Typical Finite groups.pdf: 96.2
       Algebra/4. Ring Theory/Chinese reminder theorem.pdf: 94.7
+      Analysis/5. Differential equation/First order.pdf: 37.5
+      Analysis/5. Differential equation/Linear equation with constant coefficients.pdf: 25.6
       Differential Geometry/1. Euclidean/First fundamental form.pdf: 44.1
       SNU solution.pdf: 603.7
     subjects:
@@ -12102,7 +12106,7 @@ records:
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Typical%20Galois%20extensions.pdf
         folders: []
     - name: Analysis
-      ink_added_percent: 0.0
+      ink_added_percent: 63.1
       files: []
       folders:
       - name: 1. Real Analysis
@@ -12424,7 +12428,7 @@ records:
       - name: 5. Differential equation
         label: 5. Differential equation
         raw_path: Analysis/5. Differential equation
-        ink_added_percent: 0.0
+        ink_added_percent: 63.1
         files:
         - name: Coddington, Intro.ODE
           raw_path: Analysis/5. Differential equation/Coddington, Intro.ODE.pdf
@@ -12438,9 +12442,13 @@ records:
           raw_path: Analysis/5. Differential equation/Existence and Uniqueness of ODE.pdf
           ink_added_percent: 0.0
           url: /untexed-current/Analysis/5.%20Differential%20equation/Existence%20and%20Uniqueness%20of%20ODE.pdf
+        - name: First order
+          raw_path: Analysis/5. Differential equation/First order.pdf
+          ink_added_percent: 37.5
+          url: /untexed-current/Analysis/5.%20Differential%20equation/First%20order.pdf
         - name: Linear equation with constant coefficients
           raw_path: Analysis/5. Differential equation/Linear equation with constant coefficients.pdf
-          ink_added_percent: 0.0
+          ink_added_percent: 25.6
           url: /untexed-current/Analysis/5.%20Differential%20equation/Linear%20equation%20with%20constant%20coefficients.pdf
         - name: Typical differential equation
           raw_path: Analysis/5. Differential equation/Typical differential equation.pdf
@@ -12670,6 +12678,8 @@ records:
     added:
     - path: Algebra/Linear Algebra/Vector space Theory/Canonical Form_old
       ink_added_percent: 434.9
+    - path: Analysis/Differential equation/First order
+      ink_added_percent: 37.5
     - path: Algebra/Finite Group Theory/Solvablity
       ink_added_percent: 28.3
     modified:
@@ -12681,6 +12691,8 @@ records:
       ink_added_percent: 94.7
     - path: Differential Geometry/Euclidean/First fundamental form
       ink_added_percent: 44.1
+    - path: Analysis/Differential equation/Linear equation with constant coefficients
+      ink_added_percent: 25.6
     - path: Algebra/Linear Algebra/Vector space Theory/Canonical Form
       ink_added_percent: 0.0
     moved_renamed:
