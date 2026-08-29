@@ -12503,32 +12503,36 @@ records:
     deleted: []
   '260829':
     baseline: false
-    total_ink_percent: 277.9
-    library_total_ink_percent: 34400.7
+    total_ink_percent: 319.6
+    library_total_ink_percent: 34403.3
     subject_ink_percent:
-      Algebra: 24.8
+      Algebra: 33.1
       Analysis: 25.7
       Others: 227.3
+      Topology: 33.5
     folder_ink_percent:
-      Algebra/1. Linear Algebra: 24.8
-      Algebra/1. Linear Algebra/1. Vector space Theory: 24.8
+      Algebra/1. Linear Algebra: 33.1
+      Algebra/1. Linear Algebra/1. Vector space Theory: 33.1
       Analysis/2. Complex Analysis: 25.7
       Analysis/2. Complex Analysis/2. Holomorphic function: 25.7
       Analysis/5. Differential equation: 0.0
+      Topology/1. General Topology: 33.5
+      Topology/1. General Topology/Metric Space: 33.5
     file_ink_percent:
-      Algebra/1. Linear Algebra/1. Vector space Theory/Linear equation.pdf: 24.8
+      Algebra/1. Linear Algebra/1. Vector space Theory/Linear equation.pdf: 33.1
       Analysis/2. Complex Analysis/2. Holomorphic function/Meromorphic function.pdf: 25.7
       Analysis/5. Differential equation/First order.pdf: 0.0
       SNU solution.pdf: 227.3
+      Topology/1. General Topology/Metric Space/Distance.pdf: 33.5
     subjects:
     - name: Algebra
-      ink_added_percent: 24.8
+      ink_added_percent: 33.1
       files: []
       folders:
       - name: 1. Linear Algebra
         label: 1. Linear Algebra
         raw_path: Algebra/1. Linear Algebra
-        ink_added_percent: 24.8
+        ink_added_percent: 33.1
         files:
         - name: Hoffman
           raw_path: Algebra/1. Linear Algebra/Hoffman.pdf
@@ -12538,7 +12542,7 @@ records:
         - name: 1. Vector space Theory
           label: 1. Vector space Theory
           raw_path: Algebra/1. Linear Algebra/1. Vector space Theory
-          ink_added_percent: 24.8
+          ink_added_percent: 33.1
           files:
           - name: Action of permutation on Matrices
             raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Action of permutation on Matrices.pdf
@@ -12574,7 +12578,7 @@ records:
             url: /untexed-current/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Jordan%20canonical%20form_old.pdf
           - name: Linear equation
             raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Linear equation.pdf
-            ink_added_percent: 24.8
+            ink_added_percent: 33.1
             url: /untexed-current/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Linear%20equation.pdf
           - name: Minimal polynomial
             raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Minimal polynomial.pdf
@@ -13342,13 +13346,13 @@ records:
           url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Tangent%20Plane.pdf
         folders: []
     - name: Topology
-      ink_added_percent: 0.0
+      ink_added_percent: 33.5
       files: []
       folders:
       - name: 1. General Topology
         label: 1. General Topology
         raw_path: Topology/1. General Topology
-        ink_added_percent: 0.0
+        ink_added_percent: 33.5
         files:
         - name: Compact Hausdorff Space
           raw_path: Topology/1. General Topology/Compact Hausdorff Space.pdf
@@ -13418,7 +13422,7 @@ records:
         - name: Metric Space
           label: Metric Space
           raw_path: Topology/1. General Topology/Metric Space
-          ink_added_percent: 0.0
+          ink_added_percent: 33.5
           files:
           - name: Basic metric space
             raw_path: Topology/1. General Topology/Metric Space/Basic metric space.pdf
@@ -13426,7 +13430,7 @@ records:
             url: /untexed-current/Topology/1.%20General%20Topology/Metric%20Space/Basic%20metric%20space.pdf
           - name: Distance
             raw_path: Topology/1. General Topology/Metric Space/Distance.pdf
-            ink_added_percent: 0.0
+            ink_added_percent: 33.5
             url: /untexed-current/Topology/1.%20General%20Topology/Metric%20Space/Distance.pdf
           - name: Isometry
             raw_path: Topology/1. General Topology/Metric Space/Isometry.pdf
@@ -13501,8 +13505,10 @@ records:
     modified:
     - path: SNU solution
       ink_added_percent: 227.3
+    - path: Topology/General Topology/Metric Space/Distance
+      ink_added_percent: 33.5
     - path: Algebra/Linear Algebra/Vector space Theory/Linear equation
-      ink_added_percent: 24.8
+      ink_added_percent: 33.1
     - path: Analysis/Differential equation/First order
       ink_added_percent: 0.0
     moved_renamed: []
