@@ -13315,32 +13315,32 @@ records:
     deleted: []
   '260830':
     baseline: false
-    total_ink_percent: 457.4
-    library_total_ink_percent: 34762.7
+    total_ink_percent: 449.2
+    library_total_ink_percent: 34754.5
     subject_ink_percent:
-      Algebra: 212.7
-      Analysis: 59.0
+      Algebra: 214.2
+      Analysis: 49.2
       Differential Geometry: 90.0
       Others: 95.7
     folder_ink_percent:
       Algebra/2. Group Theory: 140.1
-      Algebra/3. Finite Group Theory: 72.7
-      Analysis/1. Real Analysis: 59.0
-      Analysis/1. Real Analysis/2. Real-valued Function: 31.4
+      Algebra/3. Finite Group Theory: 74.2
+      Analysis/1. Real Analysis: 49.2
+      Analysis/1. Real Analysis/2. Real-valued Function: 21.6
       Analysis/1. Real Analysis/3. Functional Space: 27.6
       Differential Geometry/1. Euclidean: 90.0
     file_ink_percent:
       Algebra/2. Group Theory/Commutator Subgroup.pdf: 19.7
       Algebra/2. Group Theory/Coset and Isomorphism Theorem.pdf: 120.4
-      Algebra/3. Finite Group Theory/Solvablity.pdf: 72.7
-      Analysis/1. Real Analysis/2. Real-valued Function/Bounded Variation.pdf: 31.4
+      Algebra/3. Finite Group Theory/Solvablity.pdf: 74.2
+      Analysis/1. Real Analysis/2. Real-valued Function/Bounded Variation.pdf: 21.6
       Analysis/1. Real Analysis/3. Functional Space/Functional Space.pdf: 27.6
       Analysis/1. Real Analysis/3. Functional Space/Normed Space.pdf: 0.0
       Differential Geometry/1. Euclidean/Frenet fomular.pdf: 90.0
       SNU solution.pdf: 95.7
     subjects:
     - name: Algebra
-      ink_added_percent: 212.7
+      ink_added_percent: 214.2
       files: []
       folders:
       - name: 1. Linear Algebra
@@ -13528,7 +13528,7 @@ records:
       - name: 3. Finite Group Theory
         label: 3. Finite Group Theory
         raw_path: Algebra/3. Finite Group Theory
-        ink_added_percent: 72.7
+        ink_added_percent: 74.2
         files:
         - name: Alternating Group
           raw_path: Algebra/3. Finite Group Theory/Alternating Group.pdf
@@ -13568,7 +13568,7 @@ records:
           url: /untexed-current/Algebra/3.%20Finite%20Group%20Theory/Quaternion%20group.pdf
         - name: Solvablity
           raw_path: Algebra/3. Finite Group Theory/Solvablity.pdf
-          ink_added_percent: 72.7
+          ink_added_percent: 74.2
           url: /untexed-current/Algebra/3.%20Finite%20Group%20Theory/Solvablity.pdf
         - name: Sylow Theorem
           raw_path: Algebra/3. Finite Group Theory/Sylow Theorem.pdf
@@ -13740,13 +13740,13 @@ records:
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Typical%20Galois%20extensions.pdf
         folders: []
     - name: Analysis
-      ink_added_percent: 59.0
+      ink_added_percent: 49.2
       files: []
       folders:
       - name: 1. Real Analysis
         label: 1. Real Analysis
         raw_path: Analysis/1. Real Analysis
-        ink_added_percent: 59.0
+        ink_added_percent: 49.2
         files: []
         folders:
         - name: 1. Real numbers
@@ -13798,7 +13798,7 @@ records:
         - name: 2. Real-valued Function
           label: 2. Real-valued Function
           raw_path: Analysis/1. Real Analysis/2. Real-valued Function
-          ink_added_percent: 31.4
+          ink_added_percent: 21.6
           files:
           - name: Basic Riemann-integral
             raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Basic Riemann-integral.pdf
@@ -13806,7 +13806,7 @@ records:
             url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Basic%20Riemann-integral.pdf
           - name: Bounded Variation
             raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Bounded Variation.pdf
-            ink_added_percent: 31.4
+            ink_added_percent: 21.6
             url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Bounded%20Variation.pdf
           - name: Continuously Extension
             raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Continuously Extension.pdf
@@ -14328,9 +14328,9 @@ records:
     - path: Differential Geometry/Euclidean/Frenet fomular
       ink_added_percent: 90.0
     - path: Algebra/Finite Group Theory/Solvablity
-      ink_added_percent: 72.7
+      ink_added_percent: 74.2
     - path: Analysis/Real Analysis/Real-valued Function/Bounded Variation
-      ink_added_percent: 31.4
+      ink_added_percent: 21.6
     - path: Algebra/Group Theory/Commutator Subgroup
       ink_added_percent: 19.7
     - path: Analysis/Real Analysis/Functional Space/Normed Space
