@@ -6,4 +6,6 @@ nav_order: 1
 
 # Blueink's Math Blog
 
-University of Seoul, Mathematics.
+University of Seoul, Mathematics. \\
+The TOTAL INK in the Handwritten section literally measure of the amount of handwrittings.
+A value of 100% is defined as the amount of ink on a single page densely filled with handwriting, specifically one page from Typical Galois Group.
