@@ -14138,23 +14138,27 @@ records:
     deleted: []
   '260831':
     baseline: false
-    total_ink_percent: 273.4
-    library_total_ink_percent: 34949.0
+    total_ink_percent: 422.1
+    library_total_ink_percent: 35097.7
     subject_ink_percent:
-      Algebra: 167.2
-      Analysis: 106.2
+      Algebra: 183.8
+      Analysis: 113.6
+      Others: 124.6
     folder_ink_percent:
       Algebra/2. Group Theory: 52.9
       Algebra/3. Finite Group Theory: 114.3
-      Analysis/1. Real Analysis: 106.2
-      Analysis/1. Real Analysis/2. Real-valued Function: 106.2
+      Algebra/7. Galois Theory: 16.6
+      Analysis/1. Real Analysis: 113.6
+      Analysis/1. Real Analysis/2. Real-valued Function: 113.6
     file_ink_percent:
       Algebra/2. Group Theory/Commutator Subgroup.pdf: 52.9
       Algebra/3. Finite Group Theory/Solvablity.pdf: 114.3
-      Analysis/1. Real Analysis/2. Real-valued Function/Bounded Variation.pdf: 106.2
+      Algebra/7. Galois Theory/Radical extension.pdf: 16.6
+      Analysis/1. Real Analysis/2. Real-valued Function/Bounded Variation.pdf: 113.6
+      SNU solution.pdf: 124.6
     subjects:
     - name: Algebra
-      ink_added_percent: 167.2
+      ink_added_percent: 183.8
       files: []
       folders:
       - name: 1. Linear Algebra
@@ -14534,7 +14538,7 @@ records:
       - name: 7. Galois Theory
         label: 7. Galois Theory
         raw_path: Algebra/7. Galois Theory
-        ink_added_percent: 0.0
+        ink_added_percent: 16.6
         files:
         - name: Automorphisms of Field
           raw_path: Algebra/7. Galois Theory/Automorphisms of Field.pdf
@@ -14548,19 +14552,23 @@ records:
           raw_path: Algebra/7. Galois Theory/Norm and Trace of Galois.pdf
           ink_added_percent: 0.0
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Norm%20and%20Trace%20of%20Galois.pdf
+        - name: Radical extension
+          raw_path: Algebra/7. Galois Theory/Radical extension.pdf
+          ink_added_percent: 16.6
+          url: /untexed-current/Algebra/7.%20Galois%20Theory/Radical%20extension.pdf
         - name: Typical Galois extensions
           raw_path: Algebra/7. Galois Theory/Typical Galois extensions.pdf
           ink_added_percent: 0.0
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Typical%20Galois%20extensions.pdf
         folders: []
     - name: Analysis
-      ink_added_percent: 106.2
+      ink_added_percent: 113.6
       files: []
       folders:
       - name: 1. Real Analysis
         label: 1. Real Analysis
         raw_path: Analysis/1. Real Analysis
-        ink_added_percent: 106.2
+        ink_added_percent: 113.6
         files: []
         folders:
         - name: 1. Real numbers
@@ -14612,7 +14620,7 @@ records:
         - name: 2. Real-valued Function
           label: 2. Real-valued Function
           raw_path: Analysis/1. Real Analysis/2. Real-valued Function
-          ink_added_percent: 106.2
+          ink_added_percent: 113.6
           files:
           - name: Basic Riemann-integral
             raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Basic Riemann-integral.pdf
@@ -14620,7 +14628,7 @@ records:
             url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Basic%20Riemann-integral.pdf
           - name: Bounded Variation
             raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Bounded Variation.pdf
-            ink_added_percent: 106.2
+            ink_added_percent: 113.6
             url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Bounded%20Variation.pdf
           - name: Continuously Extension
             raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Continuously Extension.pdf
@@ -15116,7 +15124,7 @@ records:
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Typical%20Quotient%20Spaces.pdf
         folders: []
     - name: Others
-      ink_added_percent: 0.0
+      ink_added_percent: 124.6
       files:
       - name: Arbitrary
         raw_path: Arbitrary.pdf
@@ -15124,19 +15132,23 @@ records:
         url: /untexed-current/Arbitrary.pdf
       - name: SNU solution
         raw_path: SNU solution.pdf
-        ink_added_percent: 0.0
+        ink_added_percent: 124.6
         url: /untexed-current/SNU%20solution.pdf
       - name: Tree of Subjects
         raw_path: Tree of Subjects.pdf
         ink_added_percent: 0.0
         url: /untexed-current/Tree%20of%20Subjects.pdf
       folders: []
-    added: []
+    added:
+    - path: Algebra/Galois Theory/Radical extension
+      ink_added_percent: 16.6
     modified:
+    - path: SNU solution
+      ink_added_percent: 124.6
     - path: Algebra/Finite Group Theory/Solvablity
       ink_added_percent: 114.3
     - path: Analysis/Real Analysis/Real-valued Function/Bounded Variation
-      ink_added_percent: 106.2
+      ink_added_percent: 113.6
     - path: Algebra/Group Theory/Commutator Subgroup
       ink_added_percent: 52.9
     moved_renamed: []
