@@ -16630,22 +16630,23 @@ records:
     note: 힘들다.
   '260903':
     baseline: false
-    total_ink_percent: 297.5
-    library_total_ink_percent: 36032.3
+    total_ink_percent: 376.8
+    library_total_ink_percent: 36111.6
     subject_ink_percent:
       Algebra: 3.9
       Analysis: 17.9
-      Differential Geometry: 14.0
-      Others: 261.7
+      Differential Geometry: 21.3
+      Others: 333.8
     folder_ink_percent:
       Algebra/4. Ring Theory: 3.9
       Analysis/5. Differential equation: 17.9
-      Differential Geometry/1. Euclidean: 14.0
+      Differential Geometry/1. Euclidean: 21.3
     file_ink_percent:
       Algebra/4. Ring Theory/Domains.pdf: 3.9
       Analysis/5. Differential equation/Linear equation with variable coefficients.pdf: 17.9
       Differential Geometry/1. Euclidean/Curves.pdf: 14.0
-      SNU solution.pdf: 261.7
+      Differential Geometry/1. Euclidean/Local Surface Theory.pdf: 7.3
+      SNU solution.pdf: 333.8
     subjects:
     - name: Algebra
       ink_added_percent: 3.9
@@ -17414,18 +17415,22 @@ records:
           url: /untexed-current/Analysis/5.%20Differential%20equation/Typical%20differential%20equation.pdf
         folders: []
     - name: Differential Geometry
-      ink_added_percent: 14.0
+      ink_added_percent: 21.3
       files: []
       folders:
       - name: 1. Euclidean
         label: 1. Euclidean
         raw_path: Differential Geometry/1. Euclidean
-        ink_added_percent: 14.0
+        ink_added_percent: 21.3
         files:
         - name: Curves
           raw_path: Differential Geometry/1. Euclidean/Curves.pdf
           ink_added_percent: 14.0
           url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Curves.pdf
+        - name: Local Surface Theory
+          raw_path: Differential Geometry/1. Euclidean/Local Surface Theory.pdf
+          ink_added_percent: 7.3
+          url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Local%20Surface%20Theory.pdf
         folders:
         - name: Debris
           label: Debris
@@ -17628,7 +17633,7 @@ records:
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Typical%20Quotient%20Spaces.pdf
         folders: []
     - name: Others
-      ink_added_percent: 261.7
+      ink_added_percent: 333.8
       files:
       - name: Arbitrary
         raw_path: Arbitrary.pdf
@@ -17636,7 +17641,7 @@ records:
         url: /untexed-current/Arbitrary.pdf
       - name: SNU solution
         raw_path: SNU solution.pdf
-        ink_added_percent: 261.7
+        ink_added_percent: 333.8
         url: /untexed-current/SNU%20solution.pdf
       - name: Tree of Subjects
         raw_path: Tree of Subjects.pdf
@@ -17646,13 +17651,15 @@ records:
     added:
     - path: Analysis/Differential equation/Linear equation with variable coefficients
       ink_added_percent: 17.9
+    - path: Differential Geometry/Euclidean/Local Surface Theory
+      ink_added_percent: 7.3
     modified:
     - path: SNU solution
-      ink_added_percent: 261.7
+      ink_added_percent: 333.8
     - path: Differential Geometry/Euclidean/Curves
       ink_added_percent: 14.0
     - path: Algebra/Ring Theory/Domains
       ink_added_percent: 3.9
     moved_renamed: []
     deleted: []
-    note: ''
+    note: 체해서 죽다 살았다. 순대국밥을 먹었다. 누가봐도 오이고추여서 크게 베어물었는데 청양고추였다.
