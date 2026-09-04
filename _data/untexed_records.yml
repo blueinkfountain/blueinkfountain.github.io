@@ -17460,20 +17460,28 @@ records:
     note: 체해서 죽다 살았다. 순대국밥을 먹었다. 누가봐도 오이고추여서 크게 베어물었는데 청양고추였다.
   '260904':
     baseline: false
-    total_ink_percent: 317.2
-    library_total_ink_percent: 36428.9
+    total_ink_percent: 1069.8
+    library_total_ink_percent: 36707.7
     subject_ink_percent:
-      Algebra: 131.6
-      Others: 185.6
+      Algebra: 134.5
+      Differential Geometry: 206.6
+      Others: 699.2
+      Topology: 29.5
     folder_ink_percent:
-      Algebra/7. Galois Theory: 131.6
+      Algebra/7. Galois Theory: 134.5
+      Differential Geometry/1. Euclidean: 206.6
+      Topology/2. Algebraic Topology: 29.5
     file_ink_percent:
       Algebra/7. Galois Theory/Galois Group of Polynomial.pdf: 81.6
-      Algebra/7. Galois Theory/Typical Galois extensions.pdf: 50.0
-      SNU solution.pdf: 185.6
+      Algebra/7. Galois Theory/Typical Galois extensions.pdf: 52.9
+      Differential Geometry/1. Euclidean/Curves.pdf: 64.3
+      Differential Geometry/1. Euclidean/Fundamental form.pdf: 142.3
+      Differential Geometry/1. Euclidean/Spherical images.pdf: 0.0
+      SNU solution.pdf: 699.2
+      Topology/2. Algebraic Topology/Covering Space.pdf: 29.5
     subjects:
     - name: Algebra
-      ink_added_percent: 131.6
+      ink_added_percent: 134.5
       files: []
       folders:
       - name: 1. Linear Algebra
@@ -17853,7 +17861,7 @@ records:
       - name: 7. Galois Theory
         label: 7. Galois Theory
         raw_path: Algebra/7. Galois Theory
-        ink_added_percent: 131.6
+        ink_added_percent: 134.5
         files:
         - name: Automorphisms of Field
           raw_path: Algebra/7. Galois Theory/Automorphisms of Field.pdf
@@ -17877,7 +17885,7 @@ records:
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Radical%20extension.pdf
         - name: Typical Galois extensions
           raw_path: Algebra/7. Galois Theory/Typical Galois extensions.pdf
-          ink_added_percent: 50.0
+          ink_added_percent: 52.9
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Typical%20Galois%20extensions.pdf
         folders: []
     - name: Analysis
@@ -18243,22 +18251,30 @@ records:
           url: /untexed-current/Analysis/5.%20Differential%20equation/Typical%20differential%20equation.pdf
         folders: []
     - name: Differential Geometry
-      ink_added_percent: 0.0
+      ink_added_percent: 206.6
       files: []
       folders:
       - name: 1. Euclidean
         label: 1. Euclidean
         raw_path: Differential Geometry/1. Euclidean
-        ink_added_percent: 0.0
+        ink_added_percent: 206.6
         files:
         - name: Curves
           raw_path: Differential Geometry/1. Euclidean/Curves.pdf
-          ink_added_percent: 0.0
+          ink_added_percent: 64.3
           url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Curves.pdf
+        - name: Fundamental form
+          raw_path: Differential Geometry/1. Euclidean/Fundamental form.pdf
+          ink_added_percent: 142.3
+          url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Fundamental%20form.pdf
         - name: Local Surface Theory
           raw_path: Differential Geometry/1. Euclidean/Local Surface Theory.pdf
           ink_added_percent: 0.0
           url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Local%20Surface%20Theory.pdf
+        - name: Spherical images
+          raw_path: Differential Geometry/1. Euclidean/Spherical images.pdf
+          ink_added_percent: 0.0
+          url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Spherical%20images.pdf
         folders:
         - name: Debris
           label: Debris
@@ -18293,10 +18309,6 @@ records:
             raw_path: Differential Geometry/1. Euclidean/Debris/Differential Form.pdf
             ink_added_percent: 0.0
             url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Debris/Differential%20Form.pdf
-          - name: First fundamental form
-            raw_path: Differential Geometry/1. Euclidean/Debris/First fundamental form.pdf
-            ink_added_percent: 0.0
-            url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Debris/First%20fundamental%20form.pdf
           - name: Frenet fomular
             raw_path: Differential Geometry/1. Euclidean/Debris/Frenet fomular.pdf
             ink_added_percent: 0.0
@@ -18323,7 +18335,7 @@ records:
             url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Debris/Tangent%20Plane.pdf
           folders: []
     - name: Topology
-      ink_added_percent: 0.0
+      ink_added_percent: 29.5
       files: []
       folders:
       - name: 1. General Topology
@@ -18429,7 +18441,7 @@ records:
       - name: 2. Algebraic Topology
         label: 2. Algebraic Topology
         raw_path: Topology/2. Algebraic Topology
-        ink_added_percent: 0.0
+        ink_added_percent: 29.5
         files:
         - name: Borsuk-Ulam Theorem
           raw_path: Topology/2. Algebraic Topology/Borsuk-Ulam Theorem.pdf
@@ -18437,7 +18449,7 @@ records:
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Borsuk-Ulam%20Theorem.pdf
         - name: Covering Space
           raw_path: Topology/2. Algebraic Topology/Covering Space.pdf
-          ink_added_percent: 0.0
+          ink_added_percent: 29.5
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Covering%20Space.pdf
         - name: Fundamental gp - by Lee
           raw_path: Topology/2. Algebraic Topology/Fundamental gp - by Lee.pdf
@@ -18461,7 +18473,7 @@ records:
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Typical%20Quotient%20Spaces.pdf
         folders: []
     - name: Others
-      ink_added_percent: 185.6
+      ink_added_percent: 699.2
       files:
       - name: Arbitrary
         raw_path: Arbitrary.pdf
@@ -18469,7 +18481,7 @@ records:
         url: /untexed-current/Arbitrary.pdf
       - name: SNU solution
         raw_path: SNU solution.pdf
-        ink_added_percent: 185.6
+        ink_added_percent: 699.2
         url: /untexed-current/SNU%20solution.pdf
       - name: Tree of Subjects
         raw_path: Tree of Subjects.pdf
@@ -18477,13 +18489,22 @@ records:
         url: /untexed-current/Tree%20of%20Subjects.pdf
       folders: []
     added:
+    - path: Differential Geometry/Euclidean/Fundamental form
+      ink_added_percent: 142.3
     - path: Algebra/Galois Theory/Galois Group of Polynomial
       ink_added_percent: 81.6
+    - path: Differential Geometry/Euclidean/Spherical images
+      ink_added_percent: 0.0
     modified:
     - path: SNU solution
-      ink_added_percent: 185.6
+      ink_added_percent: 699.2
+    - path: Differential Geometry/Euclidean/Curves
+      ink_added_percent: 64.3
     - path: Algebra/Galois Theory/Typical Galois extensions
-      ink_added_percent: 50.0
+      ink_added_percent: 52.9
+    - path: Topology/Algebraic Topology/Covering Space
+      ink_added_percent: 29.5
     moved_renamed: []
-    deleted: []
+    deleted:
+    - Differential Geometry/Euclidean/Debris/First fundamental form
     note: ''
