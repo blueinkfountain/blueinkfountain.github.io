@@ -25,5 +25,3 @@ _site/
 # Local handwritten-note snapshots
 # Keep them on this Mac, never upload them to GitHub.
 untexed/[0-9][0-9][0-9][0-9][0-9][0-9]/
-.daily_record_pending_note
-.daily_record_backup/
