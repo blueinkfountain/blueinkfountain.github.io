@@ -21676,18 +21676,19 @@ records:
     note: 결의를 다졌다.
   '260910':
     baseline: false
-    total_ink_percent: 713.0
-    library_total_ink_percent: 39000.0
+    total_ink_percent: 799.6
+    library_total_ink_percent: 39043.2
     subject_ink_percent:
       Algebra: 280.3
       Analysis: 55.3
-      Others: 290.7
-      Topology: 86.7
+      Others: 286.1
+      Topology: 177.9
     folder_ink_percent:
       Algebra/2. Group Theory: 216.1
       Algebra/7. Galois Theory: 64.1
       Analysis/5. Differential equation: 55.3
-      Topology/2. Algebraic Topology: 86.7
+      Topology/2. Algebraic Topology: 177.9
+      Topology/2. Algebraic Topology/Debris: 144.7
     file_ink_percent:
       Algebra/2. Group Theory/Isomorphism Theorem.pdf: 170.7
       Algebra/2. Group Theory/Typical Homomorphisms.pdf: 45.4
@@ -21695,8 +21696,9 @@ records:
       Analysis/5. Differential equation/Bernoulli Equation.pdf: 16.3
       Analysis/5. Differential equation/Existence and Uniqueness of ODE.pdf: 3.1
       Analysis/5. Differential equation/Linear equation with variable coefficients.pdf: 36.0
-      SNU solution.pdf: 290.7
-      Topology/2. Algebraic Topology/Homotopy.pdf: 86.7
+      SNU solution.pdf: 286.1
+      Topology/2. Algebraic Topology/Debris/Homotopy.pdf: 144.7
+      Topology/2. Algebraic Topology/Homotopy.pdf: 33.2
     subjects:
     - name: Algebra
       ink_added_percent: 280.3
@@ -22561,7 +22563,7 @@ records:
             url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Debris/Tangent%20Plane.pdf
           folders: []
     - name: Topology
-      ink_added_percent: 86.7
+      ink_added_percent: 177.9
       files: []
       folders:
       - name: 1. General Topology
@@ -22667,27 +22669,15 @@ records:
       - name: 2. Algebraic Topology
         label: 2. Algebraic Topology
         raw_path: Topology/2. Algebraic Topology
-        ink_added_percent: 86.7
+        ink_added_percent: 177.9
         files:
-        - name: Borsuk-Ulam Theorem
-          raw_path: Topology/2. Algebraic Topology/Borsuk-Ulam Theorem.pdf
-          ink_added_percent: 0.0
-          url: /untexed-current/Topology/2.%20Algebraic%20Topology/Borsuk-Ulam%20Theorem.pdf
-        - name: Covering Space
-          raw_path: Topology/2. Algebraic Topology/Covering Space.pdf
-          ink_added_percent: 0.0
-          url: /untexed-current/Topology/2.%20Algebraic%20Topology/Covering%20Space.pdf
-        - name: Fundamental gp - by Lee
-          raw_path: Topology/2. Algebraic Topology/Fundamental gp - by Lee.pdf
-          ink_added_percent: 0.0
-          url: /untexed-current/Topology/2.%20Algebraic%20Topology/Fundamental%20gp%20-%20by%20Lee.pdf
         - name: Fundamental Group
           raw_path: Topology/2. Algebraic Topology/Fundamental Group.pdf
           ink_added_percent: 0.0
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Fundamental%20Group.pdf
         - name: Homotopy
           raw_path: Topology/2. Algebraic Topology/Homotopy.pdf
-          ink_added_percent: 86.7
+          ink_added_percent: 33.2
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Homotopy.pdf
         - name: Quotient map
           raw_path: Topology/2. Algebraic Topology/Quotient map.pdf
@@ -22697,9 +22687,31 @@ records:
           raw_path: Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf
           ink_added_percent: 0.0
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Typical%20Quotient%20Spaces.pdf
-        folders: []
+        folders:
+        - name: Debris
+          label: Debris
+          raw_path: Topology/2. Algebraic Topology/Debris
+          ink_added_percent: 144.7
+          files:
+          - name: Borsuk-Ulam Theorem
+            raw_path: Topology/2. Algebraic Topology/Debris/Borsuk-Ulam Theorem.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Topology/2.%20Algebraic%20Topology/Debris/Borsuk-Ulam%20Theorem.pdf
+          - name: Covering Space
+            raw_path: Topology/2. Algebraic Topology/Debris/Covering Space.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Topology/2.%20Algebraic%20Topology/Debris/Covering%20Space.pdf
+          - name: Fundamental gp - by Lee
+            raw_path: Topology/2. Algebraic Topology/Debris/Fundamental gp - by Lee.pdf
+            ink_added_percent: 0.0
+            url: /untexed-current/Topology/2.%20Algebraic%20Topology/Debris/Fundamental%20gp%20-%20by%20Lee.pdf
+          - name: Homotopy
+            raw_path: Topology/2. Algebraic Topology/Debris/Homotopy.pdf
+            ink_added_percent: 144.7
+            url: /untexed-current/Topology/2.%20Algebraic%20Topology/Debris/Homotopy.pdf
+          folders: []
     - name: Others
-      ink_added_percent: 290.7
+      ink_added_percent: 286.1
       files:
       - name: Arbitrary
         raw_path: Arbitrary.pdf
@@ -22711,7 +22723,7 @@ records:
         url: /untexed-current/Rudin%20PMA%20Revised%20Solution.pdf
       - name: SNU solution
         raw_path: SNU solution.pdf
-        ink_added_percent: 290.7
+        ink_added_percent: 286.1
         url: /untexed-current/SNU%20solution.pdf
       - name: Tree of Subjects
         raw_path: Tree of Subjects.pdf
@@ -22721,21 +22733,32 @@ records:
     added:
     - path: Algebra/Group Theory/Isomorphism Theorem
       ink_added_percent: 170.7
+    - path: Topology/Algebraic Topology/Debris/Homotopy
+      ink_added_percent: 144.7
     - path: Algebra/Group Theory/Typical Homomorphisms
       ink_added_percent: 45.4
     - path: Analysis/Differential equation/Bernoulli Equation
       ink_added_percent: 16.3
     modified:
     - path: SNU solution
-      ink_added_percent: 290.7
-    - path: Topology/Algebraic Topology/Homotopy
-      ink_added_percent: 86.7
+      ink_added_percent: 286.1
     - path: Algebra/Galois Theory/Typical Galois extensions
       ink_added_percent: 64.1
     - path: Analysis/Differential equation/Linear equation with variable coefficients
       ink_added_percent: 36.0
+    - path: Topology/Algebraic Topology/Homotopy
+      ink_added_percent: 33.2
     - path: Analysis/Differential equation/Existence and Uniqueness of ODE
       ink_added_percent: 3.1
-    moved_renamed: []
+    moved_renamed:
+    - from: Topology/Algebraic Topology/Borsuk-Ulam Theorem
+      to: Topology/Algebraic Topology/Debris/Borsuk-Ulam Theorem
+      ink_added_percent: 0.0
+    - from: Topology/Algebraic Topology/Covering Space
+      to: Topology/Algebraic Topology/Debris/Covering Space
+      ink_added_percent: 0.0
+    - from: Topology/Algebraic Topology/Fundamental gp - by Lee
+      to: Topology/Algebraic Topology/Debris/Fundamental gp - by Lee
+      ink_added_percent: 0.0
     deleted:
     - Algebra/Group Theory/Coset and Isomorphism Theorem
