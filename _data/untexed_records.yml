@@ -29507,17 +29507,23 @@ records:
     deleted: []
   '260921':
     baseline: false
-    total_ink_percent: 486.7
-    library_total_ink_percent: 42778.7
+    total_ink_percent: 565.7
+    library_total_ink_percent: 42857.6
     subject_ink_percent:
       Algebra: 58.9
+      Analysis: 78.9
       Others: 427.8
     folder_ink_percent:
       Algebra/3. Finite Group Theory: 27.8
       Algebra/7. Galois Theory: 31.1
+      Analysis/2. Complex Analysis: 78.9
+      Analysis/2. Complex Analysis/2. Holomorphic function: 41.9
+      Analysis/2. Complex Analysis/3. Line integral: 37.0
     file_ink_percent:
       Algebra/3. Finite Group Theory/Cyclic Group.pdf: 27.8
       Algebra/7. Galois Theory/Cyclotomic Extension.pdf: 31.1
+      Analysis/2. Complex Analysis/2. Holomorphic function/Meromorphic function.pdf: 41.9
+      Analysis/2. Complex Analysis/3. Line integral/Typical Line integral.pdf: 37.0
       SNU solution.pdf: 427.8
     subjects:
     - name: Algebra
@@ -29945,7 +29951,7 @@ records:
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Typical%20Galois%20extensions.pdf
         folders: []
     - name: Analysis
-      ink_added_percent: 0.0
+      ink_added_percent: 78.9
       files: []
       folders:
       - name: 1. Real Analysis
@@ -30127,7 +30133,7 @@ records:
       - name: 2. Complex Analysis
         label: 2. Complex Analysis
         raw_path: Analysis/2. Complex Analysis
-        ink_added_percent: 0.0
+        ink_added_percent: 78.9
         files:
         - name: Complex Analysis
           raw_path: Analysis/2. Complex Analysis/Complex Analysis.pdf
@@ -30153,7 +30159,7 @@ records:
         - name: 2. Holomorphic function
           label: 2. Holomorphic function
           raw_path: Analysis/2. Complex Analysis/2. Holomorphic function
-          ink_added_percent: 0.0
+          ink_added_percent: 41.9
           files:
           - name: Cauchy-Riemann equation
             raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Cauchy-Riemann equation.pdf
@@ -30165,7 +30171,7 @@ records:
             url: /untexed-current/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Harmonic%20Functions.pdf
           - name: Meromorphic function
             raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Meromorphic function.pdf
-            ink_added_percent: 0.0
+            ink_added_percent: 41.9
             url: /untexed-current/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Meromorphic%20function.pdf
           - name: Sequence of functions
             raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Sequence of functions.pdf
@@ -30179,7 +30185,7 @@ records:
         - name: 3. Line integral
           label: 3. Line integral
           raw_path: Analysis/2. Complex Analysis/3. Line integral
-          ink_added_percent: 0.0
+          ink_added_percent: 37.0
           files:
           - name: Argument Principle
             raw_path: Analysis/2. Complex Analysis/3. Line integral/Argument Principle.pdf
@@ -30231,7 +30237,7 @@ records:
             url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Trigonometric%20integral.pdf
           - name: Typical Line integral
             raw_path: Analysis/2. Complex Analysis/3. Line integral/Typical Line integral.pdf
-            ink_added_percent: 0.0
+            ink_added_percent: 37.0
             url: /untexed-current/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Typical%20Line%20integral.pdf
           folders: []
         - name: 4. Conformal mapping
@@ -30592,6 +30598,10 @@ records:
     modified:
     - path: SNU solution
       ink_added_percent: 427.8
+    - path: Analysis/Complex Analysis/Holomorphic function/Meromorphic function
+      ink_added_percent: 41.9
+    - path: Analysis/Complex Analysis/Line integral/Typical Line integral
+      ink_added_percent: 37.0
     - path: Algebra/Finite Group Theory/Cyclic Group
       ink_added_percent: 27.8
     moved_renamed: []
