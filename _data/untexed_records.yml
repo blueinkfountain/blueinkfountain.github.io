@@ -31274,29 +31274,29 @@ records:
     deleted: []
   '260923':
     baseline: false
-    total_ink_percent: 391.1
-    library_total_ink_percent: 43377.8
+    total_ink_percent: 464.0
+    library_total_ink_percent: 43412.7
     subject_ink_percent:
-      Algebra: 94.5
+      Algebra: 167.4
       Others: 162.5
       Topology: 134.1
     folder_ink_percent:
-      Algebra/1. Linear Algebra: 94.5
-      Algebra/1. Linear Algebra/2. Inner product Theory: 94.5
+      Algebra/1. Linear Algebra: 167.4
+      Algebra/1. Linear Algebra/2. Inner product Theory: 167.4
       Topology/2. Algebraic Topology: 134.1
     file_ink_percent:
-      Algebra/1. Linear Algebra/2. Inner product Theory/Orthogonal Projection - Complete.pdf: 94.5
+      Algebra/1. Linear Algebra/2. Inner product Theory/Orthogonal Projection - Complete.pdf: 167.4
       SNU solution.pdf: 162.5
       Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 134.1
     subjects:
     - name: Algebra
-      ink_added_percent: 94.5
+      ink_added_percent: 167.4
       files: []
       folders:
       - name: 1. Linear Algebra
         label: 1. Linear Algebra
         raw_path: Algebra/1. Linear Algebra
-        ink_added_percent: 94.5
+        ink_added_percent: 167.4
         files:
         - name: Hoffman
           raw_path: Algebra/1. Linear Algebra/Hoffman.pdf
@@ -31368,7 +31368,7 @@ records:
         - name: 2. Inner product Theory
           label: 2. Inner product Theory
           raw_path: Algebra/1. Linear Algebra/2. Inner product Theory
-          ink_added_percent: 94.5
+          ink_added_percent: 167.4
           files:
           - name: Diagonalizable Criterion on Inner product Space
             raw_path: Algebra/1. Linear Algebra/2. Inner product Theory/Diagonalizable Criterion on Inner product Space.pdf
@@ -31392,7 +31392,7 @@ records:
             url: /untexed-current/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Operator%20Norm.pdf
           - name: Orthogonal Projection - Complete
             raw_path: Algebra/1. Linear Algebra/2. Inner product Theory/Orthogonal Projection - Complete.pdf
-            ink_added_percent: 94.5
+            ink_added_percent: 167.4
             url: /untexed-current/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Orthogonal%20Projection%20-%20Complete.pdf
           - name: QR-Factorization
             raw_path: Algebra/1. Linear Algebra/2. Inner product Theory/QR-Factorization.pdf
@@ -32361,11 +32361,11 @@ records:
       folders: []
     added: []
     modified:
+    - path: Algebra/Linear Algebra/Inner product Theory/Orthogonal Projection - Complete
+      ink_added_percent: 167.4
     - path: SNU solution
       ink_added_percent: 162.5
     - path: Topology/Algebraic Topology/Typical Quotient Spaces
       ink_added_percent: 134.1
-    - path: Algebra/Linear Algebra/Inner product Theory/Orthogonal Projection - Complete
-      ink_added_percent: 94.5
     moved_renamed: []
     deleted: []
