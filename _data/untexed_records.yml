@@ -35687,20 +35687,23 @@ records:
     deleted: []
   '260928':
     baseline: false
-    total_ink_percent: 268.2
-    library_total_ink_percent: 45066.4
+    total_ink_percent: 444.3
+    library_total_ink_percent: 45214.9
     subject_ink_percent:
       Analysis: 26.2
-      Others: 242.0
+      Others: 418.1
+      Topology: 0.0
     folder_ink_percent:
       Analysis/1. Real Analysis: 0.1
       Analysis/1. Real Analysis/3. Functional Space: 0.1
       Analysis/2. Complex Analysis: 26.2
       Analysis/2. Complex Analysis/4. Conformal mapping: 26.2
+      Topology/2. Algebraic Topology: 0.0
     file_ink_percent:
       Analysis/1. Real Analysis/3. Functional Space/Sequences of functions.pdf: 0.1
       Analysis/2. Complex Analysis/4. Conformal mapping/Linear fractional transformation.pdf: 26.2
-      SNU solution.pdf: 242.0
+      SNU solution.pdf: 418.1
+      Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 0.0
     subjects:
     - name: Algebra
       ink_added_percent: 0.0
@@ -36765,7 +36768,7 @@ records:
             url: /untexed-current/Topology/2.%20Algebraic%20Topology/Debris/Homotopy.pdf
           folders: []
     - name: Others
-      ink_added_percent: 242.0
+      ink_added_percent: 418.1
       files:
       - name: Arbitrary
         raw_path: Arbitrary.pdf
@@ -36777,7 +36780,7 @@ records:
         url: /untexed-current/Rudin%20PMA%20Revised%20Solution.pdf
       - name: SNU solution
         raw_path: SNU solution.pdf
-        ink_added_percent: 242.0
+        ink_added_percent: 418.1
         url: /untexed-current/SNU%20solution.pdf
       - name: Tree of Subjects
         raw_path: Tree of Subjects.pdf
@@ -36787,11 +36790,13 @@ records:
     added: []
     modified:
     - path: SNU solution
-      ink_added_percent: 242.0
+      ink_added_percent: 418.1
     - path: Analysis/Complex Analysis/Conformal mapping/Linear fractional transformation
       ink_added_percent: 26.2
     - path: Analysis/Real Analysis/Functional Space/Sequences of functions
       ink_added_percent: 0.1
+    - path: Topology/Algebraic Topology/Typical Quotient Spaces
+      ink_added_percent: 0.0
     moved_renamed: []
     deleted: []
     note: 정신차리고보니 시험전주다.
