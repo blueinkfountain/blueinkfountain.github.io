@@ -37455,13 +37455,16 @@ records:
     deleted: []
   '260930':
     baseline: false
-    total_ink_percent: 263.6
-    library_total_ink_percent: 45880.0
+    total_ink_percent: 486.5
+    library_total_ink_percent: 46100.7
     subject_ink_percent:
-      Others: 263.6
-    folder_ink_percent: {}
+      Others: 463.5
+      Topology: 23.0
+    folder_ink_percent:
+      Topology/2. Algebraic Topology: 23.0
     file_ink_percent:
-      SNU solution.pdf: 263.6
+      SNU solution.pdf: 463.5
+      Topology/2. Algebraic Topology/Quotient map.pdf: 23.0
     subjects:
     - name: Algebra
       ink_added_percent: 0.0
@@ -38358,7 +38361,7 @@ records:
             url: /untexed-current/Differential%20Geometry/1.%20Euclidean/Debris/Tangent%20Plane.pdf
           folders: []
     - name: Topology
-      ink_added_percent: 0.0
+      ink_added_percent: 23.0
       files: []
       folders:
       - name: 1. General Topology
@@ -38472,7 +38475,7 @@ records:
       - name: 2. Algebraic Topology
         label: 2. Algebraic Topology
         raw_path: Topology/2. Algebraic Topology
-        ink_added_percent: 0.0
+        ink_added_percent: 23.0
         files:
         - name: Adjunction Space
           raw_path: Topology/2. Algebraic Topology/Adjunction Space.pdf
@@ -38496,7 +38499,7 @@ records:
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Homotopy.pdf
         - name: Quotient map
           raw_path: Topology/2. Algebraic Topology/Quotient map.pdf
-          ink_added_percent: 0.0
+          ink_added_percent: 23.0
           url: /untexed-current/Topology/2.%20Algebraic%20Topology/Quotient%20map.pdf
         - name: Typical Quotient Spaces
           raw_path: Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf
@@ -38526,7 +38529,7 @@ records:
             url: /untexed-current/Topology/2.%20Algebraic%20Topology/Debris/Homotopy.pdf
           folders: []
     - name: Others
-      ink_added_percent: 263.6
+      ink_added_percent: 463.5
       files:
       - name: Arbitrary
         raw_path: Arbitrary.pdf
@@ -38538,7 +38541,7 @@ records:
         url: /untexed-current/Rudin%20PMA%20Revised%20Solution.pdf
       - name: SNU solution
         raw_path: SNU solution.pdf
-        ink_added_percent: 263.6
+        ink_added_percent: 463.5
         url: /untexed-current/SNU%20solution.pdf
       - name: Tree of Subjects
         raw_path: Tree of Subjects.pdf
@@ -38548,6 +38551,8 @@ records:
     added: []
     modified:
     - path: SNU solution
-      ink_added_percent: 263.6
+      ink_added_percent: 463.5
+    - path: Topology/Algebraic Topology/Quotient map
+      ink_added_percent: 23.0
     moved_renamed: []
     deleted: []
