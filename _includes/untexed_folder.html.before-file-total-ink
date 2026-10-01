@@ -45,9 +45,9 @@
 
             {% endif %}
 
-            {% if file.total_ink_percent != nil %}
-              <span class="file-total-ink">
-                {{ file.total_ink_percent }}%
+            {% if file.ink_added_percent > 0 %}
+              <span class="file-ink">
+                +{{ file.ink_added_percent }}% ink
               </span>
             {% endif %}
 
