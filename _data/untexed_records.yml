@@ -61064,18 +61064,18 @@ records:
       Tree of Subjects.pdf: 76.1
   '261004':
     baseline: false
-    total_ink_percent: 238.8
-    library_total_ink_percent: 47381.3
+    total_ink_percent: 738.4
+    library_total_ink_percent: 47841.8
     subject_ink_percent:
       Analysis: 0.1
-      Others: 238.7
+      Others: 738.4
     folder_ink_percent:
       Analysis/1. Real Analysis: 0.1
       Analysis/1. Real Analysis/2. Real-valued Function: 0.1
     file_ink_percent:
       Analysis/1. Real Analysis/2. Real-valued Function/Parameter dependent integral.pdf: 0.1
       Arbitrary.pdf: 24.9
-      SNU solution.pdf: 213.9
+      SNU solution.pdf: 713.5
     subjects:
     - name: Algebra
       ink_added_percent: 0.0
@@ -62361,7 +62361,7 @@ records:
             url: /untexed-current/Topology/2.%20Algebraic%20Topology/Debris/Homotopy.pdf
           folders: []
     - name: Others
-      ink_added_percent: 238.7
+      ink_added_percent: 738.4
       files:
       - name: Arbitrary
         raw_path: Arbitrary.pdf
@@ -62375,8 +62375,8 @@ records:
         url: /untexed-current/Rudin%20PMA%20Revised%20Solution.pdf
       - name: SNU solution
         raw_path: SNU solution.pdf
-        ink_added_percent: 213.9
-        total_ink_percent: 10136.5
+        ink_added_percent: 713.5
+        total_ink_percent: 10597.0
         url: /untexed-current/SNU%20solution.pdf
       - name: Tree of Subjects
         raw_path: Tree of Subjects.pdf
@@ -62387,7 +62387,7 @@ records:
     added: []
     modified:
     - path: SNU solution
-      ink_added_percent: 213.9
+      ink_added_percent: 713.5
     - path: Arbitrary
       ink_added_percent: 24.9
     - path: Analysis/Real Analysis/Real-valued Function/Parameter dependent integral
@@ -62583,7 +62583,7 @@ records:
       Differential Geometry/1. Euclidean/Local Surface Theory.pdf: 7.3
       Differential Geometry/1. Euclidean/Spherical images.pdf: 0.0
       Rudin PMA Revised Solution.pdf: 212.8
-      SNU solution.pdf: 10136.5
+      SNU solution.pdf: 10597.0
       Topology/1. General Topology/Compact Hausdorff Space.pdf: 103.5
       Topology/1. General Topology/Compactness.pdf: 314.4
       Topology/1. General Topology/Connected Space.pdf: 412.9
