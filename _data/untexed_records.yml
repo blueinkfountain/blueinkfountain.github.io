@@ -1,6 +1,7 @@
 tree_schema_version: 3
-latest_date: '261004'
+latest_date: '261005'
 dates:
+- '261005'
 - '261004'
 - '261003'
 - '261002'
@@ -54,10 +55,10 @@ dates:
 history_policy:
   rolling_snapshots: 3
   active_dates:
-  - '261002'
   - '261003'
   - '261004'
-  anchor_date: '261001'
+  - '261005'
+  anchor_date: '261002'
 records:
   '260813':
     baseline: true
@@ -61065,7 +61066,7 @@ records:
   '261004':
     baseline: false
     total_ink_percent: 738.4
-    library_total_ink_percent: 47841.8
+    library_total_ink_percent: null
     subject_ink_percent:
       Analysis: 0.1
       Others: 738.4
@@ -61079,6 +61080,1337 @@ records:
     subjects:
     - name: Algebra
       ink_added_percent: 0.0
+      files: []
+      folders:
+      - name: 1. Linear Algebra
+        label: 1. Linear Algebra
+        raw_path: Algebra/1. Linear Algebra
+        ink_added_percent: 0.0
+        files:
+        - name: Hoffman
+          raw_path: Algebra/1. Linear Algebra/Hoffman.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 1424.1
+        folders:
+        - name: 1. Vector space Theory
+          label: 1. Vector space Theory
+          raw_path: Algebra/1. Linear Algebra/1. Vector space Theory
+          ink_added_percent: 0.0
+          files:
+          - name: Action of permutation on Matrices
+            raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Action of permutation on Matrices.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 56.1
+          - name: Basis for Vector space
+            raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Basis for Vector space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 131.4
+          - name: Canonical Form
+            raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Canonical Form.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 436.1
+          - name: Canonical Form_old
+            raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Canonical Form_old.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 434.9
+          - name: Cyclic subspace
+            raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Cyclic subspace.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 327.9
+          - name: Derterminant
+            raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Derterminant.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 150.5
+          - name: Dual Space
+            raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Dual Space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 593.5
+          - name: Jordan canonical form_old
+            raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Jordan canonical form_old.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 437.3
+          - name: Jordan form - Computation
+            raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Jordan form - Computation.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 337.1
+          - name: Kernel-Image Decompostion
+            raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Kernel-Image Decompostion.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 87.0
+          - name: Linear equation
+            raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Linear equation.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 187.5
+          - name: Minimal polynomial
+            raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Minimal polynomial.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 412.8
+          - name: Primary Decomposition
+            raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Primary Decomposition.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 108.3
+          - name: Projection
+            raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Projection.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 210.6
+          - name: Replacement Theorem
+            raw_path: Algebra/1. Linear Algebra/1. Vector space Theory/Replacement Theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 208.9
+          folders: []
+        - name: 2. Inner product Theory
+          label: 2. Inner product Theory
+          raw_path: Algebra/1. Linear Algebra/2. Inner product Theory
+          ink_added_percent: 0.0
+          files:
+          - name: Diagonalizable Criterion on Inner product Space
+            raw_path: Algebra/1. Linear Algebra/2. Inner product Theory/Diagonalizable Criterion on Inner product Space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 173.0
+          - name: General Linear Group
+            raw_path: Algebra/1. Linear Algebra/2. Inner product Theory/General Linear Group.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 130.8
+          - name: Norm induced by inner product
+            raw_path: Algebra/1. Linear Algebra/2. Inner product Theory/Norm induced by inner product.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 261.4
+          - name: Normal operator
+            raw_path: Algebra/1. Linear Algebra/2. Inner product Theory/Normal operator.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 79.4
+          - name: Operator Norm
+            raw_path: Algebra/1. Linear Algebra/2. Inner product Theory/Operator Norm.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 115.5
+          - name: Orthogonal Projection - Complete
+            raw_path: Algebra/1. Linear Algebra/2. Inner product Theory/Orthogonal Projection - Complete.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 365.0
+          - name: QR-Factorization
+            raw_path: Algebra/1. Linear Algebra/2. Inner product Theory/QR-Factorization.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 100.7
+          - name: Riesz Representation Theorem
+            raw_path: Algebra/1. Linear Algebra/2. Inner product Theory/Riesz Representation Theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 93.9
+          - name: Singular Value Decomposition
+            raw_path: Algebra/1. Linear Algebra/2. Inner product Theory/Singular Value Decomposition.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 199.1
+          - name: Unitary and Orthogonal Operator
+            raw_path: Algebra/1. Linear Algebra/2. Inner product Theory/Unitary and Orthogonal Operator.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 46.6
+          folders: []
+        - name: 3. Further topics
+          label: 3. Further topics
+          raw_path: Algebra/1. Linear Algebra/3. Further topics
+          ink_added_percent: 0.0
+          files:
+          - name: Bilinear forms
+            raw_path: Algebra/1. Linear Algebra/3. Further topics/Bilinear forms.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 59.0
+          - name: Continuous Function Space
+            raw_path: Algebra/1. Linear Algebra/3. Further topics/Continuous Function Space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 49.3
+          - name: Polynomial Space
+            raw_path: Algebra/1. Linear Algebra/3. Further topics/Polynomial Space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 119.4
+          - name: Positive Form
+            raw_path: Algebra/1. Linear Algebra/3. Further topics/Positive Form.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 212.9
+          - name: Sesqui-Linear Form
+            raw_path: Algebra/1. Linear Algebra/3. Further topics/Sesqui-Linear Form.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 291.0
+          - name: Symmetric Bilinear form
+            raw_path: Algebra/1. Linear Algebra/3. Further topics/Symmetric Bilinear form.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 0.0
+          folders: []
+      - name: 2. Group Theory
+        label: 2. Group Theory
+        raw_path: Algebra/2. Group Theory
+        ink_added_percent: 0.0
+        files:
+        - name: Commutator Subgroup
+          raw_path: Algebra/2. Group Theory/Commutator Subgroup.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 166.2
+        - name: Finitely Generated Abelian Group
+          raw_path: Algebra/2. Group Theory/Finitely Generated Abelian Group.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 63.2
+        - name: General linear group
+          raw_path: Algebra/2. Group Theory/General linear group.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 122.9
+        - name: Group Action
+          raw_path: Algebra/2. Group Theory/Group Action.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 513.1
+        - name: Isomorphism Theorem
+          raw_path: Algebra/2. Group Theory/Isomorphism Theorem.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 170.7
+        - name: Nilpotent Group
+          raw_path: Algebra/2. Group Theory/Nilpotent Group.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 68.1
+        - name: Normalizer and Centralizer
+          raw_path: Algebra/2. Group Theory/Normalizer and Centralizer.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 27.9
+        - name: Recognize theorem
+          raw_path: Algebra/2. Group Theory/Recognize theorem.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 74.7
+        - name: Typical Homomorphisms
+          raw_path: Algebra/2. Group Theory/Typical Homomorphisms.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 45.4
+        folders: []
+      - name: 3. Finite Group Theory
+        label: 3. Finite Group Theory
+        raw_path: Algebra/3. Finite Group Theory
+        ink_added_percent: 0.0
+        files:
+        - name: Alternating Group
+          raw_path: Algebra/3. Finite Group Theory/Alternating Group.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 156.8
+        - name: Class equation
+          raw_path: Algebra/3. Finite Group Theory/Class equation.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 33.3
+        - name: Cyclic Group
+          raw_path: Algebra/3. Finite Group Theory/Cyclic Group.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 74.8
+        - name: Dihedral Group
+          raw_path: Algebra/3. Finite Group Theory/Dihedral Group.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 174.3
+        - name: Division Algorithm
+          raw_path: Algebra/3. Finite Group Theory/Division Algorithm.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 200.4
+        - name: Jordan-Hölder
+          raw_path: Algebra/3. Finite Group Theory/Jordan-Hölder.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 385.9
+        - name: P-Group
+          raw_path: Algebra/3. Finite Group Theory/P-Group.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 53.4
+        - name: pgroups
+          raw_path: Algebra/3. Finite Group Theory/pgroups.pdf.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 50.0
+        - name: Quaternion group
+          raw_path: Algebra/3. Finite Group Theory/Quaternion group.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 3.3
+        - name: Solvablity
+          raw_path: Algebra/3. Finite Group Theory/Solvablity.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 177.5
+        - name: Sylow Theorem
+          raw_path: Algebra/3. Finite Group Theory/Sylow Theorem.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 711.4
+        - name: Symmetric Group
+          raw_path: Algebra/3. Finite Group Theory/Symmetric Group.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 324.3
+        - name: Typical Finite groups
+          raw_path: Algebra/3. Finite Group Theory/Typical Finite groups.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 347.6
+        folders: []
+      - name: 4. Ring Theory
+        label: 4. Ring Theory
+        raw_path: Algebra/4. Ring Theory
+        ink_added_percent: 0.0
+        files:
+        - name: Basic ideal
+          raw_path: Algebra/4. Ring Theory/Basic ideal.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 131.6
+        - name: Chinese reminder theorem
+          raw_path: Algebra/4. Ring Theory/Chinese reminder theorem.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 244.2
+        - name: Dedekind-Hasse norm
+          raw_path: Algebra/4. Ring Theory/Dedekind-Hasse norm.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 96.4
+        - name: Domains
+          raw_path: Algebra/4. Ring Theory/Domains.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 908.5
+        - name: Domains_Revised
+          raw_path: Algebra/4. Ring Theory/Domains_Revised.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 86.3
+        - name: Eisenstein Criterion
+          raw_path: Algebra/4. Ring Theory/Eisenstein Criterion.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 64.8
+        - name: Fraction Ring
+          raw_path: Algebra/4. Ring Theory/Fraction Ring.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 135.8
+        - name: Ideal
+          raw_path: Algebra/4. Ring Theory/Ideal.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 161.0
+        - name: Irreducible and Prime
+          raw_path: Algebra/4. Ring Theory/Irreducible and Prime.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 66.0
+        - name: Maximal and Prime ideal
+          raw_path: Algebra/4. Ring Theory/Maximal and Prime ideal.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 64.3
+        - name: Nilradical and Radical
+          raw_path: Algebra/4. Ring Theory/Nilradical and Radical.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 164.9
+        - name: Notebook 3
+          raw_path: Algebra/4. Ring Theory/Notebook 3.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 254.4
+        - name: Quadratic integer Ring
+          raw_path: Algebra/4. Ring Theory/Quadratic integer Ring.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 88.0
+        - name: Typical Quotient rings
+          raw_path: Algebra/4. Ring Theory/Typical Quotient rings.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 135.8
+        folders: []
+      - name: 5. Polynomial Ring Theory
+        label: 5. Polynomial Ring Theory
+        raw_path: Algebra/5. Polynomial Ring Theory
+        ink_added_percent: 0.0
+        files:
+        - name: Polynomial Ring
+          raw_path: Algebra/5. Polynomial Ring Theory/Polynomial Ring.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 418.6
+        - name: Polynomial Ring_Revised
+          raw_path: Algebra/5. Polynomial Ring Theory/Polynomial Ring_Revised.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 110.2
+        - name: Typical Polynomials
+          raw_path: Algebra/5. Polynomial Ring Theory/Typical Polynomials.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 37.5
+        folders: []
+      - name: 6. Field Theory
+        label: 6. Field Theory
+        raw_path: Algebra/6. Field Theory
+        ink_added_percent: 0.0
+        files:
+        - name: Basic field
+          raw_path: Algebra/6. Field Theory/Basic field.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 615.1
+        - name: Basic field extension
+          raw_path: Algebra/6. Field Theory/Basic field extension.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 314.9
+        - name: Basic field Theory
+          raw_path: Algebra/6. Field Theory/Basic field Theory.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 615.1
+        - name: Biquadratic Field
+          raw_path: Algebra/6. Field Theory/Biquadratic Field.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 106.5
+        - name: Composite Field
+          raw_path: Algebra/6. Field Theory/Composite Field.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 67.0
+        - name: Conjugate Isomorphism
+          raw_path: Algebra/6. Field Theory/Conjugate Isomorphism.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 47.4
+        - name: Cyclotomic Field
+          raw_path: Algebra/6. Field Theory/Cyclotomic Field.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 118.5
+        - name: Field Homomorphism
+          raw_path: Algebra/6. Field Theory/Field Homomorphism.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 32.3
+        - name: Finite field
+          raw_path: Algebra/6. Field Theory/Finite field.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 141.0
+        - name: Finite field_Revised
+          raw_path: Algebra/6. Field Theory/Finite field_Revised.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 90.1
+        - name: Rationalize
+          raw_path: Algebra/6. Field Theory/Rationalize.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 54.1
+        - name: Separable polynomial
+          raw_path: Algebra/6. Field Theory/Separable polynomial.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 178.7
+        - name: Spiltting and Separable Field
+          raw_path: Algebra/6. Field Theory/Spiltting and Separable Field.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 222.7
+        folders: []
+      - name: 7. Galois Theory
+        label: 7. Galois Theory
+        raw_path: Algebra/7. Galois Theory
+        ink_added_percent: 0.0
+        files:
+        - name: Automorphisms of Field
+          raw_path: Algebra/7. Galois Theory/Automorphisms of Field.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 40.1
+        - name: Cyclotomic Extension
+          raw_path: Algebra/7. Galois Theory/Cyclotomic Extension.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 31.1
+        - name: Galois Group of Polynomial
+          raw_path: Algebra/7. Galois Theory/Galois Group of Polynomial.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 183.1
+        - name: Galois Theorem
+          raw_path: Algebra/7. Galois Theory/Galois Theorem.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 282.6
+        - name: Norm and Trace of Galois
+          raw_path: Algebra/7. Galois Theory/Norm and Trace of Galois.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 27.0
+        - name: Radical extension
+          raw_path: Algebra/7. Galois Theory/Radical extension.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 16.6
+        - name: Typical Galois extensions
+          raw_path: Algebra/7. Galois Theory/Typical Galois extensions.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 962.0
+        folders: []
+    - name: Analysis
+      ink_added_percent: 0.1
+      files: []
+      folders:
+      - name: 1. Real Analysis
+        label: 1. Real Analysis
+        raw_path: Analysis/1. Real Analysis
+        ink_added_percent: 0.1
+        files: []
+        folders:
+        - name: 1. Real numbers
+          label: 1. Real numbers
+          raw_path: Analysis/1. Real Analysis/1. Real numbers
+          ink_added_percent: 0.0
+          files:
+          - name: Abel formula
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Abel formula.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 156.8
+          - name: Advanced Techniques for sequence
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Advanced Techniques for sequence.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 68.1
+          - name: Cantor set
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Cantor set.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 276.3
+          - name: Density of rational
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Density of rational.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 72.1
+          - name: Inequality in Real numbers
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Inequality in Real numbers.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 63.7
+          - name: Kronecker approximation theorem
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Kronecker approximation theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 53.7
+          - name: Riemann-Rearangement Theorem
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Riemann-Rearangement Theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 87.0
+          - name: Stolz-Cesaro theorem
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Stolz-Cesaro theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 186.7
+          - name: Supremum
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Supremum.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 406.7
+          - name: Typical Sequences
+            raw_path: Analysis/1. Real Analysis/1. Real numbers/Typical Sequences.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 15.2
+          folders: []
+        - name: 2. Real-valued Function
+          label: 2. Real-valued Function
+          raw_path: Analysis/1. Real Analysis/2. Real-valued Function
+          ink_added_percent: 0.1
+          files:
+          - name: Basic Riemann-integral
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Basic Riemann-integral.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 808.2
+          - name: Bounded Variation
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Bounded Variation.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 186.3
+          - name: Continuously Extension
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Continuously Extension.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 95.0
+          - name: Convexity
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Convexity.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 255.1
+          - name: Darboux_s Theorem
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Darboux_s Theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 80.5
+          - name: Differentiation
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Differentiation.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 168.4
+          - name: Discontinuity
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Discontinuity.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 77.5
+          - name: Fundamental Theorem of Calculus
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Fundamental Theorem of Calculus.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 54.5
+          - name: Improper integral
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Improper integral.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 46.7
+          - name: Integral Transform
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Integral Transform.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 76.7
+          - name: Lipschtiz
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Lipschtiz.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 172.1
+          - name: Newton_s Method
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Newton_s Method.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 0.0
+          - name: Open map is injective
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Open map is injective.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 101.2
+          - name: Parameter dependent integral
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Parameter dependent integral.pdf
+            ink_added_percent: 0.1
+            total_ink_percent: 71.9
+          - name: Power Series
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Power Series.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 356.6
+          - name: Talyor Theorem
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Talyor Theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 159.9
+          - name: Thomae function
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Thomae function.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 59.9
+          - name: Trigonometric series
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Trigonometric series.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 124.4
+          - name: xsin1_x
+            raw_path: Analysis/1. Real Analysis/2. Real-valued Function/xsin1_x.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 101.1
+          folders: []
+        - name: 3. Functional Space
+          label: 3. Functional Space
+          raw_path: Analysis/1. Real Analysis/3. Functional Space
+          ink_added_percent: 0.0
+          files:
+          - name: Arzelà-Ascoli
+            raw_path: Analysis/1. Real Analysis/3. Functional Space/Arzelà-Ascoli.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 107.1
+          - name: Banach Space
+            raw_path: Analysis/1. Real Analysis/3. Functional Space/Banach Space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 13.0
+          - name: Double Sequence
+            raw_path: Analysis/1. Real Analysis/3. Functional Space/Double Sequence.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 136.8
+          - name: Functional Space
+            raw_path: Analysis/1. Real Analysis/3. Functional Space/Functional Space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 63.7
+          - name: Inequalities of integral
+            raw_path: Analysis/1. Real Analysis/3. Functional Space/Inequalities of integral.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 92.4
+          - name: Inequalities of real-valued functions
+            raw_path: Analysis/1. Real Analysis/3. Functional Space/Inequalities of real-valued functions.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 14.8
+          - name: Normed Space
+            raw_path: Analysis/1. Real Analysis/3. Functional Space/Normed Space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 57.2
+          - name: Sequences of functions
+            raw_path: Analysis/1. Real Analysis/3. Functional Space/Sequences of functions.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 376.2
+          - name: Stone-Weierstrass Theorem
+            raw_path: Analysis/1. Real Analysis/3. Functional Space/Stone-Weierstrass Theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 56.9
+          folders: []
+      - name: 2. Complex Analysis
+        label: 2. Complex Analysis
+        raw_path: Analysis/2. Complex Analysis
+        ink_added_percent: 0.0
+        files:
+        - name: Complex Analysis
+          raw_path: Analysis/2. Complex Analysis/Complex Analysis.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 783.7
+        - name: Exponential function
+          raw_path: Analysis/2. Complex Analysis/Exponential function.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 10.8
+        - name: Schwarz reflection principle
+          raw_path: Analysis/2. Complex Analysis/Schwarz reflection principle.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 5.0
+        - name: Silverman Solution
+          raw_path: Analysis/2. Complex Analysis/Silverman Solution.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 211.3
+        - name: Silverman, Complex Analysis
+          raw_path: Analysis/2. Complex Analysis/Silverman, Complex Analysis.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 104.6
+        folders:
+        - name: 2. Holomorphic function
+          label: 2. Holomorphic function
+          raw_path: Analysis/2. Complex Analysis/2. Holomorphic function
+          ink_added_percent: 0.0
+          files:
+          - name: Cauchy-Riemann equation
+            raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Cauchy-Riemann equation.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 173.0
+          - name: Harmonic Functions
+            raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Harmonic Functions.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 190.8
+          - name: Meromorphic function
+            raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Meromorphic function.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 67.6
+          - name: Sequence of functions
+            raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Sequence of functions.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 85.5
+          - name: Uniqueness Theorem
+            raw_path: Analysis/2. Complex Analysis/2. Holomorphic function/Uniqueness Theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 96.9
+          folders: []
+        - name: 3. Line integral
+          label: 3. Line integral
+          raw_path: Analysis/2. Complex Analysis/3. Line integral
+          ink_added_percent: 0.0
+          files:
+          - name: Argument Principle
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Argument Principle.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 215.3
+          - name: Cauchy integral formula
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Cauchy integral formula.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 125.6
+          - name: Cauchy_s Inequality
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Cauchy_s Inequality.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 168.6
+          - name: Evaluation of Real integral
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Evaluation of Real integral.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 124.0
+          - name: Gauss Meanvalue Theorem
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Gauss Meanvalue Theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 60.3
+          - name: Goursat Theorem
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Goursat Theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 240.0
+          - name: Jordan lemma
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Jordan lemma.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 52.0
+          - name: Laurent Series of Polynomials
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Laurent Series of Polynomials.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 51.0
+          - name: Open mapping Theorem
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Open mapping Theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 37.5
+          - name: Residue at infinite
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Residue at infinite.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 57.6
+          - name: Residue Theorem
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Residue Theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 257.9
+          - name: Singularity
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Singularity.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 235.5
+          - name: Trigonometric integral
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Trigonometric integral.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 159.4
+          - name: Typical Line integral
+            raw_path: Analysis/2. Complex Analysis/3. Line integral/Typical Line integral.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 217.6
+          folders: []
+        - name: 4. Conformal mapping
+          label: 4. Conformal mapping
+          raw_path: Analysis/2. Complex Analysis/4. Conformal mapping
+          ink_added_percent: 0.0
+          files:
+          - name: Conformal mapping
+            raw_path: Analysis/2. Complex Analysis/4. Conformal mapping/Conformal mapping.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 52.2
+          - name: Linear fractional transformation
+            raw_path: Analysis/2. Complex Analysis/4. Conformal mapping/Linear fractional transformation.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 125.9
+          folders: []
+      - name: 3. Analysis on Manifold
+        label: 3. Analysis on Manifold
+        raw_path: Analysis/3. Analysis on Manifold
+        ink_added_percent: 0.0
+        files:
+        - name: Munkres, Analysis on manifold
+          raw_path: Analysis/3. Analysis on Manifold/Munkres, Analysis on manifold.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 292.6
+        folders: []
+      - name: 4. Measure Theory
+        label: 4. Measure Theory
+        raw_path: Analysis/4. Measure Theory
+        ink_added_percent: 0.0
+        files:
+        - name: Measurable Space
+          raw_path: Analysis/4. Measure Theory/Measurable Space.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 0.0
+        folders: []
+      - name: 5. Differential equation
+        label: 5. Differential equation
+        raw_path: Analysis/5. Differential equation
+        ink_added_percent: 0.0
+        files:
+        - name: Bernoulli Equation
+          raw_path: Analysis/5. Differential equation/Bernoulli Equation.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 16.3
+        - name: Coddington, Intro.ODE
+          raw_path: Analysis/5. Differential equation/Coddington, Intro.ODE.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 0.0
+        - name: Differential Operator
+          raw_path: Analysis/5. Differential equation/Differential Operator.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 53.1
+        - name: Exact equation
+          raw_path: Analysis/5. Differential equation/Exact equation.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 59.5
+        - name: Existence and Uniqueness of ODE
+          raw_path: Analysis/5. Differential equation/Existence and Uniqueness of ODE.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 33.3
+        - name: First order
+          raw_path: Analysis/5. Differential equation/First order.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 37.5
+        - name: Linear equation with constant coefficients
+          raw_path: Analysis/5. Differential equation/Linear equation with constant coefficients.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 157.5
+        - name: Linear equation with variable coefficients
+          raw_path: Analysis/5. Differential equation/Linear equation with variable coefficients.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 51.9
+        - name: Typical differential equation
+          raw_path: Analysis/5. Differential equation/Typical differential equation.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 39.4
+        folders: []
+    - name: Differential Geometry
+      ink_added_percent: 0.0
+      files: []
+      folders:
+      - name: 1. Euclidean
+        label: 1. Euclidean
+        raw_path: Differential Geometry/1. Euclidean
+        ink_added_percent: 0.0
+        files:
+        - name: Curvature of Surface
+          raw_path: Differential Geometry/1. Euclidean/Curvature of Surface.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 179.2
+        - name: Curves
+          raw_path: Differential Geometry/1. Euclidean/Curves.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 84.0
+        - name: Fundamental form
+          raw_path: Differential Geometry/1. Euclidean/Fundamental form.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 206.7
+        - name: Gauss map
+          raw_path: Differential Geometry/1. Euclidean/Gauss map.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 30.0
+        - name: Lee.nany.
+          raw_path: Differential Geometry/1. Euclidean/Lee.nany..pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 31.2
+        - name: Local Surface Theory
+          raw_path: Differential Geometry/1. Euclidean/Local Surface Theory.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 7.3
+        - name: Spherical images
+          raw_path: Differential Geometry/1. Euclidean/Spherical images.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 0.0
+        folders:
+        - name: Debris
+          label: Debris
+          raw_path: Differential Geometry/1. Euclidean/Debris
+          ink_added_percent: 0.0
+          files:
+          - name: Barrett O_neill
+            raw_path: Differential Geometry/1. Euclidean/Debris/Barrett O_neill.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 607.6
+          - name: Barrett O_neill Solution
+            raw_path: Differential Geometry/1. Euclidean/Debris/Barrett O_neill Solution.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 237.3
+          - name: Calculus on Surface
+            raw_path: Differential Geometry/1. Euclidean/Debris/Calculus on Surface.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 12.9
+          - name: Covariant Derivative
+            raw_path: Differential Geometry/1. Euclidean/Debris/Covariant Derivative.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 26.3
+          - name: Cross product
+            raw_path: Differential Geometry/1. Euclidean/Debris/Cross product.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 75.2
+          - name: Diffeomorphism
+            raw_path: Differential Geometry/1. Euclidean/Debris/Diffeomorphism.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 11.0
+          - name: Differential Form
+            raw_path: Differential Geometry/1. Euclidean/Debris/Differential Form.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 69.9
+          - name: Frenet fomular
+            raw_path: Differential Geometry/1. Euclidean/Debris/Frenet fomular.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 230.8
+          - name: Mapping
+            raw_path: Differential Geometry/1. Euclidean/Debris/Mapping.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 39.1
+          - name: Regular Surface
+            raw_path: Differential Geometry/1. Euclidean/Debris/Regular Surface.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 244.3
+          - name: Shape Operater
+            raw_path: Differential Geometry/1. Euclidean/Debris/Shape Operater.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 0.4
+          - name: Surface
+            raw_path: Differential Geometry/1. Euclidean/Debris/Surface.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 12.2
+          - name: Tangent Plane
+            raw_path: Differential Geometry/1. Euclidean/Debris/Tangent Plane.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 188.4
+          folders: []
+    - name: Topology
+      ink_added_percent: 0.0
+      files: []
+      folders:
+      - name: 1. General Topology
+        label: 1. General Topology
+        raw_path: Topology/1. General Topology
+        ink_added_percent: 0.0
+        files:
+        - name: Compact Hausdorff Space
+          raw_path: Topology/1. General Topology/Compact Hausdorff Space.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 103.5
+        - name: Compactness
+          raw_path: Topology/1. General Topology/Compactness.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 314.4
+        - name: Connected Space
+          raw_path: Topology/1. General Topology/Connected Space.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 412.9
+        - name: Continuous Map
+          raw_path: Topology/1. General Topology/Continuous Map.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 133.8
+        - name: Hilbert Space
+          raw_path: Topology/1. General Topology/Hilbert Space.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 158.3
+        - name: Initial Topology
+          raw_path: Topology/1. General Topology/Initial Topology.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 145.9
+        - name: Interior and Closure
+          raw_path: Topology/1. General Topology/Interior and Closure.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 217.8
+        - name: Kolmogorov and Fréchet Space
+          raw_path: Topology/1. General Topology/Kolmogorov and Fréchet Space.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 48.6
+        - name: One point Compactification
+          raw_path: Topology/1. General Topology/One point Compactification.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 187.4
+        - name: Product space
+          raw_path: Topology/1. General Topology/Product space.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 48.9
+        - name: Product Topology
+          raw_path: Topology/1. General Topology/Product Topology.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 109.5
+        - name: Regular and Normal
+          raw_path: Topology/1. General Topology/Regular and Normal.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 0.0
+        - name: Subspace
+          raw_path: Topology/1. General Topology/Subspace.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 88.7
+        - name: Topological basis
+          raw_path: Topology/1. General Topology/Topological basis.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 216.6
+        - name: Topological Group
+          raw_path: Topology/1. General Topology/Topological Group.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 105.2
+        - name: Topological map
+          raw_path: Topology/1. General Topology/Topological map.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 168.0
+        - name: Typical Topological Spaces
+          raw_path: Topology/1. General Topology/Typical Topological Spaces.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 19.9
+        - name: Urysohn Lemma
+          raw_path: Topology/1. General Topology/Urysohn Lemma.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 84.4
+        folders:
+        - name: Metric Space
+          label: Metric Space
+          raw_path: Topology/1. General Topology/Metric Space
+          ink_added_percent: 0.0
+          files:
+          - name: Basic metric space
+            raw_path: Topology/1. General Topology/Metric Space/Basic metric space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 145.3
+          - name: Distance
+            raw_path: Topology/1. General Topology/Metric Space/Distance.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 80.1
+          - name: Isometry
+            raw_path: Topology/1. General Topology/Metric Space/Isometry.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 93.8
+          - name: Metric diagram
+            raw_path: Topology/1. General Topology/Metric Space/Metric diagram.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 359.5
+          - name: p-norm
+            raw_path: Topology/1. General Topology/Metric Space/p-norm.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 149.4
+          - name: Uniform Metric Space
+            raw_path: Topology/1. General Topology/Metric Space/Uniform Metric Space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 0.0
+          folders: []
+      - name: 2. Algebraic Topology
+        label: 2. Algebraic Topology
+        raw_path: Topology/2. Algebraic Topology
+        ink_added_percent: 0.0
+        files:
+        - name: Adjunction Space
+          raw_path: Topology/2. Algebraic Topology/Adjunction Space.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 119.8
+        - name: Covering space
+          raw_path: Topology/2. Algebraic Topology/Covering space.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 106.2
+        - name: Deformation retraction
+          raw_path: Topology/2. Algebraic Topology/Deformation retraction.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 35.6
+        - name: Fundamental Group
+          raw_path: Topology/2. Algebraic Topology/Fundamental Group.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 361.7
+        - name: Homotopy
+          raw_path: Topology/2. Algebraic Topology/Homotopy.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 364.3
+        - name: Quotient map
+          raw_path: Topology/2. Algebraic Topology/Quotient map.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 376.7
+        - name: Typical Quotient Spaces
+          raw_path: Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 281.7
+        folders:
+        - name: Debris
+          label: Debris
+          raw_path: Topology/2. Algebraic Topology/Debris
+          ink_added_percent: 0.0
+          files:
+          - name: Borsuk-Ulam Theorem
+            raw_path: Topology/2. Algebraic Topology/Debris/Borsuk-Ulam Theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 41.8
+          - name: Covering Space
+            raw_path: Topology/2. Algebraic Topology/Debris/Covering Space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 70.4
+          - name: Fundamental gp - by Lee
+            raw_path: Topology/2. Algebraic Topology/Debris/Fundamental gp - by Lee.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 197.0
+          - name: Homotopy
+            raw_path: Topology/2. Algebraic Topology/Debris/Homotopy.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 144.7
+          folders: []
+    - name: Others
+      ink_added_percent: 738.4
+      files:
+      - name: Arbitrary
+        raw_path: Arbitrary.pdf
+        ink_added_percent: 24.9
+        total_ink_percent: 118.1
+      - name: Rudin PMA Revised Solution
+        raw_path: Rudin PMA Revised Solution.pdf
+        ink_added_percent: 0.0
+        total_ink_percent: 212.8
+      - name: SNU solution
+        raw_path: SNU solution.pdf
+        ink_added_percent: 713.5
+        total_ink_percent: 10597.0
+      - name: Tree of Subjects
+        raw_path: Tree of Subjects.pdf
+        ink_added_percent: 0.0
+        total_ink_percent: 76.1
+      folders: []
+    added: []
+    modified:
+    - path: SNU solution
+      ink_added_percent: 713.5
+    - path: Arbitrary
+      ink_added_percent: 24.9
+    - path: Analysis/Real Analysis/Real-valued Function/Parameter dependent integral
+      ink_added_percent: 0.1
+    moved_renamed: []
+    deleted: []
+    file_total_ink_percent:
+      Algebra/1. Linear Algebra/1. Vector space Theory/Action of permutation on Matrices.pdf: 56.1
+      Algebra/1. Linear Algebra/1. Vector space Theory/Basis for Vector space.pdf: 131.4
+      Algebra/1. Linear Algebra/1. Vector space Theory/Canonical Form.pdf: 436.1
+      Algebra/1. Linear Algebra/1. Vector space Theory/Canonical Form_old.pdf: 434.9
+      Algebra/1. Linear Algebra/1. Vector space Theory/Cyclic subspace.pdf: 327.9
+      Algebra/1. Linear Algebra/1. Vector space Theory/Derterminant.pdf: 150.5
+      Algebra/1. Linear Algebra/1. Vector space Theory/Dual Space.pdf: 593.5
+      Algebra/1. Linear Algebra/1. Vector space Theory/Jordan canonical form_old.pdf: 437.3
+      Algebra/1. Linear Algebra/1. Vector space Theory/Jordan form - Computation.pdf: 337.1
+      Algebra/1. Linear Algebra/1. Vector space Theory/Kernel-Image Decompostion.pdf: 87.0
+      Algebra/1. Linear Algebra/1. Vector space Theory/Linear equation.pdf: 187.5
+      Algebra/1. Linear Algebra/1. Vector space Theory/Minimal polynomial.pdf: 412.8
+      Algebra/1. Linear Algebra/1. Vector space Theory/Primary Decomposition.pdf: 108.3
+      Algebra/1. Linear Algebra/1. Vector space Theory/Projection.pdf: 210.6
+      Algebra/1. Linear Algebra/1. Vector space Theory/Replacement Theorem.pdf: 208.9
+      Algebra/1. Linear Algebra/2. Inner product Theory/Diagonalizable Criterion on Inner product Space.pdf: 173.0
+      Algebra/1. Linear Algebra/2. Inner product Theory/General Linear Group.pdf: 130.8
+      Algebra/1. Linear Algebra/2. Inner product Theory/Norm induced by inner product.pdf: 261.4
+      Algebra/1. Linear Algebra/2. Inner product Theory/Normal operator.pdf: 79.4
+      Algebra/1. Linear Algebra/2. Inner product Theory/Operator Norm.pdf: 115.5
+      Algebra/1. Linear Algebra/2. Inner product Theory/Orthogonal Projection - Complete.pdf: 365.0
+      Algebra/1. Linear Algebra/2. Inner product Theory/QR-Factorization.pdf: 100.7
+      Algebra/1. Linear Algebra/2. Inner product Theory/Riesz Representation Theorem.pdf: 93.9
+      Algebra/1. Linear Algebra/2. Inner product Theory/Singular Value Decomposition.pdf: 199.1
+      Algebra/1. Linear Algebra/2. Inner product Theory/Unitary and Orthogonal Operator.pdf: 46.6
+      Algebra/1. Linear Algebra/3. Further topics/Bilinear forms.pdf: 59.0
+      Algebra/1. Linear Algebra/3. Further topics/Continuous Function Space.pdf: 49.3
+      Algebra/1. Linear Algebra/3. Further topics/Polynomial Space.pdf: 119.4
+      Algebra/1. Linear Algebra/3. Further topics/Positive Form.pdf: 212.9
+      Algebra/1. Linear Algebra/3. Further topics/Sesqui-Linear Form.pdf: 291.0
+      Algebra/1. Linear Algebra/3. Further topics/Symmetric Bilinear form.pdf: 0.0
+      Algebra/1. Linear Algebra/Hoffman.pdf: 1424.1
+      Algebra/2. Group Theory/Commutator Subgroup.pdf: 166.2
+      Algebra/2. Group Theory/Finitely Generated Abelian Group.pdf: 63.2
+      Algebra/2. Group Theory/General linear group.pdf: 122.9
+      Algebra/2. Group Theory/Group Action.pdf: 513.1
+      Algebra/2. Group Theory/Isomorphism Theorem.pdf: 170.7
+      Algebra/2. Group Theory/Nilpotent Group.pdf: 68.1
+      Algebra/2. Group Theory/Normalizer and Centralizer.pdf: 27.9
+      Algebra/2. Group Theory/Recognize theorem.pdf: 74.7
+      Algebra/2. Group Theory/Typical Homomorphisms.pdf: 45.4
+      Algebra/3. Finite Group Theory/Alternating Group.pdf: 156.8
+      Algebra/3. Finite Group Theory/Class equation.pdf: 33.3
+      Algebra/3. Finite Group Theory/Cyclic Group.pdf: 74.8
+      Algebra/3. Finite Group Theory/Dihedral Group.pdf: 174.3
+      Algebra/3. Finite Group Theory/Division Algorithm.pdf: 200.4
+      Algebra/3. Finite Group Theory/Jordan-Hölder.pdf: 385.9
+      Algebra/3. Finite Group Theory/P-Group.pdf: 53.4
+      Algebra/3. Finite Group Theory/Quaternion group.pdf: 3.3
+      Algebra/3. Finite Group Theory/Solvablity.pdf: 177.5
+      Algebra/3. Finite Group Theory/Sylow Theorem.pdf: 711.4
+      Algebra/3. Finite Group Theory/Symmetric Group.pdf: 324.3
+      Algebra/3. Finite Group Theory/Typical Finite groups.pdf: 347.6
+      Algebra/3. Finite Group Theory/pgroups.pdf.pdf: 50.0
+      Algebra/4. Ring Theory/Basic ideal.pdf: 131.6
+      Algebra/4. Ring Theory/Chinese reminder theorem.pdf: 244.2
+      Algebra/4. Ring Theory/Dedekind-Hasse norm.pdf: 96.4
+      Algebra/4. Ring Theory/Domains.pdf: 908.5
+      Algebra/4. Ring Theory/Domains_Revised.pdf: 86.3
+      Algebra/4. Ring Theory/Eisenstein Criterion.pdf: 64.8
+      Algebra/4. Ring Theory/Fraction Ring.pdf: 135.8
+      Algebra/4. Ring Theory/Ideal.pdf: 161.0
+      Algebra/4. Ring Theory/Irreducible and Prime.pdf: 66.0
+      Algebra/4. Ring Theory/Maximal and Prime ideal.pdf: 64.3
+      Algebra/4. Ring Theory/Nilradical and Radical.pdf: 164.9
+      Algebra/4. Ring Theory/Notebook 3.pdf: 254.4
+      Algebra/4. Ring Theory/Quadratic integer Ring.pdf: 88.0
+      Algebra/4. Ring Theory/Typical Quotient rings.pdf: 135.8
+      Algebra/5. Polynomial Ring Theory/Polynomial Ring.pdf: 418.6
+      Algebra/5. Polynomial Ring Theory/Polynomial Ring_Revised.pdf: 110.2
+      Algebra/5. Polynomial Ring Theory/Typical Polynomials.pdf: 37.5
+      Algebra/6. Field Theory/Basic field Theory.pdf: 615.1
+      Algebra/6. Field Theory/Basic field extension.pdf: 314.9
+      Algebra/6. Field Theory/Basic field.pdf: 615.1
+      Algebra/6. Field Theory/Biquadratic Field.pdf: 106.5
+      Algebra/6. Field Theory/Composite Field.pdf: 67.0
+      Algebra/6. Field Theory/Conjugate Isomorphism.pdf: 47.4
+      Algebra/6. Field Theory/Cyclotomic Field.pdf: 118.5
+      Algebra/6. Field Theory/Field Homomorphism.pdf: 32.3
+      Algebra/6. Field Theory/Finite field.pdf: 141.0
+      Algebra/6. Field Theory/Finite field_Revised.pdf: 90.1
+      Algebra/6. Field Theory/Rationalize.pdf: 54.1
+      Algebra/6. Field Theory/Separable polynomial.pdf: 178.7
+      Algebra/6. Field Theory/Spiltting and Separable Field.pdf: 222.7
+      Algebra/7. Galois Theory/Automorphisms of Field.pdf: 40.1
+      Algebra/7. Galois Theory/Cyclotomic Extension.pdf: 31.1
+      Algebra/7. Galois Theory/Galois Group of Polynomial.pdf: 183.1
+      Algebra/7. Galois Theory/Galois Theorem.pdf: 282.6
+      Algebra/7. Galois Theory/Norm and Trace of Galois.pdf: 27.0
+      Algebra/7. Galois Theory/Radical extension.pdf: 16.6
+      Algebra/7. Galois Theory/Typical Galois extensions.pdf: 962.0
+      Analysis/1. Real Analysis/1. Real numbers/Abel formula.pdf: 156.8
+      Analysis/1. Real Analysis/1. Real numbers/Advanced Techniques for sequence.pdf: 68.1
+      Analysis/1. Real Analysis/1. Real numbers/Cantor set.pdf: 276.3
+      Analysis/1. Real Analysis/1. Real numbers/Density of rational.pdf: 72.1
+      Analysis/1. Real Analysis/1. Real numbers/Inequality in Real numbers.pdf: 63.7
+      Analysis/1. Real Analysis/1. Real numbers/Kronecker approximation theorem.pdf: 53.7
+      Analysis/1. Real Analysis/1. Real numbers/Riemann-Rearangement Theorem.pdf: 87.0
+      Analysis/1. Real Analysis/1. Real numbers/Stolz-Cesaro theorem.pdf: 186.7
+      Analysis/1. Real Analysis/1. Real numbers/Supremum.pdf: 406.7
+      Analysis/1. Real Analysis/1. Real numbers/Typical Sequences.pdf: 15.2
+      Analysis/1. Real Analysis/2. Real-valued Function/Basic Riemann-integral.pdf: 808.2
+      Analysis/1. Real Analysis/2. Real-valued Function/Bounded Variation.pdf: 186.3
+      Analysis/1. Real Analysis/2. Real-valued Function/Continuously Extension.pdf: 95.0
+      Analysis/1. Real Analysis/2. Real-valued Function/Convexity.pdf: 255.1
+      Analysis/1. Real Analysis/2. Real-valued Function/Darboux_s Theorem.pdf: 80.5
+      Analysis/1. Real Analysis/2. Real-valued Function/Differentiation.pdf: 168.4
+      Analysis/1. Real Analysis/2. Real-valued Function/Discontinuity.pdf: 77.5
+      Analysis/1. Real Analysis/2. Real-valued Function/Fundamental Theorem of Calculus.pdf: 54.5
+      Analysis/1. Real Analysis/2. Real-valued Function/Improper integral.pdf: 46.7
+      Analysis/1. Real Analysis/2. Real-valued Function/Integral Transform.pdf: 76.7
+      Analysis/1. Real Analysis/2. Real-valued Function/Lipschtiz.pdf: 172.1
+      Analysis/1. Real Analysis/2. Real-valued Function/Newton_s Method.pdf: 0.0
+      Analysis/1. Real Analysis/2. Real-valued Function/Open map is injective.pdf: 101.2
+      Analysis/1. Real Analysis/2. Real-valued Function/Parameter dependent integral.pdf: 71.9
+      Analysis/1. Real Analysis/2. Real-valued Function/Power Series.pdf: 356.6
+      Analysis/1. Real Analysis/2. Real-valued Function/Talyor Theorem.pdf: 159.9
+      Analysis/1. Real Analysis/2. Real-valued Function/Thomae function.pdf: 59.9
+      Analysis/1. Real Analysis/2. Real-valued Function/Trigonometric series.pdf: 124.4
+      Analysis/1. Real Analysis/2. Real-valued Function/xsin1_x.pdf: 101.1
+      Analysis/1. Real Analysis/3. Functional Space/Arzelà-Ascoli.pdf: 107.1
+      Analysis/1. Real Analysis/3. Functional Space/Banach Space.pdf: 13.0
+      Analysis/1. Real Analysis/3. Functional Space/Double Sequence.pdf: 136.8
+      Analysis/1. Real Analysis/3. Functional Space/Functional Space.pdf: 63.7
+      Analysis/1. Real Analysis/3. Functional Space/Inequalities of integral.pdf: 92.4
+      Analysis/1. Real Analysis/3. Functional Space/Inequalities of real-valued functions.pdf: 14.8
+      Analysis/1. Real Analysis/3. Functional Space/Normed Space.pdf: 57.2
+      Analysis/1. Real Analysis/3. Functional Space/Sequences of functions.pdf: 376.2
+      Analysis/1. Real Analysis/3. Functional Space/Stone-Weierstrass Theorem.pdf: 56.9
+      Analysis/2. Complex Analysis/2. Holomorphic function/Cauchy-Riemann equation.pdf: 173.0
+      Analysis/2. Complex Analysis/2. Holomorphic function/Harmonic Functions.pdf: 190.8
+      Analysis/2. Complex Analysis/2. Holomorphic function/Meromorphic function.pdf: 67.6
+      Analysis/2. Complex Analysis/2. Holomorphic function/Sequence of functions.pdf: 85.5
+      Analysis/2. Complex Analysis/2. Holomorphic function/Uniqueness Theorem.pdf: 96.9
+      Analysis/2. Complex Analysis/3. Line integral/Argument Principle.pdf: 215.3
+      Analysis/2. Complex Analysis/3. Line integral/Cauchy integral formula.pdf: 125.6
+      Analysis/2. Complex Analysis/3. Line integral/Cauchy_s Inequality.pdf: 168.6
+      Analysis/2. Complex Analysis/3. Line integral/Evaluation of Real integral.pdf: 124.0
+      Analysis/2. Complex Analysis/3. Line integral/Gauss Meanvalue Theorem.pdf: 60.3
+      Analysis/2. Complex Analysis/3. Line integral/Goursat Theorem.pdf: 240.0
+      Analysis/2. Complex Analysis/3. Line integral/Jordan lemma.pdf: 52.0
+      Analysis/2. Complex Analysis/3. Line integral/Laurent Series of Polynomials.pdf: 51.0
+      Analysis/2. Complex Analysis/3. Line integral/Open mapping Theorem.pdf: 37.5
+      Analysis/2. Complex Analysis/3. Line integral/Residue Theorem.pdf: 257.9
+      Analysis/2. Complex Analysis/3. Line integral/Residue at infinite.pdf: 57.6
+      Analysis/2. Complex Analysis/3. Line integral/Singularity.pdf: 235.5
+      Analysis/2. Complex Analysis/3. Line integral/Trigonometric integral.pdf: 159.4
+      Analysis/2. Complex Analysis/3. Line integral/Typical Line integral.pdf: 217.6
+      Analysis/2. Complex Analysis/4. Conformal mapping/Conformal mapping.pdf: 52.2
+      Analysis/2. Complex Analysis/4. Conformal mapping/Linear fractional transformation.pdf: 125.9
+      Analysis/2. Complex Analysis/Complex Analysis.pdf: 783.7
+      Analysis/2. Complex Analysis/Exponential function.pdf: 10.8
+      Analysis/2. Complex Analysis/Schwarz reflection principle.pdf: 5.0
+      Analysis/2. Complex Analysis/Silverman Solution.pdf: 211.3
+      Analysis/2. Complex Analysis/Silverman, Complex Analysis.pdf: 104.6
+      Analysis/3. Analysis on Manifold/Munkres, Analysis on manifold.pdf: 292.6
+      Analysis/4. Measure Theory/Measurable Space.pdf: 0.0
+      Analysis/5. Differential equation/Bernoulli Equation.pdf: 16.3
+      Analysis/5. Differential equation/Coddington, Intro.ODE.pdf: 0.0
+      Analysis/5. Differential equation/Differential Operator.pdf: 53.1
+      Analysis/5. Differential equation/Exact equation.pdf: 59.5
+      Analysis/5. Differential equation/Existence and Uniqueness of ODE.pdf: 33.3
+      Analysis/5. Differential equation/First order.pdf: 37.5
+      Analysis/5. Differential equation/Linear equation with constant coefficients.pdf: 157.5
+      Analysis/5. Differential equation/Linear equation with variable coefficients.pdf: 51.9
+      Analysis/5. Differential equation/Typical differential equation.pdf: 39.4
+      Arbitrary.pdf: 118.1
+      Differential Geometry/1. Euclidean/Curvature of Surface.pdf: 179.2
+      Differential Geometry/1. Euclidean/Curves.pdf: 84.0
+      Differential Geometry/1. Euclidean/Debris/Barrett O_neill Solution.pdf: 237.3
+      Differential Geometry/1. Euclidean/Debris/Barrett O_neill.pdf: 607.6
+      Differential Geometry/1. Euclidean/Debris/Calculus on Surface.pdf: 12.9
+      Differential Geometry/1. Euclidean/Debris/Covariant Derivative.pdf: 26.3
+      Differential Geometry/1. Euclidean/Debris/Cross product.pdf: 75.2
+      Differential Geometry/1. Euclidean/Debris/Diffeomorphism.pdf: 11.0
+      Differential Geometry/1. Euclidean/Debris/Differential Form.pdf: 69.9
+      Differential Geometry/1. Euclidean/Debris/Frenet fomular.pdf: 230.8
+      Differential Geometry/1. Euclidean/Debris/Mapping.pdf: 39.1
+      Differential Geometry/1. Euclidean/Debris/Regular Surface.pdf: 244.3
+      Differential Geometry/1. Euclidean/Debris/Shape Operater.pdf: 0.4
+      Differential Geometry/1. Euclidean/Debris/Surface.pdf: 12.2
+      Differential Geometry/1. Euclidean/Debris/Tangent Plane.pdf: 188.4
+      Differential Geometry/1. Euclidean/Fundamental form.pdf: 206.7
+      Differential Geometry/1. Euclidean/Gauss map.pdf: 30.0
+      Differential Geometry/1. Euclidean/Lee.nany..pdf: 31.2
+      Differential Geometry/1. Euclidean/Local Surface Theory.pdf: 7.3
+      Differential Geometry/1. Euclidean/Spherical images.pdf: 0.0
+      Rudin PMA Revised Solution.pdf: 212.8
+      SNU solution.pdf: 10597.0
+      Topology/1. General Topology/Compact Hausdorff Space.pdf: 103.5
+      Topology/1. General Topology/Compactness.pdf: 314.4
+      Topology/1. General Topology/Connected Space.pdf: 412.9
+      Topology/1. General Topology/Continuous Map.pdf: 133.8
+      Topology/1. General Topology/Hilbert Space.pdf: 158.3
+      Topology/1. General Topology/Initial Topology.pdf: 145.9
+      Topology/1. General Topology/Interior and Closure.pdf: 217.8
+      Topology/1. General Topology/Kolmogorov and Fréchet Space.pdf: 48.6
+      Topology/1. General Topology/Metric Space/Basic metric space.pdf: 145.3
+      Topology/1. General Topology/Metric Space/Distance.pdf: 80.1
+      Topology/1. General Topology/Metric Space/Isometry.pdf: 93.8
+      Topology/1. General Topology/Metric Space/Metric diagram.pdf: 359.5
+      Topology/1. General Topology/Metric Space/Uniform Metric Space.pdf: 0.0
+      Topology/1. General Topology/Metric Space/p-norm.pdf: 149.4
+      Topology/1. General Topology/One point Compactification.pdf: 187.4
+      Topology/1. General Topology/Product Topology.pdf: 109.5
+      Topology/1. General Topology/Product space.pdf: 48.9
+      Topology/1. General Topology/Regular and Normal.pdf: 0.0
+      Topology/1. General Topology/Subspace.pdf: 88.7
+      Topology/1. General Topology/Topological Group.pdf: 105.2
+      Topology/1. General Topology/Topological basis.pdf: 216.6
+      Topology/1. General Topology/Topological map.pdf: 168.0
+      Topology/1. General Topology/Typical Topological Spaces.pdf: 19.9
+      Topology/1. General Topology/Urysohn Lemma.pdf: 84.4
+      Topology/2. Algebraic Topology/Adjunction Space.pdf: 119.8
+      Topology/2. Algebraic Topology/Covering space.pdf: 106.2
+      Topology/2. Algebraic Topology/Debris/Borsuk-Ulam Theorem.pdf: 41.8
+      Topology/2. Algebraic Topology/Debris/Covering Space.pdf: 70.4
+      Topology/2. Algebraic Topology/Debris/Fundamental gp - by Lee.pdf: 197.0
+      Topology/2. Algebraic Topology/Debris/Homotopy.pdf: 144.7
+      Topology/2. Algebraic Topology/Deformation retraction.pdf: 35.6
+      Topology/2. Algebraic Topology/Fundamental Group.pdf: 361.7
+      Topology/2. Algebraic Topology/Homotopy.pdf: 364.3
+      Topology/2. Algebraic Topology/Quotient map.pdf: 376.7
+      Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 281.7
+      Tree of Subjects.pdf: 76.1
+  '261005':
+    baseline: false
+    total_ink_percent: 601.7
+    library_total_ink_percent: 48258.5
+    subject_ink_percent:
+      Algebra: 22.5
+      Others: 579.2
+    folder_ink_percent:
+      Algebra/3. Finite Group Theory: 22.5
+    file_ink_percent:
+      Algebra/3. Finite Group Theory/Division Algorithm.pdf: 22.5
+      SNU solution.pdf: 579.2
+    subjects:
+    - name: Algebra
+      ink_added_percent: 22.5
       files: []
       folders:
       - name: 1. Linear Algebra
@@ -61319,7 +62651,7 @@ records:
       - name: 3. Finite Group Theory
         label: 3. Finite Group Theory
         raw_path: Algebra/3. Finite Group Theory
-        ink_added_percent: 0.0
+        ink_added_percent: 22.5
         files:
         - name: Alternating Group
           raw_path: Algebra/3. Finite Group Theory/Alternating Group.pdf
@@ -61343,8 +62675,8 @@ records:
           url: /untexed-current/Algebra/3.%20Finite%20Group%20Theory/Dihedral%20Group.pdf
         - name: Division Algorithm
           raw_path: Algebra/3. Finite Group Theory/Division Algorithm.pdf
-          ink_added_percent: 0.0
-          total_ink_percent: 200.4
+          ink_added_percent: 22.5
+          total_ink_percent: 207.2
           url: /untexed-current/Algebra/3.%20Finite%20Group%20Theory/Division%20Algorithm.pdf
         - name: Jordan-Hölder
           raw_path: Algebra/3. Finite Group Theory/Jordan-Hölder.pdf
@@ -61597,13 +62929,13 @@ records:
           url: /untexed-current/Algebra/7.%20Galois%20Theory/Typical%20Galois%20extensions.pdf
         folders: []
     - name: Analysis
-      ink_added_percent: 0.1
+      ink_added_percent: 0.0
       files: []
       folders:
       - name: 1. Real Analysis
         label: 1. Real Analysis
         raw_path: Analysis/1. Real Analysis
-        ink_added_percent: 0.1
+        ink_added_percent: 0.0
         files: []
         folders:
         - name: 1. Real numbers
@@ -61665,7 +62997,7 @@ records:
         - name: 2. Real-valued Function
           label: 2. Real-valued Function
           raw_path: Analysis/1. Real Analysis/2. Real-valued Function
-          ink_added_percent: 0.1
+          ink_added_percent: 0.0
           files:
           - name: Basic Riemann-integral
             raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Basic Riemann-integral.pdf
@@ -61734,7 +63066,7 @@ records:
             url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Open%20map%20is%20injective.pdf
           - name: Parameter dependent integral
             raw_path: Analysis/1. Real Analysis/2. Real-valued Function/Parameter dependent integral.pdf
-            ink_added_percent: 0.1
+            ink_added_percent: 0.0
             total_ink_percent: 71.9
             url: /untexed-current/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Parameter%20dependent%20integral.pdf
           - name: Power Series
@@ -62361,11 +63693,11 @@ records:
             url: /untexed-current/Topology/2.%20Algebraic%20Topology/Debris/Homotopy.pdf
           folders: []
     - name: Others
-      ink_added_percent: 738.4
+      ink_added_percent: 579.2
       files:
       - name: Arbitrary
         raw_path: Arbitrary.pdf
-        ink_added_percent: 24.9
+        ink_added_percent: 0.0
         total_ink_percent: 118.1
         url: /untexed-current/Arbitrary.pdf
       - name: Rudin PMA Revised Solution
@@ -62375,8 +63707,8 @@ records:
         url: /untexed-current/Rudin%20PMA%20Revised%20Solution.pdf
       - name: SNU solution
         raw_path: SNU solution.pdf
-        ink_added_percent: 713.5
-        total_ink_percent: 10597.0
+        ink_added_percent: 579.2
+        total_ink_percent: 11006.9
         url: /untexed-current/SNU%20solution.pdf
       - name: Tree of Subjects
         raw_path: Tree of Subjects.pdf
@@ -62387,13 +63719,12 @@ records:
     added: []
     modified:
     - path: SNU solution
-      ink_added_percent: 713.5
-    - path: Arbitrary
-      ink_added_percent: 24.9
-    - path: Analysis/Real Analysis/Real-valued Function/Parameter dependent integral
-      ink_added_percent: 0.1
+      ink_added_percent: 579.2
+    - path: Algebra/Finite Group Theory/Division Algorithm
+      ink_added_percent: 22.5
     moved_renamed: []
     deleted: []
+    note: D-3
     file_total_ink_percent:
       Algebra/1. Linear Algebra/1. Vector space Theory/Action of permutation on Matrices.pdf: 56.1
       Algebra/1. Linear Algebra/1. Vector space Theory/Basis for Vector space.pdf: 131.4
@@ -62440,7 +63771,7 @@ records:
       Algebra/3. Finite Group Theory/Class equation.pdf: 33.3
       Algebra/3. Finite Group Theory/Cyclic Group.pdf: 74.8
       Algebra/3. Finite Group Theory/Dihedral Group.pdf: 174.3
-      Algebra/3. Finite Group Theory/Division Algorithm.pdf: 200.4
+      Algebra/3. Finite Group Theory/Division Algorithm.pdf: 207.2
       Algebra/3. Finite Group Theory/Jordan-Hölder.pdf: 385.9
       Algebra/3. Finite Group Theory/P-Group.pdf: 53.4
       Algebra/3. Finite Group Theory/Quaternion group.pdf: 3.3
@@ -62583,7 +63914,7 @@ records:
       Differential Geometry/1. Euclidean/Local Surface Theory.pdf: 7.3
       Differential Geometry/1. Euclidean/Spherical images.pdf: 0.0
       Rudin PMA Revised Solution.pdf: 212.8
-      SNU solution.pdf: 10597.0
+      SNU solution.pdf: 11006.9
       Topology/1. General Topology/Compact Hausdorff Space.pdf: 103.5
       Topology/1. General Topology/Compactness.pdf: 314.4
       Topology/1. General Topology/Connected Space.pdf: 412.9
