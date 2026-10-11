@@ -3,6 +3,7 @@ import {
   parameterPoint, nearestParameterTime, estimateDifference,
 } from './math.mjs';
 import { PixelPainter } from './pixel.mjs';
+import { compileLatex } from './latex.mjs';
 
 const app = document.getElementById('euler-lab');
 if (!app) throw new Error('Euler Lab root not found');
@@ -18,11 +19,14 @@ const trailContext = trailCanvas.getContext('2d');
 if (!ctx || !staticContext || !pixelContext || !trailContext) throw new Error('Canvas 2D is not supported by this browser.');
 
 const DEFAULT = Object.freeze({
-  equation: 1, x0: 0, y0: 0.5, h: 0.1,
+  equation: 1, eqLatex: 'y^2(y^2-4)',
+  paramX: String.raw`\sin(4t)(e-2\cos(18t))`,
+  paramY: String.raw`\cos(5t)(e-2\cos(11t))`,
+  x0: 0, y0: 0.5, h: 0.1,
   cx: 0, cy: 0, zoom: 60,
   time: 0, speed: 1, playing: false, trace: false,
   showField: true, showEuler: true, showRK4: false, showParam: true,
-  paramMode: 'compiled', renderStyle: 'pixel', pixelSize: 2,
+  renderStyle: 'pixel', pixelSize: 1,
 });
 
 let state = { ...DEFAULT };
@@ -35,7 +39,13 @@ let ignoreNextClick = false;
 let clickSeekTimer = null;
 let trail = [];
 let paramSamples = [];
-let sampledMode = null;
+let paramRevision = 0;
+let sampledRevision = -1;
+let derivativeFn = compileLatex(DEFAULT.eqLatex, ['x','y']);
+let paramXFn = compileLatex(DEFAULT.paramX, ['t']);
+let paramYFn = compileLatex(DEFAULT.paramY, ['t']);
+let eqTimer = null;
+let paramTimer = null;
 
 const formatNumber = n => {
   if (!Number.isFinite(n)) return '—';
@@ -43,14 +53,61 @@ const formatNumber = n => {
   return n.toFixed(3).replace(/\.?0+$/, '');
 };
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
-const equationFunction = (x, y) => derivative(state.equation, x, y);
+const equationFunction = (x, y) => derivativeFn(x,y);
+const parameterPointCustom = t => ({x:paramXFn(t), y:paramYFn(t)});
+const LINE_PT = 4 / 3; // 1 CSS pt = 1.333 CSS px; pixel mode is a crisp 1-pixel approximation.
+
+function inputError(id, text) {
+  $(id).textContent = text;
+  $(id).hidden = !text;
+}
+function setEquation(text, preset = false) {
+  try {
+    const f = compileLatex(text, ['x','y']);
+    derivativeFn = f;
+    state.eqLatex = text;
+    if(!preset)state.equation=0;
+    inputError('em-equation-error', '');
+    syncEquation();
+    redrawStatic();
+    return true;
+  } catch(error) {
+    inputError('em-equation-error', error.message);
+    return false; // Keep plotting the last valid formula.
+  }
+}
+function setParameterFormulas(xText, yText) {
+  try {
+    const fx=compileLatex(xText,['t']);
+    const fy=compileLatex(yText,['t']);
+    paramXFn=fx;paramYFn=fy;
+    state.paramX=xText;state.paramY=yText;
+    paramRevision++;trail=[];
+    inputError('em-param-error','');
+    redrawStatic();requestFrame();
+    return true;
+  } catch(error) {
+    inputError('em-param-error',error.message);
+    return false; // Atomic: old x(t), y(t) remain active together.
+  }
+}
+function nearestParameterTimeCustom(x,y){
+  ensureParamSamples();
+  let bestT=0, best=Infinity;
+  for(let i=0;i<paramSamples.length;i++){
+    const p=paramSamples[i];if(!Number.isFinite(p.x)||!Number.isFinite(p.y))continue;
+    const d=(p.x-x)**2+(p.y-y)**2;
+    if(d<best){best=d;bestT=i/50;}
+  }
+  return {t:bestT,distance:Math.sqrt(best)};
+}
 
 function message(text = '') { $('em-message').textContent = text; }
 function syncEquation() {
-  const equation = EQUATIONS[state.equation - 1];
-  $('em-equation').value = String(state.equation);
-  $('em-formula').textContent = `dy/dx = ${equation.formula}`;
-  $('em-equation-overlay').textContent = `dy/dx = ${equation.formula}`;
+  $('em-equation').value = state.equation===0?'custom':String(state.equation);
+  $('em-formula').textContent = 'dy/dx = '+state.eqLatex;
+  $('em-equation-overlay').textContent = 'dy/dx = '+(state.eqLatex.length>38 ? state.eqLatex.slice(0,38)+'…' : state.eqLatex);
+  $('em-equation-overlay').title = 'dy/dx = '+state.eqLatex;
 }
 function syncStep() {
   $('em-step').value = String(Number(state.h.toPrecision(5)));
@@ -73,12 +130,13 @@ function syncUI() {
   $('em-show-rk4').checked = state.showRK4;
   $('em-show-parameter').checked = state.showParam;
   $('em-trace').checked = state.trace;
-  $('em-param-mode').value = state.paramMode;
+  $('em-equation-latex').value=state.eqLatex;
+  $('em-param-x').value=state.paramX;
+  $('em-param-y').value=state.paramY;
   $('em-render-style').value = state.renderStyle;
-  $('em-pixel-size').value = String(state.pixelSize);
-  $('em-pixel-size').disabled = state.renderStyle !== 'pixel';
+
   $('em-render-label').textContent = state.renderStyle === 'pixel'
-    ? `Pixel · ${state.pixelSize}px` : 'Smooth';
+    ? 'Pixel · 1px dots' : 'Smooth · 1pt';
   $('em-zoom').textContent = `${formatNumber(state.zoom)} px / unit`;
 }
 function redrawStatic() { dirty = true; requestFrame(); }
@@ -116,7 +174,7 @@ function drawGrid(g) {
   const xEnd = Math.ceil(b.right / unit);
   const yStart = Math.floor(b.bottom / unit);
   const yEnd = Math.ceil(b.top / unit);
-  g.lineWidth = 1;
+  g.lineWidth = LINE_PT;
   g.strokeStyle = '#e7eef5';
   g.beginPath();
   for (let i=xStart; i<=xEnd; i++) {
@@ -128,7 +186,7 @@ function drawGrid(g) {
     g.moveTo(0,y); g.lineTo(viewport.width,y);
   }
   g.stroke();
-  g.strokeStyle = '#8797ac'; g.lineWidth = 1.35;
+  g.strokeStyle = '#8797ac'; g.lineWidth = LINE_PT;
   const origin=toPixel(0,0);
   g.beginPath();
   g.moveTo(origin.x,0); g.lineTo(origin.x,viewport.height);
@@ -149,7 +207,7 @@ function drawGrid(g) {
 function drawDirectionField(g) {
   const gap = 64;
   const len = 18;
-  g.lineWidth=1.15;
+  g.lineWidth=LINE_PT;
   g.strokeStyle='rgba(83,112,162,.38)';
   g.fillStyle='rgba(83,112,162,.50)';
   for(let sy=gap*.55; sy<viewport.height; sy+=gap) {
@@ -227,7 +285,7 @@ function resizePixelLayers() {
 function drawPolyline(g, points, color, lineWidth, dash = []) {
   if(points.length<2) return;
   g.beginPath();
-  g.strokeStyle=color; g.lineWidth=lineWidth;
+  g.strokeStyle=color; g.lineWidth=LINE_PT;
   g.lineCap='round'; g.lineJoin='round';
   g.setLineDash(dash);
   let drawing=false;
@@ -242,19 +300,19 @@ function drawPolyline(g, points, color, lineWidth, dash = []) {
   g.stroke(); g.setLineDash([]);
 }
 function ensureParamSamples() {
-  if (sampledMode === state.paramMode) return;
+  if (sampledRevision === paramRevision) return;
   paramSamples=[];
   for(let i=0;i<=5000;i++){
     const t=i/50;
-    paramSamples.push(parameterPoint(t,state.paramMode));
+    paramSamples.push(parameterPointCustom(t));
   }
-  sampledMode=state.paramMode;
+  sampledRevision=paramRevision;
 }
 function drawMarker(g,x,y,color,r=5) {
   const p=toPixel(x,y);
   if(p.x < -20 || p.x>viewport.width+20 || p.y < -20 || p.y>viewport.height+20)return;
   g.beginPath();g.arc(p.x,p.y,r,0,Math.PI*2);
-  g.fillStyle='#fff';g.fill();g.lineWidth=2.4;g.strokeStyle=color;g.stroke();
+  g.fillStyle='#fff';g.fill();g.lineWidth=LINE_PT;g.strokeStyle=color;g.stroke();
 }
 function drawStaticLayer() {
   const g=staticContext;
@@ -275,16 +333,16 @@ function drawStaticLayer() {
   if(state.showRK4){
     r=rk4Solve(equationFunction,state.x0,state.y0,Math.min(state.h/4,0.025),end);
     if(pixel)drawPixelPolyline(painter,r.points,'#285dd9',7);
-    else drawPolyline(g,r.points,'#397fc2',1.9,[6,5]);
+    else drawPolyline(g,r.points,'#397fc2',LINE_PT,[6,5]);
   }
   if(state.showEuler){
     if(pixel)drawPixelPolyline(painter,e.points,'#f53742');
-    else drawPolyline(g,e.points,'#d35253',2.45);
+    else drawPolyline(g,e.points,'#d35253',LINE_PT);
   }
   if(state.showParam) {
     ensureParamSamples();
     if(pixel)drawPixelPolyline(painter,paramSamples,'#069b7d');
-    else drawPolyline(g,paramSamples,'rgba(0,143,111,.60)',1.05);
+    else drawPolyline(g,paramSamples,'rgba(0,143,111,.60)',LINE_PT);
   }
   if(pixel)compositePixels(g,pixelCanvas);
   if(state.showEuler||state.showRK4)drawMarker(g,state.x0,state.y0,'#b34b52',4.1);
@@ -303,9 +361,9 @@ function drawDynamicLayer() {
       trailContext.clearRect(0,0,trailCanvas.width,trailCanvas.height);
       drawPixelPolyline(pixelPainter(trailContext),trail,'#d19b31');
       compositePixels(ctx,trailCanvas);
-    } else drawPolyline(ctx,trail,'#d19b31',2.3);
+    } else drawPolyline(ctx,trail,'#d19b31',LINE_PT);
   }
-  const p=parameterPoint(state.time,state.paramMode);
+  const p=parameterPointCustom(state.time);
   drawMarker(ctx,p.x,p.y,'#1e3449',6);
   const screen=toPixel(p.x,p.y);
   if(screen.x>=0&&screen.x<=viewport.width&&screen.y>=0&&screen.y<=viewport.height){
@@ -319,7 +377,7 @@ function updateTrail(from,to){
   const n=Math.min(300,Math.max(1,Math.ceil((to-from)/0.02)));
   for(let i=1;i<=n;i++){
     const t=from+(to-from)*i/n;
-    trail.push(parameterPoint(t,state.paramMode));
+    trail.push(parameterPointCustom(t));
   }
   if(trail.length>8000) trail.splice(0,trail.length-8000);
 }
@@ -385,7 +443,12 @@ function setTime(value, keepTrail=false){
   syncPlayback();requestFrame();
 }
 function resetAll(){
-  state={...DEFAULT};trail=[];sampledMode=null;resizePixelLayers();
+  state={...DEFAULT};trail=[];paramRevision++;sampledRevision=-1;
+  derivativeFn=compileLatex(DEFAULT.eqLatex,['x','y']);
+  paramXFn=compileLatex(DEFAULT.paramX,['t']);
+  paramYFn=compileLatex(DEFAULT.paramY,['t']);
+  inputError('em-equation-error','');inputError('em-param-error','');
+  resizePixelLayers();
   syncUI();message('');redrawStatic();
 }
 
@@ -395,9 +458,38 @@ for(const e of EQUATIONS){
   opt.value=String(e.id);opt.textContent=`${e.id}. ${e.label}`;
   $('em-equation').append(opt);
 }
+const customOpt=document.createElement('option');
+customOpt.value='custom';customOpt.textContent='Custom LaTeX';
+$('em-equation').append(customOpt);
 $('em-equation').addEventListener('change',()=>{
-  state.equation=Number($('em-equation').value);
-  syncEquation();redrawStatic();
+  const selected=$('em-equation').value;
+  if(selected==='custom')return;
+  const equation=EQUATIONS[Number(selected)-1];
+  if(!equation)return;
+  state.equation=Number(selected);
+  $('em-equation-latex').value=equation.latex;
+  setEquation(equation.latex,true);
+});
+$('em-equation-latex').addEventListener('input',()=>{
+  clearTimeout(eqTimer);
+  eqTimer=setTimeout(()=>setEquation($('em-equation-latex').value),150);
+});
+for(const id of ['em-param-x','em-param-y']) {
+  $(id).addEventListener('input',()=>{
+    clearTimeout(paramTimer);
+    paramTimer=setTimeout(()=>setParameterFormulas($('em-param-x').value,$('em-param-y').value),150);
+  });
+}
+$('em-param-original').addEventListener('click',()=>{
+  $('em-param-x').value=DEFAULT.paramX;
+  $('em-param-y').value=DEFAULT.paramY;
+  setParameterFormulas(DEFAULT.paramX,DEFAULT.paramY);
+});
+$('em-param-fractions').addEventListener('click',()=>{
+  const x=String.raw`\sin(4t)(\exp(\cos(\frac{t}{2}))-2\cos(18t)-\sin(\frac{1}{12})^5)`;
+  const y=String.raw`\cos(5t)(\exp(\cos(\frac{t}{3}))-2\cos(11t)-\sin(\frac{1}{12})^5)`;
+  $('em-param-x').value=x;$('em-param-y').value=y;
+  setParameterFormulas(x,y);
 });
 for(const name of ['x0','y0']) $('em-'+name).addEventListener('change',()=>{
   setInitial(Number($('em-x0').value),Number($('em-y0').value));
@@ -418,14 +510,7 @@ $('em-render-style').addEventListener('change',()=>{
   state.renderStyle=$('em-render-style').value;
   syncUI();redrawStatic();
 });
-$('em-pixel-size').addEventListener('change',()=>{
-  state.pixelSize=Number($('em-pixel-size').value);
-  resizePixelLayers();syncUI();redrawStatic();
-});
-$('em-param-mode').addEventListener('change',()=>{
-  state.paramMode=$('em-param-mode').value;
-  sampledMode=null;trail=[];redrawStatic();
-});
+
 $('em-reset-view').addEventListener('click',()=>{
   state.cx=0;state.cy=0;state.zoom=60;syncUI();redrawStatic();
 });
@@ -473,7 +558,7 @@ canvas.addEventListener('click',event=>{
   clickSeekTimer=setTimeout(()=>{
     clickSeekTimer=null;
     const world=toWorld(px,py);
-    const seek=nearestParameterTime(world.x,world.y,state.paramMode,0,100,0.02);
+    const seek=nearestParameterTimeCustom(world.x,world.y);
     if(seek.distance*state.zoom<=14){
       setPlaying(false);setTime(seek.t);
       message(`Moved to t ≈ ${seek.t.toFixed(2)} on the parametric curve.`);
@@ -489,7 +574,7 @@ canvas.addEventListener('dblclick',event=>{
 });
 canvas.addEventListener('wheel',event=>{
   event.preventDefault();
-  setZoom(state.zoom*Math.exp(-event.deltaY*.001),event.offsetX,event.offsetY);
+  setZoom(state.zoom*Math.exp(-event.deltaY*.0028),event.offsetX,event.offsetY);
 },{passive:false});
 
 // Original keyboard controls, but do not intercept typing into inputs/selects.
@@ -499,11 +584,14 @@ document.addEventListener('keydown',event=>{
   if(target instanceof HTMLElement && target.closest('input,select,textarea,button,[contenteditable="true"]'))return;
   const key=event.key.toLowerCase();
   let handled=true;
-  if(/^[1-8]$/.test(key)){state.equation=Number(key);syncEquation();redrawStatic();}
+  if(/^[1-8]$/.test(key)){
+    const e=EQUATIONS[Number(key)-1];state.equation=Number(key);
+    $('em-equation-latex').value=e.latex;setEquation(e.latex,true);
+  }
   else if(key==='a')setStep(state.h/1.25);
   else if(key==='d')setStep(state.h*1.25);
-  else if(key==='w')setZoom(state.zoom*1.17);
-  else if(key==='s')setZoom(state.zoom/1.17);
+  else if(key==='w')setZoom(state.zoom*1.38);
+  else if(key==='s')setZoom(state.zoom/1.38);
   else if(key==='f'||key===' ')setPlaying(!state.playing);
   else if(key==='t'){$('em-trace').checked=!state.trace;state.trace=!state.trace;trail=[];redrawStatic();}
   else if(key==='q'){setPlaying(false);setTime(state.time-.05);}

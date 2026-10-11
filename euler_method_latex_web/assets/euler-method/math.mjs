@@ -1,14 +1,14 @@
 /** Mathematical core of the browser port. No browser or third-party dependencies. */
 
 export const EQUATIONS = Object.freeze([
-  { id: 1, label: 'y²(y² − 4)', formula: 'y²(y² − 4)' },
-  { id: 2, label: 'y(1 − y)', formula: 'y(1 − y)' },
-  { id: 3, label: 'y(2 − y)', formula: 'y(2 − y)' },
-  { id: 4, label: 'y(1 − 2y)', formula: 'y(1 − 2y)' },
-  { id: 5, label: '−y²', formula: '−y²' },
-  { id: 6, label: 'y/(1 + x²)', formula: 'y/(1 + x²)' },
-  { id: 7, label: 'exp(sin x)', formula: 'exp(sin x)' },
-  { id: 8, label: 'exp(−y²)', formula: 'exp(−y²)' },
+  { id: 1, label: 'y²(y² − 4)', formula: 'y²(y² − 4)', latex: String.raw`y^2(y^2-4)` },
+  { id: 2, label: 'y(1 − y)', formula: 'y(1 − y)', latex: String.raw`y(1-y)` },
+  { id: 3, label: 'y(2 − y)', formula: 'y(2 − y)', latex: String.raw`y(2-y)` },
+  { id: 4, label: 'y(1 − 2y)', formula: 'y(1 − 2y)', latex: String.raw`y(1-2y)` },
+  { id: 5, label: '−y²', formula: '−y²', latex: String.raw`-y^2` },
+  { id: 6, label: 'y/(1 + x²)', formula: 'y/(1 + x²)', latex: String.raw`\frac{y}{1+x^2}` },
+  { id: 7, label: 'exp(sin x)', formula: 'exp(sin x)', latex: String.raw`\exp(\sin(x))` },
+  { id: 8, label: 'exp(−y²)', formula: 'exp(−y²)', latex: String.raw`\exp(-y^2)` },
 ]);
 
 export function derivative(index, x, y) {
