@@ -29,3 +29,14 @@ ga_tracking_anonymize_ip: true # 개인정보 보호를 위해 IP 익명화 활�
 
 # SEO 플러그인용 설정 (함께 적어주면 더 정확합니다)
 google_analytics: G-TWJE3MTBZ7
+
+# Keep local Euler source packages out of GitHub Pages navigation.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - euler_method_web
+  - euler_method_pixel_web
+  - euler_method_latex_web
+  - euler_latex_upgrade

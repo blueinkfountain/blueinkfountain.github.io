@@ -14,7 +14,7 @@
   max-width: 1380px;
   line-height: 1.5;
 }
-.em-app button, .em-app select, .em-app input { font: inherit; }
+.em-app button, .em-app select, .em-app input, .em-app textarea { font: inherit; }
 .em-app button { cursor: pointer; }
 .em-app h1, .em-app h2, .em-app h3, .em-app p { margin-top: 0; }
 .em-app h1 { font-weight: 740; line-height: 1.13; letter-spacing: -.035em; font-size: clamp(2.1rem, 4vw, 3.15rem); margin: .45rem 0 .6rem; }
@@ -130,3 +130,12 @@
   .em-app .em-playtop label[for="em-speed"] { grid-column:3; grid-row:1; justify-self:end; }
   .em-app .em-playtop .em-speed-select { grid-column:3; grid-row:2; justify-self:end; max-width:100%; }
 }
+
+/* Editable LaTeX, with immediate validity feedback. */
+.em-app .em-latex { min-height: 58px; height: auto; padding: .55rem .65rem; resize: vertical; line-height:1.5; font-size:.79rem; font-family: ui-monospace, Menlo, Monaco, Consolas, monospace; }
+.em-app .em-input-error { margin:.35rem 0 .45rem; font-size:.72rem; color:#b42332; line-height:1.45; }
+.em-app .em-input-error[hidden] { display:none; }
+.em-app .em-preset-row { display:flex; align-items:center; gap:.38rem; margin-top:.6rem; flex-wrap:wrap; }
+.em-app .em-preset-row .em-btn { font-size:.72rem; min-height:30px; padding:.3rem .5rem; }
+.em-app .em-swatch { height:1.333px; }
+.em-app textarea.em-input:focus { outline:2px solid #70a6e1; outline-offset:2px; }
