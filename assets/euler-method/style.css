@@ -94,3 +94,13 @@
   .em-app .em-side-section { grid-column:1/-1; border-right:0; }
   .em-app .em-canvas, .em-app .em-canvas-wrap { height:350px; min-height:350px; }
 }
+
+/* Second-order selector and directly draggable integration step. */
+.em-app .em-order-switch { display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:1px 0 12px;background:#f1f5fb;padding:3px;border-radius:8px; }
+.em-app .em-order-button { min-height:32px;background:transparent;color:#68809a;border:0;border-radius:6px;font-size:.8rem;font-weight:650; }
+.em-app .em-order-button.is-selected { background:#fff;color:#2456a2;box-shadow:0 1px 5px rgba(27,56,85,.12); }
+.em-app .em-initial-values { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.em-app #em-v0-row { grid-column:1/-1; }
+.em-app .em-step-range { display:block;width:100%;margin:10px 0 1px;cursor:ew-resize;accent-color:#2858a2; }
+.em-app .em-canvas.is-step-dragging { cursor:ew-resize; }
+.em-app .em-tooltip { left:auto;right:10px; }

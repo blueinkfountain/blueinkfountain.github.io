@@ -137,3 +137,44 @@ export function solveNumerically(f, x0, y0, h, xMax, method='rk4') {
   if (method === 'euler') return eulerSolve(f, x0, y0, h, xMax);
   throw new RangeError('Unknown numerical method: '+method);
 }
+
+/** Coupled first-order system y'=v, v'=F(x,y,v); RK4 integrates BOTH states. */
+export function solveSecondOrder(f,x0,y0,v0,h,xMax,method='rk4',maxSteps=45000){
+  if (!(h>0 && Number.isFinite(h))) throw new RangeError('Step size must be positive and finite.');
+  if (![x0,y0,v0,xMax].every(Number.isFinite)) throw new RangeError('Inputs must be finite.');
+  if (!['rk4','euler'].includes(method)) throw new RangeError('Unknown numerical method: '+method);
+  const points=[{x:x0,y:y0,v:v0}];
+  const count=Math.min(maxSteps,Math.max(0,Math.floor((xMax-x0)/h+1e-9)));
+  let y=y0,v=v0,stopped=false;
+  for(let i=0;i<count;i++){
+    const x=x0+i*h;
+    let yn,vn;
+    if(method==='euler'){
+      yn=y+h*v;
+      vn=v+h*f(x,y,v);
+    }else{
+      const k1y=v,               k1v=f(x,y,v);
+      const k2y=v+h*k1v/2,        k2v=f(x+h/2,y+h*k1y/2,v+h*k1v/2);
+      const k3y=v+h*k2v/2,        k3v=f(x+h/2,y+h*k2y/2,v+h*k2v/2);
+      const k4y=v+h*k3v,          k4v=f(x+h,y+h*k3y,v+h*k3v);
+      yn=y+h*(k1y+2*k2y+2*k3y+k4y)/6;
+      vn=v+h*(k1v+2*k2v+2*k3v+k4v)/6;
+    }
+    if(!Number.isFinite(yn)||!Number.isFinite(vn)||Math.abs(yn)>MAX_MAGNITUDE||Math.abs(vn)>MAX_MAGNITUDE){stopped=true;break;}
+    y=yn;v=vn;points.push({x:x0+(i+1)*h,y,v});
+  }
+  if(count>=maxSteps && x0+count*h<xMax-h)stopped=true;
+  return {points,stopped};
+}
+
+/** Logarithmic mapping allows meaningful drag control for 0.001 <= h <= 2. */
+export const STEP_MIN=.001, STEP_MAX=2;
+export function stepToFraction(h){
+  return Math.max(0,Math.min(1,Math.log(Math.max(STEP_MIN,Math.min(STEP_MAX,h))/STEP_MIN)/Math.log(STEP_MAX/STEP_MIN)));
+}
+export function fractionToStep(frac){
+  return STEP_MIN*Math.pow(STEP_MAX/STEP_MIN,Math.max(0,Math.min(1,frac)));
+}
+export function nextStepSize(h,multiplier){
+  return Math.max(STEP_MIN,Math.min(STEP_MAX,Number((h*multiplier).toPrecision(10))));
+}

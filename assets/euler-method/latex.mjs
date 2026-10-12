@@ -30,7 +30,7 @@ function stripLhs(s) {
   const equal = s.indexOf('=');
   if (equal < 0) return s;
   const lhs = s.slice(0, equal).toLowerCase();
-  if (/^(?:y'|y′|f\(x,y\)|\\frac\{dy\}\{dx\}|\\dfrac\{dy\}\{dx\}|\\dot\{y\}|x\(t\)|y\(t\))$/.test(lhs)) {
+  if (/^(?:y''|y′′|y′'|y'′|\\frac\{d\^2y\}\{dx\^2\}|\\dfrac\{d\^2y\}\{dx\^2\}|y'|y′|f\(x,y\)|\\frac\{dy\}\{dx\}|\\dfrac\{dy\}\{dx\}|\\dot\{y\}|x\(t\)|y\(t\))$/.test(lhs)) {
     return s.slice(equal + 1);
   }
   throw new SyntaxError('Enter an expression or an equation with y′, f(x,y), x(t), or y(t) on the left.');
@@ -59,7 +59,7 @@ function tokenize(text) {
       const words=['floor','sinh','cosh','tanh','asin','acos','atan','sqrt','ceil','sin','cos','tan','exp','log','abs','ln','pi'];
       const found=words.find(x=>rem.startsWith(x));
       if(found){tokens.push(found);i+=found.length;continue;}
-      if('xyte'.includes(c)){tokens.push(c);i++;continue;}
+      if('xytev'.includes(c)){tokens.push(c);i++;continue;}
       throw new SyntaxError('Unknown symbol '+c+'. Use x, y, t, numbers or supported functions.');
     }
     throw new SyntaxError('Unexpected character '+c+' at position '+(i+1));
@@ -72,14 +72,21 @@ export function compileLatex(input, variables=['x','y']) {
   if(typeof input !== 'string' || !input.trim())throw new SyntaxError('Formula cannot be empty.');
   if(input.length>300)throw new SyntaxError('Formula must be 300 characters or fewer.');
   const allowed = new Set(variables);
-  const tokens=tokenize(stripLhs(normalise(input)));
+  let expression=stripLhs(normalise(input));
+  if(allowed.has('v')){
+    // In a second-order ODE, v means y'. Allow familiar derivative notation.
+    expression=expression
+      .replace(/\\(?:frac|dfrac)\{dy\}\{dx\}/g,'v')
+      .replace(/y['′]/g,'v');
+  }
+  const tokens=tokenize(expression);
   let i=0, depth=0;
   const peek=()=>tokens[i];
   const take=()=>tokens[i++];
   const expect=t=>{if(take()!==t)throw new SyntaxError('Expected '+t+'. Check parentheses and braces.');};
   const descend=fn=>{if(++depth>60)throw new SyntaxError('Formula is nested too deeply.');try{return fn();}finally{depth--;}};
   const isStart=t=>typeof t==='number' || typeof t==='string' && (
-    t==='('||t==='{'||t==='sqrt'||t==='frac'||t in FUNCS||t==='pi'||'xyte'.includes(t)&&t.length===1
+    t==='('||t==='{'||t==='sqrt'||t==='frac'||t in FUNCS||t==='pi'||'xytev'.includes(t)&&t.length===1
   );
   function grouped(){
     const opener=peek();
@@ -112,7 +119,7 @@ export function compileLatex(input, variables=['x','y']) {
       return power?(v)=>Math.pow(apply(f(v)),power(v)):(v)=>apply(f(v));
     }
     if(t==='pi'||t==='e'){take();return ()=>CONSTANTS[t];}
-    if(typeof t==='string' && /^[xyt]$/.test(t)){
+    if(typeof t==='string' && /^[xytv]$/.test(t)){
       if(!allowed.has(t))throw new SyntaxError('The variable '+t+' is not valid in this formula.');
       take();return v=>v[t];
     }
