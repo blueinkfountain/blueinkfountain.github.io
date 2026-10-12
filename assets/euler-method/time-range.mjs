@@ -1,1 +1,1 @@
-export const MAX_TIME = 10000;
+export const MAX_TIME = 1000;

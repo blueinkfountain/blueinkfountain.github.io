@@ -261,7 +261,7 @@ function makeVectorField({fit=true}={}){
     const initial=parseInitialStates(el('dl-initial').value,dimension);
     step=Number(el('dl-step').value);maxT=Number(el('dl-tmax').value);
     if(!(step>=0.001 && step<=1 && finite(step)))throw new RangeError('Step size must be in [0.001, 1].');
-    if(!(maxT>=0.1 && maxT<=MAX_TIME && finite(maxT)))throw new RangeError('Time span must be in [0.1, 10000].');
+    if(!(maxT>=0.1 && maxT<=MAX_TIME && finite(maxT)))throw new RangeError('Time span must be in [0.1, 1000].');
     method=el('dl-method').value;plotMode=el('dl-plot').value;
     systemFn=(t,v)=>fs.map(f=>f(t,v[0],v[1],v[2]??0));
     paths=[];valid=false;playing=false;syncTime();queue();setText('dl-result','Computing…');

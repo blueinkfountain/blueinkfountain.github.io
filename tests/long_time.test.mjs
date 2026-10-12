@@ -13,10 +13,10 @@ test('long integration reaches 10000 with the requested step and bounded plot st
 });
 
 import {solveLab} from '../assets/euler-method/solver.mjs';
-test('scalar first and second order solutions reach elapsed time 10000',()=>{
+test('scalar first and second order solutions reach elapsed time 1000',()=>{
   for(const order of [1,2]){
     const {solution}=solveLab({kind:'scalar',expression:'0',order,x0:2,y0:3,v0:0,h:.1,method:'rk4'});
-    assert.equal(solution.points.at(-1).x,10002);
+    assert.equal(solution.points.at(-1).x,1002);
     assert.equal(solution.points.at(-1).y,3);
     assert.equal(solution.stopped,false);
     assert.ok(solution.points.length<=20002);
