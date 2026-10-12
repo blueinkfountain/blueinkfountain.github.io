@@ -178,3 +178,24 @@ export function fractionToStep(frac){
 export function nextStepSize(h,multiplier){
   return Math.max(STEP_MIN,Math.min(STEP_MAX,Number((h*multiplier).toPrecision(10))));
 }
+
+/** Interpolate a cached numerical state at elapsed time x-x0. */
+export function pointAtElapsedTime(points, elapsed) {
+  if (!Array.isArray(points) || points.length === 0 || !Number.isFinite(elapsed)) return null;
+  const first = points[0];
+  if (elapsed <= 0 || points.length === 1) return { ...first };
+  const target = first.x + elapsed;
+  const last = points[points.length - 1];
+  if (target >= last.x) return { ...last };
+  let low = 0, high = points.length - 1;
+  while (low + 1 < high) {
+    const middle = (low + high) >> 1;
+    if (points[middle].x <= target) low = middle;
+    else high = middle;
+  }
+  const a = points[low], b = points[high];
+  const fraction = b.x === a.x ? 0 : Math.max(0, Math.min(1, (target - a.x) / (b.x - a.x)));
+  const point = { x: target, y: a.y + (b.y - a.y) * fraction };
+  if ('v' in a && 'v' in b) point.v = a.v + (b.v - a.v) * fraction;
+  return point;
+}

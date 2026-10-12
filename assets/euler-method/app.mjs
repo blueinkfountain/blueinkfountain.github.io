@@ -1,6 +1,6 @@
 import {
   EQUATIONS, solveNumerically, solveSecondOrder,
-  stepToFraction, fractionToStep, nextStepSize,
+  stepToFraction, fractionToStep, nextStepSize, pointAtElapsedTime,
 } from './math.mjs';
 import { PixelPainter } from './pixel.mjs';
 import { compileLatex } from './latex.mjs';
@@ -41,6 +41,8 @@ let paramSamples = [];
 let paramRevision = 0;
 let sampledRevision = -1;
 let derivativeFn = null;
+let solutionCache = null;
+let odeDuration = 0;
 const equationMemory={1:'',2:''};
 const initialMemory={1:{x0:0,y0:.5,v0:0},2:{x0:0,y0:1,v0:0}};
 const SECOND_EXAMPLES=[
@@ -140,14 +142,27 @@ function syncStep() {
   $('em-step').value = String(Number(state.h.toPrecision(5)));
   $('em-step-range').value = String(Math.round(stepToFraction(state.h)*1000));
 }
+// The timeline controls BOTH numerical ODE trajectories and parametric curves.
+// For an ODE-only plot, its endpoint is the last successfully integrated x.
+function timelineMax() {
+  return hasParameter() ? 100 : odeDuration;
+}
+function canSeekTime() {
+  return hasParameter() || (Boolean(derivativeFn) && odeDuration > 0);
+}
 function syncPlayback() {
-  $('em-time').value = String(state.time);
+  const max = timelineMax();
+  if (state.time > max) state.time = max;
+  const slider = $('em-time');
+  slider.max = String(Math.max(max, 0.001));
+  slider.value = String(state.time);
+  slider.disabled = !canSeekTime();
   $('em-time-value').textContent = state.time.toFixed(3);
   $('em-play').textContent = state.playing ? 'Ⅱ Pause' : '▶ Play';
-  $('em-live').textContent = !hasParameter() ? 'Ready' : state.playing ? 'Playing' : 'Paused';
+  $('em-live').textContent = !canSeekTime() ? 'Ready' : state.playing ? 'Playing' : 'Paused';
   $('em-live').classList.toggle('is-playing', state.playing);
-  $('em-play').disabled = !hasParameter();
-  $('em-time').disabled = !hasParameter();
+  $('em-play').disabled = !canSeekTime();
+  $('em-time').setAttribute('aria-valuetext', `${state.time.toFixed(3)} / ${max.toFixed(3)}`);
 }
 function syncUI() {
   syncEquation(); syncStep(); syncPlayback();
@@ -371,7 +386,7 @@ function drawStaticLayer() {
   }
   let solution=null;
   let comparison=null;
-  if(derivativeFn && (state.showSolution || state.showCompare)){
+  if(derivativeFn){
     const b=bounds();
     const phase=state.order===2 && state.plotMode==='phase';
     const end=phase?state.x0+25:Math.min(b.right+0.15,state.x0+300);
@@ -396,6 +411,12 @@ function drawStaticLayer() {
     if(pixel)drawPixelPolyline(painter,paramSamples,'#069b7d');
     else drawPolyline(g,paramSamples,'rgba(0,143,111,.60)',LINE_PT);
   }
+  // Reuse numerical points during scrubbing: the slider never reintegrates
+  // the differential equation on each pointer movement.
+  solutionCache=solution;
+  odeDuration=solution && solution.points.length>1
+    ? Math.max(0,solution.points.at(-1).x-state.x0) : 0;
+  syncPlayback();
   if(pixel)compositePixels(g,pixelCanvas);
   if(solution)drawMarker(g,state.order===2&&state.plotMode==='phase'?state.y0:state.x0,state.order===2&&state.plotMode==='phase'?state.v0:state.y0,'#b34b52',4.1);
   const endpoint=solution?.points.at(-1);
@@ -432,6 +453,15 @@ function drawStepRuler(g){
   g.restore();
 }
 function drawDynamicLayer() {
+  // Current position along the NUMERICAL solution. This gives the timeline
+  // an immediately visible effect even with both parametric fields blank.
+  if(state.showSolution && solutionCache && state.time > 0) {
+    const p=pointAtElapsedTime(solutionCache.points,state.time);
+    if(p) {
+      const phase=state.order===2 && state.plotMode==='phase';
+      drawMarker(ctx,phase?p.y:p.x,phase?p.v:p.y,'#d62f45',6);
+    }
+  }
   if(!state.showParam || !hasParameter())return;
   if(state.trace && trail.length>=2) {
     if(state.renderStyle==='pixel'){
@@ -441,6 +471,7 @@ function drawDynamicLayer() {
     } else drawPolyline(ctx,trail,'#d19b31',LINE_PT);
   }
   const p=parameterPointCustom(state.time);
+  if(!p || !Number.isFinite(p.x) || !Number.isFinite(p.y))return;
   drawMarker(ctx,p.x,p.y,'#1e3449',6);
   const screen=toPixel(p.x,p.y);
   if(screen.x>=0&&screen.x<=viewport.width&&screen.y>=0&&screen.y<=viewport.height){
@@ -463,10 +494,10 @@ function frame(now){
   if(state.playing){
     const elapsed=lastFrameTime===null?0:clamp((now-lastFrameTime)/1000,0,.08);
     const previous=state.time;
-    state.time=clamp(state.time+elapsed*state.speed,0,100);
+    state.time=clamp(state.time+elapsed*state.speed,0,timelineMax());
     updateTrail(previous,state.time);
     syncPlayback();
-    if(state.time>=100){state.playing=false; syncPlayback();}
+    if(state.time>=timelineMax()){state.playing=false; syncPlayback();}
   }
   lastFrameTime=now;
   if(dirty)drawStaticLayer();
@@ -511,14 +542,16 @@ function setZoom(zoom,px=viewport.width/2,py=viewport.height/2){
   redrawStatic();
 }
 function setPlaying(playing){
-  if(playing && !hasParameter())return;
-  if(playing&&state.time>=100) setTime(0);
+  if(playing && !canSeekTime())return;
+  if(playing&&state.time>=timelineMax()) setTime(0);
   state.playing=Boolean(playing);
   lastFrameTime=null;
   syncPlayback();requestFrame();
 }
 function setTime(value, keepTrail=false){
-  state.time=clamp(Number(value),0,100);
+  const time=Number(value);
+  if(!Number.isFinite(time))return;
+  state.time=clamp(time,0,timelineMax());
   if(!keepTrail)trail=[];
   syncPlayback();requestFrame();
 }
@@ -527,6 +560,7 @@ function resetAll(){
   equationMemory[1]='';equationMemory[2]='';
   initialMemory[1]={x0:0,y0:.5,v0:0};initialMemory[2]={x0:0,y0:1,v0:0};
   derivativeFn=null;paramXFn=null;paramYFn=null;
+  solutionCache=null;odeDuration=0;
   inputError('em-equation-error','');inputError('em-param-error','');
   resizePixelLayers();
   populateEquationOptions();syncUI();message('');redrawStatic();
@@ -615,7 +649,12 @@ $('em-reset-view').addEventListener('click',()=>{
 $('em-reset-all').addEventListener('click',resetAll);
 $('em-play').addEventListener('click',()=>setPlaying(!state.playing));
 $('em-rewind').addEventListener('click',()=>{setPlaying(false);setTime(0);});
-$('em-time').addEventListener('input',()=>{setPlaying(false);setTime($('em-time').value);});
+$('em-time').addEventListener('pointerdown',()=>setPlaying(false));
+$('em-time').addEventListener('input',()=>{
+  // Snapshot the native thumb position BEFORE syncPlayback writes to the range.
+  const requested=Number($('em-time').value);
+  setPlaying(false);setTime(requested);
+});
 $('em-speed').addEventListener('change',()=>{state.speed=Number($('em-speed').value);});
 
 // Mouse + touch: pan, zoom, set initial value, seek parametric time.
