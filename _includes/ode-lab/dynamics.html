@@ -1,0 +1,18 @@
+  <div class="dl-layout" id="dl-layout">
+    <aside class="dl-side" aria-label="Dynamical system parameters">
+{% if page.lab_mode == 'system' %}
+{% include ode-lab/system-controls.html %}
+{% else %}
+{% include ode-lab/cucker-controls.html %}
+{% endif %}
+    </aside>
+    <section class="dl-plot-panel" aria-label="Dynamical system visualisation">
+      <div class="dl-panel-top"><strong id="dl-graph-label">Phase space</strong><div class="dl-panel-actions"><button id="dl-fit" class="dl-button" type="button">Fit view</button><button id="dl-export" class="dl-button" type="button">Export CSV</button><span id="dl-status">Ready</span></div></div>
+      <div class="dl-canvas-wrap"><canvas id="dl-canvas" tabindex="0" aria-label="{% if page.lab_mode == 'cucker' %}Drag or use arrow keys to pan. Shift+drag to rotate. Scroll to zoom.{% else %}Drag to pan (2D) or rotate (3D). Shift+drag to pan in 3D. Scroll to zoom.{% endif %}"></canvas><div id="dl-coordinates"></div></div>
+      <div class="dl-playbar">
+        <div class="dl-controls"><button class="dl-button dl-primary" id="dl-play" type="button">▶ Play</button><button class="dl-button" id="dl-reset-time" type="button">↺</button><output id="dl-time-value">t = 0.000</output><select id="dl-speed" class="dl-input" aria-label="Playback speed"><option value="0.25">0.25×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></div>
+        <input id="dl-time" class="dl-range" type="range" min="0" max="20" value="0" step="0.001" aria-label="Drag to seek simulation time">
+        <div id="dl-result" class="dl-result" role="status"></div>
+      </div>
+    </section>
+  </div>

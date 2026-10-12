@@ -1,0 +1,17 @@
+      <div id="dl-system-controls">
+        <div class="dl-section"><div class="dl-heading">System <select id="dl-dim" aria-label="Dimension"><option value="2">2D</option><option value="3">3D</option></select></div>
+          <select id="dl-preset" class="dl-input" aria-label="Example system"><option value="">Custom (blank)</option><option value="oscillator">Harmonic oscillator</option><option value="vdp">Van der Pol</option><option value="predator">Lotka–Volterra</option><option value="lorenz">Lorenz attractor</option><option value="rossler">Rössler attractor</option></select>
+          <label class="dl-label" for="dl-dx">x′ =</label><textarea id="dl-dx" class="dl-input dl-formula" rows="1" placeholder="LaTeX · e.g. y" spellcheck="false"></textarea>
+          <label class="dl-label" for="dl-dy">y′ =</label><textarea id="dl-dy" class="dl-input dl-formula" rows="1" placeholder="LaTeX · e.g. -x" spellcheck="false"></textarea>
+          <div id="dl-z-wrap" hidden><label class="dl-label" for="dl-dz">z′ =</label><textarea id="dl-dz" class="dl-input dl-formula" rows="1" placeholder="LaTeX · e.g. x*y" spellcheck="false"></textarea></div>
+          <p class="dl-error" id="dl-system-error" role="alert" hidden></p>
+          <label class="dl-label" for="dl-initial">Initial conditions · one per row</label><textarea id="dl-initial" class="dl-input dl-multi" rows="2" spellcheck="false" placeholder="1, 0&#10;0, 1"></textarea>
+        </div>
+        <div class="dl-section"><div class="dl-heading">Integration</div>
+          <div class="dl-pair"><label>Method<select id="dl-method" class="dl-input"><option value="rk4">RK4</option><option value="euler">Euler</option></select></label><label>Step h<input id="dl-step" class="dl-input" type="number" min="0.001" max="1" value="0.02" step="any"></label></div>
+          <input id="dl-step-range" class="dl-range" type="range" min="0" max="1000" value="460" aria-label="Integration step size">
+          <div class="dl-pair"><label>Time span<input id="dl-tmax" class="dl-input" type="number" min="0.1" max="100" value="20" step="any"></label><label>Graph<select id="dl-plot" class="dl-input"><option value="phase">Phase space</option><option value="series">Time series</option></select></label></div>
+          <label class="dl-check"><input id="dl-field" type="checkbox" checked> Vector field (2D)</label>
+          <button class="dl-button" type="button" id="dl-clear-system">Clear</button>
+        </div>
+      </div>

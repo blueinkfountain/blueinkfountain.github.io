@@ -1,4 +1,5 @@
 /** General ODE systems and Cucker–Smale: isolated UI, leaves scalar ODE intact. */
+import {panByPixels, dragRotates, arrowMovement} from './camera.mjs';
 import {compileLatex} from './latex.mjs';
 import {PixelPainter} from './pixel.mjs';
 import {
@@ -16,7 +17,9 @@ const clamp=(x,min,max)=>Math.max(min,Math.min(max,x));
 const finite=x=>Number.isFinite(x);
 const format=x=>finite(x)?(Math.abs(x)>9999||Math.abs(x)<.0001&&x!==0?x.toExponential(2):x.toFixed(3).replace(/\.?0+$/,'')):'—';
 const setText=(id,text)=>{el(id).textContent=text;};
-let mode='scalar',dimension=2,method='rk4',plotMode='phase',time=0,playing=false,lastTick=null, speed=1;
+const mode=root.dataset.mode;
+if(!['system','cucker'].includes(mode))throw new Error('Unknown dynamics page.');
+let dimension=2,method='rk4',plotMode='phase',time=0,playing=false,lastTick=null, speed=1;
 let scale=48,pan=[0,0],yaw=.48,pitch=.4;
 let width=760,height=510,dpr=1,drag=null,dirty=true,valid=false;
 let systemFn=null,paths=[],maxT=20,step=.02;
@@ -321,21 +324,7 @@ function updateCucker(target,limit=5){
     csFrame=csFrames.at(-1);
   }catch(e){playing=false;csError=e.message;setText('dl-result',csError);}
 }
-function setMode(next){
-  mode=next;playing=false;lastTick=null;
-  el('em-scalar-layout').hidden=mode!=='scalar';el('dl-layout').hidden=mode==='scalar';
-  el('dl-system-controls').hidden=mode!=='system';el('dl-cucker-controls').hidden=mode!=='cucker';
-  for(const name of ['scalar','system','cucker']){
-    el(`dl-tab-${name}`).classList.toggle('is-selected',mode===name);
-    el(`dl-tab-${name}`).setAttribute('aria-pressed',String(mode===name));
-  }
-  if(mode!=='scalar'){
-    if(mode==='system'){plotMode=el('dl-plot').value;time=0;maxT=Number(el('dl-tmax').value)||20;setText('dl-graph-label','Dynamical system');}
-    else {setText('dl-graph-label','Cucker–Smale · 3D');if(!csFrame)cuckerReset();else{time=0;csTarget=0;}}
-    syncTime();resize();queue();
-  }
-}
-for(const tab of ['scalar','system','cucker'])el(`dl-tab-${tab}`).addEventListener('click',()=>setMode(tab));
+if(mode==='system'){
 let editTimer;
 for(const id of systemInputs){
   if(id==='dl-dim')continue;
@@ -352,11 +341,14 @@ el('dl-plot').addEventListener('change',()=>{plotMode=el('dl-plot').value;fitVie
 el('dl-field').addEventListener('change',queue);
 el('dl-preset').addEventListener('change',()=>applyPreset(el('dl-preset').value));
 el('dl-clear-system').addEventListener('click',clearSystem);
+}
+if(mode==='cucker'){
 el('dl-c-reset').addEventListener('click',cuckerReset);
 el('dl-c-original').addEventListener('click',()=>{csOriginalStart=true;el('dl-n').value='250';el('dl-lambda').value='100';el('dl-cstep').value='0.01';el('dl-kernel').value='original';el('dl-seed').value='23';el('dl-spread').value='0';el('dl-vspread').value='100';cuckerReset();});
 for(const id of ['dl-n','dl-lambda','dl-beta','dl-seed','dl-kernel','dl-cstep','dl-cmethod','dl-spread','dl-vspread'])el(id).addEventListener('change',()=>{csOriginalStart=false;cuckerReset();});
 el('dl-c-plot').addEventListener('change',()=>{fitView();queue();});
 el('dl-trails').addEventListener('change',queue);
+}
 el('dl-fit').addEventListener('click',fitView);
 el('dl-export').addEventListener('click',()=>{
   const lines=[];
@@ -381,6 +373,7 @@ el('dl-time').addEventListener('input',()=>{const requested=Number(el('dl-time')
 el('dl-speed').addEventListener('change',()=>{speed=Number(el('dl-speed').value);});
 canvas.addEventListener('pointerdown',e=>{
   if(e.button!==0&&e.pointerType==='mouse')return;
+  canvas.focus({preventScroll:true});
   if(isOnRuler(e.offsetX,e.offsetY)){drag={mode:'step'};canvas.setPointerCapture(e.pointerId);applyRuler(e.offsetX);return;}
   drag={x:e.offsetX,y:e.offsetY,pan:pan.slice(),yaw,pitch};
   canvas.setPointerCapture(e.pointerId);canvas.classList.add('is-moving');
@@ -391,12 +384,17 @@ canvas.addEventListener('pointermove',e=>{
   if(!drag)return;
   if(drag.mode==='step'){applyRuler(e.offsetX);return;}
   const dx=e.offsetX-drag.x,dy=e.offsetY-drag.y;
-  const in3d=mode==='cucker'||mode==='system'&&dimension===3&&plotMode==='phase';
-  if(in3d && !e.shiftKey){yaw=drag.yaw+dx*.007;pitch=clamp(drag.pitch+dy*.007,-1.5,1.5);}
-  else{pan[0]=drag.pan[0]-dx/scale;pan[1]=drag.pan[1]+dy/scale;}
+  const in3d=mode==='cucker'?el('dl-c-plot').value==='agents':dimension===3&&plotMode==='phase';
+  if(dragRotates(mode,in3d,e.shiftKey)){yaw=drag.yaw+dx*.007;pitch=clamp(drag.pitch+dy*.007,-1.5,1.5);}
+  else pan=panByPixels(drag.pan,dx,dy,scale);
   queue();
 });
 for(const evt of ['pointerup','pointercancel'])canvas.addEventListener(evt,()=>{drag=null;canvas.classList.remove('is-moving');});
+canvas.addEventListener('keydown',e=>{
+  if(mode!=='cucker'||e.ctrlKey||e.metaKey||e.altKey)return;
+  const delta=arrowMovement(e.key);if(!delta)return;
+  e.preventDefault();pan=panByPixels(pan,...delta,scale);queue();
+});
 canvas.addEventListener('wheel',e=>{
   e.preventDefault();const old=worldFromScreen(e.offsetX,e.offsetY);
   scale=clamp(scale*Math.exp(-e.deltaY*.003),5,250);
@@ -420,4 +418,6 @@ function frame(now){
 }
 new ResizeObserver(resize).observe(canvas);
 window.addEventListener('visibilitychange',()=>{lastTick=null;});
-setMode('scalar');
+if(mode==='system')setText('dl-graph-label','Dynamical system');
+else {setText('dl-graph-label','Cucker–Smale · 3D');cuckerReset();}
+syncTime();resize();queue();

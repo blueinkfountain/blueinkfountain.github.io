@@ -1,0 +1,7 @@
+<nav class="dl-mode-tabs" aria-label="ODE Lab pages">
+{% assign lab_names = 'Scalar ODE,ODE Systems,Cucker–Smale' | split: ',' %}
+{% assign lab_paths = 'Scalar-ODE,ODE-Systems,Cucker-Smale' | split: ',' %}
+{% for name in lab_names %}
+  <a class="dl-tab{% if page.title == name %} is-selected{% endif %}"{% if page.title == name %} aria-current="page"{% endif %} href="{{ '/docs/Works/' | append: lab_paths[forloop.index0] | append: '.html' | relative_url }}">{{ name }}</a>
+{% endfor %}
+</nav>

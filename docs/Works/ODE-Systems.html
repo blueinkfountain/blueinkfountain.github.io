@@ -1,0 +1,18 @@
+---
+layout: default
+title: ODE Systems
+parent: ODE Lab
+grand_parent: Math Programs
+nav_order: 2
+lab_mode: system
+---
+<link rel="stylesheet" href="{{ '/assets/euler-method/style.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/euler-method/dynamics.css' | relative_url }}">
+<div class="em-app" id="euler-lab" data-mode="system">
+  <header class="em-header">
+    <h1>ODE Systems</h1>
+    {% include ode-lab/navigation.html %}
+  </header>
+{% include ode-lab/dynamics.html %}
+</div>
+<script type="module" src="{{ '/assets/euler-method/dynamics_ui.mjs' | relative_url }}?v=pages-2"></script>

@@ -1,0 +1,13 @@
+      <div id="dl-cucker-controls">
+        <div class="dl-section"><div class="dl-heading">Cucker–Smale</div>
+          <div class="dl-pair"><label>Particles N<input class="dl-input" type="number" id="dl-n" min="2" max="250" step="1" value="80"></label><label>Coupling λ<input class="dl-input" type="number" id="dl-lambda" min="0" max="100" step="any" value="4"></label></div>
+          <label>Communication kernel<select class="dl-input" id="dl-kernel"><option value="algebraic">1 / (1 + r²)^β</option><option value="original">Original C++ ψ(r)</option></select></label>
+          <div class="dl-pair"><label>β<input class="dl-input" type="number" id="dl-beta" min="0" max="5" step=".1" value="0.5"></label><label>Seed<input class="dl-input" type="number" id="dl-seed" step="1" value="23"></label></div>
+          <div class="dl-pair"><label>Position spread<input class="dl-input" type="number" id="dl-spread" min="0" max="50" step="any" value="5"></label><label>Velocity spread<input class="dl-input" type="number" id="dl-vspread" min="0" max="100" step="any" value="3"></label></div>
+          <label>Graph<select class="dl-input" id="dl-c-plot"><option value="agents">Particles · 3D</option><option value="alignment">Velocity alignment · σ(t)</option></select></label>
+          <div class="dl-pair"><label>Method<select class="dl-input" id="dl-cmethod"><option value="rk4">RK4</option><option value="euler">Euler</option></select></label><label>Step h<input class="dl-input" id="dl-cstep" type="number" min="0.001" max="0.1" step="any" value="0.02"></label></div>
+          <label class="dl-check"><input type="checkbox" id="dl-trails" checked> Particle trails</label>
+          <div class="dl-pair"><button class="dl-button" type="button" id="dl-c-reset">Reset agents</button><button class="dl-button" type="button" id="dl-c-original">C++ parameters</button></div>
+        </div>
+        <div class="dl-section"><div class="dl-heading">Velocity alignment</div><div class="dl-metrics" id="dl-metrics">—</div></div>
+      </div>
