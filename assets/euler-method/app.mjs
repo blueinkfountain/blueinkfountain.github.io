@@ -1,5 +1,6 @@
+import {MAX_TIME} from './time-range.mjs';
 import {
-  EQUATIONS, solveNumerically, solveSecondOrder,
+  EQUATIONS,
   stepToFraction, fractionToStep, nextStepSize, pointAtElapsedTime,
 } from './math.mjs';
 import { PixelPainter } from './pixel.mjs';
@@ -43,6 +44,7 @@ let sampledRevision = -1;
 let derivativeFn = null;
 let solutionCache = null;
 let odeDuration = 0;
+let solveWorker=null,solveKey='',solved=null;
 const equationMemory={1:'',2:''};
 const initialMemory={1:{x0:0,y0:.5,v0:0},2:{x0:0,y0:1,v0:0}};
 const SECOND_EXAMPLES=[
@@ -125,7 +127,7 @@ function nearestParameterTimeCustom(x,y){
   for(let i=0;i<paramSamples.length;i++){
     const p=paramSamples[i];if(!Number.isFinite(p.x)||!Number.isFinite(p.y))continue;
     const d=(p.x-x)**2+(p.y-y)**2;
-    if(d<best){best=d;bestT=i/50;}
+    if(d<best){best=d;bestT=i*MAX_TIME/20000;}
   }
   return {t:bestT,distance:Math.sqrt(best)};
 }
@@ -145,7 +147,7 @@ function syncStep() {
 // The timeline controls BOTH numerical ODE trajectories and parametric curves.
 // For an ODE-only plot, its endpoint is the last successfully integrated x.
 function timelineMax() {
-  return hasParameter() ? 100 : odeDuration;
+  return hasParameter() ? MAX_TIME : odeDuration;
 }
 function canSeekTime() {
   return hasParameter() || (Boolean(derivativeFn) && odeDuration > 0);
@@ -358,8 +360,8 @@ function ensureParamSamples() {
   if (sampledRevision === paramRevision) return;
   paramSamples=[];
   if (hasParameter()) {
-    for(let i=0;i<=5000;i++){
-      const t=i/50;
+    for(let i=0;i<=20000;i++){
+      const t=i*MAX_TIME/20000;
       const point=parameterPointCustom(t);
       paramSamples.push(point && Number.isFinite(point.x) && Number.isFinite(point.y) ? point : {x:NaN,y:NaN});
     }
@@ -387,21 +389,26 @@ function drawStaticLayer() {
   let solution=null;
   let comparison=null;
   if(derivativeFn){
-    const b=bounds();
     const phase=state.order===2 && state.plotMode==='phase';
-    const end=phase?state.x0+25:Math.min(b.right+0.15,state.x0+300);
-    const solve=method=>state.order===2
-      ?solveSecondOrder(equationFunction,state.x0,state.y0,state.v0,state.h,end,method)
-      :solveNumerically(equationFunction,state.x0,state.y0,state.h,end,method);
-    solution=solve(state.method);
+    const key=JSON.stringify([state.eqLatex,state.order,state.x0,state.y0,state.v0,state.h,state.method,state.showCompare]);
+    if(key!==solveKey){
+      solveKey=key;solved=null;solveWorker?.terminate();
+      solveWorker=new Worker(new URL('./solver-worker.mjs',import.meta.url),{type:'module'});
+      message('Computing numerical solution…');
+      solveWorker.onmessage=({data})=>{
+        if(data.error){message(data.error);return;}
+        solved=data;message('');redrawStatic();
+      };
+      solveWorker.onerror=()=>message('Unable to compute numerical solution.');
+      solveWorker.postMessage({kind:'scalar',expression:state.eqLatex,order:state.order,x0:state.x0,y0:state.y0,v0:state.v0,h:state.h,method:state.method,compare:state.showCompare});
+    }
+    solution=solved?.solution??null;comparison=solved?.comparison??null;
     const projected=pts=>phase?pts.map(p=>({x:p.y,y:p.v})):pts;
-    if(state.showCompare){
-      const other=state.method==='rk4'?'euler':'rk4';
-      comparison=solve(other);
+    if(comparison){
       if(pixel)drawPixelPolyline(painter,projected(comparison.points),'#285dd9',7);
       else drawPolyline(g,projected(comparison.points),'#397fc2',LINE_PT,[6,5]);
     }
-    if(state.showSolution){
+    if(state.showSolution && solution){
       if(pixel)drawPixelPolyline(painter,projected(solution.points),'#f53742');
       else drawPolyline(g,projected(solution.points),'#d35253',LINE_PT);
     }
@@ -420,7 +427,7 @@ function drawStaticLayer() {
   if(pixel)compositePixels(g,pixelCanvas);
   if(solution)drawMarker(g,state.order===2&&state.plotMode==='phase'?state.y0:state.x0,state.order===2&&state.plotMode==='phase'?state.v0:state.y0,'#b34b52',4.1);
   const endpoint=solution?.points.at(-1);
-  $('em-stat-steps').textContent=solution?`${state.method==='rk4'?'RK4':'Euler'} · ${solution.points.length-1} steps`:'';
+  $('em-stat-steps').textContent=solution?`${state.method==='rk4'?'RK4':'Euler'} · ${solution.steps} steps`:'';
   $('em-stat-endpoint').textContent=endpoint?`(${formatNumber(endpoint.x)}, ${formatNumber(endpoint.y)}${state.order===2?', '+formatNumber(endpoint.v):''})`:'';
   if(solution?.stopped) message('Numerical solution stopped at a step limit or divergence.');
   else if($('em-message').textContent.startsWith('Numerical solution stopped')) message('');
@@ -560,7 +567,7 @@ function resetAll(){
   equationMemory[1]='';equationMemory[2]='';
   initialMemory[1]={x0:0,y0:.5,v0:0};initialMemory[2]={x0:0,y0:1,v0:0};
   derivativeFn=null;paramXFn=null;paramYFn=null;
-  solutionCache=null;odeDuration=0;
+  solutionCache=null;odeDuration=0;solveWorker?.terminate();solveKey='';solved=null;
   inputError('em-equation-error','');inputError('em-param-error','');
   resizePixelLayers();
   populateEquationOptions();syncUI();message('');redrawStatic();

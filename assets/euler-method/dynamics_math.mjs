@@ -6,12 +6,13 @@ const finiteVector = v => Array.isArray(v) && v.every(Number.isFinite);
 
 /** y'=f(t,y), dimension 2 or 3. All RK4 stages update the WHOLE vector. */
 export function integrateSystem(f, initial, {
-  t0 = 0, tMax = 20, h = 0.02, method = 'rk4', maxSteps = 20000,
+  t0 = 0, tMax = 20, h = 0.02, method = 'rk4', maxSteps = 20000, maxPoints = Infinity, maxState = MAX_STATE,
 } = {}) {
   if (!finiteVector(initial) || ![2, 3].includes(initial.length)) throw new RangeError('Initial state must have 2 or 3 finite entries.');
   if (![t0, tMax, h].every(Number.isFinite) || !(h > 0) || tMax < t0) throw new RangeError('Provide finite t₀ ≤ tMax and h > 0.');
   if (!['rk4', 'euler'].includes(method)) throw new RangeError('Select RK4 or Euler.');
   if (!Number.isInteger(maxSteps) || maxSteps < 1) throw new RangeError('maxSteps must be positive.');
+  const stride=Number.isFinite(maxPoints)?Math.max(1,Math.ceil((tMax-t0)/h/maxPoints)):1;
   let time = t0, state = initial.slice();
   const points = [{t:time, values:state.slice()}];
   let stopped = false, reason = '';
@@ -33,12 +34,13 @@ export function integrateSystem(f, initial, {
         next=state.map((v,i)=>v+dt*(k1[i]+2*k2[i]+2*k3[i]+k4[i])/6);
       }
     } catch (e) { stopped=true; reason=e.message; break; }
-    if(next.some(v=>!Number.isFinite(v)||Math.abs(v)>MAX_STATE)){
+    if(next.some(v=>!Number.isFinite(v)||Math.abs(v)>maxState)){
       stopped=true;reason='Solution diverged or exceeded numerical limits.';break;
     }
     state=next;time+=dt;
-    points.push({t:time,values:state.slice()});
+    if((count+1)%stride===0 || time>=tMax)points.push({t:time,values:state.slice()});
   }
+  if(points.at(-1).t!==time)points.push({t:time,values:state.slice()});
   if(time<tMax-1e-10 && !stopped) { stopped=true;reason='Step limit reached: increase h or reduce time span.'; }
   return {points,stopped,reason};
 }

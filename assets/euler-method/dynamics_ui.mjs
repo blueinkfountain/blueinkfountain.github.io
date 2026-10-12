@@ -1,9 +1,10 @@
+import {MAX_TIME} from './time-range.mjs';
 /** General ODE systems and Cucker–Smale: isolated UI, leaves scalar ODE intact. */
 import {panByPixels, dragRotates, arrowMovement} from './camera.mjs';
 import {compileLatex} from './latex.mjs';
 import {PixelPainter} from './pixel.mjs';
 import {
-  integrateSystem, systemAtTime, parseInitialStates, systemRhs,
+  systemAtTime, parseInitialStates, systemRhs,
   cuckerInitial, cuckerStep, cuckerDiagnostics,
 } from './dynamics_math.mjs';
 
@@ -22,9 +23,9 @@ if(!['system','cucker'].includes(mode))throw new Error('Unknown dynamics page.')
 let dimension=2,method='rk4',plotMode='phase',time=0,playing=false,lastTick=null, speed=1;
 let scale=48,pan=[0,0],yaw=.48,pitch=.4;
 let width=760,height=510,dpr=1,drag=null,dirty=true,valid=false;
-let systemFn=null,paths=[],maxT=20,step=.02;
+let systemFn=null,paths=[],maxT=MAX_TIME,step=.02;
 let csInitial=null,csFrame=null,csFrames=[],csTrails=[],csMetrics=[],csTime=0,csTarget=0,csStep=.02,csN=80,csConfig=null,csError='';
-let csOriginalStart=false;
+let csOriginalStart=false,csTick=0,csStride=1;
 let renderRequested=false;
 
 const systemInputs=['dl-dx','dl-dy','dl-dz','dl-initial','dl-dim','dl-step','dl-tmax','dl-method'];
@@ -96,7 +97,7 @@ function fitView(){
       }
     }
   } else if(mode==='cucker'&&csFrame){
-    if(el('dl-c-plot').value==='alignment')samples=[[0,0],[10,Math.max(0.5,...csMetrics)*1.10],...csMetrics.map((v,i)=>[i*csStep,v])];
+    if(el('dl-c-plot').value==='alignment')samples=[[0,0],[Math.max(csTime,1),Math.max(0.5,...csMetrics)*1.10],...csMetrics.map((v,i)=>[i*csStride*csStep,v])];
     else for(const point of cuckerSamples(csFrame))samples.push(projection(point));
   }
   samples=samples.filter(p=>p.length===2&&p.every(Number.isFinite));
@@ -168,9 +169,9 @@ function renderCucker(p){
   if(!csFrame)return;
   const n=csN;
   if(el('dl-c-plot').value==='alignment'){
-    const pts=csMetrics.map((v,i)=>worldToScreen(i*csStep,v));
+    const pts=csMetrics.map((v,i)=>worldToScreen(i*csStride*csStep,v));
     pathPixel(p,pts,'#2054a4');
-    const val=csMetrics[Math.min(csMetrics.length-1,Math.round(csTime/csStep))];
+    const val=cuckerDiagnostics(csFrame,csN).dispersion;
     const point=worldToScreen(csTime,val);
     marker(point[0],point[1],'#e84349',5);
     ctx.fillStyle='#73859a';ctx.font='11px ui-monospace,monospace';ctx.fillText('σ(t)',9,15);
@@ -239,18 +240,20 @@ function draw(){
 function queue(){if(renderRequested)return;renderRequested=true;requestAnimationFrame(draw);}
 function syncTime(){
   const s=el('dl-time');
-  const max=mode==='system'?maxT:10;
+  const max=mode==='system'?maxT:MAX_TIME;
   s.max=String(max);s.value=String(clamp(time,0,max));
   setText('dl-time-value',`t = ${format(time)}`);
   setText('dl-play',playing?'Ⅱ Pause':'▶ Play');
   el('dl-play').disabled=mode==='system'?!valid:!csFrame;
 }
 function seek(value){
-  time=clamp(Number(value)||0,0,mode==='system'?maxT:10);
+  time=clamp(Number(value)||0,0,mode==='system'?maxT:MAX_TIME);
   if(mode==='cucker')csTarget=time;
   syncTime();queue();
 }
+let systemWorker=null;
 function makeVectorField({fit=true}={}){
+  systemWorker?.terminate();
   const expr=currentExpressions();
   if(expr.some(x=>!x.trim())){systemFn=null;paths=[];valid=false;setError('');setText('dl-result','');syncTime();queue();return;}
   try{
@@ -258,16 +261,22 @@ function makeVectorField({fit=true}={}){
     const initial=parseInitialStates(el('dl-initial').value,dimension);
     step=Number(el('dl-step').value);maxT=Number(el('dl-tmax').value);
     if(!(step>=0.001 && step<=1 && finite(step)))throw new RangeError('Step size must be in [0.001, 1].');
-    if(!(maxT>=0.1 && maxT<=100 && finite(maxT)))throw new RangeError('Time span must be in [0.1, 100].');
+    if(!(maxT>=0.1 && maxT<=MAX_TIME && finite(maxT)))throw new RangeError('Time span must be in [0.1, 10000].');
     method=el('dl-method').value;plotMode=el('dl-plot').value;
-    const vf=(t,v)=>fs.map(f=>f(t,v[0],v[1],v[2]??0));
-    const results=initial.map(y=>integrateSystem(vf,y,{tMax:maxT,h:step,method,maxSteps:20000}));
-    systemFn=vf;paths=results;valid=true;
+    systemFn=(t,v)=>fs.map(f=>f(t,v[0],v[1],v[2]??0));
+    paths=[];valid=false;playing=false;syncTime();queue();setText('dl-result','Computing…');
+    systemWorker=new Worker(new URL('./solver-worker.mjs',import.meta.url),{type:'module'});
+    systemWorker.onmessage=({data})=>{
+    if(data.error){setError(data.error);return;}
+    const results=data.results;paths=results;valid=true;
     const errors=results.filter(r=>r.stopped).map(r=>r.reason);
     setError(errors[0]||'');
-    setText('dl-result',`${method.toUpperCase()} · ${results.length} initial state${results.length===1?'':'s'} · ${results.map(p=>p.points.length-1).join('/')} steps`);
+    setText('dl-result',`${method.toUpperCase()} · ${results.length} initial state${results.length===1?'':'s'} · ${results.map(p=>Math.round(p.points.at(-1).t/step)).join('/')} steps`);
     el('dl-time').max=String(maxT);time=clamp(time,0,maxT);
     syncTime();if(fit)fitView();queue();
+    };
+    systemWorker.onerror=()=>setError('Unable to compute numerical solution.');
+    systemWorker.postMessage({kind:'system',expressions:expr,initial,tMax:maxT,h:step,method});
   }catch(error){valid=false;paths=[];systemFn=null;playing=false;setError(error.message);setText('dl-result','');syncTime();queue();}
 }
 function setDimensions(n){dimension=n;el('dl-z-wrap').hidden=n!==3;el('dl-field').disabled=n===3;el('dl-plot').value='phase';plotMode='phase';scale=n===3?40:48;pan=[0,0];makeVectorField();}
@@ -287,7 +296,7 @@ function applyPreset(name){
   const preset=presets[name];if(!preset)return;
   dimension=preset.n;el('dl-dim').value=String(dimension);
   for(let i=0;i<3;i++)el(['dl-dx','dl-dy','dl-dz'][i]).value=preset.eq[i]||'';
-  el('dl-initial').value=preset.init;el('dl-tmax').value=String(preset.time);
+  el('dl-initial').value=preset.init;el('dl-tmax').value=String(MAX_TIME);
   el('dl-step').value=preset.n===3?'0.01':'0.02';
   time=0;playing=false;setDimensions(dimension);syncTime();
 }
@@ -302,26 +311,31 @@ function cuckerReset(){
   csConfig={h,lambda,kernel:el('dl-kernel').value,beta,method:el('dl-cmethod').value};
   csInitial=cuckerInitial(n,seed,spread,vspread);
   if(csOriginalStart)csInitial.positions.fill(10);
+  csTick=0;csStride=Math.max(1,Math.ceil(MAX_TIME/h/1000));
   csFrame=csInitial;csFrames=[csInitial];csTrails=[csInitial];csError='';csMetrics=[cuckerDiagnostics(csInitial,n).dispersion];
   scale=25;pan=[0,0];yaw=.6;pitch=.38;
   setText('dl-result',`N = ${n} · ${csConfig.method.toUpperCase()} · h = ${format(h)}`);
   syncTime();fitView();queue();
 }
-function updateCucker(target,limit=5){
+function updateCucker(target,limit=200){
   if(!csFrame)return;
   const tick=Math.round(target/csStep);
-  const cached=csFrames.length-1;
-  if(tick<=cached){csFrame=csFrames[tick];csTime=tick*csStep;return;}
-  let toGo=Math.min(limit,tick-cached);
+  if(tick<csTick){
+    const checkpoint=Math.min(Math.floor(tick/csStride),csFrames.length-1);
+    csTick=checkpoint*csStride;csFrame=csFrames[checkpoint];csTrails=[];
+  }
+  const deadline=performance.now()+12;
   try{
-    while(toGo-->0){
-      const next=cuckerStep(csFrames.at(-1),csN,csConfig);
-      csFrames.push(next);csMetrics.push(cuckerDiagnostics(next,csN).dispersion);
-      if((csFrames.length-1)%3===0)csTrails.push(next);
+    for(let i=0;i<limit && csTick<tick && performance.now()<deadline;i++){
+      csFrame=cuckerStep(csFrame,csN,csConfig);csTick++;
+      if(csTick%csStride===0){
+        csFrames[csTick/csStride]=csFrame;
+        csMetrics[csTick/csStride]=cuckerDiagnostics(csFrame,csN).dispersion;
+      }
+      if(csTick%3===0)csTrails.push(csFrame);
       if(csTrails.length>240)csTrails.shift();
     }
-    csTime=(csFrames.length-1)*csStep;
-    csFrame=csFrames.at(-1);
+    csTime=csTick*csStep;
   }catch(e){playing=false;csError=e.message;setText('dl-result',csError);}
 }
 if(mode==='system'){
@@ -360,7 +374,7 @@ el('dl-export').addEventListener('click',()=>{
     });
   }else{
     lines.push('t,velocity_dispersion');
-    for(let i=0;i<csMetrics.length;i++)lines.push([i*csStep,csMetrics[i]].join(','));
+    for(let i=0;i<csMetrics.length;i++)lines.push([i*csStride*csStep,csMetrics[i]].join(','));
   }
   const url=URL.createObjectURL(new Blob([lines.join('\n')+'\n'],{type:'text/csv;charset=utf-8'}));
   const a=document.createElement('a');a.href=url;a.download=mode==='system'?'ode-system-trajectories.csv':'cucker-smale-alignment.csv';
@@ -405,16 +419,16 @@ function frame(now){
   if(mode==='scalar')return;
   const elapsed=lastTick===null?0:clamp((now-lastTick)/1000,0,.08);lastTick=now;
   if(playing){
-    const max=mode==='system'?maxT:10;
+    const max=mode==='system'?maxT:MAX_TIME;
     time=clamp(time+elapsed*speed,0,max);
     if(time>=max)playing=false;
   }
   if(mode==='cucker'){
-    updateCucker(time,mode==='cucker'?4:8);
-    setText('dl-status',csFrame&&csTime+csStep<time?'Computing…':playing?'Playing':'Paused');
+    updateCucker(time);
+    setText('dl-status',csFrame&&csTick<Math.round(time/csStep)?'Computing…':playing?'Playing':'Paused');
   }else setText('dl-status',valid?playing?'Playing':'Paused':'Ready');
   syncTime();queue();
-  if(playing||mode==='cucker'&&csTime+csStep<time&&Boolean(csFrame)&&!csError)requestAnimationFrame(frame);
+  if(playing||mode==='cucker'&&csTick<Math.round(time/csStep)&&Boolean(csFrame)&&!csError)requestAnimationFrame(frame);
 }
 new ResizeObserver(resize).observe(canvas);
 window.addEventListener('visibilitychange',()=>{lastTick=null;});

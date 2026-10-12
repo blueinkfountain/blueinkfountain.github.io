@@ -103,7 +103,7 @@ lab_mode: scalar
           <span class="em-play-spacer"></span>
           <select class="em-select em-speed-select" id="em-speed" aria-label="Animation speed"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select>
         </div>
-        <input class="em-timeline" type="range" id="em-time" min="0" max="100" step="0.001" value="0" disabled aria-label="Simulation time, drag to scrub numerical solution or parametric curve">
+        <input class="em-timeline" type="range" id="em-time" min="0" max="10000" step="0.001" value="0" disabled aria-label="Simulation time, drag to scrub numerical solution or parametric curve">
         <div class="em-statline"><span id="em-stat-steps">—</span><span id="em-stat-endpoint">—</span><span id="em-stat-difference" hidden>—</span></div>
         <p class="em-message" id="em-message" role="status" aria-live="polite"></p>
       </div>
@@ -111,4 +111,4 @@ lab_mode: scalar
   </div>
 
 </div>
-<script type="module" src="{{ '/assets/euler-method/app.mjs' | relative_url }}?v=pages-2"></script>
+<script type="module" src="{{ '/assets/euler-method/app.mjs' | relative_url }}?v=time-10000"></script>
