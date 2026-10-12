@@ -40,3 +40,4 @@ exclude:
   - euler_method_pixel_web
   - euler_method_latex_web
   - euler_latex_upgrade
+  - ode_lab_rk4_web

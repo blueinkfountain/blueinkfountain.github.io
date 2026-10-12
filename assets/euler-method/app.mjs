@@ -1,6 +1,5 @@
 import {
-  EQUATIONS, derivative, eulerSolve, rk4Solve,
-  parameterPoint, nearestParameterTime, estimateDifference,
+  EQUATIONS, solveNumerically,
 } from './math.mjs';
 import { PixelPainter } from './pixel.mjs';
 import { compileLatex } from './latex.mjs';
@@ -19,13 +18,12 @@ const trailContext = trailCanvas.getContext('2d');
 if (!ctx || !staticContext || !pixelContext || !trailContext) throw new Error('Canvas 2D is not supported by this browser.');
 
 const DEFAULT = Object.freeze({
-  equation: 1, eqLatex: 'y^2(y^2-4)',
-  paramX: String.raw`\sin(4t)(e-2\cos(18t))`,
-  paramY: String.raw`\cos(5t)(e-2\cos(11t))`,
+  equation: 0, eqLatex: '', method: 'rk4',
+  paramX: '', paramY: '',
   x0: 0, y0: 0.5, h: 0.1,
   cx: 0, cy: 0, zoom: 60,
   time: 0, speed: 1, playing: false, trace: false,
-  showField: true, showEuler: true, showRK4: false, showParam: true,
+  showField: true, showSolution: true, showCompare: false, showParam: true,
   renderStyle: 'pixel', pixelSize: 1,
 });
 
@@ -41,9 +39,9 @@ let trail = [];
 let paramSamples = [];
 let paramRevision = 0;
 let sampledRevision = -1;
-let derivativeFn = compileLatex(DEFAULT.eqLatex, ['x','y']);
-let paramXFn = compileLatex(DEFAULT.paramX, ['t']);
-let paramYFn = compileLatex(DEFAULT.paramY, ['t']);
+let derivativeFn = null;
+let paramXFn = null;
+let paramYFn = null;
 let eqTimer = null;
 let paramTimer = null;
 
@@ -54,7 +52,8 @@ const formatNumber = n => {
 };
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const equationFunction = (x, y) => derivativeFn(x,y);
-const parameterPointCustom = t => ({x:paramXFn(t), y:paramYFn(t)});
+const parameterPointCustom = t => (paramXFn && paramYFn) ? ({x:paramXFn(t), y:paramYFn(t)}) : null;
+const hasParameter = () => Boolean(paramXFn && paramYFn);
 const LINE_PT = 4 / 3; // 1 CSS pt = 1.333 CSS px; pixel mode is a crisp 1-pixel approximation.
 
 function inputError(id, text) {
@@ -62,33 +61,51 @@ function inputError(id, text) {
   $(id).hidden = !text;
 }
 function setEquation(text, preset = false) {
+  const trimmed = text.trim();
+  if (!trimmed) {
+    derivativeFn = null;
+    state.eqLatex = '';
+    state.equation = 0;
+    inputError('em-equation-error', '');
+    syncEquation(); redrawStatic();
+    return true;
+  }
   try {
-    const f = compileLatex(text, ['x','y']);
+    const f = compileLatex(trimmed, ['x','y']);
     derivativeFn = f;
-    state.eqLatex = text;
+    state.eqLatex = trimmed;
     if(!preset)state.equation=0;
     inputError('em-equation-error', '');
-    syncEquation();
-    redrawStatic();
+    syncEquation();redrawStatic();
     return true;
   } catch(error) {
     inputError('em-equation-error', error.message);
-    return false; // Keep plotting the last valid formula.
+    return false; // Preserve last valid plot on incomplete LaTeX.
   }
 }
 function setParameterFormulas(xText, yText) {
+  // No partial trajectory: both coordinate expressions must be present.
+  if (!xText.trim() || !yText.trim()) {
+    paramXFn=null;paramYFn=null;
+    state.paramX=xText;state.paramY=yText;
+    state.playing=false;
+    paramRevision++;sampledRevision=-1;trail=[];
+    inputError('em-param-error','');
+    syncPlayback();redrawStatic();
+    return true;
+  }
   try {
     const fx=compileLatex(xText,['t']);
     const fy=compileLatex(yText,['t']);
     paramXFn=fx;paramYFn=fy;
     state.paramX=xText;state.paramY=yText;
-    paramRevision++;trail=[];
+    paramRevision++;sampledRevision=-1;trail=[];
     inputError('em-param-error','');
-    redrawStatic();requestFrame();
+    syncPlayback();redrawStatic();
     return true;
   } catch(error) {
     inputError('em-param-error',error.message);
-    return false; // Atomic: old x(t), y(t) remain active together.
+    return false; // Preserve last valid full trajectory.
   }
 }
 function nearestParameterTimeCustom(x,y){
@@ -105,20 +122,22 @@ function nearestParameterTimeCustom(x,y){
 function message(text = '') { $('em-message').textContent = text; }
 function syncEquation() {
   $('em-equation').value = state.equation===0?'custom':String(state.equation);
-  $('em-formula').textContent = 'dy/dx = '+state.eqLatex;
-  $('em-equation-overlay').textContent = 'dy/dx = '+(state.eqLatex.length>38 ? state.eqLatex.slice(0,38)+'…' : state.eqLatex);
-  $('em-equation-overlay').title = 'dy/dx = '+state.eqLatex;
+  const overlay=$('em-equation-overlay');
+  overlay.hidden=!state.eqLatex;
+  overlay.textContent=state.eqLatex ? `y′ = ${state.eqLatex.slice(0,36)}${state.eqLatex.length>36?'…':''}` : '';
+  overlay.title=state.eqLatex;
 }
 function syncStep() {
   $('em-step').value = String(Number(state.h.toPrecision(5)));
-  $('em-step-range').value = String(Math.log10(state.h));
 }
 function syncPlayback() {
   $('em-time').value = String(state.time);
   $('em-time-value').textContent = state.time.toFixed(3);
   $('em-play').textContent = state.playing ? 'Ⅱ Pause' : '▶ Play';
-  $('em-live').textContent = state.playing ? 'Playing' : 'Paused';
+  $('em-live').textContent = !hasParameter() ? 'Ready' : state.playing ? 'Playing' : 'Paused';
   $('em-live').classList.toggle('is-playing', state.playing);
+  $('em-play').disabled = !hasParameter();
+  $('em-time').disabled = !hasParameter();
 }
 function syncUI() {
   syncEquation(); syncStep(); syncPlayback();
@@ -126,8 +145,10 @@ function syncUI() {
   $('em-y0').value = String(state.y0);
   $('em-speed').value = String(state.speed);
   $('em-show-field').checked = state.showField;
-  $('em-show-euler').checked = state.showEuler;
-  $('em-show-rk4').checked = state.showRK4;
+  $('em-method').value = state.method;
+  $('em-show-solution').checked = state.showSolution;
+  $('em-show-compare').checked = state.showCompare;
+  $('em-compare-label').textContent = state.method === 'rk4' ? 'Euler comparison' : 'RK4 comparison';
   $('em-show-parameter').checked = state.showParam;
   $('em-trace').checked = state.trace;
   $('em-equation-latex').value=state.eqLatex;
@@ -135,9 +156,7 @@ function syncUI() {
   $('em-param-y').value=state.paramY;
   $('em-render-style').value = state.renderStyle;
 
-  $('em-render-label').textContent = state.renderStyle === 'pixel'
-    ? 'Pixel · 1px dots' : 'Smooth · 1pt';
-  $('em-zoom').textContent = `${formatNumber(state.zoom)} px / unit`;
+  $('em-zoom').textContent = `${formatNumber(state.zoom)} px/unit`;
 }
 function redrawStatic() { dirty = true; requestFrame(); }
 function requestFrame() {
@@ -302,9 +321,12 @@ function drawPolyline(g, points, color, lineWidth, dash = []) {
 function ensureParamSamples() {
   if (sampledRevision === paramRevision) return;
   paramSamples=[];
-  for(let i=0;i<=5000;i++){
-    const t=i/50;
-    paramSamples.push(parameterPointCustom(t));
+  if (hasParameter()) {
+    for(let i=0;i<=5000;i++){
+      const t=i/50;
+      const point=parameterPointCustom(t);
+      paramSamples.push(point && Number.isFinite(point.x) && Number.isFinite(point.y) ? point : {x:NaN,y:NaN});
+    }
   }
   sampledRevision=paramRevision;
 }
@@ -322,40 +344,43 @@ function drawStaticLayer() {
   const pixel=state.renderStyle==='pixel';
   const painter=pixel?pixelPainter(pixelContext):null;
   if(pixel)pixelContext.clearRect(0,0,pixelCanvas.width,pixelCanvas.height);
-  if(state.showField){
+  if(state.showField && derivativeFn){
     if(pixel)drawPixelDirectionField(painter);
     else drawDirectionField(g);
   }
-  const b=bounds();
-  const end=Math.min(b.right+0.15, state.x0 + 300);
-  const e=eulerSolve(equationFunction,state.x0,state.y0,state.h,end);
-  let r=null;
-  if(state.showRK4){
-    r=rk4Solve(equationFunction,state.x0,state.y0,Math.min(state.h/4,0.025),end);
-    if(pixel)drawPixelPolyline(painter,r.points,'#285dd9',7);
-    else drawPolyline(g,r.points,'#397fc2',LINE_PT,[6,5]);
+  let solution=null;
+  let comparison=null;
+  if(derivativeFn && (state.showSolution || state.showCompare)){
+    const b=bounds();
+    const end=Math.min(b.right+0.15,state.x0+300);
+    solution=solveNumerically(equationFunction,state.x0,state.y0,state.h,end,state.method);
+    if(state.showCompare){
+      const other=state.method==='rk4'?'euler':'rk4';
+      comparison=solveNumerically(equationFunction,state.x0,state.y0,state.h,end,other);
+      if(pixel)drawPixelPolyline(painter,comparison.points,'#285dd9',7);
+      else drawPolyline(g,comparison.points,'#397fc2',LINE_PT,[6,5]);
+    }
+    if(state.showSolution){
+      if(pixel)drawPixelPolyline(painter,solution.points,'#f53742');
+      else drawPolyline(g,solution.points,'#d35253',LINE_PT);
+    }
   }
-  if(state.showEuler){
-    if(pixel)drawPixelPolyline(painter,e.points,'#f53742');
-    else drawPolyline(g,e.points,'#d35253',LINE_PT);
-  }
-  if(state.showParam) {
+  if(state.showParam && hasParameter()) {
     ensureParamSamples();
     if(pixel)drawPixelPolyline(painter,paramSamples,'#069b7d');
     else drawPolyline(g,paramSamples,'rgba(0,143,111,.60)',LINE_PT);
   }
   if(pixel)compositePixels(g,pixelCanvas);
-  if(state.showEuler||state.showRK4)drawMarker(g,state.x0,state.y0,'#b34b52',4.1);
-  const endpoint=e.points.at(-1);
-  $('em-stat-steps').textContent=String(e.points.length-1);
-  $('em-stat-endpoint').textContent=endpoint?`(${formatNumber(endpoint.x)}, ${formatNumber(endpoint.y)})`:'—';
-  $('em-stat-difference').textContent=r?formatNumber(estimateDifference(e.points,r.points)):'—';
-  if (e.stopped) message('The numerical curve stopped at a divergence or step limit. Reduce h or change the initial value.');
-  else if($('em-message').textContent.startsWith('The numerical curve stopped')) message('');
+  if(solution)drawMarker(g,state.x0,state.y0,'#b34b52',4.1);
+  const endpoint=solution?.points.at(-1);
+  $('em-stat-steps').textContent=solution?`${state.method==='rk4'?'RK4':'Euler'} · ${solution.points.length-1} steps`:'';
+  $('em-stat-endpoint').textContent=endpoint?`(${formatNumber(endpoint.x)}, ${formatNumber(endpoint.y)})`:'';
+  if(solution?.stopped) message('Numerical solution stopped at a step limit or divergence.');
+  else if($('em-message').textContent.startsWith('Numerical solution stopped')) message('');
   dirty=false;
 }
 function drawDynamicLayer() {
-  if(!state.showParam)return;
+  if(!state.showParam || !hasParameter())return;
   if(state.trace && trail.length>=2) {
     if(state.renderStyle==='pixel'){
       trailContext.clearRect(0,0,trailCanvas.width,trailCanvas.height);
@@ -372,7 +397,7 @@ function drawDynamicLayer() {
   }
 }
 function updateTrail(from,to){
-  if(!state.trace || !state.showParam)return;
+  if(!state.trace || !state.showParam || !hasParameter())return;
   if(to<from){ trail=[]; return; }
   const n=Math.min(300,Math.max(1,Math.ceil((to-from)/0.02)));
   for(let i=1;i<=n;i++){
@@ -428,10 +453,11 @@ function setZoom(zoom,px=viewport.width/2,py=viewport.height/2){
   state.zoom=clamp(zoom,12,300);
   const next=toWorld(px,py);
   state.cx+=fixed.x-next.x;state.cy+=fixed.y-next.y;
-  $('em-zoom').textContent=`${formatNumber(state.zoom)} px / unit`;
+  $('em-zoom').textContent=`${formatNumber(state.zoom)} px/unit`;
   redrawStatic();
 }
 function setPlaying(playing){
+  if(playing && !hasParameter())return;
   if(playing&&state.time>=100) setTime(0);
   state.playing=Boolean(playing);
   lastFrameTime=null;
@@ -444,9 +470,7 @@ function setTime(value, keepTrail=false){
 }
 function resetAll(){
   state={...DEFAULT};trail=[];paramRevision++;sampledRevision=-1;
-  derivativeFn=compileLatex(DEFAULT.eqLatex,['x','y']);
-  paramXFn=compileLatex(DEFAULT.paramX,['t']);
-  paramYFn=compileLatex(DEFAULT.paramY,['t']);
+  derivativeFn=null;paramXFn=null;paramYFn=null;
   inputError('em-equation-error','');inputError('em-param-error','');
   resizePixelLayers();
   syncUI();message('');redrawStatic();
@@ -459,8 +483,8 @@ for(const e of EQUATIONS){
   $('em-equation').append(opt);
 }
 const customOpt=document.createElement('option');
-customOpt.value='custom';customOpt.textContent='Custom LaTeX';
-$('em-equation').append(customOpt);
+customOpt.value='custom';customOpt.textContent='Custom';
+$('em-equation').prepend(customOpt);
 $('em-equation').addEventListener('change',()=>{
   const selected=$('em-equation').value;
   if(selected==='custom')return;
@@ -480,25 +504,13 @@ for(const id of ['em-param-x','em-param-y']) {
     paramTimer=setTimeout(()=>setParameterFormulas($('em-param-x').value,$('em-param-y').value),150);
   });
 }
-$('em-param-original').addEventListener('click',()=>{
-  $('em-param-x').value=DEFAULT.paramX;
-  $('em-param-y').value=DEFAULT.paramY;
-  setParameterFormulas(DEFAULT.paramX,DEFAULT.paramY);
-});
-$('em-param-fractions').addEventListener('click',()=>{
-  const x=String.raw`\sin(4t)(\exp(\cos(\frac{t}{2}))-2\cos(18t)-\sin(\frac{1}{12})^5)`;
-  const y=String.raw`\cos(5t)(\exp(\cos(\frac{t}{3}))-2\cos(11t)-\sin(\frac{1}{12})^5)`;
-  $('em-param-x').value=x;$('em-param-y').value=y;
-  setParameterFormulas(x,y);
-});
 for(const name of ['x0','y0']) $('em-'+name).addEventListener('change',()=>{
   setInitial(Number($('em-x0').value),Number($('em-y0').value));
 });
 $('em-step').addEventListener('change',()=>setStep(Number($('em-step').value)));
-$('em-step-range').addEventListener('input',()=>setStep(10**Number($('em-step-range').value)));
 $('em-step-down').addEventListener('click',()=>setStep(state.h/1.25));
 $('em-step-up').addEventListener('click',()=>setStep(state.h*1.25));
-const toggles=[['em-show-field','showField'],['em-show-euler','showEuler'],['em-show-rk4','showRK4'],['em-show-parameter','showParam'],['em-trace','trace']];
+const toggles=[['em-show-field','showField'],['em-show-solution','showSolution'],['em-show-compare','showCompare'],['em-show-parameter','showParam'],['em-trace','trace']];
 for(const [id,key] of toggles){
   $(id).addEventListener('change',()=>{
     state[key]=$(id).checked;
@@ -506,6 +518,10 @@ for(const [id,key] of toggles){
     redrawStatic();
   });
 }
+$('em-method').addEventListener('change',()=>{
+  state.method=$('em-method').value;
+  syncUI();redrawStatic();
+});
 $('em-render-style').addEventListener('change',()=>{
   state.renderStyle=$('em-render-style').value;
   syncUI();redrawStatic();
@@ -550,7 +566,7 @@ canvas.addEventListener('pointercancel',()=>{
 });
 canvas.addEventListener('click',event=>{
   if(ignoreNextClick){ignoreNextClick=false;return;}
-  if(event.detail !== 1 || !state.showParam)return;
+  if(event.detail !== 1 || !state.showParam || !hasParameter())return;
   // Wait until the browser's double-click window has passed. Seeking on
   // pointerup incorrectly changed t just before a double-click set (x0,y0).
   const px=event.offsetX, py=event.offsetY;

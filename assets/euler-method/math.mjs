@@ -130,3 +130,10 @@ export function estimateDifference(eulerPoints, rk4Points) {
   const weight = b.x === a.x ? 0 : Math.max(0, Math.min(1, (p.x - a.x) / (b.x - a.x)));
   return Math.abs(p.y - (a.y * (1 - weight) + b.y * weight));
 }
+
+/** Pick the actual numerical solver; defaults to RK4. */
+export function solveNumerically(f, x0, y0, h, xMax, method='rk4') {
+  if (method === 'rk4') return rk4Solve(f, x0, y0, h, xMax);
+  if (method === 'euler') return eulerSolve(f, x0, y0, h, xMax);
+  throw new RangeError('Unknown numerical method: '+method);
+}
