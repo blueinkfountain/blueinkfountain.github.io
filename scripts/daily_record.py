@@ -17,6 +17,7 @@ import sys
 import tempfile
 
 import yaml
+from note_storage import build_lock, recover_publication
 
 DATE_FMT = "%y%m%d"
 DISPLAY_FMT = "%Y-%m-%d"
@@ -96,7 +97,7 @@ class RecordStore:
             return None
         try:
             data = json.loads(self.pending_path.read_text(encoding="utf-8"))
-        except (OSError, ValueError) as exc:
+        except (OSError, ValueError, RuntimeError) as exc:
             raise ValueError(f"Pending note is corrupted: {self.pending_path}") from exc
         if (not isinstance(data, dict)
                 or not self._valid_date(data.get("date"))
@@ -370,7 +371,7 @@ def run_gui(repo_root: Path) -> int:
         def save_input(self):
             try:
                 store.save_note(self.selected_key, self.status_input.text())
-            except (OSError, ValueError) as exc:
+            except (OSError, ValueError, RuntimeError) as exc:
                 QMessageBox.warning(self, "Save failed", str(exc))
                 return
             self.item_select = 0
@@ -491,21 +492,24 @@ def main() -> int:
     args = parser.parse_args()
 
     try:
-        if args.print_pending or args.clear_applied_pending:
-            store = RecordStore(args.repo)
-            if args.print_pending:
-                pending = store.pending_for_latest()
-                if pending is None:
-                    return 3
-                sys.stdout.write(pending)
+        repo = Path(args.repo).expanduser().resolve()
+        with build_lock(repo):
+            recover_publication(repo / "untexed-current", repo / "_data/untexed_records.yml")
+            if args.print_pending or args.clear_applied_pending:
+                store = RecordStore(args.repo)
+                if args.print_pending:
+                    pending = store.pending_for_latest()
+                    if pending is None:
+                        return 3
+                    sys.stdout.write(pending)
+                    return 0
+                store.clear_applied_pending()
                 return 0
-            store.clear_applied_pending()
-            return 0
-        return run_gui(Path(args.repo))
+            return run_gui(Path(args.repo))
     except MissingPyQt as exc:
         print(str(exc), file=sys.stderr)
         return 2
-    except (OSError, ValueError) as exc:
+    except (OSError, ValueError, RuntimeError) as exc:
         print(f"Daily Record error: {exc}", file=sys.stderr)
         return 2
 

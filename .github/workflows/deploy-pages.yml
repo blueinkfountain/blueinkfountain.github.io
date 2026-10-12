@@ -1,106 +1,67 @@
-name: Build and Deploy Math Blog
+name: Validate and Deploy Math Blog
 
 on:
   push:
-    branches:
-      - main
-
+    branches: [main]
+  pull_request:
   workflow_dispatch:
-
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
-
 jobs:
-
-  # ======================================================
-  # Build
-  # ======================================================
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: python -m pip install -r requirements.txt
+      - run: python -m unittest discover -s tests -p 'test_*.py'
+      - run: python scripts/check_site.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm test
 
   build:
-
+    needs: validate
     runs-on: ubuntu-latest
-
     steps:
-
-      # --------------------------------------------------
-      # 1. Repository 가져오기
-      # --------------------------------------------------
-
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-
-      # --------------------------------------------------
-      # 2. GitHub Pages 설정
-      # --------------------------------------------------
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-
-      # --------------------------------------------------
-      # 3. Jekyll build
-      #
-      # Record와 ink 계산은 이미 로컬 pre-commit에서 완료됨.
-      #
-      # GitHub에는:
-      #   _data/untexed_records.yml
-      #   untexed-current/
-      #
-      # 만 올라와 있고, 이것들을 사용해 사이트를 빌드함.
-      # --------------------------------------------------
-
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-
+      - uses: actions/checkout@v6
+      - uses: ruby/setup-ruby@v1
         with:
-          source: ./
-          destination: ./_site
-
-
-      # --------------------------------------------------
-      # 4. 완성된 사이트 업로드
-      # --------------------------------------------------
-
+          ruby-version: '3.3'
+          bundler-cache: true
+      - name: Build site
+        run: bundle exec jekyll build --trace
+        env:
+          JEKYLL_ENV: production
+      - name: Check published links and files
+        run: python3 scripts/check_build.py _site
       - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v4
-
         with:
           path: ./_site
 
-
-
-  # ======================================================
-  # Deploy
-  # ======================================================
-
   deploy:
-
-    environment:
-
-      name: github-pages
-
-      url: ${{ steps.deployment.outputs.page_url }}
-
-
-    runs-on: ubuntu-latest
-
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build
-
-
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-
       - name: Deploy to GitHub Pages
-
         id: deployment
-
         uses: actions/deploy-pages@v4

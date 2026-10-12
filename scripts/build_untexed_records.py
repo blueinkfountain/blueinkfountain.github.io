@@ -5,7 +5,7 @@ from datetime import datetime
 import hashlib
 import os
 import re
-import shutil
+from note_storage import MetricCache, build_lock, file_digest, publish_snapshot, recover_publication
 
 import fitz
 import numpy as np
@@ -65,6 +65,7 @@ TREE_SCHEMA_VERSION = 3
 
 _TEMPLATE_GRAY = None
 _REFERENCE_INK_PIXELS = None
+_METRIC_CACHE = None
 
 
 # =========================================================
@@ -277,6 +278,8 @@ def page_ink_mask(page):
 def initialize_ink_calibration():
     global _TEMPLATE_GRAY
     global _REFERENCE_INK_PIXELS
+    global _METRIC_CACHE
+    _METRIC_CACHE = None
 
     if not INK_REFERENCE_PDF.exists():
         raise FileNotFoundError(
@@ -339,7 +342,29 @@ def initialize_ink_calibration():
 # Metadata changes do not count; rendered PDF appearance does.
 # =========================================================
 
+def metric_cache():
+    global _METRIC_CACHE
+    if _METRIC_CACHE is None:
+        settings = {
+            "algorithm": file_digest(Path(__file__)),
+            "storage": file_digest(Path(__file__).with_name("note_storage.py")),
+            "pymupdf": fitz.VersionBind,
+            "numpy": np.__version__,
+            "scale": RENDER_SCALE,
+            "threshold": TEMPLATE_DIFF_THRESHOLD,
+            "max_gray": MAX_INK_GRAY,
+            "template": file_digest(GRID_TEMPLATE_PDF),
+            "reference": file_digest(INK_REFERENCE_PDF),
+        }
+        _METRIC_CACHE = MetricCache(ROOT / ".cache" / "ink", settings)
+    return _METRIC_CACHE
+
+
 def visual_pdf_hash(path):
+    return metric_cache().get("visual", path, lambda: calculate_visual_pdf_hash(path))
+
+
+def calculate_visual_pdf_hash(path):
     h = hashlib.sha256()
     doc = fitz.open(path)
 
@@ -876,6 +901,10 @@ def align_page_sequences(old_masks, new_masks):
 # =========================================================
 
 def count_total_ink_pixels(pdf_path):
+    return metric_cache().get("total", pdf_path, lambda: calculate_total_ink_pixels(pdf_path))
+
+
+def calculate_total_ink_pixels(pdf_path):
     total = 0
     doc = fitz.open(pdf_path)
 
@@ -1420,55 +1449,6 @@ def migrate_record_tree_to_v3(record):
 # to GitHub.  untexed-current/ is replaced on every run.
 # =========================================================
 
-def publish_latest_snapshot(
-    latest_date_dir
-):
-    if PUBLISHED_ROOT.exists():
-        shutil.rmtree(
-            PUBLISHED_ROOT
-        )
-
-    PUBLISHED_ROOT.mkdir(
-        parents=True,
-        exist_ok=True,
-    )
-
-    for source in sorted(
-        latest_date_dir.rglob("*")
-    ):
-        if not is_note_pdf(
-            latest_date_dir,
-            source,
-        ):
-            continue
-
-        relative = source.relative_to(
-            latest_date_dir
-        )
-
-        destination = (
-            PUBLISHED_ROOT
-            / relative
-        )
-
-        destination.parent.mkdir(
-            parents=True,
-            exist_ok=True,
-        )
-
-        shutil.copy2(
-            source,
-            destination,
-        )
-
-    print()
-    print(
-        f"Published latest snapshot "
-        f"{latest_date_dir.name} -> "
-        f"{PUBLISHED_ROOT}"
-    )
-
-
 # =========================================================
 # Rolling-history helpers
 # =========================================================
@@ -1777,6 +1757,12 @@ def attach_file_totals_to_record(
 # =========================================================
 
 def main():
+    with build_lock(ROOT):
+        recover_publication(PUBLISHED_ROOT, OUTPUT)
+        build_records()
+
+
+def build_records():
     initialize_ink_calibration()
 
     if not SNAPSHOT_ROOT.exists():
@@ -2351,9 +2337,7 @@ def main():
     # Mirror only newest PDFs into tracked publish directory
     # =====================================================
 
-    publish_latest_snapshot(
-        latest_date_dir
-    )
+    # PDF/YAML publication happens together after data serialization.
 
     # =====================================================
     # YAML
@@ -2396,17 +2380,9 @@ def main():
             records,
     }
 
-    with OUTPUT.open(
-        "w",
-        encoding="utf-8",
-    ) as file:
-        yaml.safe_dump(
-            data,
-            file,
-            allow_unicode=True,
-            sort_keys=False,
-            width=180,
-        )
+    publication = publish_snapshot(latest_date_dir, PUBLISHED_ROOT, OUTPUT, data)
+    print(f"Publication: {publication['reused']} unchanged PDFs reused; "
+          f"{publication['copied']} PDFs copied.")
 
     # =====================================================
     # Summary

@@ -1,0 +1,4 @@
+# Core update/validation dependencies; Python 3.9+.
+numpy==2.0.2
+PyMuPDF==1.26.5
+PyYAML==6.0.3

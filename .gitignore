@@ -28,3 +28,17 @@ untexed/[0-9][0-9][0-9][0-9][0-9][0-9]/
 .daily_record_pending_note
 .daily_record_backup/
 .daily_record_pending.json
+
+# Local tooling, retired installers, and computation caches
+.venv/
+.archive/
+.cache/
+.superpowers/
+__pycache__/
+*.py[cod]
+*.before-*
+*.nav
+*.snm
+.bundle/
+vendor/
+.sass-cache/

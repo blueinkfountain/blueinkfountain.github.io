@@ -1,0 +1,3 @@
+-r requirements.txt
+# Required only for the local Daily Record editor.
+PyQt5==5.15.11

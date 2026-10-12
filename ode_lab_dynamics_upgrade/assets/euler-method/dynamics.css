@@ -1,0 +1,42 @@
+/* Dynamical systems controls: scoped to the original lab, matching its compact UI. */
+.em-app .dl-mode-tabs {display:flex;gap:5px;flex-wrap:wrap;margin-left:auto;padding:3px;border:1px solid #dce5ef;border-radius:8px;background:#f3f7fc}
+.em-app .dl-tab {border:0;border-radius:6px;padding:7px 12px;background:transparent;color:#5a718c;font-size:.8rem;font-weight:650}
+.em-app .dl-tab.is-selected {background:#2054a4;color:#fff}
+.em-app .dl-layout {display:grid;grid-template-columns:minmax(245px,284px) minmax(0,1fr);gap:14px;align-items:start}
+.em-app .dl-side,.em-app .dl-plot-panel {background:#fff;border:1px solid #dce5ef;border-radius:12px;overflow:hidden}
+.em-app .dl-section {padding:14px;border-bottom:1px solid #edf1f6}
+.em-app .dl-section:last-child {border-bottom:0}
+.em-app .dl-heading {display:flex;align-items:center;justify-content:space-between;font-size:.96rem;font-weight:730;margin-bottom:10px}
+.em-app .dl-heading select {border:1px solid #d1dfed;border-radius:6px;background:#fff;color:#1d3553;padding:4px 6px}
+.em-app .dl-label,.em-app .dl-section label {display:block;margin:9px 0 4px;color:#64778f;font-size:.74rem;font-weight:650}
+.em-app .dl-input {width:100%;min-width:0;min-height:35px;border:1px solid #d1dfed;border-radius:7px;background:#fff;padding:7px 9px;color:#203d5b;font-size:.82rem;font-weight:500}
+.em-app .dl-formula {resize:vertical;min-height:35px;height:40px;font-family:ui-monospace,Menlo,monospace}
+.em-app .dl-multi {resize:vertical;min-height:55px;font-family:ui-monospace,Menlo,monospace}
+.em-app .dl-pair {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;align-items:end}
+.em-app .dl-pair label {min-width:0}
+.em-app .dl-range {display:block;width:100%;cursor:pointer;accent-color:#2054a4;margin:13px 0}
+.em-app .dl-error {font-size:.73rem;color:#c03045;margin:6px 0;white-space:normal;overflow-wrap:anywhere}
+.em-app .dl-check {display:flex!important;align-items:center;gap:7px;margin:12px 0!important}
+.em-app .dl-check input {accent-color:#2054a4}
+.em-app .dl-button {border:1px solid #d1dfed;border-radius:7px;padding:6px 11px;background:#fff;color:#28507c;font-weight:650;font-size:.79rem;min-height:34px}
+.em-app .dl-button:hover {background:#eff5fc}
+.em-app .dl-primary {background:#2054a4;color:white;border-color:#2054a4}
+.em-app .dl-primary:hover {background:#144582}
+.em-app .dl-panel-top {padding:11px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e7edf5;font-size:.9rem}
+.em-app .dl-panel-top span {color:#7c91a8;font-size:.74rem}
+.em-app .dl-canvas-wrap {position:relative;background:#fbfdff}
+.em-app #dl-canvas {display:block;width:100%;height:510px;touch-action:none;cursor:crosshair}
+.em-app #dl-canvas.is-moving {cursor:grabbing}
+.em-app #dl-coordinates {position:absolute;right:8px;bottom:8px;font:11px ui-monospace,monospace;color:#8094ad;pointer-events:none}
+.em-app .dl-playbar {padding:10px 14px 12px}
+.em-app .dl-controls {display:flex;align-items:center;gap:9px}
+.em-app .dl-controls output {margin-right:auto;font:700 .85rem ui-monospace,Menlo,monospace;color:#305173}
+.em-app #dl-speed {width:76px}
+.em-app .dl-result {min-height:16px;color:#768ba2;font:11px ui-monospace,Menlo,monospace;white-space:normal;overflow-wrap:anywhere}
+.em-app .dl-metrics {white-space:pre-line;font:11px ui-monospace,Menlo,monospace;color:#52728d;line-height:1.85}
+@media(max-width:900px){.em-app .dl-layout{grid-template-columns:minmax(210px,245px) minmax(0,1fr);gap:10px}.em-app #dl-canvas{height:460px}}
+@media(max-width:680px){.em-app .dl-layout{grid-template-columns:minmax(0,1fr)}.em-app .dl-mode-tabs{margin-left:0}.em-app #dl-canvas{height:410px}}
+@media(max-width:440px){.em-app .dl-tab{padding:7px 9px}.em-app #dl-canvas{height:350px}}
+
+.em-app .dl-panel-actions {display:flex;align-items:center;gap:12px;}
+.em-app .dl-panel-actions .dl-button {min-height:25px;padding:3px 9px;font-size:.7rem;}
