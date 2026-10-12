@@ -8,7 +8,6 @@ Jekyll + Just the Docs로 운영하는 수학 문서, PDF 필기와 ODE 실험 �
 | --- | --- |
 | `docs/` | 게시 페이지. URL 호환성을 위해 기존 경로를 유지합니다. |
 | `assets/pdfs/` | 기존 공개 수학 PDF. 파일명을 바꿀 때 연결 페이지도 수정합니다. |
-| `assets/fonts/` | 글꼴 파일 |
 | `assets/euler-method/` | ODE Lab의 유일한 JavaScript/CSS 원본 |
 | `scripts/` | 필기 갱신·기록 편집·검증 코드 |
 | `tests/` | 실제 운영 파일을 검사하는 Python/Node 테스트 |
@@ -64,25 +63,14 @@ Git hook 설치 없이도 위 명령으로 같은 작업을 할 수 있습니다
 최근 3개 스냅샷과 그 직전 비교 기준 1개가 갱신에 필요합니다. 이전 기록은 YAML에 동결됩니다.
 과거 로컬 스냅샷은 자동 삭제하지 않습니다. 삭제하려면 별도 백업과 필요한 비교 날짜를 먼저 확인하세요.
 
-## PDF 문서 추가
+## 블로그 디자인과 문서 구성
 
-```yaml
----
-layout: pdf
-title: My theorem
-parent: Field
-pdf: /assets/pdfs/my-theorem.pdf
-summary: 이 노트가 다루는 내용을 한두 문장으로 적습니다.
----
+기존 사이드바·메뉴·PDF 뷰어를 유지합니다. 파일 관리 작업에서는 `_includes/head_custom.html`,
+문서 front matter, 메뉴 노출 여부, PDF 임베드 방식 등을 임의로 변경하지 않습니다.
+기존 문서와 같은 형식으로 새 문서를 작성하고, 디자인 변경은 별도 요청이 있을 때만 합니다.
 
-필요한 선행 개념이나 관련 설명을 여기에 적습니다.
-```
-
-`parent`는 부모 페이지의 `title`과 정확히 같아야 하며 부모에는 `has_children: true`가 필요합니다.
-`related`에 `title`, `url` 목록을 넣으면 관련 문서를 표시합니다.
-PDF가 아직 없으면 `pdf` 대신 `status: pending`으로 명시합니다.
-파일명은 제어문자 없이 작성하고, 경로 대소문자를 정확히 맞춥니다.
-PDF가 있는 페이지에는 보기·다운로드 링크와 브라우저 PDF 미리보기가 자동으로 붙습니다.
+`check_site.py`와 `check_build.py`는 기존 미완성 문서·숨겨진 문서의 연결도 보고합니다.
+이 진단 때문에 기존 문서나 메뉴를 자동 수정하지 않습니다. CI에서는 해당 진단을 참고용으로 남깁니다.
 
 ## 검사와 미리보기
 

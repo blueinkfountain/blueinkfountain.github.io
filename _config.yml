@@ -1,13 +1,13 @@
 title: "Blueink"
 description: "Blog"
-theme: just-the-docs
+remote_theme: just-the-docs/just-the-docs
 
 # 기본적인 URL 설정
 url: "https://blueinkfountain.github.io"
 
 # 플러그인 설정
 plugins:
-  - jekyll-include-cache
+  - jekyll-remote-theme
   - jekyll-seo-tag
 
 # 수학 수식 사용 설정

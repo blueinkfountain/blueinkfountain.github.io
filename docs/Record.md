@@ -9,7 +9,7 @@ nav_order: 6
   @font-face {
     font-family: 'NeoDGMCode';
     /* Jekyll의 상대 경로를 사용하여 폰트 로드 */
-    src: url('{{ "/assets/fonts/neodgm_code.ttf" | relative_url }}') format('truetype');
+    src: url('{{ "/assets/pdfs/neodgm_code.ttf" | relative_url }}') format('truetype');
     font-weight: normal;
     font-style: normal;
   }

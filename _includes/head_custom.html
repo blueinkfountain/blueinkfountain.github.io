@@ -1,4 +1,137 @@
-<link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+<style>
+  /* 1. 변수 및 기본 색상 설정 */
+  :root {
+    --nav-width: 264px;
+    --nav-width-expanded: 330px;
+
+    /* [색상 변수] */
+    --link-color: #1938c6;           
+    --btn-primary-color: #539ded;    
+    --sidebar-bg-color: #007dc1;     /* 사이드바 배경색 */
+    --nav-link-color: #ffffff;       /* 사이드바 글자색 */
+    --body-bg-color: #ffffff;        
+    --main-text-color: #002448;      
+    --heading-color: #002448;        
+  }
+
+  /* 2. 사이드바 레이아웃 및 애니메이션 */
+  .side-bar {
+    width: var(--nav-width) !important;
+    position: fixed !important;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    background-color: var(--sidebar-bg-color) !important;
+    transition: width 0.3s ease-out !important;
+    z-index: 1000;
+    overflow-x: hidden !important; 
+    display: block !important;
+    border-right: 1px solid rgba(0,0,0,0.1);
+  }
+
+  /* 호버 시 사이드바 확장 및 그림자 */
+  .side-bar:hover {
+    width: var(--nav-width-expanded) !important;
+    box-shadow: 10px 0 25px rgba(0,0,0,0.1);
+  }
+
+  /* 사이드바 내부 컨테이너 너비 고정 (확장 시 글자 흔들림 방지) */
+  .side-bar > div, 
+  .side-bar nav, 
+  .side-bar header {
+    width: var(--nav-width-expanded) !important;
+    min-width: var(--nav-width-expanded) !important;
+  }
+
+/* --- [수정된 부분: 메뉴 배경 및 그라데이션 해결] --- */
+
+  /* 1. 기본 메뉴 링크 스타일: 배경을 투명하게 초기화 */
+  .nav-list-link {
+    display: block !important;
+    white-space: nowrap !important;
+    color: var(--nav-link-color) !important;
+    padding-left: 45px !important;
+    transition: background-color 0.2s ease !important;
+    
+    /* [핵심] 테마의 내장 그라데이션을 여기서 미리 제거합니다. */
+    background: none !important; 
+    background-image: none !important; 
+  }
+
+  /* 2. 마우스를 올렸을 때 (Hover) */
+  /* rgba(255, 255, 255, 0.15) 숫자를 높이면 더 밝아집니다. */
+  .nav-list-link:hover {
+    background-image: none !important; 
+    background-color: rgba(0, 0, 0, 0.15) !important; 
+  }
+
+  /* 3. 현재 내가 보고 있는 페이지 메뉴 (Active / 고정된 느낌의 원인) */
+  /* 테마는 현재 페이지 메뉴에 아주 강력한 그라데이션을 고정해둡니다. 이를 여기서 제거합니다. */
+  .nav-list-item.active > .nav-list-link {
+    background: none !important;
+    background-image: none !important;
+    background-color: rgba(0, 0, 0, 0.1) !important; /* 현재 페이지는 살짝 어둡게 표시 */
+    font-weight: bold !important;
+  }
+
+  /* 4. 소메뉴 단계별 배경색 및 들여쓰기 */
+  .nav-list { margin-left: 0 !important; padding-left: 0 !important; }
+  .nav-list-item { margin-left: 0 !important; position: relative !important; }
+
+  /* 단계별 배경색 (점점 어두워짐) */
+  .nav-list-item .nav-list { background-color: rgba(0, 0, 0, 0.07) !important; } /* 2단 */
+  .nav-list-item .nav-list-item .nav-list { background-color: rgba(0, 0, 0, 0.12) !important; } /* 3단 */
+  .nav-list-item .nav-list-item .nav-list-item .nav-list { background-color: rgba(0, 0, 0, 0.18) !important; } /* 4단 */
+
+  /* 단계별 글자 들여쓰기 */
+  .nav-list-item .nav-list-item .nav-list-link { padding-left: 60px !important; } /* 2단 */
+  .nav-list-item .nav-list-item .nav-list-item .nav-list-link { padding-left: 75px !important; } /* 3단 */
+  .nav-list-item .nav-list-item .nav-list-item .nav-list-item .nav-list-link { padding-left: 90px !important; } /* 4단 */
+  .nav-list-item .nav-list-item .nav-list-item .nav-list-item .nav-list-item .nav-list-link { padding-left: 105px !important; } /* 5단 */
+
+  /* 5. 화살표(Expander) 및 기타 UI */
+  .nav-list-expander {
+    position: absolute !important;
+    left: 10px !important;
+    color: var(--nav-link-color) !important;
+    width: 30px !important;
+    height: 30px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+  }
+
+  .site-title { color: var(--nav-link-color) !important; }
+  .site-footer { display: none !important; } /* 푸터 숨김 */
+
+  /* 6. 본문 영역 설정 */
+  body, .main {
+    background-color: var(--body-bg-color) !important;
+    color: var(--main-text-color) !important;
+  }
+
+  .main {
+    margin-left: var(--nav-width) !important;
+    width: calc(100% - var(--nav-width)) !important;
+    max-width: none !important;
+    transition: none !important;
+  }
+
+  h1, h2, h3, h4 { color: var(--heading-color) !important; }
+  a { color: var(--link-color); }
+
+  /* 데스크탑에서 사이드바 호버 시 본문 고정 */
+  @media (min-width: 64rem) {
+    .main { margin-left: var(--nav-width) !important; }
+    .side-bar:hover + .main { margin-left: var(--nav-width) !important; }
+  }
+</style>
+
+{% raw %}
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 <script>
   window.MathJax = {
     tex: {
@@ -8,4 +141,4 @@
     }
   };
 </script>
-<script id="MathJax-script" defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"></script>
+{% endraw %}
