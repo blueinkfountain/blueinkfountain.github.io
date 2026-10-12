@@ -43,3 +43,19 @@ exclude:
   - ode_lab_rk4_web
   - ode_lab_second_order_web
   - ode_lab_timeline_fix
+  - scripts
+  - tests
+  - tools
+  - maintenance
+  - README.md
+  - requirements.txt
+  - requirements-gui.txt
+  - package.json
+  - update-notes.sh
+  - untexed
+  - daily_record_note
+  - .archive
+  - .venv
+  - .cache
+  - .superpowers
+  - ode_lab_dynamics_upgrade

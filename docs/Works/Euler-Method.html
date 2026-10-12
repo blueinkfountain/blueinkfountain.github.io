@@ -8,10 +8,14 @@ nav_order: 1
 <div class="em-app" id="euler-lab">
   <header class="em-header">
     <h1>ODE Lab</h1>
-    <span class="em-header-note">Numerical solutions &amp; parametric curves</span>
+    <nav class="dl-mode-tabs" aria-label="Mathematical model">
+      <button class="dl-tab is-selected" type="button" id="dl-tab-scalar" aria-pressed="true">Scalar ODE</button>
+      <button class="dl-tab" type="button" id="dl-tab-system" aria-pressed="false">ODE Systems</button>
+      <button class="dl-tab" type="button" id="dl-tab-cucker" aria-pressed="false">Cucker–Smale</button>
+    </nav>
   </header>
 
-  <div class="em-layout">
+  <div class="em-layout" id="em-scalar-layout">
     <aside class="em-side" aria-label="Graph controls">
       <section class="em-side-section">
         <div class="em-section-title"><h2>ODE</h2></div>
@@ -107,5 +111,52 @@ nav_order: 1
       </div>
     </section>
   </div>
+
+  <div class="dl-layout" id="dl-layout" hidden>
+    <aside class="dl-side" aria-label="Dynamical system parameters">
+      <div id="dl-system-controls">
+        <div class="dl-section"><div class="dl-heading">System <select id="dl-dim" aria-label="Dimension"><option value="2">2D</option><option value="3">3D</option></select></div>
+          <select id="dl-preset" class="dl-input" aria-label="Example system"><option value="">Custom (blank)</option><option value="oscillator">Harmonic oscillator</option><option value="vdp">Van der Pol</option><option value="predator">Lotka–Volterra</option><option value="lorenz">Lorenz attractor</option><option value="rossler">Rössler attractor</option></select>
+          <label class="dl-label" for="dl-dx">x′ =</label><textarea id="dl-dx" class="dl-input dl-formula" rows="1" placeholder="LaTeX · e.g. y" spellcheck="false"></textarea>
+          <label class="dl-label" for="dl-dy">y′ =</label><textarea id="dl-dy" class="dl-input dl-formula" rows="1" placeholder="LaTeX · e.g. -x" spellcheck="false"></textarea>
+          <div id="dl-z-wrap" hidden><label class="dl-label" for="dl-dz">z′ =</label><textarea id="dl-dz" class="dl-input dl-formula" rows="1" placeholder="LaTeX · e.g. x*y" spellcheck="false"></textarea></div>
+          <p class="dl-error" id="dl-system-error" role="alert" hidden></p>
+          <label class="dl-label" for="dl-initial">Initial conditions · one per row</label><textarea id="dl-initial" class="dl-input dl-multi" rows="2" spellcheck="false" placeholder="1, 0&#10;0, 1"></textarea>
+        </div>
+        <div class="dl-section"><div class="dl-heading">Integration</div>
+          <div class="dl-pair"><label>Method<select id="dl-method" class="dl-input"><option value="rk4">RK4</option><option value="euler">Euler</option></select></label><label>Step h<input id="dl-step" class="dl-input" type="number" min="0.001" max="1" value="0.02" step="any"></label></div>
+          <input id="dl-step-range" class="dl-range" type="range" min="0" max="1000" value="460" aria-label="Integration step size">
+          <div class="dl-pair"><label>Time span<input id="dl-tmax" class="dl-input" type="number" min="0.1" max="100" value="20" step="any"></label><label>Graph<select id="dl-plot" class="dl-input"><option value="phase">Phase space</option><option value="series">Time series</option></select></label></div>
+          <label class="dl-check"><input id="dl-field" type="checkbox" checked> Vector field (2D)</label>
+          <button class="dl-button" type="button" id="dl-clear-system">Clear</button>
+        </div>
+      </div>
+      <div id="dl-cucker-controls" hidden>
+        <div class="dl-section"><div class="dl-heading">Cucker–Smale</div>
+          <div class="dl-pair"><label>Particles N<input class="dl-input" type="number" id="dl-n" min="2" max="250" step="1" value="80"></label><label>Coupling λ<input class="dl-input" type="number" id="dl-lambda" min="0" max="100" step="any" value="4"></label></div>
+          <label>Communication kernel<select class="dl-input" id="dl-kernel"><option value="algebraic">1 / (1 + r²)^β</option><option value="original">Original C++ ψ(r)</option></select></label>
+          <div class="dl-pair"><label>β<input class="dl-input" type="number" id="dl-beta" min="0" max="5" step=".1" value="0.5"></label><label>Seed<input class="dl-input" type="number" id="dl-seed" step="1" value="23"></label></div>
+          <div class="dl-pair"><label>Position spread<input class="dl-input" type="number" id="dl-spread" min="0" max="50" step="any" value="5"></label><label>Velocity spread<input class="dl-input" type="number" id="dl-vspread" min="0" max="100" step="any" value="3"></label></div>
+          <label>Graph<select class="dl-input" id="dl-c-plot"><option value="agents">Particles · 3D</option><option value="alignment">Velocity alignment · σ(t)</option></select></label>
+          <div class="dl-pair"><label>Method<select class="dl-input" id="dl-cmethod"><option value="rk4">RK4</option><option value="euler">Euler</option></select></label><label>Step h<input class="dl-input" id="dl-cstep" type="number" min="0.001" max="0.1" step="any" value="0.02"></label></div>
+          <label class="dl-check"><input type="checkbox" id="dl-trails" checked> Particle trails</label>
+          <div class="dl-pair"><button class="dl-button" type="button" id="dl-c-reset">Reset agents</button><button class="dl-button" type="button" id="dl-c-original">C++ parameters</button></div>
+        </div>
+        <div class="dl-section"><div class="dl-heading">Velocity alignment</div><div class="dl-metrics" id="dl-metrics">—</div></div>
+      </div>
+    </aside>
+    <section class="dl-plot-panel" aria-label="Dynamical system visualisation">
+      <div class="dl-panel-top"><strong id="dl-graph-label">Phase space</strong><div class="dl-panel-actions"><button id="dl-fit" class="dl-button" type="button">Fit view</button><button id="dl-export" class="dl-button" type="button">Export CSV</button><span id="dl-status">Ready</span></div></div>
+      <div class="dl-canvas-wrap"><canvas id="dl-canvas" tabindex="0" aria-label="Drag to pan (2D) or rotate (3D). Scroll to zoom."></canvas><div id="dl-coordinates"></div></div>
+      <div class="dl-playbar">
+        <div class="dl-controls"><button class="dl-button dl-primary" id="dl-play" type="button">▶ Play</button><button class="dl-button" id="dl-reset-time" type="button">↺</button><output id="dl-time-value">t = 0.000</output><select id="dl-speed" class="dl-input" aria-label="Playback speed"><option value="0.25">0.25×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></div>
+        <input id="dl-time" class="dl-range" type="range" min="0" max="20" value="0" step="0.001" aria-label="Drag to seek simulation time">
+        <div id="dl-result" class="dl-result" role="status"></div>
+      </div>
+    </section>
+  </div>
 </div>
-<script type="module" src="{{ '/assets/euler-method/app.mjs' | relative_url }}?v=order2-rk4-timeline-2"></script>
+<script type="module" src="{{ '/assets/euler-method/app.mjs' | relative_url }}?v=dynamics-1"></script>
+
+<link rel="stylesheet" href="{{ '/assets/euler-method/dynamics.css' | relative_url }}">
+<script type="module" src="{{ '/assets/euler-method/dynamics_ui.mjs' | relative_url }}?v=dynamics-1"></script>

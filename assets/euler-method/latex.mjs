@@ -59,7 +59,7 @@ function tokenize(text) {
       const words=['floor','sinh','cosh','tanh','asin','acos','atan','sqrt','ceil','sin','cos','tan','exp','log','abs','ln','pi'];
       const found=words.find(x=>rem.startsWith(x));
       if(found){tokens.push(found);i+=found.length;continue;}
-      if('xytev'.includes(c)){tokens.push(c);i++;continue;}
+      if('xytevz'.includes(c)){tokens.push(c);i++;continue;}
       throw new SyntaxError('Unknown symbol '+c+'. Use x, y, t, numbers or supported functions.');
     }
     throw new SyntaxError('Unexpected character '+c+' at position '+(i+1));
@@ -86,7 +86,7 @@ export function compileLatex(input, variables=['x','y']) {
   const expect=t=>{if(take()!==t)throw new SyntaxError('Expected '+t+'. Check parentheses and braces.');};
   const descend=fn=>{if(++depth>60)throw new SyntaxError('Formula is nested too deeply.');try{return fn();}finally{depth--;}};
   const isStart=t=>typeof t==='number' || typeof t==='string' && (
-    t==='('||t==='{'||t==='sqrt'||t==='frac'||t in FUNCS||t==='pi'||'xytev'.includes(t)&&t.length===1
+    t==='('||t==='{'||t==='sqrt'||t==='frac'||t in FUNCS||t==='pi'||'xytevz'.includes(t)&&t.length===1
   );
   function grouped(){
     const opener=peek();
@@ -119,7 +119,7 @@ export function compileLatex(input, variables=['x','y']) {
       return power?(v)=>Math.pow(apply(f(v)),power(v)):(v)=>apply(f(v));
     }
     if(t==='pi'||t==='e'){take();return ()=>CONSTANTS[t];}
-    if(typeof t==='string' && /^[xytv]$/.test(t)){
+    if(typeof t==='string' && /^[xytvz]$/.test(t)){
       if(!allowed.has(t))throw new SyntaxError('The variable '+t+' is not valid in this formula.');
       take();return v=>v[t];
     }
