@@ -42,3 +42,6 @@ __pycache__/
 .bundle/
 vendor/
 .sass-cache/
+
+# Local Mathematics LaTeX authoring workspace
+latex-workspace/
