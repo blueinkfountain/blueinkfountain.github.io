@@ -22,9 +22,19 @@ test('scalar first and second order solutions reach elapsed time 1000',()=>{
     assert.ok(solution.points.length<=20002);
   }
 });
-test('system solutions reach 10000 without silently increasing h',()=>{
-  const {results}=solveLab({kind:'system',expressions:['1','0'],initial:[[0,2]],tMax:10000,h:.1,method:'rk4'});
-  assert.equal(results[0].points.at(-1).t,10000);
-  assert.ok(Math.abs(results[0].points.at(-1).values[0]-10000)<1e-7);
+test('system integration respects the step budget without changing h',()=>{
+  const {results,endTime,limitReached}=solveLab({
+    kind:'system',
+    expressions:['1','0'],
+    initial:[[0,2]],
+    tMax:1000,
+    h:.1,
+    method:'rk4',
+    maxSteps:5000
+  });
+  assert.equal(endTime,500);
+  assert.equal(limitReached,true);
+  assert.ok(Math.abs(results[0].points.at(-1).t-500)<1e-8);
+  assert.ok(Math.abs(results[0].points.at(-1).values[0]-500)<1e-7);
   assert.equal(results[0].stopped,false);
 });

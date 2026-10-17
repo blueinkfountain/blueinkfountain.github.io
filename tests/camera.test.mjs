@@ -10,8 +10,9 @@ test('Cucker dragging pans by default, Shift rotates only a 3D view',()=>{
   assert.equal(dragRotates('cucker',true,false),false);
   assert.equal(dragRotates('cucker',true,true),true);
   assert.equal(dragRotates('cucker',false,true),false);
-  assert.equal(dragRotates('system',true,false),true);
-  assert.equal(dragRotates('system',true,true),false);
+  assert.equal(dragRotates('system',true,false),false);
+  assert.equal(dragRotates('system',true,true),true);
+  assert.equal(dragRotates('system',false,true),false);
 });
 test('arrow keys move the graph in four directions and ignore other keys',()=>{
   assert.deepEqual(arrowMovement('ArrowLeft'),[-30,0]);
