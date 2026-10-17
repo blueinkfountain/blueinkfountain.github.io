@@ -23,12 +23,12 @@ if(!['system','cucker'].includes(mode))throw new Error('Unknown dynamics page.')
 let dimension=2,method='rk4',plotMode='phase',time=0,playing=false,lastTick=null, speed=1;
 let scale=48,pan=[0,0],yaw=.48,pitch=.4;
 let width=760,height=510,dpr=1,drag=null,dirty=true,valid=false;
-let systemFn=null,paths=[],maxT=MAX_TIME,step=.02;
+let systemFn=null,paths=[],maxT=25,actualMaxT=25,maxSteps=5000,step=.02;
 let csInitial=null,csFrame=null,csFrames=[],csTrails=[],csMetrics=[],csTime=0,csTarget=0,csStep=.02,csN=80,csConfig=null,csError='';
 let csOriginalStart=false,csTick=0,csStride=1;
 let renderRequested=false;
 
-const systemInputs=['dl-dx','dl-dy','dl-dz','dl-initial','dl-dim','dl-step','dl-tmax','dl-method'];
+const systemInputs=['dl-dx','dl-dy','dl-dz','dl-initial','dl-dim','dl-step','dl-tmax','dl-max-steps','dl-method'];
 const currentExpressions=()=>[el('dl-dx').value,el('dl-dy').value,...(dimension===3?[el('dl-dz').value]:[])];
 function setError(text){setText('dl-system-error',text);el('dl-system-error').hidden=!text;}
 function resize(){
@@ -240,14 +240,14 @@ function draw(){
 function queue(){if(renderRequested)return;renderRequested=true;requestAnimationFrame(draw);}
 function syncTime(){
   const s=el('dl-time');
-  const max=mode==='system'?maxT:MAX_TIME;
+  const max=mode==='system'?actualMaxT:MAX_TIME;
   s.max=String(max);s.value=String(clamp(time,0,max));
   setText('dl-time-value',`t = ${format(time)}`);
   setText('dl-play',playing?'Ⅱ Pause':'▶ Play');
   el('dl-play').disabled=mode==='system'?!valid:!csFrame;
 }
 function seek(value){
-  time=clamp(Number(value)||0,0,mode==='system'?maxT:MAX_TIME);
+  time=clamp(Number(value)||0,0,mode==='system'?actualMaxT:MAX_TIME);
   if(mode==='cucker')csTarget=time;
   syncTime();queue();
 }
@@ -259,24 +259,27 @@ function makeVectorField({fit=true}={}){
   try{
     const fs=expr.map((s,i)=>compileLatex(systemRhs(s,['x','y','z'][i]),['t','x','y','z']));
     const initial=parseInitialStates(el('dl-initial').value,dimension);
-    step=Number(el('dl-step').value);maxT=Number(el('dl-tmax').value);
+    step=Number(el('dl-step').value);maxT=Number(el('dl-tmax').value);maxSteps=Number(el('dl-max-steps').value);
     if(!(step>=0.001 && step<=1 && finite(step)))throw new RangeError('Step size must be in [0.001, 1].');
-    if(!(maxT>=0.1 && maxT<=MAX_TIME && finite(maxT)))throw new RangeError('Time span must be in [0.1, 1000].');
+    if(!(maxT>=0.1 && maxT<=MAX_TIME && finite(maxT)))throw new RangeError('Max time must be in [0.1, 1000].');
+    if(!Number.isInteger(maxSteps)||maxSteps<10||maxSteps>50000)throw new RangeError('Max steps must be an integer in [10, 50000].');
+    actualMaxT=Math.min(maxT,maxSteps*step);
+    setText('dl-effective-time',actualMaxT+1e-9<maxT?`Computes to t = ${format(actualMaxT)} (${maxSteps} steps)`:'');
     method=el('dl-method').value;plotMode=el('dl-plot').value;
     systemFn=(t,v)=>fs.map(f=>f(t,v[0],v[1],v[2]??0));
     paths=[];valid=false;playing=false;syncTime();queue();setText('dl-result','Computing…');
-    systemWorker=new Worker(new URL('./solver-worker.mjs',import.meta.url),{type:'module'});
+    systemWorker=new Worker(new URL('./solver-worker.mjs?v=time-budget-v1',import.meta.url),{type:'module'});
     systemWorker.onmessage=({data})=>{
     if(data.error){setError(data.error);return;}
-    const results=data.results;paths=results;valid=true;
+    const results=data.results;paths=results;valid=true;actualMaxT=Number(data.endTime);
     const errors=results.filter(r=>r.stopped).map(r=>r.reason);
     setError(errors[0]||'');
-    setText('dl-result',`${method.toUpperCase()} · ${results.length} initial state${results.length===1?'':'s'} · ${results.map(p=>Math.round(p.points.at(-1).t/step)).join('/')} steps`);
-    el('dl-time').max=String(maxT);time=clamp(time,0,maxT);
+    setText('dl-result',`${method.toUpperCase()} · ${results.length} initial state${results.length===1?'':'s'} · ${results.map(p=>Math.round(p.points.at(-1).t/step)).join('/')} steps${data.limitReached?` · capped at t = ${format(actualMaxT)}`:''}`);
+    el('dl-time').max=String(actualMaxT);time=clamp(time,0,actualMaxT);
     syncTime();if(fit)fitView();queue();
     };
     systemWorker.onerror=()=>setError('Unable to compute numerical solution.');
-    systemWorker.postMessage({kind:'system',expressions:expr,initial,tMax:maxT,h:step,method});
+    systemWorker.postMessage({kind:'system',expressions:expr,initial,tMax:maxT,h:step,method,maxSteps});
   }catch(error){valid=false;paths=[];systemFn=null;playing=false;setError(error.message);setText('dl-result','');syncTime();queue();}
 }
 function setDimensions(n){dimension=n;el('dl-z-wrap').hidden=n!==3;el('dl-field').disabled=n===3;el('dl-plot').value='phase';plotMode='phase';scale=n===3?40:48;pan=[0,0];makeVectorField();}
@@ -296,7 +299,7 @@ function applyPreset(name){
   const preset=presets[name];if(!preset)return;
   dimension=preset.n;el('dl-dim').value=String(dimension);
   for(let i=0;i<3;i++)el(['dl-dx','dl-dy','dl-dz'][i]).value=preset.eq[i]||'';
-  el('dl-initial').value=preset.init;el('dl-tmax').value=String(MAX_TIME);
+  el('dl-initial').value=preset.init;el('dl-tmax').value=String(preset.time);
   el('dl-step').value=preset.n===3?'0.01':'0.02';
   time=0;playing=false;setDimensions(dimension);syncTime();
 }
@@ -419,7 +422,7 @@ function frame(now){
   if(mode==='scalar')return;
   const elapsed=lastTick===null?0:clamp((now-lastTick)/1000,0,.08);lastTick=now;
   if(playing){
-    const max=mode==='system'?maxT:MAX_TIME;
+    const max=mode==='system'?actualMaxT:MAX_TIME;
     time=clamp(time+elapsed*speed,0,max);
     if(time>=max)playing=false;
   }

@@ -40,3 +40,5 @@
 
 .em-app .dl-panel-actions {display:flex;align-items:center;gap:12px;}
 .em-app .dl-panel-actions .dl-button {min-height:25px;padding:3px 9px;font-size:.7rem;}
+
+.em-app .dl-compute-hint {display:block;min-height:0;margin:0 0 6px;font:11px ui-monospace,Menlo,monospace;color:#667f9e;}
