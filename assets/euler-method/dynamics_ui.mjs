@@ -1,6 +1,6 @@
 import {MAX_TIME} from './time-range.mjs';
 /** General ODE systems and Cucker–Smale: isolated UI, leaves scalar ODE intact. */
-import {panByPixels, dragRotates, arrowMovement} from './camera.mjs?v=pan-first-v1';
+import {panByPixels, arrowMovement} from './camera.mjs?v=drag-pan-shift-v2-20261017';
 import {compileLatex} from './latex.mjs';
 import {PixelPainter} from './pixel.mjs';
 import {
@@ -486,7 +486,7 @@ canvas.addEventListener('pointermove',e=>{
   if(drag.mode==='step'){applyRuler(e.offsetX);return;}
   const dx=e.offsetX-drag.x,dy=e.offsetY-drag.y;
   const in3d=mode==='cucker'?el('dl-c-plot').value==='agents':dimension===3&&plotMode==='phase';
-  if(dragRotates(mode,in3d,e.shiftKey)){yaw=drag.yaw+dx*.007;pitch=clamp(drag.pitch+dy*.007,-1.5,1.5);}
+  if(in3d && e.shiftKey){yaw=drag.yaw+dx*.007;pitch=clamp(drag.pitch+dy*.007,-1.5,1.5);}
   else pan=panByPixels(drag.pan,dx,dy,scale);
   queue();
 });
