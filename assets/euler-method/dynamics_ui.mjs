@@ -1,6 +1,6 @@
 import {MAX_TIME} from './time-range.mjs';
 /** General ODE systems and Cucker–Smale: isolated UI, leaves scalar ODE intact. */
-import {panByPixels, dragRotates, arrowMovement} from './camera.mjs';
+import {panByPixels, dragRotates, arrowMovement} from './camera.mjs?v=pan-first-v1';
 import {compileLatex} from './latex.mjs';
 import {PixelPainter} from './pixel.mjs';
 import {
