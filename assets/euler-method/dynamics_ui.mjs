@@ -28,9 +28,80 @@ let csInitial=null,csFrame=null,csFrames=[],csTrails=[],csMetrics=[],csTime=0,cs
 let csOriginalStart=false,csTick=0,csStride=1;
 let renderRequested=false;
 
-const systemInputs=['dl-dx','dl-dy','dl-dz','dl-initial','dl-dim','dl-step','dl-tmax','dl-max-steps','dl-method'];
+const systemInputs=['dl-dx','dl-dy','dl-dz','dl-dim','dl-step','dl-tmax','dl-max-steps','dl-method'];
 const currentExpressions=()=>[el('dl-dx').value,el('dl-dy').value,...(dimension===3?[el('dl-dz').value]:[])];
 function setError(text){setText('dl-system-error',text);el('dl-system-error').hidden=!text;}
+// Every curve has a stable input row and colour. Disabled/empty rows are not integrated.
+const initialRows=[];
+let nextInitialId=0;
+let initialEditTimer=null;
+const MAX_INITIAL_ROWS=10;
+function writeInitialLegacy(){
+  // Keep the original field synchronized for older extensions that may read it.
+  el('dl-initial').value=initialRows.map(row=>row.raw).join('; ');
+}
+function scheduleInitialSolve(){
+  clearTimeout(initialEditTimer);
+  initialEditTimer=setTimeout(()=>makeVectorField({fit:false}),220);
+}
+function drawInitialEditor(){
+  if(mode!=='system')return;
+  const list=el('dl-initial-list');
+  list.replaceChildren();
+  initialRows.forEach((row,index)=>{
+    const line=document.createElement('div');line.className='dl-initial-row';
+    const checkbox=document.createElement('input');
+    checkbox.type='checkbox';checkbox.checked=row.visible;
+    checkbox.id=`dl-initial-toggle-${row.id}`;
+    checkbox.setAttribute('aria-label',`Show trajectory ${index+1}`);
+    checkbox.title=`Show/hide trajectory ${index+1}`;
+    checkbox.addEventListener('change',()=>{
+      row.visible=checkbox.checked;
+      scheduleInitialSolve();
+    });
+    const swatch=document.createElement('span');
+    swatch.className='dl-initial-swatch';
+    swatch.style.backgroundColor=palette[index%palette.length];
+    swatch.setAttribute('aria-hidden','true');
+    const input=document.createElement('input');
+    input.type='text';input.className='dl-input dl-initial-value';
+    input.id=`dl-initial-value-${row.id}`;
+    input.value=row.raw;
+    input.placeholder=dimension===3?'x₀, y₀, z₀':'x₀, y₀';
+    input.setAttribute('aria-label',`Initial condition ${index+1}, comma-separated coordinates`);
+    input.spellcheck=false;
+    input.addEventListener('input',()=>{
+      row.raw=input.value;
+      writeInitialLegacy();
+      scheduleInitialSolve();
+    });
+    const remove=document.createElement('button');
+    remove.type='button';remove.className='dl-button dl-initial-remove';
+    remove.textContent='×';remove.title=`Remove trajectory ${index+1}`;
+    remove.setAttribute('aria-label',`Remove initial condition ${index+1}`);
+    remove.addEventListener('click',()=>{
+      initialRows.splice(initialRows.indexOf(row),1);
+      writeInitialLegacy();drawInitialEditor();makeVectorField({fit:false});
+    });
+    line.append(checkbox,swatch,input,remove);
+    list.append(line);
+  });
+  el('dl-add-initial').disabled=initialRows.length>=MAX_INITIAL_ROWS;
+}
+function addInitialRow(raw='',visible=true){
+  if(initialRows.length>=MAX_INITIAL_ROWS)return;
+  initialRows.push({id:++nextInitialId,raw,visible});
+  writeInitialLegacy();drawInitialEditor();
+}
+function setInitialRows(text){
+  initialRows.length=0;
+  const rows=String(text).trim().split(/[;\n]+/).map(s=>s.trim()).filter(Boolean);
+  for(const raw of rows.slice(0,MAX_INITIAL_ROWS)){
+    initialRows.push({id:++nextInitialId,raw,visible:true});
+  }
+  writeInitialLegacy();drawInitialEditor();
+}
+
 function resize(){
   if(mode==='scalar')return;
   const rect=canvas.getBoundingClientRect();
@@ -142,7 +213,7 @@ function renderSystem(p){
   if(plotMode==='phase' && dimension===3)drawAxes3d(p);
   else if(plotMode==='phase')renderVectorField(p);
   paths.forEach((path,idx)=>{
-    const color=palette[idx%palette.length];
+    const color=palette[(path.colorIndex??idx)%palette.length];
     if(plotMode==='series'){
       for(let comp=0;comp<dimension;comp++)pathPixel(p,pointSeries(path,comp),comp===0?color:palette[(idx+comp+2)%palette.length]);
       const at=systemAtTime(path.points,time);
@@ -258,7 +329,13 @@ function makeVectorField({fit=true}={}){
   if(expr.some(x=>!x.trim())){systemFn=null;paths=[];valid=false;setError('');setText('dl-result','');syncTime();queue();return;}
   try{
     const fs=expr.map((s,i)=>compileLatex(systemRhs(s,['x','y','z'][i]),['t','x','y','z']));
-    const initial=parseInitialStates(el('dl-initial').value,dimension);
+    const active=initialRows.map((row,index)=>({...row,index}))
+      .filter(row=>row.visible && row.raw.trim());
+    if(!active.length){
+      systemFn=null;paths=[];valid=false;playing=false;time=0;
+      setError('');setText('dl-result','');syncTime();queue();return;
+    }
+    const initial=parseInitialStates(active.map(row=>row.raw).join(';'),dimension);
     step=Number(el('dl-step').value);maxT=Number(el('dl-tmax').value);maxSteps=Number(el('dl-max-steps').value);
     if(!(step>=0.001 && step<=1 && finite(step)))throw new RangeError('Step size must be in [0.001, 1].');
     if(!(maxT>=0.1 && maxT<=MAX_TIME && finite(maxT)))throw new RangeError('Max time must be in [0.1, 1000].');
@@ -271,7 +348,7 @@ function makeVectorField({fit=true}={}){
     systemWorker=new Worker(new URL('./solver-worker.mjs?v=time-budget-v1',import.meta.url),{type:'module'});
     systemWorker.onmessage=({data})=>{
     if(data.error){setError(data.error);return;}
-    const results=data.results;paths=results;valid=true;actualMaxT=Number(data.endTime);
+    const results=data.results;paths=results.map((path,index)=>({...path,colorIndex:active[index].index}));valid=true;actualMaxT=Number(data.endTime);
     const errors=results.filter(r=>r.stopped).map(r=>r.reason);
     setError(errors[0]||'');
     setText('dl-result',`${method.toUpperCase()} · ${results.length} initial state${results.length===1?'':'s'} · ${results.map(p=>Math.round(p.points.at(-1).t/step)).join('/')} steps${data.limitReached?` · capped at t = ${format(actualMaxT)}`:''}`);
@@ -284,7 +361,8 @@ function makeVectorField({fit=true}={}){
 }
 function setDimensions(n){dimension=n;el('dl-z-wrap').hidden=n!==3;el('dl-field').disabled=n===3;el('dl-plot').value='phase';plotMode='phase';scale=n===3?40:48;pan=[0,0];makeVectorField();}
 function clearSystem(){
-  for(const id of ['dl-dx','dl-dy','dl-dz','dl-initial'])el(id).value='';
+  for(const id of ['dl-dx','dl-dy','dl-dz'])el(id).value='';
+  setInitialRows('');
   el('dl-preset').value='';playing=false;time=0;makeVectorField();
 }
 function applyPreset(name){
@@ -299,7 +377,7 @@ function applyPreset(name){
   const preset=presets[name];if(!preset)return;
   dimension=preset.n;el('dl-dim').value=String(dimension);
   for(let i=0;i<3;i++)el(['dl-dx','dl-dy','dl-dz'][i]).value=preset.eq[i]||'';
-  el('dl-initial').value=preset.init;el('dl-tmax').value=String(preset.time);
+  setInitialRows(preset.init);el('dl-tmax').value=String(preset.time);
   el('dl-step').value=preset.n===3?'0.01':'0.02';
   time=0;playing=false;setDimensions(dimension);syncTime();
 }
@@ -342,6 +420,12 @@ function updateCucker(target,limit=200){
   }catch(e){playing=false;csError=e.message;setText('dl-result',csError);}
 }
 if(mode==='system'){
+setInitialRows('');
+el('dl-add-initial').addEventListener('click',()=>{
+  addInitialRow();
+  const last=initialRows.at(-1);
+  if(last)el(`dl-initial-value-${last.id}`).focus();
+});
 let editTimer;
 for(const id of systemInputs){
   if(id==='dl-dim')continue;
@@ -373,7 +457,7 @@ el('dl-export').addEventListener('click',()=>{
     if(!valid||!paths.length)return;
     lines.push(['initial_index','t','x','y',...(dimension===3?['z']:[])].join(','));
     paths.forEach((path,idx)=>{
-      for(const point of path.points)lines.push([idx+1,point.t,...point.values].join(','));
+      for(const point of path.points)lines.push([(path.colorIndex??idx)+1,point.t,...point.values].join(','));
     });
   }else{
     lines.push('t,velocity_dispersion');

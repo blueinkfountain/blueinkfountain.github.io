@@ -5,7 +5,9 @@
           <label class="dl-label" for="dl-dy">y′ =</label><textarea id="dl-dy" class="dl-input dl-formula" rows="1" placeholder="LaTeX · e.g. -x" spellcheck="false"></textarea>
           <div id="dl-z-wrap" hidden><label class="dl-label" for="dl-dz">z′ =</label><textarea id="dl-dz" class="dl-input dl-formula" rows="1" placeholder="LaTeX · e.g. x*y" spellcheck="false"></textarea></div>
           <p class="dl-error" id="dl-system-error" role="alert" hidden></p>
-          <label class="dl-label" for="dl-initial">Initial conditions · one per row</label><textarea id="dl-initial" class="dl-input dl-multi" rows="2" spellcheck="false" placeholder="1, 0&#10;0, 1"></textarea>
+          <div class="dl-initial-heading"><span class="dl-label">Initial conditions</span><button class="dl-button" id="dl-add-initial" type="button">+ Add</button></div>
+          <div id="dl-initial-list" class="dl-initial-list" role="group" aria-label="Editable initial conditions"></div>
+          <textarea id="dl-initial" hidden aria-hidden="true"></textarea>
         </div>
         <div class="dl-section"><div class="dl-heading">Integration</div>
           <div class="dl-pair"><label>Method<select id="dl-method" class="dl-input"><option value="rk4">RK4</option><option value="euler">Euler</option></select></label><label>Step h<input id="dl-step" class="dl-input" type="number" min="0.001" max="1" value="0.02" step="any"></label></div>
