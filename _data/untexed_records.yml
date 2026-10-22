@@ -77289,12 +77289,12 @@ records:
       Works/SNU solution.pdf: 11727.2
   '261020':
     baseline: false
-    total_ink_percent: 12785.7
-    library_total_ink_percent: 62941.5
+    total_ink_percent: 403.0
+    library_total_ink_percent: 50558.7
     subject_ink_percent:
       Algebra: 249.3
       Analysis: 131.9
-      Others: 12404.5
+      Others: 21.8
     folder_ink_percent:
       Algebra/7. Galois Theory: 249.3
       Analysis/4. Measure Theory: 131.9
@@ -77304,7 +77304,6 @@ records:
       Analysis/4. Measure Theory/1. Measurable Space.pdf: 49.3
       Analysis/4. Measure Theory/4. Intergration of positive functions.pdf: 82.6
       Arbitrary.pdf: 21.8
-      UCLA_Qual_solution.pdf.pdf: 12382.7
     subjects:
     - name: Algebra
       ink_added_percent: 249.3
@@ -78649,7 +78648,7 @@ records:
         url: /untexed-current/Works/SNU%20solution.pdf
       folders: []
     - name: Others
-      ink_added_percent: 12404.5
+      ink_added_percent: 21.8
       files:
       - name: Arbitrary
         raw_path: Arbitrary.pdf
@@ -78661,15 +78660,8 @@ records:
         ink_added_percent: 0.0
         total_ink_percent: 76.1
         url: /untexed-current/Tree%20of%20Subjects.pdf
-      - name: UCLA_Qual_solution
-        raw_path: UCLA_Qual_solution.pdf.pdf
-        ink_added_percent: 12382.7
-        total_ink_percent: 12382.7
-        url: /untexed-current/UCLA_Qual_solution.pdf.pdf
       folders: []
     added:
-    - path: UCLA_Qual_solution
-      ink_added_percent: 12382.7
     - path: Algebra/Galois Theory/Galois Theory
       ink_added_percent: 141.2
     modified:
@@ -78915,7 +78907,6 @@ records:
       Topology/2. Algebraic Topology/Quotient map.pdf: 376.7
       Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 281.7
       Tree of Subjects.pdf: 76.1
-      UCLA_Qual_solution.pdf.pdf: 12382.7
       Works/Rudin PMA Revised Solution.pdf: 212.8
       Works/Rudin RCA solutions.pdf: 0.0
       Works/SNU solution.pdf: 11727.2
