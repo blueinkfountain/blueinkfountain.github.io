@@ -1,6 +1,7 @@
 tree_schema_version: 3
-latest_date: '261116'
+latest_date: '261120'
 dates:
+- '261120'
 - '261116'
 - '261112'
 - '261109'
@@ -71,10 +72,10 @@ dates:
 history_policy:
   rolling_snapshots: 3
   active_dates:
-  - '261109'
   - '261112'
   - '261116'
-  anchor_date: '261027'
+  - '261120'
+  anchor_date: '261109'
 records:
   '260813':
     baseline: true
@@ -84448,7 +84449,7 @@ records:
   '261116':
     baseline: false
     total_ink_percent: 52659.9
-    library_total_ink_percent: 53244.0
+    library_total_ink_percent: null
     subject_ink_percent:
       Research: 96.3
       Road to GTM: 3077.4
@@ -84750,7 +84751,6 @@ records:
           raw_path: Research/Galois Dream/1. Differential Ring.pdf
           ink_added_percent: 69.1
           total_ink_percent: 69.1
-          url: /untexed-current/Research/Galois%20Dream/1.%20Differential%20Ring.pdf
         folders: []
       - name: Polynomial
         label: Polynomial
@@ -84761,7 +84761,6 @@ records:
           raw_path: Research/Polynomial/Polynomial function.pdf
           ink_added_percent: 27.1
           total_ink_percent: 27.1
-          url: /untexed-current/Research/Polynomial/Polynomial%20function.pdf
         folders: []
     - name: Road to GTM
       ink_added_percent: 3077.4
@@ -84776,7 +84775,6 @@ records:
           raw_path: Road to GTM/Category/1. Caregories.pdf
           ink_added_percent: 59.7
           total_ink_percent: 59.7
-          url: /untexed-current/Road%20to%20GTM/Category/1.%20Caregories.pdf
         folders: []
       - name: Commutative Algebra
         label: Commutative Algebra
@@ -84787,12 +84785,10 @@ records:
           raw_path: Road to GTM/Commutative Algebra/0. Definition of ring.pdf
           ink_added_percent: 16.0
           total_ink_percent: 16.0
-          url: /untexed-current/Road%20to%20GTM/Commutative%20Algebra/0.%20Definition%20of%20ring.pdf
         - name: 1. Localization
           raw_path: Road to GTM/Commutative Algebra/1. Localization.pdf
           ink_added_percent: 21.2
           total_ink_percent: 21.2
-          url: /untexed-current/Road%20to%20GTM/Commutative%20Algebra/1.%20Localization.pdf
         folders: []
       - name: Galois Note
         label: Galois Note
@@ -84803,32 +84799,26 @@ records:
           raw_path: Road to GTM/Galois Note/Basic field extension Theory.pdf
           ink_added_percent: 154.8
           total_ink_percent: 154.8
-          url: /untexed-current/Road%20to%20GTM/Galois%20Note/Basic%20field%20extension%20Theory.pdf
         - name: Flow graph
           raw_path: Road to GTM/Galois Note/Flow graph.pdf
           ink_added_percent: 28.0
           total_ink_percent: 28.0
-          url: /untexed-current/Road%20to%20GTM/Galois%20Note/Flow%20graph.pdf
         - name: Fundamental Theorem of Galois
           raw_path: Road to GTM/Galois Note/Fundamental Theorem of Galois.pdf
           ink_added_percent: 33.8
           total_ink_percent: 33.8
-          url: /untexed-current/Road%20to%20GTM/Galois%20Note/Fundamental%20Theorem%20of%20Galois.pdf
         - name: Galois Theory - Artin
           raw_path: Road to GTM/Galois Note/Galois Theory - Artin.pdf
           ink_added_percent: 555.3
           total_ink_percent: 555.3
-          url: /untexed-current/Road%20to%20GTM/Galois%20Note/Galois%20Theory%20-%20Artin.pdf
         - name: Galois Theory - Embbeding
           raw_path: Road to GTM/Galois Note/Galois Theory - Embbeding.pdf
           ink_added_percent: 176.3
           total_ink_percent: 176.3
-          url: /untexed-current/Road%20to%20GTM/Galois%20Note/Galois%20Theory%20-%20Embbeding.pdf
         - name: Norm and Trace of Galois
           raw_path: Road to GTM/Galois Note/Norm and Trace of Galois.pdf
           ink_added_percent: 189.7
           total_ink_percent: 189.7
-          url: /untexed-current/Road%20to%20GTM/Galois%20Note/Norm%20and%20Trace%20of%20Galois.pdf
         folders: []
       - name: Measure Theory
         label: Measure Theory
@@ -84839,42 +84829,34 @@ records:
           raw_path: Road to GTM/Measure Theory/1. Measurable Space.pdf
           ink_added_percent: 270.6
           total_ink_percent: 270.6
-          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/1.%20Measurable%20Space.pdf
         - name: 2. Measurable function
           raw_path: Road to GTM/Measure Theory/2. Measurable function.pdf
           ink_added_percent: 187.0
           total_ink_percent: 187.0
-          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/2.%20Measurable%20function.pdf
         - name: 2.1 Calculation on Simple functions
           raw_path: Road to GTM/Measure Theory/2.1 Calculation on Simple functions.pdf
           ink_added_percent: 16.4
           total_ink_percent: 16.4
-          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/2.1%20Calculation%20on%20Simple%20functions.pdf
         - name: 3. Measure
           raw_path: Road to GTM/Measure Theory/3. Measure.pdf
           ink_added_percent: 108.1
           total_ink_percent: 108.1
-          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/3.%20Measure.pdf
         - name: 3.1 Outer measure
           raw_path: Road to GTM/Measure Theory/3.1 Outer measure.pdf
           ink_added_percent: 82.2
           total_ink_percent: 82.2
-          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/3.1%20Outer%20measure.pdf
         - name: 4. Intergration of positive functions
           raw_path: Road to GTM/Measure Theory/4. Intergration of positive functions.pdf
           ink_added_percent: 396.8
           total_ink_percent: 396.8
-          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/4.%20Intergration%20of%20positive%20functions.pdf
         - name: 5. Integration of Complex functions
           raw_path: Road to GTM/Measure Theory/5. Integration of Complex functions.pdf
           ink_added_percent: 154.4
           total_ink_percent: 154.4
-          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/5.%20Integration%20of%20Complex%20functions.pdf
         - name: 6. Positive Borel Measure
           raw_path: Road to GTM/Measure Theory/6. Positive Borel Measure.pdf
           ink_added_percent: 627.2
           total_ink_percent: 627.2
-          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/6.%20Positive%20Borel%20Measure.pdf
         folders: []
     - name: Solution
       ink_added_percent: 12299.2
@@ -84883,17 +84865,14 @@ records:
         raw_path: Solution/Rudin PMA Revised Solution.pdf
         ink_added_percent: 212.8
         total_ink_percent: 212.8
-        url: /untexed-current/Solution/Rudin%20PMA%20Revised%20Solution.pdf
       - name: Rudin RCA solutions
         raw_path: Solution/Rudin RCA solutions.pdf
         ink_added_percent: 359.2
         total_ink_percent: 359.2
-        url: /untexed-current/Solution/Rudin%20RCA%20solutions.pdf
       - name: SNU solution
         raw_path: Solution/SNU solution.pdf
         ink_added_percent: 11727.2
         total_ink_percent: 11727.2
-        url: /untexed-current/Solution/SNU%20solution.pdf
       folders: []
     - name: Undergraduate
       ink_added_percent: 37187.0
@@ -84914,7 +84893,6 @@ records:
             raw_path: Undergraduate/Algebra/1. Linear Algebra/Hoffman.pdf
             ink_added_percent: 1424.1
             total_ink_percent: 1424.1
-            url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/Hoffman.pdf
           folders:
           - name: 1. Vector space Theory
             label: 1. Vector space Theory
@@ -84925,77 +84903,62 @@ records:
               raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Action of permutation on Matrices.pdf
               ink_added_percent: 56.1
               total_ink_percent: 56.1
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Action%20of%20permutation%20on%20Matrices.pdf
             - name: Basis for Vector space
               raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Basis for Vector space.pdf
               ink_added_percent: 131.4
               total_ink_percent: 131.4
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Basis%20for%20Vector%20space.pdf
             - name: Canonical Form
               raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Canonical Form.pdf
               ink_added_percent: 436.1
               total_ink_percent: 436.1
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Canonical%20Form.pdf
             - name: Canonical Form_old
               raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Canonical Form_old.pdf
               ink_added_percent: 434.9
               total_ink_percent: 434.9
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Canonical%20Form_old.pdf
             - name: Cyclic subspace
               raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Cyclic subspace.pdf
               ink_added_percent: 327.9
               total_ink_percent: 327.9
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Cyclic%20subspace.pdf
             - name: Derterminant
               raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Derterminant.pdf
               ink_added_percent: 150.5
               total_ink_percent: 150.5
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Derterminant.pdf
             - name: Dual Space
               raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Dual Space.pdf
               ink_added_percent: 600.1
               total_ink_percent: 600.1
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Dual%20Space.pdf
             - name: Jordan canonical form_old
               raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Jordan canonical form_old.pdf
               ink_added_percent: 437.3
               total_ink_percent: 437.3
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Jordan%20canonical%20form_old.pdf
             - name: Jordan form - Computation
               raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Jordan form - Computation.pdf
               ink_added_percent: 337.1
               total_ink_percent: 337.1
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Jordan%20form%20-%20Computation.pdf
             - name: Kernel-Image Decompostion
               raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Kernel-Image Decompostion.pdf
               ink_added_percent: 87.0
               total_ink_percent: 87.0
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Kernel-Image%20Decompostion.pdf
             - name: Linear equation
               raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Linear equation.pdf
               ink_added_percent: 193.4
               total_ink_percent: 193.4
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Linear%20equation.pdf
             - name: Minimal polynomial
               raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Minimal polynomial.pdf
               ink_added_percent: 412.8
               total_ink_percent: 412.8
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Minimal%20polynomial.pdf
             - name: Primary Decomposition
               raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Primary Decomposition.pdf
               ink_added_percent: 108.3
               total_ink_percent: 108.3
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Primary%20Decomposition.pdf
             - name: Projection
               raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Projection.pdf
               ink_added_percent: 210.6
               total_ink_percent: 210.6
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Projection.pdf
             - name: Replacement Theorem
               raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Replacement Theorem.pdf
               ink_added_percent: 208.9
               total_ink_percent: 208.9
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Replacement%20Theorem.pdf
             folders: []
           - name: 2. Inner product Theory
             label: 2. Inner product Theory
@@ -85006,52 +84969,42 @@ records:
               raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Diagonalizable Criterion on Inner product Space.pdf
               ink_added_percent: 173.0
               total_ink_percent: 173.0
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Diagonalizable%20Criterion%20on%20Inner%20product%20Space.pdf
             - name: General Linear Group
               raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/General Linear Group.pdf
               ink_added_percent: 130.8
               total_ink_percent: 130.8
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/General%20Linear%20Group.pdf
             - name: Norm induced by inner product
               raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Norm induced by inner product.pdf
               ink_added_percent: 261.4
               total_ink_percent: 261.4
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Norm%20induced%20by%20inner%20product.pdf
             - name: Normal operator
               raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Normal operator.pdf
               ink_added_percent: 79.4
               total_ink_percent: 79.4
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Normal%20operator.pdf
             - name: Operator Norm
               raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Operator Norm.pdf
               ink_added_percent: 226.1
               total_ink_percent: 226.1
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Operator%20Norm.pdf
             - name: Orthogonal Projection - Complete
               raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Orthogonal Projection - Complete.pdf
               ink_added_percent: 365.0
               total_ink_percent: 365.0
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Orthogonal%20Projection%20-%20Complete.pdf
             - name: QR-Factorization
               raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/QR-Factorization.pdf
               ink_added_percent: 100.7
               total_ink_percent: 100.7
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/QR-Factorization.pdf
             - name: Riesz Representation Theorem
               raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Riesz Representation Theorem.pdf
               ink_added_percent: 93.9
               total_ink_percent: 93.9
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Riesz%20Representation%20Theorem.pdf
             - name: Singular Value Decomposition
               raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Singular Value Decomposition.pdf
               ink_added_percent: 214.9
               total_ink_percent: 214.9
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Singular%20Value%20Decomposition.pdf
             - name: Unitary and Orthogonal Operator
               raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Unitary and Orthogonal Operator.pdf
               ink_added_percent: 46.6
               total_ink_percent: 46.6
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Unitary%20and%20Orthogonal%20Operator.pdf
             folders: []
           - name: 3. Further topics
             label: 3. Further topics
@@ -85062,32 +85015,26 @@ records:
               raw_path: Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Bilinear forms.pdf
               ink_added_percent: 59.0
               total_ink_percent: 59.0
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/3.%20Further%20topics/Bilinear%20forms.pdf
             - name: Continuous Function Space
               raw_path: Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Continuous Function Space.pdf
               ink_added_percent: 49.3
               total_ink_percent: 49.3
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/3.%20Further%20topics/Continuous%20Function%20Space.pdf
             - name: Polynomial Space
               raw_path: Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Polynomial Space.pdf
               ink_added_percent: 119.4
               total_ink_percent: 119.4
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/3.%20Further%20topics/Polynomial%20Space.pdf
             - name: Positive Form
               raw_path: Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Positive Form.pdf
               ink_added_percent: 212.9
               total_ink_percent: 212.9
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/3.%20Further%20topics/Positive%20Form.pdf
             - name: Sesqui-Linear Form
               raw_path: Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Sesqui-Linear Form.pdf
               ink_added_percent: 291.0
               total_ink_percent: 291.0
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/3.%20Further%20topics/Sesqui-Linear%20Form.pdf
             - name: Symmetric Bilinear form
               raw_path: Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Symmetric Bilinear form.pdf
               ink_added_percent: 0.0
               total_ink_percent: 0.0
-              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/3.%20Further%20topics/Symmetric%20Bilinear%20form.pdf
             folders: []
         - name: 2. Group Theory
           label: 2. Group Theory
@@ -85098,57 +85045,46 @@ records:
             raw_path: Undergraduate/Algebra/2. Group Theory/Commutator Subgroup.pdf
             ink_added_percent: 166.2
             total_ink_percent: 166.2
-            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Commutator%20Subgroup.pdf
           - name: Exact sequence
             raw_path: Undergraduate/Algebra/2. Group Theory/Exact sequence.pdf
             ink_added_percent: 82.6
             total_ink_percent: 82.6
-            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Exact%20sequence.pdf
           - name: Finitely Generated Abelian Group
             raw_path: Undergraduate/Algebra/2. Group Theory/Finitely Generated Abelian Group.pdf
             ink_added_percent: 63.2
             total_ink_percent: 63.2
-            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Finitely%20Generated%20Abelian%20Group.pdf
           - name: General linear group
             raw_path: Undergraduate/Algebra/2. Group Theory/General linear group.pdf
             ink_added_percent: 122.9
             total_ink_percent: 122.9
-            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/General%20linear%20group.pdf
           - name: Group Action
             raw_path: Undergraduate/Algebra/2. Group Theory/Group Action.pdf
             ink_added_percent: 513.1
             total_ink_percent: 513.1
-            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Group%20Action.pdf
           - name: Isomorphism Theorem
             raw_path: Undergraduate/Algebra/2. Group Theory/Isomorphism Theorem.pdf
             ink_added_percent: 170.7
             total_ink_percent: 170.7
-            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Isomorphism%20Theorem.pdf
           - name: Nilpotent Group
             raw_path: Undergraduate/Algebra/2. Group Theory/Nilpotent Group.pdf
             ink_added_percent: 68.1
             total_ink_percent: 68.1
-            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Nilpotent%20Group.pdf
           - name: Normalizer and Centralizer
             raw_path: Undergraduate/Algebra/2. Group Theory/Normalizer and Centralizer.pdf
             ink_added_percent: 27.9
             total_ink_percent: 27.9
-            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Normalizer%20and%20Centralizer.pdf
           - name: Recognize theorem
             raw_path: Undergraduate/Algebra/2. Group Theory/Recognize theorem.pdf
             ink_added_percent: 74.7
             total_ink_percent: 74.7
-            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Recognize%20theorem.pdf
           - name: Semi direct product
             raw_path: Undergraduate/Algebra/2. Group Theory/Semi direct product.pdf
             ink_added_percent: 75.9
             total_ink_percent: 75.9
-            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Semi%20direct%20product.pdf
           - name: Typical Homomorphisms
             raw_path: Undergraduate/Algebra/2. Group Theory/Typical Homomorphisms.pdf
             ink_added_percent: 45.4
             total_ink_percent: 45.4
-            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Typical%20Homomorphisms.pdf
           folders: []
         - name: 3. Finite Group Theory
           label: 3. Finite Group Theory
@@ -85159,67 +85095,54 @@ records:
             raw_path: Undergraduate/Algebra/3. Finite Group Theory/Alternating Group.pdf
             ink_added_percent: 156.8
             total_ink_percent: 156.8
-            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Alternating%20Group.pdf
           - name: Class equation
             raw_path: Undergraduate/Algebra/3. Finite Group Theory/Class equation.pdf
             ink_added_percent: 33.3
             total_ink_percent: 33.3
-            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Class%20equation.pdf
           - name: Cyclic Group
             raw_path: Undergraduate/Algebra/3. Finite Group Theory/Cyclic Group.pdf
             ink_added_percent: 74.8
             total_ink_percent: 74.8
-            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Cyclic%20Group.pdf
           - name: Dihedral Group
             raw_path: Undergraduate/Algebra/3. Finite Group Theory/Dihedral Group.pdf
             ink_added_percent: 174.3
             total_ink_percent: 174.3
-            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Dihedral%20Group.pdf
           - name: Division Algorithm
             raw_path: Undergraduate/Algebra/3. Finite Group Theory/Division Algorithm.pdf
             ink_added_percent: 207.2
             total_ink_percent: 207.2
-            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Division%20Algorithm.pdf
           - name: Jordan-Hölder
             raw_path: Undergraduate/Algebra/3. Finite Group Theory/Jordan-Hölder.pdf
             ink_added_percent: 385.9
             total_ink_percent: 385.9
-            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Jordan-H%C3%B6lder.pdf
           - name: P-Group
             raw_path: Undergraduate/Algebra/3. Finite Group Theory/P-Group.pdf
             ink_added_percent: 53.4
             total_ink_percent: 53.4
-            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/P-Group.pdf
           - name: pgroups
             raw_path: Undergraduate/Algebra/3. Finite Group Theory/pgroups.pdf.pdf
             ink_added_percent: 50.0
             total_ink_percent: 50.0
-            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/pgroups.pdf.pdf
           - name: Quaternion group
             raw_path: Undergraduate/Algebra/3. Finite Group Theory/Quaternion group.pdf
             ink_added_percent: 3.3
             total_ink_percent: 3.3
-            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Quaternion%20group.pdf
           - name: Solvablity
             raw_path: Undergraduate/Algebra/3. Finite Group Theory/Solvablity.pdf
             ink_added_percent: 177.5
             total_ink_percent: 177.5
-            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Solvablity.pdf
           - name: Sylow Theorem
             raw_path: Undergraduate/Algebra/3. Finite Group Theory/Sylow Theorem.pdf
             ink_added_percent: 711.4
             total_ink_percent: 711.4
-            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Sylow%20Theorem.pdf
           - name: Symmetric Group
             raw_path: Undergraduate/Algebra/3. Finite Group Theory/Symmetric Group.pdf
             ink_added_percent: 324.3
             total_ink_percent: 324.3
-            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Symmetric%20Group.pdf
           - name: Typical Finite groups
             raw_path: Undergraduate/Algebra/3. Finite Group Theory/Typical Finite groups.pdf
             ink_added_percent: 347.6
             total_ink_percent: 347.6
-            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Typical%20Finite%20groups.pdf
           folders: []
         - name: 4. Ring Theory
           label: 4. Ring Theory
@@ -85230,72 +85153,58 @@ records:
             raw_path: Undergraduate/Algebra/4. Ring Theory/Basic ideal.pdf
             ink_added_percent: 131.6
             total_ink_percent: 131.6
-            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Basic%20ideal.pdf
           - name: Chinese reminder theorem
             raw_path: Undergraduate/Algebra/4. Ring Theory/Chinese reminder theorem.pdf
             ink_added_percent: 244.2
             total_ink_percent: 244.2
-            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Chinese%20reminder%20theorem.pdf
           - name: Dedekind-Hasse norm
             raw_path: Undergraduate/Algebra/4. Ring Theory/Dedekind-Hasse norm.pdf
             ink_added_percent: 96.4
             total_ink_percent: 96.4
-            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Dedekind-Hasse%20norm.pdf
           - name: Domains
             raw_path: Undergraduate/Algebra/4. Ring Theory/Domains.pdf
             ink_added_percent: 908.5
             total_ink_percent: 908.5
-            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Domains.pdf
           - name: Domains_Revised
             raw_path: Undergraduate/Algebra/4. Ring Theory/Domains_Revised.pdf
             ink_added_percent: 86.3
             total_ink_percent: 86.3
-            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Domains_Revised.pdf
           - name: Eisenstein Criterion
             raw_path: Undergraduate/Algebra/4. Ring Theory/Eisenstein Criterion.pdf
             ink_added_percent: 64.8
             total_ink_percent: 64.8
-            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Eisenstein%20Criterion.pdf
           - name: Fraction Ring
             raw_path: Undergraduate/Algebra/4. Ring Theory/Fraction Ring.pdf
             ink_added_percent: 135.8
             total_ink_percent: 135.8
-            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Fraction%20Ring.pdf
           - name: Ideal
             raw_path: Undergraduate/Algebra/4. Ring Theory/Ideal.pdf
             ink_added_percent: 161.0
             total_ink_percent: 161.0
-            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Ideal.pdf
           - name: Irreducible and Prime
             raw_path: Undergraduate/Algebra/4. Ring Theory/Irreducible and Prime.pdf
             ink_added_percent: 66.0
             total_ink_percent: 66.0
-            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Irreducible%20and%20Prime.pdf
           - name: Maximal and Prime ideal
             raw_path: Undergraduate/Algebra/4. Ring Theory/Maximal and Prime ideal.pdf
             ink_added_percent: 64.3
             total_ink_percent: 64.3
-            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Maximal%20and%20Prime%20ideal.pdf
           - name: Nilradical and Radical
             raw_path: Undergraduate/Algebra/4. Ring Theory/Nilradical and Radical.pdf
             ink_added_percent: 164.9
             total_ink_percent: 164.9
-            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Nilradical%20and%20Radical.pdf
           - name: Notebook 3
             raw_path: Undergraduate/Algebra/4. Ring Theory/Notebook 3.pdf
             ink_added_percent: 254.4
             total_ink_percent: 254.4
-            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Notebook%203.pdf
           - name: Quadratic integer Ring
             raw_path: Undergraduate/Algebra/4. Ring Theory/Quadratic integer Ring.pdf
             ink_added_percent: 88.0
             total_ink_percent: 88.0
-            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Quadratic%20integer%20Ring.pdf
           - name: Typical Quotient rings
             raw_path: Undergraduate/Algebra/4. Ring Theory/Typical Quotient rings.pdf
             ink_added_percent: 135.8
             total_ink_percent: 135.8
-            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Typical%20Quotient%20rings.pdf
           folders: []
         - name: 5. Polynomial Ring Theory
           label: 5. Polynomial Ring Theory
@@ -85306,17 +85215,14 @@ records:
             raw_path: Undergraduate/Algebra/5. Polynomial Ring Theory/Polynomial Ring.pdf
             ink_added_percent: 418.6
             total_ink_percent: 418.6
-            url: /untexed-current/Undergraduate/Algebra/5.%20Polynomial%20Ring%20Theory/Polynomial%20Ring.pdf
           - name: Polynomial Ring_Revised
             raw_path: Undergraduate/Algebra/5. Polynomial Ring Theory/Polynomial Ring_Revised.pdf
             ink_added_percent: 110.2
             total_ink_percent: 110.2
-            url: /untexed-current/Undergraduate/Algebra/5.%20Polynomial%20Ring%20Theory/Polynomial%20Ring_Revised.pdf
           - name: Typical Polynomials
             raw_path: Undergraduate/Algebra/5. Polynomial Ring Theory/Typical Polynomials.pdf
             ink_added_percent: 37.5
             total_ink_percent: 37.5
-            url: /untexed-current/Undergraduate/Algebra/5.%20Polynomial%20Ring%20Theory/Typical%20Polynomials.pdf
           folders: []
         - name: 6. Field Theory
           label: 6. Field Theory
@@ -85327,67 +85233,54 @@ records:
             raw_path: Undergraduate/Algebra/6. Field Theory/Basic field.pdf
             ink_added_percent: 615.1
             total_ink_percent: 615.1
-            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Basic%20field.pdf
           - name: Basic field extension
             raw_path: Undergraduate/Algebra/6. Field Theory/Basic field extension.pdf
             ink_added_percent: 314.9
             total_ink_percent: 314.9
-            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Basic%20field%20extension.pdf
           - name: Basic field Theory
             raw_path: Undergraduate/Algebra/6. Field Theory/Basic field Theory.pdf
             ink_added_percent: 615.1
             total_ink_percent: 615.1
-            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Basic%20field%20Theory.pdf
           - name: Biquadratic Field
             raw_path: Undergraduate/Algebra/6. Field Theory/Biquadratic Field.pdf
             ink_added_percent: 106.5
             total_ink_percent: 106.5
-            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Biquadratic%20Field.pdf
           - name: Composite Field
             raw_path: Undergraduate/Algebra/6. Field Theory/Composite Field.pdf
             ink_added_percent: 67.0
             total_ink_percent: 67.0
-            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Composite%20Field.pdf
           - name: Conjugate Isomorphism
             raw_path: Undergraduate/Algebra/6. Field Theory/Conjugate Isomorphism.pdf
             ink_added_percent: 47.4
             total_ink_percent: 47.4
-            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Conjugate%20Isomorphism.pdf
           - name: Cyclotomic Field
             raw_path: Undergraduate/Algebra/6. Field Theory/Cyclotomic Field.pdf
             ink_added_percent: 118.5
             total_ink_percent: 118.5
-            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Cyclotomic%20Field.pdf
           - name: Field Homomorphism
             raw_path: Undergraduate/Algebra/6. Field Theory/Field Homomorphism.pdf
             ink_added_percent: 32.3
             total_ink_percent: 32.3
-            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Field%20Homomorphism.pdf
           - name: Finite field
             raw_path: Undergraduate/Algebra/6. Field Theory/Finite field.pdf
             ink_added_percent: 141.0
             total_ink_percent: 141.0
-            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Finite%20field.pdf
           - name: Finite field_Revised
             raw_path: Undergraduate/Algebra/6. Field Theory/Finite field_Revised.pdf
             ink_added_percent: 90.1
             total_ink_percent: 90.1
-            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Finite%20field_Revised.pdf
           - name: Rationalize
             raw_path: Undergraduate/Algebra/6. Field Theory/Rationalize.pdf
             ink_added_percent: 54.1
             total_ink_percent: 54.1
-            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Rationalize.pdf
           - name: Separable polynomial
             raw_path: Undergraduate/Algebra/6. Field Theory/Separable polynomial.pdf
             ink_added_percent: 178.7
             total_ink_percent: 178.7
-            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Separable%20polynomial.pdf
           - name: Spiltting and Separable Field
             raw_path: Undergraduate/Algebra/6. Field Theory/Spiltting and Separable Field.pdf
             ink_added_percent: 222.7
             total_ink_percent: 222.7
-            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Spiltting%20and%20Separable%20Field.pdf
           folders: []
         - name: 7. Galois Theory
           label: 7. Galois Theory
@@ -85398,37 +85291,30 @@ records:
             raw_path: Undergraduate/Algebra/7. Galois Theory/Automorphisms of Field.pdf
             ink_added_percent: 40.1
             total_ink_percent: 40.1
-            url: /untexed-current/Undergraduate/Algebra/7.%20Galois%20Theory/Automorphisms%20of%20Field.pdf
           - name: Cyclotomic Extension
             raw_path: Undergraduate/Algebra/7. Galois Theory/Cyclotomic Extension.pdf
             ink_added_percent: 31.1
             total_ink_percent: 31.1
-            url: /untexed-current/Undergraduate/Algebra/7.%20Galois%20Theory/Cyclotomic%20Extension.pdf
           - name: Galois Group of Polynomial
             raw_path: Undergraduate/Algebra/7. Galois Theory/Galois Group of Polynomial.pdf
             ink_added_percent: 183.1
             total_ink_percent: 183.1
-            url: /untexed-current/Undergraduate/Algebra/7.%20Galois%20Theory/Galois%20Group%20of%20Polynomial.pdf
           - name: Galois Theorem
             raw_path: Undergraduate/Algebra/7. Galois Theory/Galois Theorem.pdf
             ink_added_percent: 282.6
             total_ink_percent: 282.6
-            url: /untexed-current/Undergraduate/Algebra/7.%20Galois%20Theory/Galois%20Theorem.pdf
           - name: Radical extension
             raw_path: Undergraduate/Algebra/7. Galois Theory/Radical extension.pdf
             ink_added_percent: 16.6
             total_ink_percent: 16.6
-            url: /untexed-current/Undergraduate/Algebra/7.%20Galois%20Theory/Radical%20extension.pdf
           - name: Separable extension
             raw_path: Undergraduate/Algebra/7. Galois Theory/Separable extension.pdf
             ink_added_percent: 72.1
             total_ink_percent: 72.1
-            url: /untexed-current/Undergraduate/Algebra/7.%20Galois%20Theory/Separable%20extension.pdf
           - name: Typical Galois extensions
             raw_path: Undergraduate/Algebra/7. Galois Theory/Typical Galois extensions.pdf
             ink_added_percent: 962.0
             total_ink_percent: 962.0
-            url: /untexed-current/Undergraduate/Algebra/7.%20Galois%20Theory/Typical%20Galois%20extensions.pdf
           folders: []
       - name: Analysis
         label: Analysis
@@ -85451,52 +85337,42 @@ records:
               raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Abel formula.pdf
               ink_added_percent: 156.8
               total_ink_percent: 156.8
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Abel%20formula.pdf
             - name: Advanced Techniques for sequence
               raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Advanced Techniques for sequence.pdf
               ink_added_percent: 68.1
               total_ink_percent: 68.1
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Advanced%20Techniques%20for%20sequence.pdf
             - name: Cantor set
               raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Cantor set.pdf
               ink_added_percent: 276.3
               total_ink_percent: 276.3
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Cantor%20set.pdf
             - name: Density of rational
               raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Density of rational.pdf
               ink_added_percent: 72.1
               total_ink_percent: 72.1
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Density%20of%20rational.pdf
             - name: Inequality in Real numbers
               raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Inequality in Real numbers.pdf
               ink_added_percent: 63.7
               total_ink_percent: 63.7
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Inequality%20in%20Real%20numbers.pdf
             - name: Kronecker approximation theorem
               raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Kronecker approximation theorem.pdf
               ink_added_percent: 53.7
               total_ink_percent: 53.7
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Kronecker%20approximation%20theorem.pdf
             - name: Riemann-Rearangement Theorem
               raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Riemann-Rearangement Theorem.pdf
               ink_added_percent: 87.0
               total_ink_percent: 87.0
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Riemann-Rearangement%20Theorem.pdf
             - name: Stolz-Cesaro theorem
               raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Stolz-Cesaro theorem.pdf
               ink_added_percent: 186.7
               total_ink_percent: 186.7
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Stolz-Cesaro%20theorem.pdf
             - name: Supremum
               raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Supremum.pdf
               ink_added_percent: 406.7
               total_ink_percent: 406.7
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Supremum.pdf
             - name: Typical Sequences
               raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Typical Sequences.pdf
               ink_added_percent: 15.2
               total_ink_percent: 15.2
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Typical%20Sequences.pdf
             folders: []
           - name: 2. Real-valued Function
             label: 2. Real-valued Function
@@ -85507,97 +85383,78 @@ records:
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Basic Riemann-integral.pdf
               ink_added_percent: 808.2
               total_ink_percent: 808.2
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Basic%20Riemann-integral.pdf
             - name: Bounded Variation
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Bounded Variation.pdf
               ink_added_percent: 186.3
               total_ink_percent: 186.3
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Bounded%20Variation.pdf
             - name: Continuously Extension
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Continuously Extension.pdf
               ink_added_percent: 95.0
               total_ink_percent: 95.0
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Continuously%20Extension.pdf
             - name: Convexity
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Convexity.pdf
               ink_added_percent: 255.1
               total_ink_percent: 255.1
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Convexity.pdf
             - name: Darboux_s Theorem
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Darboux_s Theorem.pdf
               ink_added_percent: 80.5
               total_ink_percent: 80.5
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Darboux_s%20Theorem.pdf
             - name: Differentiation
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Differentiation.pdf
               ink_added_percent: 168.4
               total_ink_percent: 168.4
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Differentiation.pdf
             - name: Discontinuity
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Discontinuity.pdf
               ink_added_percent: 77.5
               total_ink_percent: 77.5
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Discontinuity.pdf
             - name: Fundamental Theorem of Calculus
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Fundamental Theorem of Calculus.pdf
               ink_added_percent: 54.5
               total_ink_percent: 54.5
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Fundamental%20Theorem%20of%20Calculus.pdf
             - name: Improper integral
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Improper integral.pdf
               ink_added_percent: 46.7
               total_ink_percent: 46.7
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Improper%20integral.pdf
             - name: Integral Transform
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Integral Transform.pdf
               ink_added_percent: 76.7
               total_ink_percent: 76.7
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Integral%20Transform.pdf
             - name: Lipschtiz
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Lipschtiz.pdf
               ink_added_percent: 172.1
               total_ink_percent: 172.1
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Lipschtiz.pdf
             - name: Newton_s Method
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Newton_s Method.pdf
               ink_added_percent: 0.0
               total_ink_percent: 0.0
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Newton_s%20Method.pdf
             - name: Open map is injective
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Open map is injective.pdf
               ink_added_percent: 101.2
               total_ink_percent: 101.2
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Open%20map%20is%20injective.pdf
             - name: Parameter dependent integral
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Parameter dependent integral.pdf
               ink_added_percent: 71.9
               total_ink_percent: 71.9
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Parameter%20dependent%20integral.pdf
             - name: Power Series
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Power Series.pdf
               ink_added_percent: 356.6
               total_ink_percent: 356.6
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Power%20Series.pdf
             - name: Talyor Theorem
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Talyor Theorem.pdf
               ink_added_percent: 159.9
               total_ink_percent: 159.9
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Talyor%20Theorem.pdf
             - name: Thomae function
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Thomae function.pdf
               ink_added_percent: 59.9
               total_ink_percent: 59.9
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Thomae%20function.pdf
             - name: Trigonometric series
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Trigonometric series.pdf
               ink_added_percent: 124.4
               total_ink_percent: 124.4
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Trigonometric%20series.pdf
             - name: xsin1_x
               raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/xsin1_x.pdf
               ink_added_percent: 101.1
               total_ink_percent: 101.1
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/xsin1_x.pdf
             folders: []
           - name: 3. Functional Space
             label: 3. Functional Space
@@ -85608,47 +85465,38 @@ records:
               raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Arzelà-Ascoli.pdf
               ink_added_percent: 107.1
               total_ink_percent: 107.1
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Arzel%C3%A0-Ascoli.pdf
             - name: Banach Space
               raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Banach Space.pdf
               ink_added_percent: 13.0
               total_ink_percent: 13.0
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Banach%20Space.pdf
             - name: Double Sequence
               raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Double Sequence.pdf
               ink_added_percent: 136.8
               total_ink_percent: 136.8
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Double%20Sequence.pdf
             - name: Functional Space
               raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Functional Space.pdf
               ink_added_percent: 63.7
               total_ink_percent: 63.7
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Functional%20Space.pdf
             - name: Inequalities of integral
               raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Inequalities of integral.pdf
               ink_added_percent: 92.4
               total_ink_percent: 92.4
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Inequalities%20of%20integral.pdf
             - name: Inequalities of real-valued functions
               raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Inequalities of real-valued functions.pdf
               ink_added_percent: 14.8
               total_ink_percent: 14.8
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Inequalities%20of%20real-valued%20functions.pdf
             - name: Normed Space
               raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Normed Space.pdf
               ink_added_percent: 57.2
               total_ink_percent: 57.2
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Normed%20Space.pdf
             - name: Sequences of functions
               raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Sequences of functions.pdf
               ink_added_percent: 376.2
               total_ink_percent: 376.2
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Sequences%20of%20functions.pdf
             - name: Stone-Weierstrass Theorem
               raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Stone-Weierstrass Theorem.pdf
               ink_added_percent: 56.9
               total_ink_percent: 56.9
-              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Stone-Weierstrass%20Theorem.pdf
             folders: []
         - name: 2. Complex Analysis
           label: 2. Complex Analysis
@@ -85659,27 +85507,22 @@ records:
             raw_path: Undergraduate/Analysis/2. Complex Analysis/Complex Analysis.pdf
             ink_added_percent: 783.7
             total_ink_percent: 783.7
-            url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/Complex%20Analysis.pdf
           - name: Exponential function
             raw_path: Undergraduate/Analysis/2. Complex Analysis/Exponential function.pdf
             ink_added_percent: 10.8
             total_ink_percent: 10.8
-            url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/Exponential%20function.pdf
           - name: Schwarz reflection principle
             raw_path: Undergraduate/Analysis/2. Complex Analysis/Schwarz reflection principle.pdf
             ink_added_percent: 5.0
             total_ink_percent: 5.0
-            url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/Schwarz%20reflection%20principle.pdf
           - name: Silverman Solution
             raw_path: Undergraduate/Analysis/2. Complex Analysis/Silverman Solution.pdf
             ink_added_percent: 211.3
             total_ink_percent: 211.3
-            url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/Silverman%20Solution.pdf
           - name: Silverman, Complex Analysis
             raw_path: Undergraduate/Analysis/2. Complex Analysis/Silverman, Complex Analysis.pdf
             ink_added_percent: 104.6
             total_ink_percent: 104.6
-            url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/Silverman%2C%20Complex%20Analysis.pdf
           folders:
           - name: 2. Holomorphic function
             label: 2. Holomorphic function
@@ -85690,27 +85533,22 @@ records:
               raw_path: Undergraduate/Analysis/2. Complex Analysis/2. Holomorphic function/Cauchy-Riemann equation.pdf
               ink_added_percent: 173.0
               total_ink_percent: 173.0
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Cauchy-Riemann%20equation.pdf
             - name: Harmonic Functions
               raw_path: Undergraduate/Analysis/2. Complex Analysis/2. Holomorphic function/Harmonic Functions.pdf
               ink_added_percent: 190.8
               total_ink_percent: 190.8
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Harmonic%20Functions.pdf
             - name: Meromorphic function
               raw_path: Undergraduate/Analysis/2. Complex Analysis/2. Holomorphic function/Meromorphic function.pdf
               ink_added_percent: 67.6
               total_ink_percent: 67.6
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Meromorphic%20function.pdf
             - name: Sequence of functions
               raw_path: Undergraduate/Analysis/2. Complex Analysis/2. Holomorphic function/Sequence of functions.pdf
               ink_added_percent: 85.5
               total_ink_percent: 85.5
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Sequence%20of%20functions.pdf
             - name: Uniqueness Theorem
               raw_path: Undergraduate/Analysis/2. Complex Analysis/2. Holomorphic function/Uniqueness Theorem.pdf
               ink_added_percent: 96.9
               total_ink_percent: 96.9
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Uniqueness%20Theorem.pdf
             folders: []
           - name: 3. Line integral
             label: 3. Line integral
@@ -85721,72 +85559,58 @@ records:
               raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Argument Principle.pdf
               ink_added_percent: 215.3
               total_ink_percent: 215.3
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Argument%20Principle.pdf
             - name: Cauchy integral formula
               raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Cauchy integral formula.pdf
               ink_added_percent: 125.6
               total_ink_percent: 125.6
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Cauchy%20integral%20formula.pdf
             - name: Cauchy_s Inequality
               raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Cauchy_s Inequality.pdf
               ink_added_percent: 168.6
               total_ink_percent: 168.6
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Cauchy_s%20Inequality.pdf
             - name: Evaluation of Real integral
               raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Evaluation of Real integral.pdf
               ink_added_percent: 124.0
               total_ink_percent: 124.0
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Evaluation%20of%20Real%20integral.pdf
             - name: Gauss Meanvalue Theorem
               raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Gauss Meanvalue Theorem.pdf
               ink_added_percent: 60.3
               total_ink_percent: 60.3
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Gauss%20Meanvalue%20Theorem.pdf
             - name: Goursat Theorem
               raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Goursat Theorem.pdf
               ink_added_percent: 240.0
               total_ink_percent: 240.0
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Goursat%20Theorem.pdf
             - name: Jordan lemma
               raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Jordan lemma.pdf
               ink_added_percent: 52.0
               total_ink_percent: 52.0
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Jordan%20lemma.pdf
             - name: Laurent Series of Polynomials
               raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Laurent Series of Polynomials.pdf
               ink_added_percent: 51.0
               total_ink_percent: 51.0
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Laurent%20Series%20of%20Polynomials.pdf
             - name: Open mapping Theorem
               raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Open mapping Theorem.pdf
               ink_added_percent: 37.5
               total_ink_percent: 37.5
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Open%20mapping%20Theorem.pdf
             - name: Residue at infinite
               raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Residue at infinite.pdf
               ink_added_percent: 57.6
               total_ink_percent: 57.6
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Residue%20at%20infinite.pdf
             - name: Residue Theorem
               raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Residue Theorem.pdf
               ink_added_percent: 257.9
               total_ink_percent: 257.9
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Residue%20Theorem.pdf
             - name: Singularity
               raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Singularity.pdf
               ink_added_percent: 235.5
               total_ink_percent: 235.5
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Singularity.pdf
             - name: Trigonometric integral
               raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Trigonometric integral.pdf
               ink_added_percent: 159.4
               total_ink_percent: 159.4
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Trigonometric%20integral.pdf
             - name: Typical Line integral
               raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Typical Line integral.pdf
               ink_added_percent: 217.6
               total_ink_percent: 217.6
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Typical%20Line%20integral.pdf
             folders: []
           - name: 4. Conformal mapping
             label: 4. Conformal mapping
@@ -85797,12 +85621,10 @@ records:
               raw_path: Undergraduate/Analysis/2. Complex Analysis/4. Conformal mapping/Conformal mapping.pdf
               ink_added_percent: 52.2
               total_ink_percent: 52.2
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/4.%20Conformal%20mapping/Conformal%20mapping.pdf
             - name: Linear fractional transformation
               raw_path: Undergraduate/Analysis/2. Complex Analysis/4. Conformal mapping/Linear fractional transformation.pdf
               ink_added_percent: 125.9
               total_ink_percent: 125.9
-              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/4.%20Conformal%20mapping/Linear%20fractional%20transformation.pdf
             folders: []
         - name: 3. Analysis on Manifold
           label: 3. Analysis on Manifold
@@ -85813,7 +85635,6 @@ records:
             raw_path: Undergraduate/Analysis/3. Analysis on Manifold/Munkres, Analysis on manifold.pdf
             ink_added_percent: 292.6
             total_ink_percent: 292.6
-            url: /untexed-current/Undergraduate/Analysis/3.%20Analysis%20on%20Manifold/Munkres%2C%20Analysis%20on%20manifold.pdf
           folders: []
         - name: 5. Differential equation
           label: 5. Differential equation
@@ -85824,47 +85645,38 @@ records:
             raw_path: Undergraduate/Analysis/5. Differential equation/Bernoulli Equation.pdf
             ink_added_percent: 16.3
             total_ink_percent: 16.3
-            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/Bernoulli%20Equation.pdf
           - name: Coddington, Intro.ODE
             raw_path: Undergraduate/Analysis/5. Differential equation/Coddington, Intro.ODE.pdf
             ink_added_percent: 0.0
             total_ink_percent: 0.0
-            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/Coddington%2C%20Intro.ODE.pdf
           - name: Differential Operator
             raw_path: Undergraduate/Analysis/5. Differential equation/Differential Operator.pdf
             ink_added_percent: 53.1
             total_ink_percent: 53.1
-            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/Differential%20Operator.pdf
           - name: Exact equation
             raw_path: Undergraduate/Analysis/5. Differential equation/Exact equation.pdf
             ink_added_percent: 59.5
             total_ink_percent: 59.5
-            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/Exact%20equation.pdf
           - name: Existence and Uniqueness of ODE
             raw_path: Undergraduate/Analysis/5. Differential equation/Existence and Uniqueness of ODE.pdf
             ink_added_percent: 33.3
             total_ink_percent: 33.3
-            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/Existence%20and%20Uniqueness%20of%20ODE.pdf
           - name: First order
             raw_path: Undergraduate/Analysis/5. Differential equation/First order.pdf
             ink_added_percent: 37.5
             total_ink_percent: 37.5
-            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/First%20order.pdf
           - name: Linear equation with constant coefficients
             raw_path: Undergraduate/Analysis/5. Differential equation/Linear equation with constant coefficients.pdf
             ink_added_percent: 157.5
             total_ink_percent: 157.5
-            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/Linear%20equation%20with%20constant%20coefficients.pdf
           - name: Linear equation with variable coefficients
             raw_path: Undergraduate/Analysis/5. Differential equation/Linear equation with variable coefficients.pdf
             ink_added_percent: 51.9
             total_ink_percent: 51.9
-            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/Linear%20equation%20with%20variable%20coefficients.pdf
           - name: Typical differential equation
             raw_path: Undergraduate/Analysis/5. Differential equation/Typical differential equation.pdf
             ink_added_percent: 39.4
             total_ink_percent: 39.4
-            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/Typical%20differential%20equation.pdf
           folders: []
       - name: Differential Geometry
         label: Differential Geometry
@@ -85881,37 +85693,30 @@ records:
             raw_path: Undergraduate/Differential Geometry/1. Euclidean/Curvature of Surface.pdf
             ink_added_percent: 179.2
             total_ink_percent: 179.2
-            url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Curvature%20of%20Surface.pdf
           - name: Curves
             raw_path: Undergraduate/Differential Geometry/1. Euclidean/Curves.pdf
             ink_added_percent: 84.0
             total_ink_percent: 84.0
-            url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Curves.pdf
           - name: Fundamental form
             raw_path: Undergraduate/Differential Geometry/1. Euclidean/Fundamental form.pdf
             ink_added_percent: 206.7
             total_ink_percent: 206.7
-            url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Fundamental%20form.pdf
           - name: Gauss map
             raw_path: Undergraduate/Differential Geometry/1. Euclidean/Gauss map.pdf
             ink_added_percent: 30.0
             total_ink_percent: 30.0
-            url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Gauss%20map.pdf
           - name: Lee.nany.
             raw_path: Undergraduate/Differential Geometry/1. Euclidean/Lee.nany..pdf
             ink_added_percent: 31.2
             total_ink_percent: 31.2
-            url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Lee.nany..pdf
           - name: Local Surface Theory
             raw_path: Undergraduate/Differential Geometry/1. Euclidean/Local Surface Theory.pdf
             ink_added_percent: 7.3
             total_ink_percent: 7.3
-            url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Local%20Surface%20Theory.pdf
           - name: Spherical images
             raw_path: Undergraduate/Differential Geometry/1. Euclidean/Spherical images.pdf
             ink_added_percent: 0.0
             total_ink_percent: 0.0
-            url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Spherical%20images.pdf
           folders:
           - name: Debris
             label: Debris
@@ -85922,67 +85727,54 @@ records:
               raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Barrett O_neill.pdf
               ink_added_percent: 607.6
               total_ink_percent: 607.6
-              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Barrett%20O_neill.pdf
             - name: Barrett O_neill Solution
               raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Barrett O_neill Solution.pdf
               ink_added_percent: 237.3
               total_ink_percent: 237.3
-              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Barrett%20O_neill%20Solution.pdf
             - name: Calculus on Surface
               raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Calculus on Surface.pdf
               ink_added_percent: 12.9
               total_ink_percent: 12.9
-              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Calculus%20on%20Surface.pdf
             - name: Covariant Derivative
               raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Covariant Derivative.pdf
               ink_added_percent: 26.3
               total_ink_percent: 26.3
-              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Covariant%20Derivative.pdf
             - name: Cross product
               raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Cross product.pdf
               ink_added_percent: 75.2
               total_ink_percent: 75.2
-              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Cross%20product.pdf
             - name: Diffeomorphism
               raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Diffeomorphism.pdf
               ink_added_percent: 11.0
               total_ink_percent: 11.0
-              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Diffeomorphism.pdf
             - name: Differential Form
               raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Differential Form.pdf
               ink_added_percent: 69.9
               total_ink_percent: 69.9
-              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Differential%20Form.pdf
             - name: Frenet fomular
               raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Frenet fomular.pdf
               ink_added_percent: 230.8
               total_ink_percent: 230.8
-              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Frenet%20fomular.pdf
             - name: Mapping
               raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Mapping.pdf
               ink_added_percent: 39.1
               total_ink_percent: 39.1
-              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Mapping.pdf
             - name: Regular Surface
               raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Regular Surface.pdf
               ink_added_percent: 244.3
               total_ink_percent: 244.3
-              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Regular%20Surface.pdf
             - name: Shape Operater
               raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Shape Operater.pdf
               ink_added_percent: 0.4
               total_ink_percent: 0.4
-              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Shape%20Operater.pdf
             - name: Surface
               raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Surface.pdf
               ink_added_percent: 12.2
               total_ink_percent: 12.2
-              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Surface.pdf
             - name: Tangent Plane
               raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Tangent Plane.pdf
               ink_added_percent: 188.4
               total_ink_percent: 188.4
-              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Tangent%20Plane.pdf
             folders: []
       - name: Topology
         label: Topology
@@ -85999,92 +85791,74 @@ records:
             raw_path: Undergraduate/Topology/1. General Topology/Compact Hausdorff Space.pdf
             ink_added_percent: 103.5
             total_ink_percent: 103.5
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Compact%20Hausdorff%20Space.pdf
           - name: Compactness
             raw_path: Undergraduate/Topology/1. General Topology/Compactness.pdf
             ink_added_percent: 314.4
             total_ink_percent: 314.4
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Compactness.pdf
           - name: Connected Space
             raw_path: Undergraduate/Topology/1. General Topology/Connected Space.pdf
             ink_added_percent: 412.9
             total_ink_percent: 412.9
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Connected%20Space.pdf
           - name: Continuous Map
             raw_path: Undergraduate/Topology/1. General Topology/Continuous Map.pdf
             ink_added_percent: 133.8
             total_ink_percent: 133.8
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Continuous%20Map.pdf
           - name: Hilbert Space
             raw_path: Undergraduate/Topology/1. General Topology/Hilbert Space.pdf
             ink_added_percent: 158.3
             total_ink_percent: 158.3
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Hilbert%20Space.pdf
           - name: Initial Topology
             raw_path: Undergraduate/Topology/1. General Topology/Initial Topology.pdf
             ink_added_percent: 145.9
             total_ink_percent: 145.9
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Initial%20Topology.pdf
           - name: Interior and Closure
             raw_path: Undergraduate/Topology/1. General Topology/Interior and Closure.pdf
             ink_added_percent: 217.8
             total_ink_percent: 217.8
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Interior%20and%20Closure.pdf
           - name: Kolmogorov and Fréchet Space
             raw_path: Undergraduate/Topology/1. General Topology/Kolmogorov and Fréchet Space.pdf
             ink_added_percent: 48.6
             total_ink_percent: 48.6
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Kolmogorov%20and%20Fr%C3%A9chet%20Space.pdf
           - name: One point Compactification
             raw_path: Undergraduate/Topology/1. General Topology/One point Compactification.pdf
             ink_added_percent: 187.4
             total_ink_percent: 187.4
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/One%20point%20Compactification.pdf
           - name: Product space
             raw_path: Undergraduate/Topology/1. General Topology/Product space.pdf
             ink_added_percent: 48.9
             total_ink_percent: 48.9
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Product%20space.pdf
           - name: Product Topology
             raw_path: Undergraduate/Topology/1. General Topology/Product Topology.pdf
             ink_added_percent: 109.5
             total_ink_percent: 109.5
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Product%20Topology.pdf
           - name: Regular and Normal
             raw_path: Undergraduate/Topology/1. General Topology/Regular and Normal.pdf
             ink_added_percent: 0.0
             total_ink_percent: 0.0
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Regular%20and%20Normal.pdf
           - name: Subspace
             raw_path: Undergraduate/Topology/1. General Topology/Subspace.pdf
             ink_added_percent: 88.7
             total_ink_percent: 88.7
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Subspace.pdf
           - name: Topological basis
             raw_path: Undergraduate/Topology/1. General Topology/Topological basis.pdf
             ink_added_percent: 216.6
             total_ink_percent: 216.6
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Topological%20basis.pdf
           - name: Topological Group
             raw_path: Undergraduate/Topology/1. General Topology/Topological Group.pdf
             ink_added_percent: 105.2
             total_ink_percent: 105.2
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Topological%20Group.pdf
           - name: Topological map
             raw_path: Undergraduate/Topology/1. General Topology/Topological map.pdf
             ink_added_percent: 168.0
             total_ink_percent: 168.0
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Topological%20map.pdf
           - name: Typical Topological Spaces
             raw_path: Undergraduate/Topology/1. General Topology/Typical Topological Spaces.pdf
             ink_added_percent: 19.9
             total_ink_percent: 19.9
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Typical%20Topological%20Spaces.pdf
           - name: Urysohn Lemma
             raw_path: Undergraduate/Topology/1. General Topology/Urysohn Lemma.pdf
             ink_added_percent: 84.4
             total_ink_percent: 84.4
-            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Urysohn%20Lemma.pdf
           folders:
           - name: Metric Space
             label: Metric Space
@@ -86095,32 +85869,26 @@ records:
               raw_path: Undergraduate/Topology/1. General Topology/Metric Space/Basic metric space.pdf
               ink_added_percent: 145.3
               total_ink_percent: 145.3
-              url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Metric%20Space/Basic%20metric%20space.pdf
             - name: Distance
               raw_path: Undergraduate/Topology/1. General Topology/Metric Space/Distance.pdf
               ink_added_percent: 80.1
               total_ink_percent: 80.1
-              url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Metric%20Space/Distance.pdf
             - name: Isometry
               raw_path: Undergraduate/Topology/1. General Topology/Metric Space/Isometry.pdf
               ink_added_percent: 93.8
               total_ink_percent: 93.8
-              url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Metric%20Space/Isometry.pdf
             - name: Metric diagram
               raw_path: Undergraduate/Topology/1. General Topology/Metric Space/Metric diagram.pdf
               ink_added_percent: 359.5
               total_ink_percent: 359.5
-              url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Metric%20Space/Metric%20diagram.pdf
             - name: p-norm
               raw_path: Undergraduate/Topology/1. General Topology/Metric Space/p-norm.pdf
               ink_added_percent: 149.4
               total_ink_percent: 149.4
-              url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Metric%20Space/p-norm.pdf
             - name: Uniform Metric Space
               raw_path: Undergraduate/Topology/1. General Topology/Metric Space/Uniform Metric Space.pdf
               ink_added_percent: 0.0
               total_ink_percent: 0.0
-              url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Metric%20Space/Uniform%20Metric%20Space.pdf
             folders: []
         - name: 2. Algebraic Topology
           label: 2. Algebraic Topology
@@ -86131,37 +85899,30 @@ records:
             raw_path: Undergraduate/Topology/2. Algebraic Topology/Adjunction Space.pdf
             ink_added_percent: 119.8
             total_ink_percent: 119.8
-            url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Adjunction%20Space.pdf
           - name: Covering space
             raw_path: Undergraduate/Topology/2. Algebraic Topology/Covering space.pdf
             ink_added_percent: 106.2
             total_ink_percent: 106.2
-            url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Covering%20space.pdf
           - name: Deformation retraction
             raw_path: Undergraduate/Topology/2. Algebraic Topology/Deformation retraction.pdf
             ink_added_percent: 35.6
             total_ink_percent: 35.6
-            url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Deformation%20retraction.pdf
           - name: Fundamental Group
             raw_path: Undergraduate/Topology/2. Algebraic Topology/Fundamental Group.pdf
             ink_added_percent: 361.7
             total_ink_percent: 361.7
-            url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Fundamental%20Group.pdf
           - name: Homotopy
             raw_path: Undergraduate/Topology/2. Algebraic Topology/Homotopy.pdf
             ink_added_percent: 364.3
             total_ink_percent: 364.3
-            url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Homotopy.pdf
           - name: Quotient map
             raw_path: Undergraduate/Topology/2. Algebraic Topology/Quotient map.pdf
             ink_added_percent: 376.7
             total_ink_percent: 376.7
-            url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Quotient%20map.pdf
           - name: Typical Quotient Spaces
             raw_path: Undergraduate/Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf
             ink_added_percent: 281.7
             total_ink_percent: 281.7
-            url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Typical%20Quotient%20Spaces.pdf
           folders:
           - name: Debris
             label: Debris
@@ -86172,22 +85933,18 @@ records:
               raw_path: Undergraduate/Topology/2. Algebraic Topology/Debris/Borsuk-Ulam Theorem.pdf
               ink_added_percent: 41.8
               total_ink_percent: 41.8
-              url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Debris/Borsuk-Ulam%20Theorem.pdf
             - name: Covering Space
               raw_path: Undergraduate/Topology/2. Algebraic Topology/Debris/Covering Space.pdf
               ink_added_percent: 70.4
               total_ink_percent: 70.4
-              url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Debris/Covering%20Space.pdf
             - name: Fundamental gp - by Lee
               raw_path: Undergraduate/Topology/2. Algebraic Topology/Debris/Fundamental gp - by Lee.pdf
               ink_added_percent: 197.0
               total_ink_percent: 197.0
-              url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Debris/Fundamental%20gp%20-%20by%20Lee.pdf
             - name: Homotopy
               raw_path: Undergraduate/Topology/2. Algebraic Topology/Debris/Homotopy.pdf
               ink_added_percent: 144.7
               total_ink_percent: 144.7
-              url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Debris/Homotopy.pdf
             folders: []
     - name: Others
       ink_added_percent: 0.0
@@ -86196,12 +85953,10 @@ records:
         raw_path: Arbitrary.pdf
         ink_added_percent: 0.0
         total_ink_percent: 504.9
-        url: /untexed-current/Arbitrary.pdf
       - name: Tree of Subjects
         raw_path: Tree of Subjects.pdf
         ink_added_percent: 0.0
         total_ink_percent: 79.2
-        url: /untexed-current/Tree%20of%20Subjects.pdf
       folders: []
     added:
     - path: Solution/SNU solution
@@ -86956,6 +86711,1782 @@ records:
       Road to GTM/Measure Theory/4. Intergration of positive functions.pdf: 396.8
       Road to GTM/Measure Theory/5. Integration of Complex functions.pdf: 154.4
       Road to GTM/Measure Theory/6. Positive Borel Measure.pdf: 627.2
+      Solution/Rudin PMA Revised Solution.pdf: 212.8
+      Solution/Rudin RCA solutions.pdf: 359.2
+      Solution/SNU solution.pdf: 11727.2
+      Tree of Subjects.pdf: 79.2
+      Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Action of permutation on Matrices.pdf: 56.1
+      Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Basis for Vector space.pdf: 131.4
+      Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Canonical Form.pdf: 436.1
+      Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Canonical Form_old.pdf: 434.9
+      Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Cyclic subspace.pdf: 327.9
+      Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Derterminant.pdf: 150.5
+      Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Dual Space.pdf: 600.1
+      Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Jordan canonical form_old.pdf: 437.3
+      Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Jordan form - Computation.pdf: 337.1
+      Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Kernel-Image Decompostion.pdf: 87.0
+      Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Linear equation.pdf: 193.4
+      Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Minimal polynomial.pdf: 412.8
+      Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Primary Decomposition.pdf: 108.3
+      Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Projection.pdf: 210.6
+      Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Replacement Theorem.pdf: 208.9
+      Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Diagonalizable Criterion on Inner product Space.pdf: 173.0
+      Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/General Linear Group.pdf: 130.8
+      Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Norm induced by inner product.pdf: 261.4
+      Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Normal operator.pdf: 79.4
+      Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Operator Norm.pdf: 226.1
+      Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Orthogonal Projection - Complete.pdf: 365.0
+      Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/QR-Factorization.pdf: 100.7
+      Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Riesz Representation Theorem.pdf: 93.9
+      Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Singular Value Decomposition.pdf: 214.9
+      Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Unitary and Orthogonal Operator.pdf: 46.6
+      Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Bilinear forms.pdf: 59.0
+      Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Continuous Function Space.pdf: 49.3
+      Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Polynomial Space.pdf: 119.4
+      Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Positive Form.pdf: 212.9
+      Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Sesqui-Linear Form.pdf: 291.0
+      Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Symmetric Bilinear form.pdf: 0.0
+      Undergraduate/Algebra/1. Linear Algebra/Hoffman.pdf: 1424.1
+      Undergraduate/Algebra/2. Group Theory/Commutator Subgroup.pdf: 166.2
+      Undergraduate/Algebra/2. Group Theory/Exact sequence.pdf: 82.6
+      Undergraduate/Algebra/2. Group Theory/Finitely Generated Abelian Group.pdf: 63.2
+      Undergraduate/Algebra/2. Group Theory/General linear group.pdf: 122.9
+      Undergraduate/Algebra/2. Group Theory/Group Action.pdf: 513.1
+      Undergraduate/Algebra/2. Group Theory/Isomorphism Theorem.pdf: 170.7
+      Undergraduate/Algebra/2. Group Theory/Nilpotent Group.pdf: 68.1
+      Undergraduate/Algebra/2. Group Theory/Normalizer and Centralizer.pdf: 27.9
+      Undergraduate/Algebra/2. Group Theory/Recognize theorem.pdf: 74.7
+      Undergraduate/Algebra/2. Group Theory/Semi direct product.pdf: 75.9
+      Undergraduate/Algebra/2. Group Theory/Typical Homomorphisms.pdf: 45.4
+      Undergraduate/Algebra/3. Finite Group Theory/Alternating Group.pdf: 156.8
+      Undergraduate/Algebra/3. Finite Group Theory/Class equation.pdf: 33.3
+      Undergraduate/Algebra/3. Finite Group Theory/Cyclic Group.pdf: 74.8
+      Undergraduate/Algebra/3. Finite Group Theory/Dihedral Group.pdf: 174.3
+      Undergraduate/Algebra/3. Finite Group Theory/Division Algorithm.pdf: 207.2
+      Undergraduate/Algebra/3. Finite Group Theory/Jordan-Hölder.pdf: 385.9
+      Undergraduate/Algebra/3. Finite Group Theory/P-Group.pdf: 53.4
+      Undergraduate/Algebra/3. Finite Group Theory/Quaternion group.pdf: 3.3
+      Undergraduate/Algebra/3. Finite Group Theory/Solvablity.pdf: 177.5
+      Undergraduate/Algebra/3. Finite Group Theory/Sylow Theorem.pdf: 711.4
+      Undergraduate/Algebra/3. Finite Group Theory/Symmetric Group.pdf: 324.3
+      Undergraduate/Algebra/3. Finite Group Theory/Typical Finite groups.pdf: 347.6
+      Undergraduate/Algebra/3. Finite Group Theory/pgroups.pdf.pdf: 50.0
+      Undergraduate/Algebra/4. Ring Theory/Basic ideal.pdf: 131.6
+      Undergraduate/Algebra/4. Ring Theory/Chinese reminder theorem.pdf: 244.2
+      Undergraduate/Algebra/4. Ring Theory/Dedekind-Hasse norm.pdf: 96.4
+      Undergraduate/Algebra/4. Ring Theory/Domains.pdf: 908.5
+      Undergraduate/Algebra/4. Ring Theory/Domains_Revised.pdf: 86.3
+      Undergraduate/Algebra/4. Ring Theory/Eisenstein Criterion.pdf: 64.8
+      Undergraduate/Algebra/4. Ring Theory/Fraction Ring.pdf: 135.8
+      Undergraduate/Algebra/4. Ring Theory/Ideal.pdf: 161.0
+      Undergraduate/Algebra/4. Ring Theory/Irreducible and Prime.pdf: 66.0
+      Undergraduate/Algebra/4. Ring Theory/Maximal and Prime ideal.pdf: 64.3
+      Undergraduate/Algebra/4. Ring Theory/Nilradical and Radical.pdf: 164.9
+      Undergraduate/Algebra/4. Ring Theory/Notebook 3.pdf: 254.4
+      Undergraduate/Algebra/4. Ring Theory/Quadratic integer Ring.pdf: 88.0
+      Undergraduate/Algebra/4. Ring Theory/Typical Quotient rings.pdf: 135.8
+      Undergraduate/Algebra/5. Polynomial Ring Theory/Polynomial Ring.pdf: 418.6
+      Undergraduate/Algebra/5. Polynomial Ring Theory/Polynomial Ring_Revised.pdf: 110.2
+      Undergraduate/Algebra/5. Polynomial Ring Theory/Typical Polynomials.pdf: 37.5
+      Undergraduate/Algebra/6. Field Theory/Basic field Theory.pdf: 615.1
+      Undergraduate/Algebra/6. Field Theory/Basic field extension.pdf: 314.9
+      Undergraduate/Algebra/6. Field Theory/Basic field.pdf: 615.1
+      Undergraduate/Algebra/6. Field Theory/Biquadratic Field.pdf: 106.5
+      Undergraduate/Algebra/6. Field Theory/Composite Field.pdf: 67.0
+      Undergraduate/Algebra/6. Field Theory/Conjugate Isomorphism.pdf: 47.4
+      Undergraduate/Algebra/6. Field Theory/Cyclotomic Field.pdf: 118.5
+      Undergraduate/Algebra/6. Field Theory/Field Homomorphism.pdf: 32.3
+      Undergraduate/Algebra/6. Field Theory/Finite field.pdf: 141.0
+      Undergraduate/Algebra/6. Field Theory/Finite field_Revised.pdf: 90.1
+      Undergraduate/Algebra/6. Field Theory/Rationalize.pdf: 54.1
+      Undergraduate/Algebra/6. Field Theory/Separable polynomial.pdf: 178.7
+      Undergraduate/Algebra/6. Field Theory/Spiltting and Separable Field.pdf: 222.7
+      Undergraduate/Algebra/7. Galois Theory/Automorphisms of Field.pdf: 40.1
+      Undergraduate/Algebra/7. Galois Theory/Cyclotomic Extension.pdf: 31.1
+      Undergraduate/Algebra/7. Galois Theory/Galois Group of Polynomial.pdf: 183.1
+      Undergraduate/Algebra/7. Galois Theory/Galois Theorem.pdf: 282.6
+      Undergraduate/Algebra/7. Galois Theory/Radical extension.pdf: 16.6
+      Undergraduate/Algebra/7. Galois Theory/Separable extension.pdf: 72.1
+      Undergraduate/Algebra/7. Galois Theory/Typical Galois extensions.pdf: 962.0
+      Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Abel formula.pdf: 156.8
+      Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Advanced Techniques for sequence.pdf: 68.1
+      Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Cantor set.pdf: 276.3
+      Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Density of rational.pdf: 72.1
+      Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Inequality in Real numbers.pdf: 63.7
+      Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Kronecker approximation theorem.pdf: 53.7
+      Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Riemann-Rearangement Theorem.pdf: 87.0
+      Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Stolz-Cesaro theorem.pdf: 186.7
+      Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Supremum.pdf: 406.7
+      Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Typical Sequences.pdf: 15.2
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Basic Riemann-integral.pdf: 808.2
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Bounded Variation.pdf: 186.3
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Continuously Extension.pdf: 95.0
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Convexity.pdf: 255.1
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Darboux_s Theorem.pdf: 80.5
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Differentiation.pdf: 168.4
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Discontinuity.pdf: 77.5
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Fundamental Theorem of Calculus.pdf: 54.5
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Improper integral.pdf: 46.7
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Integral Transform.pdf: 76.7
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Lipschtiz.pdf: 172.1
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Newton_s Method.pdf: 0.0
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Open map is injective.pdf: 101.2
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Parameter dependent integral.pdf: 71.9
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Power Series.pdf: 356.6
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Talyor Theorem.pdf: 159.9
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Thomae function.pdf: 59.9
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Trigonometric series.pdf: 124.4
+      Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/xsin1_x.pdf: 101.1
+      Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Arzelà-Ascoli.pdf: 107.1
+      Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Banach Space.pdf: 13.0
+      Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Double Sequence.pdf: 136.8
+      Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Functional Space.pdf: 63.7
+      Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Inequalities of integral.pdf: 92.4
+      Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Inequalities of real-valued functions.pdf: 14.8
+      Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Normed Space.pdf: 57.2
+      Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Sequences of functions.pdf: 376.2
+      Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Stone-Weierstrass Theorem.pdf: 56.9
+      Undergraduate/Analysis/2. Complex Analysis/2. Holomorphic function/Cauchy-Riemann equation.pdf: 173.0
+      Undergraduate/Analysis/2. Complex Analysis/2. Holomorphic function/Harmonic Functions.pdf: 190.8
+      Undergraduate/Analysis/2. Complex Analysis/2. Holomorphic function/Meromorphic function.pdf: 67.6
+      Undergraduate/Analysis/2. Complex Analysis/2. Holomorphic function/Sequence of functions.pdf: 85.5
+      Undergraduate/Analysis/2. Complex Analysis/2. Holomorphic function/Uniqueness Theorem.pdf: 96.9
+      Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Argument Principle.pdf: 215.3
+      Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Cauchy integral formula.pdf: 125.6
+      Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Cauchy_s Inequality.pdf: 168.6
+      Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Evaluation of Real integral.pdf: 124.0
+      Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Gauss Meanvalue Theorem.pdf: 60.3
+      Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Goursat Theorem.pdf: 240.0
+      Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Jordan lemma.pdf: 52.0
+      Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Laurent Series of Polynomials.pdf: 51.0
+      Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Open mapping Theorem.pdf: 37.5
+      Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Residue Theorem.pdf: 257.9
+      Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Residue at infinite.pdf: 57.6
+      Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Singularity.pdf: 235.5
+      Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Trigonometric integral.pdf: 159.4
+      Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Typical Line integral.pdf: 217.6
+      Undergraduate/Analysis/2. Complex Analysis/4. Conformal mapping/Conformal mapping.pdf: 52.2
+      Undergraduate/Analysis/2. Complex Analysis/4. Conformal mapping/Linear fractional transformation.pdf: 125.9
+      Undergraduate/Analysis/2. Complex Analysis/Complex Analysis.pdf: 783.7
+      Undergraduate/Analysis/2. Complex Analysis/Exponential function.pdf: 10.8
+      Undergraduate/Analysis/2. Complex Analysis/Schwarz reflection principle.pdf: 5.0
+      Undergraduate/Analysis/2. Complex Analysis/Silverman Solution.pdf: 211.3
+      Undergraduate/Analysis/2. Complex Analysis/Silverman, Complex Analysis.pdf: 104.6
+      Undergraduate/Analysis/3. Analysis on Manifold/Munkres, Analysis on manifold.pdf: 292.6
+      Undergraduate/Analysis/5. Differential equation/Bernoulli Equation.pdf: 16.3
+      Undergraduate/Analysis/5. Differential equation/Coddington, Intro.ODE.pdf: 0.0
+      Undergraduate/Analysis/5. Differential equation/Differential Operator.pdf: 53.1
+      Undergraduate/Analysis/5. Differential equation/Exact equation.pdf: 59.5
+      Undergraduate/Analysis/5. Differential equation/Existence and Uniqueness of ODE.pdf: 33.3
+      Undergraduate/Analysis/5. Differential equation/First order.pdf: 37.5
+      Undergraduate/Analysis/5. Differential equation/Linear equation with constant coefficients.pdf: 157.5
+      Undergraduate/Analysis/5. Differential equation/Linear equation with variable coefficients.pdf: 51.9
+      Undergraduate/Analysis/5. Differential equation/Typical differential equation.pdf: 39.4
+      Undergraduate/Differential Geometry/1. Euclidean/Curvature of Surface.pdf: 179.2
+      Undergraduate/Differential Geometry/1. Euclidean/Curves.pdf: 84.0
+      Undergraduate/Differential Geometry/1. Euclidean/Debris/Barrett O_neill Solution.pdf: 237.3
+      Undergraduate/Differential Geometry/1. Euclidean/Debris/Barrett O_neill.pdf: 607.6
+      Undergraduate/Differential Geometry/1. Euclidean/Debris/Calculus on Surface.pdf: 12.9
+      Undergraduate/Differential Geometry/1. Euclidean/Debris/Covariant Derivative.pdf: 26.3
+      Undergraduate/Differential Geometry/1. Euclidean/Debris/Cross product.pdf: 75.2
+      Undergraduate/Differential Geometry/1. Euclidean/Debris/Diffeomorphism.pdf: 11.0
+      Undergraduate/Differential Geometry/1. Euclidean/Debris/Differential Form.pdf: 69.9
+      Undergraduate/Differential Geometry/1. Euclidean/Debris/Frenet fomular.pdf: 230.8
+      Undergraduate/Differential Geometry/1. Euclidean/Debris/Mapping.pdf: 39.1
+      Undergraduate/Differential Geometry/1. Euclidean/Debris/Regular Surface.pdf: 244.3
+      Undergraduate/Differential Geometry/1. Euclidean/Debris/Shape Operater.pdf: 0.4
+      Undergraduate/Differential Geometry/1. Euclidean/Debris/Surface.pdf: 12.2
+      Undergraduate/Differential Geometry/1. Euclidean/Debris/Tangent Plane.pdf: 188.4
+      Undergraduate/Differential Geometry/1. Euclidean/Fundamental form.pdf: 206.7
+      Undergraduate/Differential Geometry/1. Euclidean/Gauss map.pdf: 30.0
+      Undergraduate/Differential Geometry/1. Euclidean/Lee.nany..pdf: 31.2
+      Undergraduate/Differential Geometry/1. Euclidean/Local Surface Theory.pdf: 7.3
+      Undergraduate/Differential Geometry/1. Euclidean/Spherical images.pdf: 0.0
+      Undergraduate/Topology/1. General Topology/Compact Hausdorff Space.pdf: 103.5
+      Undergraduate/Topology/1. General Topology/Compactness.pdf: 314.4
+      Undergraduate/Topology/1. General Topology/Connected Space.pdf: 412.9
+      Undergraduate/Topology/1. General Topology/Continuous Map.pdf: 133.8
+      Undergraduate/Topology/1. General Topology/Hilbert Space.pdf: 158.3
+      Undergraduate/Topology/1. General Topology/Initial Topology.pdf: 145.9
+      Undergraduate/Topology/1. General Topology/Interior and Closure.pdf: 217.8
+      Undergraduate/Topology/1. General Topology/Kolmogorov and Fréchet Space.pdf: 48.6
+      Undergraduate/Topology/1. General Topology/Metric Space/Basic metric space.pdf: 145.3
+      Undergraduate/Topology/1. General Topology/Metric Space/Distance.pdf: 80.1
+      Undergraduate/Topology/1. General Topology/Metric Space/Isometry.pdf: 93.8
+      Undergraduate/Topology/1. General Topology/Metric Space/Metric diagram.pdf: 359.5
+      Undergraduate/Topology/1. General Topology/Metric Space/Uniform Metric Space.pdf: 0.0
+      Undergraduate/Topology/1. General Topology/Metric Space/p-norm.pdf: 149.4
+      Undergraduate/Topology/1. General Topology/One point Compactification.pdf: 187.4
+      Undergraduate/Topology/1. General Topology/Product Topology.pdf: 109.5
+      Undergraduate/Topology/1. General Topology/Product space.pdf: 48.9
+      Undergraduate/Topology/1. General Topology/Regular and Normal.pdf: 0.0
+      Undergraduate/Topology/1. General Topology/Subspace.pdf: 88.7
+      Undergraduate/Topology/1. General Topology/Topological Group.pdf: 105.2
+      Undergraduate/Topology/1. General Topology/Topological basis.pdf: 216.6
+      Undergraduate/Topology/1. General Topology/Topological map.pdf: 168.0
+      Undergraduate/Topology/1. General Topology/Typical Topological Spaces.pdf: 19.9
+      Undergraduate/Topology/1. General Topology/Urysohn Lemma.pdf: 84.4
+      Undergraduate/Topology/2. Algebraic Topology/Adjunction Space.pdf: 119.8
+      Undergraduate/Topology/2. Algebraic Topology/Covering space.pdf: 106.2
+      Undergraduate/Topology/2. Algebraic Topology/Debris/Borsuk-Ulam Theorem.pdf: 41.8
+      Undergraduate/Topology/2. Algebraic Topology/Debris/Covering Space.pdf: 70.4
+      Undergraduate/Topology/2. Algebraic Topology/Debris/Fundamental gp - by Lee.pdf: 197.0
+      Undergraduate/Topology/2. Algebraic Topology/Debris/Homotopy.pdf: 144.7
+      Undergraduate/Topology/2. Algebraic Topology/Deformation retraction.pdf: 35.6
+      Undergraduate/Topology/2. Algebraic Topology/Fundamental Group.pdf: 361.7
+      Undergraduate/Topology/2. Algebraic Topology/Homotopy.pdf: 364.3
+      Undergraduate/Topology/2. Algebraic Topology/Quotient map.pdf: 376.7
+      Undergraduate/Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 281.7
+  '261120':
+    baseline: false
+    total_ink_percent: 897.8
+    library_total_ink_percent: 53728.1
+    subject_ink_percent:
+      Road to GTM: 897.8
+    folder_ink_percent:
+      Road to GTM/Group Theory: 0.0
+      Road to GTM/Measure Theory: 897.8
+    file_ink_percent:
+      Road to GTM/Group Theory/Group Action.pdf: 0.0
+      Road to GTM/Measure Theory/6. Positive Borel Measure.pdf: 200.0
+      Road to GTM/Measure Theory/6.1 Locally Compact Hausdorff space.pdf: 119.7
+      Road to GTM/Measure Theory/6.2 Urysohn Lemma.pdf: 159.6
+      Road to GTM/Measure Theory/6.3 Riesz Representation Theorem.pdf: 418.5
+    subjects:
+    - name: Research
+      ink_added_percent: 0.0
+      files: []
+      folders:
+      - name: Galois Dream
+        label: Galois Dream
+        raw_path: Research/Galois Dream
+        ink_added_percent: 0.0
+        files:
+        - name: 1. Differential Ring
+          raw_path: Research/Galois Dream/1. Differential Ring.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 69.1
+          url: /untexed-current/Research/Galois%20Dream/1.%20Differential%20Ring.pdf
+        folders: []
+      - name: Polynomial
+        label: Polynomial
+        raw_path: Research/Polynomial
+        ink_added_percent: 0.0
+        files:
+        - name: Polynomial function
+          raw_path: Research/Polynomial/Polynomial function.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 27.1
+          url: /untexed-current/Research/Polynomial/Polynomial%20function.pdf
+        folders: []
+    - name: Road to GTM
+      ink_added_percent: 897.8
+      files: []
+      folders:
+      - name: Category
+        label: Category
+        raw_path: Road to GTM/Category
+        ink_added_percent: 0.0
+        files:
+        - name: 1. Caregories
+          raw_path: Road to GTM/Category/1. Caregories.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 59.7
+          url: /untexed-current/Road%20to%20GTM/Category/1.%20Caregories.pdf
+        folders: []
+      - name: Commutative Algebra
+        label: Commutative Algebra
+        raw_path: Road to GTM/Commutative Algebra
+        ink_added_percent: 0.0
+        files:
+        - name: 0. Definition of ring
+          raw_path: Road to GTM/Commutative Algebra/0. Definition of ring.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 16.0
+          url: /untexed-current/Road%20to%20GTM/Commutative%20Algebra/0.%20Definition%20of%20ring.pdf
+        - name: 1. Localization
+          raw_path: Road to GTM/Commutative Algebra/1. Localization.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 21.2
+          url: /untexed-current/Road%20to%20GTM/Commutative%20Algebra/1.%20Localization.pdf
+        folders: []
+      - name: Galois Note
+        label: Galois Note
+        raw_path: Road to GTM/Galois Note
+        ink_added_percent: 0.0
+        files:
+        - name: Basic field extension Theory
+          raw_path: Road to GTM/Galois Note/Basic field extension Theory.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 154.8
+          url: /untexed-current/Road%20to%20GTM/Galois%20Note/Basic%20field%20extension%20Theory.pdf
+        - name: Flow graph
+          raw_path: Road to GTM/Galois Note/Flow graph.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 28.0
+          url: /untexed-current/Road%20to%20GTM/Galois%20Note/Flow%20graph.pdf
+        - name: Fundamental Theorem of Galois
+          raw_path: Road to GTM/Galois Note/Fundamental Theorem of Galois.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 33.8
+          url: /untexed-current/Road%20to%20GTM/Galois%20Note/Fundamental%20Theorem%20of%20Galois.pdf
+        - name: Galois Theory - Artin
+          raw_path: Road to GTM/Galois Note/Galois Theory - Artin.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 555.3
+          url: /untexed-current/Road%20to%20GTM/Galois%20Note/Galois%20Theory%20-%20Artin.pdf
+        - name: Galois Theory - Embbeding
+          raw_path: Road to GTM/Galois Note/Galois Theory - Embbeding.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 176.3
+          url: /untexed-current/Road%20to%20GTM/Galois%20Note/Galois%20Theory%20-%20Embbeding.pdf
+        - name: Norm and Trace of Galois
+          raw_path: Road to GTM/Galois Note/Norm and Trace of Galois.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 189.7
+          url: /untexed-current/Road%20to%20GTM/Galois%20Note/Norm%20and%20Trace%20of%20Galois.pdf
+        folders: []
+      - name: Group Theory
+        label: Group Theory
+        raw_path: Road to GTM/Group Theory
+        ink_added_percent: 0.0
+        files:
+        - name: Group Action
+          raw_path: Road to GTM/Group Theory/Group Action.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 0.0
+          url: /untexed-current/Road%20to%20GTM/Group%20Theory/Group%20Action.pdf
+        folders: []
+      - name: Measure Theory
+        label: Measure Theory
+        raw_path: Road to GTM/Measure Theory
+        ink_added_percent: 897.8
+        files:
+        - name: 1. Measurable Space
+          raw_path: Road to GTM/Measure Theory/1. Measurable Space.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 270.6
+          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/1.%20Measurable%20Space.pdf
+        - name: 2. Measurable function
+          raw_path: Road to GTM/Measure Theory/2. Measurable function.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 187.0
+          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/2.%20Measurable%20function.pdf
+        - name: 2.1 Calculation on Simple functions
+          raw_path: Road to GTM/Measure Theory/2.1 Calculation on Simple functions.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 16.4
+          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/2.1%20Calculation%20on%20Simple%20functions.pdf
+        - name: 3. Measure
+          raw_path: Road to GTM/Measure Theory/3. Measure.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 108.1
+          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/3.%20Measure.pdf
+        - name: 3.1 Outer measure
+          raw_path: Road to GTM/Measure Theory/3.1 Outer measure.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 82.2
+          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/3.1%20Outer%20measure.pdf
+        - name: 4. Intergration of Positive functions
+          raw_path: Road to GTM/Measure Theory/4. Intergration of Positive functions.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 396.8
+          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/4.%20Intergration%20of%20Positive%20functions.pdf
+        - name: 5. Integration of Complex functions
+          raw_path: Road to GTM/Measure Theory/5. Integration of Complex functions.pdf
+          ink_added_percent: 0.0
+          total_ink_percent: 154.4
+          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/5.%20Integration%20of%20Complex%20functions.pdf
+        - name: 6. Positive Borel Measure
+          raw_path: Road to GTM/Measure Theory/6. Positive Borel Measure.pdf
+          ink_added_percent: 200.0
+          total_ink_percent: 413.4
+          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/6.%20Positive%20Borel%20Measure.pdf
+        - name: 6.1 Locally Compact Hausdorff space
+          raw_path: Road to GTM/Measure Theory/6.1 Locally Compact Hausdorff space.pdf
+          ink_added_percent: 119.7
+          total_ink_percent: 119.7
+          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/6.1%20Locally%20Compact%20Hausdorff%20space.pdf
+        - name: 6.2 Urysohn Lemma
+          raw_path: Road to GTM/Measure Theory/6.2 Urysohn Lemma.pdf
+          ink_added_percent: 159.6
+          total_ink_percent: 159.6
+          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/6.2%20Urysohn%20Lemma.pdf
+        - name: 6.3 Riesz Representation Theorem
+          raw_path: Road to GTM/Measure Theory/6.3 Riesz Representation Theorem.pdf
+          ink_added_percent: 418.5
+          total_ink_percent: 418.5
+          url: /untexed-current/Road%20to%20GTM/Measure%20Theory/6.3%20Riesz%20Representation%20Theorem.pdf
+        folders: []
+    - name: Solution
+      ink_added_percent: 0.0
+      files:
+      - name: Rudin PMA Revised Solution
+        raw_path: Solution/Rudin PMA Revised Solution.pdf
+        ink_added_percent: 0.0
+        total_ink_percent: 212.8
+        url: /untexed-current/Solution/Rudin%20PMA%20Revised%20Solution.pdf
+      - name: Rudin RCA solutions
+        raw_path: Solution/Rudin RCA solutions.pdf
+        ink_added_percent: 0.0
+        total_ink_percent: 359.2
+        url: /untexed-current/Solution/Rudin%20RCA%20solutions.pdf
+      - name: SNU solution
+        raw_path: Solution/SNU solution.pdf
+        ink_added_percent: 0.0
+        total_ink_percent: 11727.2
+        url: /untexed-current/Solution/SNU%20solution.pdf
+      folders: []
+    - name: Undergraduate
+      ink_added_percent: 0.0
+      files: []
+      folders:
+      - name: Algebra
+        label: Algebra
+        raw_path: Undergraduate/Algebra
+        ink_added_percent: 0.0
+        files: []
+        folders:
+        - name: 1. Linear Algebra
+          label: 1. Linear Algebra
+          raw_path: Undergraduate/Algebra/1. Linear Algebra
+          ink_added_percent: 0.0
+          files:
+          - name: Hoffman
+            raw_path: Undergraduate/Algebra/1. Linear Algebra/Hoffman.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 1424.1
+            url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/Hoffman.pdf
+          folders:
+          - name: 1. Vector space Theory
+            label: 1. Vector space Theory
+            raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory
+            ink_added_percent: 0.0
+            files:
+            - name: Action of permutation on Matrices
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Action of permutation on Matrices.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 56.1
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Action%20of%20permutation%20on%20Matrices.pdf
+            - name: Basis for Vector space
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Basis for Vector space.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 131.4
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Basis%20for%20Vector%20space.pdf
+            - name: Canonical Form
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Canonical Form.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 436.1
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Canonical%20Form.pdf
+            - name: Canonical Form_old
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Canonical Form_old.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 434.9
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Canonical%20Form_old.pdf
+            - name: Cyclic subspace
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Cyclic subspace.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 327.9
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Cyclic%20subspace.pdf
+            - name: Derterminant
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Derterminant.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 150.5
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Derterminant.pdf
+            - name: Dual Space
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Dual Space.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 600.1
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Dual%20Space.pdf
+            - name: Jordan canonical form_old
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Jordan canonical form_old.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 437.3
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Jordan%20canonical%20form_old.pdf
+            - name: Jordan form - Computation
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Jordan form - Computation.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 337.1
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Jordan%20form%20-%20Computation.pdf
+            - name: Kernel-Image Decompostion
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Kernel-Image Decompostion.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 87.0
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Kernel-Image%20Decompostion.pdf
+            - name: Linear equation
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Linear equation.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 193.4
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Linear%20equation.pdf
+            - name: Minimal polynomial
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Minimal polynomial.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 412.8
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Minimal%20polynomial.pdf
+            - name: Primary Decomposition
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Primary Decomposition.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 108.3
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Primary%20Decomposition.pdf
+            - name: Projection
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Projection.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 210.6
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Projection.pdf
+            - name: Replacement Theorem
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/1. Vector space Theory/Replacement Theorem.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 208.9
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/1.%20Vector%20space%20Theory/Replacement%20Theorem.pdf
+            folders: []
+          - name: 2. Inner product Theory
+            label: 2. Inner product Theory
+            raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory
+            ink_added_percent: 0.0
+            files:
+            - name: Diagonalizable Criterion on Inner product Space
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Diagonalizable Criterion on Inner product Space.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 173.0
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Diagonalizable%20Criterion%20on%20Inner%20product%20Space.pdf
+            - name: General Linear Group
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/General Linear Group.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 130.8
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/General%20Linear%20Group.pdf
+            - name: Norm induced by inner product
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Norm induced by inner product.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 261.4
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Norm%20induced%20by%20inner%20product.pdf
+            - name: Normal operator
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Normal operator.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 79.4
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Normal%20operator.pdf
+            - name: Operator Norm
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Operator Norm.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 226.1
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Operator%20Norm.pdf
+            - name: Orthogonal Projection - Complete
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Orthogonal Projection - Complete.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 365.0
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Orthogonal%20Projection%20-%20Complete.pdf
+            - name: QR-Factorization
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/QR-Factorization.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 100.7
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/QR-Factorization.pdf
+            - name: Riesz Representation Theorem
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Riesz Representation Theorem.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 93.9
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Riesz%20Representation%20Theorem.pdf
+            - name: Singular Value Decomposition
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Singular Value Decomposition.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 214.9
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Singular%20Value%20Decomposition.pdf
+            - name: Unitary and Orthogonal Operator
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/2. Inner product Theory/Unitary and Orthogonal Operator.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 46.6
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/2.%20Inner%20product%20Theory/Unitary%20and%20Orthogonal%20Operator.pdf
+            folders: []
+          - name: 3. Further topics
+            label: 3. Further topics
+            raw_path: Undergraduate/Algebra/1. Linear Algebra/3. Further topics
+            ink_added_percent: 0.0
+            files:
+            - name: Bilinear forms
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Bilinear forms.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 59.0
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/3.%20Further%20topics/Bilinear%20forms.pdf
+            - name: Continuous Function Space
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Continuous Function Space.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 49.3
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/3.%20Further%20topics/Continuous%20Function%20Space.pdf
+            - name: Polynomial Space
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Polynomial Space.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 119.4
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/3.%20Further%20topics/Polynomial%20Space.pdf
+            - name: Positive Form
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Positive Form.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 212.9
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/3.%20Further%20topics/Positive%20Form.pdf
+            - name: Sesqui-Linear Form
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Sesqui-Linear Form.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 291.0
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/3.%20Further%20topics/Sesqui-Linear%20Form.pdf
+            - name: Symmetric Bilinear form
+              raw_path: Undergraduate/Algebra/1. Linear Algebra/3. Further topics/Symmetric Bilinear form.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 0.0
+              url: /untexed-current/Undergraduate/Algebra/1.%20Linear%20Algebra/3.%20Further%20topics/Symmetric%20Bilinear%20form.pdf
+            folders: []
+        - name: 2. Group Theory
+          label: 2. Group Theory
+          raw_path: Undergraduate/Algebra/2. Group Theory
+          ink_added_percent: 0.0
+          files:
+          - name: Commutator Subgroup
+            raw_path: Undergraduate/Algebra/2. Group Theory/Commutator Subgroup.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 166.2
+            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Commutator%20Subgroup.pdf
+          - name: Exact sequence
+            raw_path: Undergraduate/Algebra/2. Group Theory/Exact sequence.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 82.6
+            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Exact%20sequence.pdf
+          - name: Finitely Generated Abelian Group
+            raw_path: Undergraduate/Algebra/2. Group Theory/Finitely Generated Abelian Group.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 63.2
+            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Finitely%20Generated%20Abelian%20Group.pdf
+          - name: General linear group
+            raw_path: Undergraduate/Algebra/2. Group Theory/General linear group.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 122.9
+            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/General%20linear%20group.pdf
+          - name: Group Action
+            raw_path: Undergraduate/Algebra/2. Group Theory/Group Action.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 513.1
+            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Group%20Action.pdf
+          - name: Isomorphism Theorem
+            raw_path: Undergraduate/Algebra/2. Group Theory/Isomorphism Theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 170.7
+            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Isomorphism%20Theorem.pdf
+          - name: Nilpotent Group
+            raw_path: Undergraduate/Algebra/2. Group Theory/Nilpotent Group.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 68.1
+            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Nilpotent%20Group.pdf
+          - name: Normalizer and Centralizer
+            raw_path: Undergraduate/Algebra/2. Group Theory/Normalizer and Centralizer.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 27.9
+            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Normalizer%20and%20Centralizer.pdf
+          - name: Recognize theorem
+            raw_path: Undergraduate/Algebra/2. Group Theory/Recognize theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 74.7
+            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Recognize%20theorem.pdf
+          - name: Semi direct product
+            raw_path: Undergraduate/Algebra/2. Group Theory/Semi direct product.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 75.9
+            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Semi%20direct%20product.pdf
+          - name: Typical Homomorphisms
+            raw_path: Undergraduate/Algebra/2. Group Theory/Typical Homomorphisms.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 45.4
+            url: /untexed-current/Undergraduate/Algebra/2.%20Group%20Theory/Typical%20Homomorphisms.pdf
+          folders: []
+        - name: 3. Finite Group Theory
+          label: 3. Finite Group Theory
+          raw_path: Undergraduate/Algebra/3. Finite Group Theory
+          ink_added_percent: 0.0
+          files:
+          - name: Alternating Group
+            raw_path: Undergraduate/Algebra/3. Finite Group Theory/Alternating Group.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 156.8
+            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Alternating%20Group.pdf
+          - name: Class equation
+            raw_path: Undergraduate/Algebra/3. Finite Group Theory/Class equation.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 33.3
+            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Class%20equation.pdf
+          - name: Cyclic Group
+            raw_path: Undergraduate/Algebra/3. Finite Group Theory/Cyclic Group.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 74.8
+            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Cyclic%20Group.pdf
+          - name: Dihedral Group
+            raw_path: Undergraduate/Algebra/3. Finite Group Theory/Dihedral Group.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 174.3
+            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Dihedral%20Group.pdf
+          - name: Division Algorithm
+            raw_path: Undergraduate/Algebra/3. Finite Group Theory/Division Algorithm.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 207.2
+            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Division%20Algorithm.pdf
+          - name: Jordan-Hölder
+            raw_path: Undergraduate/Algebra/3. Finite Group Theory/Jordan-Hölder.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 385.9
+            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Jordan-H%C3%B6lder.pdf
+          - name: P-Group
+            raw_path: Undergraduate/Algebra/3. Finite Group Theory/P-Group.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 53.4
+            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/P-Group.pdf
+          - name: pgroups
+            raw_path: Undergraduate/Algebra/3. Finite Group Theory/pgroups.pdf.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 50.0
+            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/pgroups.pdf.pdf
+          - name: Quaternion group
+            raw_path: Undergraduate/Algebra/3. Finite Group Theory/Quaternion group.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 3.3
+            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Quaternion%20group.pdf
+          - name: Solvablity
+            raw_path: Undergraduate/Algebra/3. Finite Group Theory/Solvablity.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 177.5
+            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Solvablity.pdf
+          - name: Sylow Theorem
+            raw_path: Undergraduate/Algebra/3. Finite Group Theory/Sylow Theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 711.4
+            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Sylow%20Theorem.pdf
+          - name: Symmetric Group
+            raw_path: Undergraduate/Algebra/3. Finite Group Theory/Symmetric Group.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 324.3
+            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Symmetric%20Group.pdf
+          - name: Typical Finite groups
+            raw_path: Undergraduate/Algebra/3. Finite Group Theory/Typical Finite groups.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 347.6
+            url: /untexed-current/Undergraduate/Algebra/3.%20Finite%20Group%20Theory/Typical%20Finite%20groups.pdf
+          folders: []
+        - name: 4. Ring Theory
+          label: 4. Ring Theory
+          raw_path: Undergraduate/Algebra/4. Ring Theory
+          ink_added_percent: 0.0
+          files:
+          - name: Basic ideal
+            raw_path: Undergraduate/Algebra/4. Ring Theory/Basic ideal.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 131.6
+            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Basic%20ideal.pdf
+          - name: Chinese reminder theorem
+            raw_path: Undergraduate/Algebra/4. Ring Theory/Chinese reminder theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 244.2
+            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Chinese%20reminder%20theorem.pdf
+          - name: Dedekind-Hasse norm
+            raw_path: Undergraduate/Algebra/4. Ring Theory/Dedekind-Hasse norm.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 96.4
+            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Dedekind-Hasse%20norm.pdf
+          - name: Domains
+            raw_path: Undergraduate/Algebra/4. Ring Theory/Domains.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 908.5
+            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Domains.pdf
+          - name: Domains_Revised
+            raw_path: Undergraduate/Algebra/4. Ring Theory/Domains_Revised.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 86.3
+            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Domains_Revised.pdf
+          - name: Eisenstein Criterion
+            raw_path: Undergraduate/Algebra/4. Ring Theory/Eisenstein Criterion.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 64.8
+            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Eisenstein%20Criterion.pdf
+          - name: Fraction Ring
+            raw_path: Undergraduate/Algebra/4. Ring Theory/Fraction Ring.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 135.8
+            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Fraction%20Ring.pdf
+          - name: Ideal
+            raw_path: Undergraduate/Algebra/4. Ring Theory/Ideal.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 161.0
+            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Ideal.pdf
+          - name: Irreducible and Prime
+            raw_path: Undergraduate/Algebra/4. Ring Theory/Irreducible and Prime.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 66.0
+            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Irreducible%20and%20Prime.pdf
+          - name: Maximal and Prime ideal
+            raw_path: Undergraduate/Algebra/4. Ring Theory/Maximal and Prime ideal.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 64.3
+            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Maximal%20and%20Prime%20ideal.pdf
+          - name: Nilradical and Radical
+            raw_path: Undergraduate/Algebra/4. Ring Theory/Nilradical and Radical.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 164.9
+            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Nilradical%20and%20Radical.pdf
+          - name: Notebook 3
+            raw_path: Undergraduate/Algebra/4. Ring Theory/Notebook 3.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 254.4
+            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Notebook%203.pdf
+          - name: Quadratic integer Ring
+            raw_path: Undergraduate/Algebra/4. Ring Theory/Quadratic integer Ring.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 88.0
+            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Quadratic%20integer%20Ring.pdf
+          - name: Typical Quotient rings
+            raw_path: Undergraduate/Algebra/4. Ring Theory/Typical Quotient rings.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 135.8
+            url: /untexed-current/Undergraduate/Algebra/4.%20Ring%20Theory/Typical%20Quotient%20rings.pdf
+          folders: []
+        - name: 5. Polynomial Ring Theory
+          label: 5. Polynomial Ring Theory
+          raw_path: Undergraduate/Algebra/5. Polynomial Ring Theory
+          ink_added_percent: 0.0
+          files:
+          - name: Polynomial Ring
+            raw_path: Undergraduate/Algebra/5. Polynomial Ring Theory/Polynomial Ring.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 418.6
+            url: /untexed-current/Undergraduate/Algebra/5.%20Polynomial%20Ring%20Theory/Polynomial%20Ring.pdf
+          - name: Polynomial Ring_Revised
+            raw_path: Undergraduate/Algebra/5. Polynomial Ring Theory/Polynomial Ring_Revised.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 110.2
+            url: /untexed-current/Undergraduate/Algebra/5.%20Polynomial%20Ring%20Theory/Polynomial%20Ring_Revised.pdf
+          - name: Typical Polynomials
+            raw_path: Undergraduate/Algebra/5. Polynomial Ring Theory/Typical Polynomials.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 37.5
+            url: /untexed-current/Undergraduate/Algebra/5.%20Polynomial%20Ring%20Theory/Typical%20Polynomials.pdf
+          folders: []
+        - name: 6. Field Theory
+          label: 6. Field Theory
+          raw_path: Undergraduate/Algebra/6. Field Theory
+          ink_added_percent: 0.0
+          files:
+          - name: Basic field
+            raw_path: Undergraduate/Algebra/6. Field Theory/Basic field.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 615.1
+            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Basic%20field.pdf
+          - name: Basic field extension
+            raw_path: Undergraduate/Algebra/6. Field Theory/Basic field extension.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 314.9
+            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Basic%20field%20extension.pdf
+          - name: Basic field Theory
+            raw_path: Undergraduate/Algebra/6. Field Theory/Basic field Theory.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 615.1
+            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Basic%20field%20Theory.pdf
+          - name: Biquadratic Field
+            raw_path: Undergraduate/Algebra/6. Field Theory/Biquadratic Field.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 106.5
+            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Biquadratic%20Field.pdf
+          - name: Composite Field
+            raw_path: Undergraduate/Algebra/6. Field Theory/Composite Field.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 67.0
+            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Composite%20Field.pdf
+          - name: Conjugate Isomorphism
+            raw_path: Undergraduate/Algebra/6. Field Theory/Conjugate Isomorphism.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 47.4
+            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Conjugate%20Isomorphism.pdf
+          - name: Cyclotomic Field
+            raw_path: Undergraduate/Algebra/6. Field Theory/Cyclotomic Field.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 118.5
+            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Cyclotomic%20Field.pdf
+          - name: Field Homomorphism
+            raw_path: Undergraduate/Algebra/6. Field Theory/Field Homomorphism.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 32.3
+            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Field%20Homomorphism.pdf
+          - name: Finite field
+            raw_path: Undergraduate/Algebra/6. Field Theory/Finite field.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 141.0
+            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Finite%20field.pdf
+          - name: Finite field_Revised
+            raw_path: Undergraduate/Algebra/6. Field Theory/Finite field_Revised.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 90.1
+            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Finite%20field_Revised.pdf
+          - name: Rationalize
+            raw_path: Undergraduate/Algebra/6. Field Theory/Rationalize.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 54.1
+            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Rationalize.pdf
+          - name: Separable polynomial
+            raw_path: Undergraduate/Algebra/6. Field Theory/Separable polynomial.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 178.7
+            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Separable%20polynomial.pdf
+          - name: Spiltting and Separable Field
+            raw_path: Undergraduate/Algebra/6. Field Theory/Spiltting and Separable Field.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 222.7
+            url: /untexed-current/Undergraduate/Algebra/6.%20Field%20Theory/Spiltting%20and%20Separable%20Field.pdf
+          folders: []
+        - name: 7. Galois Theory
+          label: 7. Galois Theory
+          raw_path: Undergraduate/Algebra/7. Galois Theory
+          ink_added_percent: 0.0
+          files:
+          - name: Automorphisms of Field
+            raw_path: Undergraduate/Algebra/7. Galois Theory/Automorphisms of Field.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 40.1
+            url: /untexed-current/Undergraduate/Algebra/7.%20Galois%20Theory/Automorphisms%20of%20Field.pdf
+          - name: Cyclotomic Extension
+            raw_path: Undergraduate/Algebra/7. Galois Theory/Cyclotomic Extension.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 31.1
+            url: /untexed-current/Undergraduate/Algebra/7.%20Galois%20Theory/Cyclotomic%20Extension.pdf
+          - name: Galois Group of Polynomial
+            raw_path: Undergraduate/Algebra/7. Galois Theory/Galois Group of Polynomial.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 183.1
+            url: /untexed-current/Undergraduate/Algebra/7.%20Galois%20Theory/Galois%20Group%20of%20Polynomial.pdf
+          - name: Galois Theorem
+            raw_path: Undergraduate/Algebra/7. Galois Theory/Galois Theorem.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 282.6
+            url: /untexed-current/Undergraduate/Algebra/7.%20Galois%20Theory/Galois%20Theorem.pdf
+          - name: Radical extension
+            raw_path: Undergraduate/Algebra/7. Galois Theory/Radical extension.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 16.6
+            url: /untexed-current/Undergraduate/Algebra/7.%20Galois%20Theory/Radical%20extension.pdf
+          - name: Separable extension
+            raw_path: Undergraduate/Algebra/7. Galois Theory/Separable extension.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 72.1
+            url: /untexed-current/Undergraduate/Algebra/7.%20Galois%20Theory/Separable%20extension.pdf
+          - name: Typical Galois extensions
+            raw_path: Undergraduate/Algebra/7. Galois Theory/Typical Galois extensions.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 962.0
+            url: /untexed-current/Undergraduate/Algebra/7.%20Galois%20Theory/Typical%20Galois%20extensions.pdf
+          folders: []
+      - name: Analysis
+        label: Analysis
+        raw_path: Undergraduate/Analysis
+        ink_added_percent: 0.0
+        files: []
+        folders:
+        - name: 1. Real Analysis
+          label: 1. Real Analysis
+          raw_path: Undergraduate/Analysis/1. Real Analysis
+          ink_added_percent: 0.0
+          files: []
+          folders:
+          - name: 1. Real numbers
+            label: 1. Real numbers
+            raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers
+            ink_added_percent: 0.0
+            files:
+            - name: Abel formula
+              raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Abel formula.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 156.8
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Abel%20formula.pdf
+            - name: Advanced Techniques for sequence
+              raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Advanced Techniques for sequence.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 68.1
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Advanced%20Techniques%20for%20sequence.pdf
+            - name: Cantor set
+              raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Cantor set.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 276.3
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Cantor%20set.pdf
+            - name: Density of rational
+              raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Density of rational.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 72.1
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Density%20of%20rational.pdf
+            - name: Inequality in Real numbers
+              raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Inequality in Real numbers.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 63.7
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Inequality%20in%20Real%20numbers.pdf
+            - name: Kronecker approximation theorem
+              raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Kronecker approximation theorem.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 53.7
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Kronecker%20approximation%20theorem.pdf
+            - name: Riemann-Rearangement Theorem
+              raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Riemann-Rearangement Theorem.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 87.0
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Riemann-Rearangement%20Theorem.pdf
+            - name: Stolz-Cesaro theorem
+              raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Stolz-Cesaro theorem.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 186.7
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Stolz-Cesaro%20theorem.pdf
+            - name: Supremum
+              raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Supremum.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 406.7
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Supremum.pdf
+            - name: Typical Sequences
+              raw_path: Undergraduate/Analysis/1. Real Analysis/1. Real numbers/Typical Sequences.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 15.2
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/1.%20Real%20numbers/Typical%20Sequences.pdf
+            folders: []
+          - name: 2. Real-valued Function
+            label: 2. Real-valued Function
+            raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function
+            ink_added_percent: 0.0
+            files:
+            - name: Basic Riemann-integral
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Basic Riemann-integral.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 808.2
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Basic%20Riemann-integral.pdf
+            - name: Bounded Variation
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Bounded Variation.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 186.3
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Bounded%20Variation.pdf
+            - name: Continuously Extension
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Continuously Extension.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 95.0
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Continuously%20Extension.pdf
+            - name: Convexity
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Convexity.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 255.1
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Convexity.pdf
+            - name: Darboux_s Theorem
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Darboux_s Theorem.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 80.5
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Darboux_s%20Theorem.pdf
+            - name: Differentiation
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Differentiation.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 168.4
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Differentiation.pdf
+            - name: Discontinuity
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Discontinuity.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 77.5
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Discontinuity.pdf
+            - name: Fundamental Theorem of Calculus
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Fundamental Theorem of Calculus.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 54.5
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Fundamental%20Theorem%20of%20Calculus.pdf
+            - name: Improper integral
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Improper integral.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 46.7
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Improper%20integral.pdf
+            - name: Integral Transform
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Integral Transform.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 76.7
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Integral%20Transform.pdf
+            - name: Lipschtiz
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Lipschtiz.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 172.1
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Lipschtiz.pdf
+            - name: Newton_s Method
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Newton_s Method.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 0.0
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Newton_s%20Method.pdf
+            - name: Open map is injective
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Open map is injective.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 101.2
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Open%20map%20is%20injective.pdf
+            - name: Parameter dependent integral
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Parameter dependent integral.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 71.9
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Parameter%20dependent%20integral.pdf
+            - name: Power Series
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Power Series.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 356.6
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Power%20Series.pdf
+            - name: Talyor Theorem
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Talyor Theorem.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 159.9
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Talyor%20Theorem.pdf
+            - name: Thomae function
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Thomae function.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 59.9
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Thomae%20function.pdf
+            - name: Trigonometric series
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/Trigonometric series.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 124.4
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/Trigonometric%20series.pdf
+            - name: xsin1_x
+              raw_path: Undergraduate/Analysis/1. Real Analysis/2. Real-valued Function/xsin1_x.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 101.1
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/2.%20Real-valued%20Function/xsin1_x.pdf
+            folders: []
+          - name: 3. Functional Space
+            label: 3. Functional Space
+            raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space
+            ink_added_percent: 0.0
+            files:
+            - name: Arzelà-Ascoli
+              raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Arzelà-Ascoli.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 107.1
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Arzel%C3%A0-Ascoli.pdf
+            - name: Banach Space
+              raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Banach Space.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 13.0
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Banach%20Space.pdf
+            - name: Double Sequence
+              raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Double Sequence.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 136.8
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Double%20Sequence.pdf
+            - name: Functional Space
+              raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Functional Space.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 63.7
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Functional%20Space.pdf
+            - name: Inequalities of integral
+              raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Inequalities of integral.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 92.4
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Inequalities%20of%20integral.pdf
+            - name: Inequalities of real-valued functions
+              raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Inequalities of real-valued functions.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 14.8
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Inequalities%20of%20real-valued%20functions.pdf
+            - name: Normed Space
+              raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Normed Space.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 57.2
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Normed%20Space.pdf
+            - name: Sequences of functions
+              raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Sequences of functions.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 376.2
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Sequences%20of%20functions.pdf
+            - name: Stone-Weierstrass Theorem
+              raw_path: Undergraduate/Analysis/1. Real Analysis/3. Functional Space/Stone-Weierstrass Theorem.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 56.9
+              url: /untexed-current/Undergraduate/Analysis/1.%20Real%20Analysis/3.%20Functional%20Space/Stone-Weierstrass%20Theorem.pdf
+            folders: []
+        - name: 2. Complex Analysis
+          label: 2. Complex Analysis
+          raw_path: Undergraduate/Analysis/2. Complex Analysis
+          ink_added_percent: 0.0
+          files:
+          - name: Complex Analysis
+            raw_path: Undergraduate/Analysis/2. Complex Analysis/Complex Analysis.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 783.7
+            url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/Complex%20Analysis.pdf
+          - name: Exponential function
+            raw_path: Undergraduate/Analysis/2. Complex Analysis/Exponential function.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 10.8
+            url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/Exponential%20function.pdf
+          - name: Schwarz reflection principle
+            raw_path: Undergraduate/Analysis/2. Complex Analysis/Schwarz reflection principle.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 5.0
+            url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/Schwarz%20reflection%20principle.pdf
+          - name: Silverman Solution
+            raw_path: Undergraduate/Analysis/2. Complex Analysis/Silverman Solution.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 211.3
+            url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/Silverman%20Solution.pdf
+          - name: Silverman, Complex Analysis
+            raw_path: Undergraduate/Analysis/2. Complex Analysis/Silverman, Complex Analysis.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 104.6
+            url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/Silverman%2C%20Complex%20Analysis.pdf
+          folders:
+          - name: 2. Holomorphic function
+            label: 2. Holomorphic function
+            raw_path: Undergraduate/Analysis/2. Complex Analysis/2. Holomorphic function
+            ink_added_percent: 0.0
+            files:
+            - name: Cauchy-Riemann equation
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/2. Holomorphic function/Cauchy-Riemann equation.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 173.0
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Cauchy-Riemann%20equation.pdf
+            - name: Harmonic Functions
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/2. Holomorphic function/Harmonic Functions.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 190.8
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Harmonic%20Functions.pdf
+            - name: Meromorphic function
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/2. Holomorphic function/Meromorphic function.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 67.6
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Meromorphic%20function.pdf
+            - name: Sequence of functions
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/2. Holomorphic function/Sequence of functions.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 85.5
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Sequence%20of%20functions.pdf
+            - name: Uniqueness Theorem
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/2. Holomorphic function/Uniqueness Theorem.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 96.9
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/2.%20Holomorphic%20function/Uniqueness%20Theorem.pdf
+            folders: []
+          - name: 3. Line integral
+            label: 3. Line integral
+            raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral
+            ink_added_percent: 0.0
+            files:
+            - name: Argument Principle
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Argument Principle.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 215.3
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Argument%20Principle.pdf
+            - name: Cauchy integral formula
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Cauchy integral formula.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 125.6
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Cauchy%20integral%20formula.pdf
+            - name: Cauchy_s Inequality
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Cauchy_s Inequality.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 168.6
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Cauchy_s%20Inequality.pdf
+            - name: Evaluation of Real integral
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Evaluation of Real integral.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 124.0
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Evaluation%20of%20Real%20integral.pdf
+            - name: Gauss Meanvalue Theorem
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Gauss Meanvalue Theorem.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 60.3
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Gauss%20Meanvalue%20Theorem.pdf
+            - name: Goursat Theorem
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Goursat Theorem.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 240.0
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Goursat%20Theorem.pdf
+            - name: Jordan lemma
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Jordan lemma.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 52.0
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Jordan%20lemma.pdf
+            - name: Laurent Series of Polynomials
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Laurent Series of Polynomials.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 51.0
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Laurent%20Series%20of%20Polynomials.pdf
+            - name: Open mapping Theorem
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Open mapping Theorem.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 37.5
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Open%20mapping%20Theorem.pdf
+            - name: Residue at infinite
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Residue at infinite.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 57.6
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Residue%20at%20infinite.pdf
+            - name: Residue Theorem
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Residue Theorem.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 257.9
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Residue%20Theorem.pdf
+            - name: Singularity
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Singularity.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 235.5
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Singularity.pdf
+            - name: Trigonometric integral
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Trigonometric integral.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 159.4
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Trigonometric%20integral.pdf
+            - name: Typical Line integral
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/3. Line integral/Typical Line integral.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 217.6
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/3.%20Line%20integral/Typical%20Line%20integral.pdf
+            folders: []
+          - name: 4. Conformal mapping
+            label: 4. Conformal mapping
+            raw_path: Undergraduate/Analysis/2. Complex Analysis/4. Conformal mapping
+            ink_added_percent: 0.0
+            files:
+            - name: Conformal mapping
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/4. Conformal mapping/Conformal mapping.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 52.2
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/4.%20Conformal%20mapping/Conformal%20mapping.pdf
+            - name: Linear fractional transformation
+              raw_path: Undergraduate/Analysis/2. Complex Analysis/4. Conformal mapping/Linear fractional transformation.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 125.9
+              url: /untexed-current/Undergraduate/Analysis/2.%20Complex%20Analysis/4.%20Conformal%20mapping/Linear%20fractional%20transformation.pdf
+            folders: []
+        - name: 3. Analysis on Manifold
+          label: 3. Analysis on Manifold
+          raw_path: Undergraduate/Analysis/3. Analysis on Manifold
+          ink_added_percent: 0.0
+          files:
+          - name: Munkres, Analysis on manifold
+            raw_path: Undergraduate/Analysis/3. Analysis on Manifold/Munkres, Analysis on manifold.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 292.6
+            url: /untexed-current/Undergraduate/Analysis/3.%20Analysis%20on%20Manifold/Munkres%2C%20Analysis%20on%20manifold.pdf
+          folders: []
+        - name: 5. Differential equation
+          label: 5. Differential equation
+          raw_path: Undergraduate/Analysis/5. Differential equation
+          ink_added_percent: 0.0
+          files:
+          - name: Bernoulli Equation
+            raw_path: Undergraduate/Analysis/5. Differential equation/Bernoulli Equation.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 16.3
+            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/Bernoulli%20Equation.pdf
+          - name: Coddington, Intro.ODE
+            raw_path: Undergraduate/Analysis/5. Differential equation/Coddington, Intro.ODE.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 0.0
+            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/Coddington%2C%20Intro.ODE.pdf
+          - name: Differential Operator
+            raw_path: Undergraduate/Analysis/5. Differential equation/Differential Operator.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 53.1
+            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/Differential%20Operator.pdf
+          - name: Exact equation
+            raw_path: Undergraduate/Analysis/5. Differential equation/Exact equation.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 59.5
+            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/Exact%20equation.pdf
+          - name: Existence and Uniqueness of ODE
+            raw_path: Undergraduate/Analysis/5. Differential equation/Existence and Uniqueness of ODE.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 33.3
+            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/Existence%20and%20Uniqueness%20of%20ODE.pdf
+          - name: First order
+            raw_path: Undergraduate/Analysis/5. Differential equation/First order.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 37.5
+            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/First%20order.pdf
+          - name: Linear equation with constant coefficients
+            raw_path: Undergraduate/Analysis/5. Differential equation/Linear equation with constant coefficients.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 157.5
+            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/Linear%20equation%20with%20constant%20coefficients.pdf
+          - name: Linear equation with variable coefficients
+            raw_path: Undergraduate/Analysis/5. Differential equation/Linear equation with variable coefficients.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 51.9
+            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/Linear%20equation%20with%20variable%20coefficients.pdf
+          - name: Typical differential equation
+            raw_path: Undergraduate/Analysis/5. Differential equation/Typical differential equation.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 39.4
+            url: /untexed-current/Undergraduate/Analysis/5.%20Differential%20equation/Typical%20differential%20equation.pdf
+          folders: []
+      - name: Differential Geometry
+        label: Differential Geometry
+        raw_path: Undergraduate/Differential Geometry
+        ink_added_percent: 0.0
+        files: []
+        folders:
+        - name: 1. Euclidean
+          label: 1. Euclidean
+          raw_path: Undergraduate/Differential Geometry/1. Euclidean
+          ink_added_percent: 0.0
+          files:
+          - name: Curvature of Surface
+            raw_path: Undergraduate/Differential Geometry/1. Euclidean/Curvature of Surface.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 179.2
+            url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Curvature%20of%20Surface.pdf
+          - name: Curves
+            raw_path: Undergraduate/Differential Geometry/1. Euclidean/Curves.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 84.0
+            url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Curves.pdf
+          - name: Fundamental form
+            raw_path: Undergraduate/Differential Geometry/1. Euclidean/Fundamental form.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 206.7
+            url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Fundamental%20form.pdf
+          - name: Gauss map
+            raw_path: Undergraduate/Differential Geometry/1. Euclidean/Gauss map.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 30.0
+            url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Gauss%20map.pdf
+          - name: Lee.nany.
+            raw_path: Undergraduate/Differential Geometry/1. Euclidean/Lee.nany..pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 31.2
+            url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Lee.nany..pdf
+          - name: Local Surface Theory
+            raw_path: Undergraduate/Differential Geometry/1. Euclidean/Local Surface Theory.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 7.3
+            url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Local%20Surface%20Theory.pdf
+          - name: Spherical images
+            raw_path: Undergraduate/Differential Geometry/1. Euclidean/Spherical images.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 0.0
+            url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Spherical%20images.pdf
+          folders:
+          - name: Debris
+            label: Debris
+            raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris
+            ink_added_percent: 0.0
+            files:
+            - name: Barrett O_neill
+              raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Barrett O_neill.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 607.6
+              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Barrett%20O_neill.pdf
+            - name: Barrett O_neill Solution
+              raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Barrett O_neill Solution.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 237.3
+              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Barrett%20O_neill%20Solution.pdf
+            - name: Calculus on Surface
+              raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Calculus on Surface.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 12.9
+              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Calculus%20on%20Surface.pdf
+            - name: Covariant Derivative
+              raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Covariant Derivative.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 26.3
+              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Covariant%20Derivative.pdf
+            - name: Cross product
+              raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Cross product.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 75.2
+              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Cross%20product.pdf
+            - name: Diffeomorphism
+              raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Diffeomorphism.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 11.0
+              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Diffeomorphism.pdf
+            - name: Differential Form
+              raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Differential Form.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 69.9
+              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Differential%20Form.pdf
+            - name: Frenet fomular
+              raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Frenet fomular.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 230.8
+              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Frenet%20fomular.pdf
+            - name: Mapping
+              raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Mapping.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 39.1
+              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Mapping.pdf
+            - name: Regular Surface
+              raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Regular Surface.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 244.3
+              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Regular%20Surface.pdf
+            - name: Shape Operater
+              raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Shape Operater.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 0.4
+              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Shape%20Operater.pdf
+            - name: Surface
+              raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Surface.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 12.2
+              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Surface.pdf
+            - name: Tangent Plane
+              raw_path: Undergraduate/Differential Geometry/1. Euclidean/Debris/Tangent Plane.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 188.4
+              url: /untexed-current/Undergraduate/Differential%20Geometry/1.%20Euclidean/Debris/Tangent%20Plane.pdf
+            folders: []
+      - name: Topology
+        label: Topology
+        raw_path: Undergraduate/Topology
+        ink_added_percent: 0.0
+        files: []
+        folders:
+        - name: 1. General Topology
+          label: 1. General Topology
+          raw_path: Undergraduate/Topology/1. General Topology
+          ink_added_percent: 0.0
+          files:
+          - name: Compact Hausdorff Space
+            raw_path: Undergraduate/Topology/1. General Topology/Compact Hausdorff Space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 103.5
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Compact%20Hausdorff%20Space.pdf
+          - name: Compactness
+            raw_path: Undergraduate/Topology/1. General Topology/Compactness.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 314.4
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Compactness.pdf
+          - name: Connected Space
+            raw_path: Undergraduate/Topology/1. General Topology/Connected Space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 412.9
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Connected%20Space.pdf
+          - name: Continuous Map
+            raw_path: Undergraduate/Topology/1. General Topology/Continuous Map.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 133.8
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Continuous%20Map.pdf
+          - name: Hilbert Space
+            raw_path: Undergraduate/Topology/1. General Topology/Hilbert Space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 158.3
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Hilbert%20Space.pdf
+          - name: Initial Topology
+            raw_path: Undergraduate/Topology/1. General Topology/Initial Topology.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 145.9
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Initial%20Topology.pdf
+          - name: Interior and Closure
+            raw_path: Undergraduate/Topology/1. General Topology/Interior and Closure.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 217.8
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Interior%20and%20Closure.pdf
+          - name: Kolmogorov and Fréchet Space
+            raw_path: Undergraduate/Topology/1. General Topology/Kolmogorov and Fréchet Space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 48.6
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Kolmogorov%20and%20Fr%C3%A9chet%20Space.pdf
+          - name: One point Compactification
+            raw_path: Undergraduate/Topology/1. General Topology/One point Compactification.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 187.4
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/One%20point%20Compactification.pdf
+          - name: Product space
+            raw_path: Undergraduate/Topology/1. General Topology/Product space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 48.9
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Product%20space.pdf
+          - name: Product Topology
+            raw_path: Undergraduate/Topology/1. General Topology/Product Topology.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 109.5
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Product%20Topology.pdf
+          - name: Regular and Normal
+            raw_path: Undergraduate/Topology/1. General Topology/Regular and Normal.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 0.0
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Regular%20and%20Normal.pdf
+          - name: Subspace
+            raw_path: Undergraduate/Topology/1. General Topology/Subspace.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 88.7
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Subspace.pdf
+          - name: Topological basis
+            raw_path: Undergraduate/Topology/1. General Topology/Topological basis.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 216.6
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Topological%20basis.pdf
+          - name: Topological Group
+            raw_path: Undergraduate/Topology/1. General Topology/Topological Group.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 105.2
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Topological%20Group.pdf
+          - name: Topological map
+            raw_path: Undergraduate/Topology/1. General Topology/Topological map.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 168.0
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Topological%20map.pdf
+          - name: Typical Topological Spaces
+            raw_path: Undergraduate/Topology/1. General Topology/Typical Topological Spaces.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 19.9
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Typical%20Topological%20Spaces.pdf
+          - name: Urysohn Lemma
+            raw_path: Undergraduate/Topology/1. General Topology/Urysohn Lemma.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 84.4
+            url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Urysohn%20Lemma.pdf
+          folders:
+          - name: Metric Space
+            label: Metric Space
+            raw_path: Undergraduate/Topology/1. General Topology/Metric Space
+            ink_added_percent: 0.0
+            files:
+            - name: Basic metric space
+              raw_path: Undergraduate/Topology/1. General Topology/Metric Space/Basic metric space.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 145.3
+              url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Metric%20Space/Basic%20metric%20space.pdf
+            - name: Distance
+              raw_path: Undergraduate/Topology/1. General Topology/Metric Space/Distance.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 80.1
+              url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Metric%20Space/Distance.pdf
+            - name: Isometry
+              raw_path: Undergraduate/Topology/1. General Topology/Metric Space/Isometry.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 93.8
+              url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Metric%20Space/Isometry.pdf
+            - name: Metric diagram
+              raw_path: Undergraduate/Topology/1. General Topology/Metric Space/Metric diagram.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 359.5
+              url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Metric%20Space/Metric%20diagram.pdf
+            - name: p-norm
+              raw_path: Undergraduate/Topology/1. General Topology/Metric Space/p-norm.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 149.4
+              url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Metric%20Space/p-norm.pdf
+            - name: Uniform Metric Space
+              raw_path: Undergraduate/Topology/1. General Topology/Metric Space/Uniform Metric Space.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 0.0
+              url: /untexed-current/Undergraduate/Topology/1.%20General%20Topology/Metric%20Space/Uniform%20Metric%20Space.pdf
+            folders: []
+        - name: 2. Algebraic Topology
+          label: 2. Algebraic Topology
+          raw_path: Undergraduate/Topology/2. Algebraic Topology
+          ink_added_percent: 0.0
+          files:
+          - name: Adjunction Space
+            raw_path: Undergraduate/Topology/2. Algebraic Topology/Adjunction Space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 119.8
+            url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Adjunction%20Space.pdf
+          - name: Covering space
+            raw_path: Undergraduate/Topology/2. Algebraic Topology/Covering space.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 106.2
+            url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Covering%20space.pdf
+          - name: Deformation retraction
+            raw_path: Undergraduate/Topology/2. Algebraic Topology/Deformation retraction.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 35.6
+            url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Deformation%20retraction.pdf
+          - name: Fundamental Group
+            raw_path: Undergraduate/Topology/2. Algebraic Topology/Fundamental Group.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 361.7
+            url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Fundamental%20Group.pdf
+          - name: Homotopy
+            raw_path: Undergraduate/Topology/2. Algebraic Topology/Homotopy.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 364.3
+            url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Homotopy.pdf
+          - name: Quotient map
+            raw_path: Undergraduate/Topology/2. Algebraic Topology/Quotient map.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 376.7
+            url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Quotient%20map.pdf
+          - name: Typical Quotient Spaces
+            raw_path: Undergraduate/Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf
+            ink_added_percent: 0.0
+            total_ink_percent: 281.7
+            url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Typical%20Quotient%20Spaces.pdf
+          folders:
+          - name: Debris
+            label: Debris
+            raw_path: Undergraduate/Topology/2. Algebraic Topology/Debris
+            ink_added_percent: 0.0
+            files:
+            - name: Borsuk-Ulam Theorem
+              raw_path: Undergraduate/Topology/2. Algebraic Topology/Debris/Borsuk-Ulam Theorem.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 41.8
+              url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Debris/Borsuk-Ulam%20Theorem.pdf
+            - name: Covering Space
+              raw_path: Undergraduate/Topology/2. Algebraic Topology/Debris/Covering Space.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 70.4
+              url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Debris/Covering%20Space.pdf
+            - name: Fundamental gp - by Lee
+              raw_path: Undergraduate/Topology/2. Algebraic Topology/Debris/Fundamental gp - by Lee.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 197.0
+              url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Debris/Fundamental%20gp%20-%20by%20Lee.pdf
+            - name: Homotopy
+              raw_path: Undergraduate/Topology/2. Algebraic Topology/Debris/Homotopy.pdf
+              ink_added_percent: 0.0
+              total_ink_percent: 144.7
+              url: /untexed-current/Undergraduate/Topology/2.%20Algebraic%20Topology/Debris/Homotopy.pdf
+            folders: []
+    - name: Others
+      ink_added_percent: 0.0
+      files:
+      - name: Arbitrary
+        raw_path: Arbitrary.pdf
+        ink_added_percent: 0.0
+        total_ink_percent: 504.9
+        url: /untexed-current/Arbitrary.pdf
+      - name: Tree of Subjects
+        raw_path: Tree of Subjects.pdf
+        ink_added_percent: 0.0
+        total_ink_percent: 79.2
+        url: /untexed-current/Tree%20of%20Subjects.pdf
+      folders: []
+    added:
+    - path: Road to GTM/Measure Theory/6.3 Riesz Representation Theorem
+      ink_added_percent: 418.5
+    - path: Road to GTM/Measure Theory/6.2 Urysohn Lemma
+      ink_added_percent: 159.6
+    - path: Road to GTM/Measure Theory/6.1 Locally Compact Hausdorff space
+      ink_added_percent: 119.7
+    - path: Road to GTM/Group Theory/Group Action
+      ink_added_percent: 0.0
+    modified:
+    - path: Road to GTM/Measure Theory/6. Positive Borel Measure
+      ink_added_percent: 200.0
+    moved_renamed:
+    - from: Road to GTM/Measure Theory/4. Intergration of positive functions
+      to: Road to GTM/Measure Theory/4. Intergration of Positive functions
+      ink_added_percent: 0.0
+    deleted: []
+    file_total_ink_percent:
+      Arbitrary.pdf: 504.9
+      Research/Galois Dream/1. Differential Ring.pdf: 69.1
+      Research/Polynomial/Polynomial function.pdf: 27.1
+      Road to GTM/Category/1. Caregories.pdf: 59.7
+      Road to GTM/Commutative Algebra/0. Definition of ring.pdf: 16.0
+      Road to GTM/Commutative Algebra/1. Localization.pdf: 21.2
+      Road to GTM/Galois Note/Basic field extension Theory.pdf: 154.8
+      Road to GTM/Galois Note/Flow graph.pdf: 28.0
+      Road to GTM/Galois Note/Fundamental Theorem of Galois.pdf: 33.8
+      Road to GTM/Galois Note/Galois Theory - Artin.pdf: 555.3
+      Road to GTM/Galois Note/Galois Theory - Embbeding.pdf: 176.3
+      Road to GTM/Galois Note/Norm and Trace of Galois.pdf: 189.7
+      Road to GTM/Group Theory/Group Action.pdf: 0.0
+      Road to GTM/Measure Theory/1. Measurable Space.pdf: 270.6
+      Road to GTM/Measure Theory/2. Measurable function.pdf: 187.0
+      Road to GTM/Measure Theory/2.1 Calculation on Simple functions.pdf: 16.4
+      Road to GTM/Measure Theory/3. Measure.pdf: 108.1
+      Road to GTM/Measure Theory/3.1 Outer measure.pdf: 82.2
+      Road to GTM/Measure Theory/4. Intergration of Positive functions.pdf: 396.8
+      Road to GTM/Measure Theory/5. Integration of Complex functions.pdf: 154.4
+      Road to GTM/Measure Theory/6. Positive Borel Measure.pdf: 413.4
+      Road to GTM/Measure Theory/6.1 Locally Compact Hausdorff space.pdf: 119.7
+      Road to GTM/Measure Theory/6.2 Urysohn Lemma.pdf: 159.6
+      Road to GTM/Measure Theory/6.3 Riesz Representation Theorem.pdf: 418.5
       Solution/Rudin PMA Revised Solution.pdf: 212.8
       Solution/Rudin RCA solutions.pdf: 359.2
       Solution/SNU solution.pdf: 11727.2
