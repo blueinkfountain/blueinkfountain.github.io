@@ -89981,30 +89981,21 @@ records:
       Undergraduate/Topology/2. Algebraic Topology/Typical Quotient Spaces.pdf: 281.7
   '261125':
     baseline: false
-    total_ink_percent: 44976.9
-    library_total_ink_percent: 98784.0
+    total_ink_percent: 435.3
+    library_total_ink_percent: 54242.3
     subject_ink_percent:
       Others: 26.1
       Road to GTM: 409.2
-      Solution: 44541.6
     folder_ink_percent:
       Road to GTM/Category: 26.1
       Road to GTM/Measure Theory: 219.5
       Road to GTM/Module Theory: 163.6
-      Solution/Qual: 44541.6
     file_ink_percent:
       Arbitrary.pdf: 26.1
       Road to GTM/Category/1. Caregories.pdf: 26.1
       Road to GTM/Measure Theory/6.3 Riesz Representation Theorem.pdf: 219.5
       Road to GTM/Module Theory/0. Definition.pdf: 61.8
       Road to GTM/Module Theory/1. Module-Homomorphism.pdf: 101.8
-      Solution/Qual/SNU_Qual_Algebra.pdf: 727.2
-      Solution/Qual/SNU_Qual_Analysis.pdf: 965.9
-      Solution/Qual/SNU_Qual_Geometry.pdf: 1937.9
-      Solution/Qual/UCLA_Qual_Algebra_B5.pdf.pdf: 10120.2
-      Solution/Qual/UCLA_Qual_Analysis_B5.pdf.pdf: 11816.6
-      Solution/Qual/UCLA_Qual_Basic_B5.pdf.pdf: 9862.3
-      Solution/Qual/UCLA_Qual_GeometryTopology_B5.pdf.pdf: 9111.5
     subjects:
     - name: Research
       ink_added_percent: 0.0
@@ -90188,7 +90179,7 @@ records:
           url: /untexed-current/Road%20to%20GTM/Module%20Theory/1.%20Module-Homomorphism.pdf
         folders: []
     - name: Solution
-      ink_added_percent: 44541.6
+      ink_added_percent: 0.0
       files:
       - name: Rudin PMA Revised Solution
         raw_path: Solution/Rudin PMA Revised Solution.pdf
@@ -90205,48 +90196,7 @@ records:
         ink_added_percent: 0.0
         total_ink_percent: 11776.5
         url: /untexed-current/Solution/SNU%20solution.pdf
-      folders:
-      - name: Qual
-        label: Qual
-        raw_path: Solution/Qual
-        ink_added_percent: 44541.6
-        files:
-        - name: SNU_Qual_Algebra
-          raw_path: Solution/Qual/SNU_Qual_Algebra.pdf
-          ink_added_percent: 727.2
-          total_ink_percent: 727.2
-          url: /untexed-current/Solution/Qual/SNU_Qual_Algebra.pdf
-        - name: SNU_Qual_Analysis
-          raw_path: Solution/Qual/SNU_Qual_Analysis.pdf
-          ink_added_percent: 965.9
-          total_ink_percent: 965.9
-          url: /untexed-current/Solution/Qual/SNU_Qual_Analysis.pdf
-        - name: SNU_Qual_Geometry
-          raw_path: Solution/Qual/SNU_Qual_Geometry.pdf
-          ink_added_percent: 1937.9
-          total_ink_percent: 1937.9
-          url: /untexed-current/Solution/Qual/SNU_Qual_Geometry.pdf
-        - name: UCLA_Qual_Algebra_B5
-          raw_path: Solution/Qual/UCLA_Qual_Algebra_B5.pdf.pdf
-          ink_added_percent: 10120.2
-          total_ink_percent: 10120.2
-          url: /untexed-current/Solution/Qual/UCLA_Qual_Algebra_B5.pdf.pdf
-        - name: UCLA_Qual_Analysis_B5
-          raw_path: Solution/Qual/UCLA_Qual_Analysis_B5.pdf.pdf
-          ink_added_percent: 11816.6
-          total_ink_percent: 11816.6
-          url: /untexed-current/Solution/Qual/UCLA_Qual_Analysis_B5.pdf.pdf
-        - name: UCLA_Qual_Basic_B5
-          raw_path: Solution/Qual/UCLA_Qual_Basic_B5.pdf.pdf
-          ink_added_percent: 9862.3
-          total_ink_percent: 9862.3
-          url: /untexed-current/Solution/Qual/UCLA_Qual_Basic_B5.pdf.pdf
-        - name: UCLA_Qual_GeometryTopology_B5
-          raw_path: Solution/Qual/UCLA_Qual_GeometryTopology_B5.pdf.pdf
-          ink_added_percent: 9111.5
-          total_ink_percent: 9111.5
-          url: /untexed-current/Solution/Qual/UCLA_Qual_GeometryTopology_B5.pdf.pdf
-        folders: []
+      folders: []
     - name: Undergraduate
       ink_added_percent: 0.0
       files: []
@@ -91556,20 +91506,6 @@ records:
         url: /untexed-current/Tree%20of%20Subjects.pdf
       folders: []
     added:
-    - path: Solution/Qual/UCLA_Qual_Analysis_B5
-      ink_added_percent: 11816.6
-    - path: Solution/Qual/UCLA_Qual_Algebra_B5
-      ink_added_percent: 10120.2
-    - path: Solution/Qual/UCLA_Qual_Basic_B5
-      ink_added_percent: 9862.3
-    - path: Solution/Qual/UCLA_Qual_GeometryTopology_B5
-      ink_added_percent: 9111.5
-    - path: Solution/Qual/SNU_Qual_Geometry
-      ink_added_percent: 1937.9
-    - path: Solution/Qual/SNU_Qual_Analysis
-      ink_added_percent: 965.9
-    - path: Solution/Qual/SNU_Qual_Algebra
-      ink_added_percent: 727.2
     - path: Road to GTM/Module Theory/1. Module-Homomorphism
       ink_added_percent: 101.8
     - path: Road to GTM/Module Theory/0. Definition
@@ -91610,13 +91546,6 @@ records:
       Road to GTM/Measure Theory/6.3 Riesz Representation Theorem.pdf: 695.0
       Road to GTM/Module Theory/0. Definition.pdf: 61.8
       Road to GTM/Module Theory/1. Module-Homomorphism.pdf: 101.8
-      Solution/Qual/SNU_Qual_Algebra.pdf: 727.2
-      Solution/Qual/SNU_Qual_Analysis.pdf: 965.9
-      Solution/Qual/SNU_Qual_Geometry.pdf: 1937.9
-      Solution/Qual/UCLA_Qual_Algebra_B5.pdf.pdf: 10120.2
-      Solution/Qual/UCLA_Qual_Analysis_B5.pdf.pdf: 11816.6
-      Solution/Qual/UCLA_Qual_Basic_B5.pdf.pdf: 9862.3
-      Solution/Qual/UCLA_Qual_GeometryTopology_B5.pdf.pdf: 9111.5
       Solution/Rudin PMA Revised Solution.pdf: 212.8
       Solution/Rudin RCA solutions.pdf: 359.2
       Solution/SNU solution.pdf: 11776.5
